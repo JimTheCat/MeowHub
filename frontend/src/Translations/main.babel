@@ -249,6 +249,41 @@
 							</folder_node>
 						</children>
 					</file_node>
+					<file_node>
+						<name>notfound</name>
+						<children>
+							<concept_node>
+								<name>button</name>
+								<description/>
+								<comment/>
+								<translations>
+									<translation>
+										<language>en-US</language>
+										<approved>true</approved>
+									</translation>
+									<translation>
+										<language>pl-PL</language>
+										<approved>true</approved>
+									</translation>
+								</translations>
+							</concept_node>
+							<concept_node>
+								<name>label</name>
+								<description/>
+								<comment/>
+								<translations>
+									<translation>
+										<language>en-US</language>
+										<approved>true</approved>
+									</translation>
+									<translation>
+										<language>pl-PL</language>
+										<approved>true</approved>
+									</translation>
+								</translations>
+							</concept_node>
+						</children>
+					</file_node>
 				</children>
 			</package_node>
 		</children>

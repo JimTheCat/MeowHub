@@ -3,10 +3,14 @@ import i18next from "i18next";
 import enLogin from "../../Translations/en/login.json";
 import enFooter from "../../Translations/en/footer.json";
 import enNotFound from "../../Translations/en/notfound.json";
+import enRegister from "../../Translations/en/register.json";
+import enGender from "../../Translations/en/gender.json";
 // polish translations
 import plLogin from "../../Translations/pl/login.json";
 import plFooter from "../../Translations/pl/footer.json";
 import plNotFound from "../../Translations/pl/notfound.json";
+import plRegister from "../../Translations/pl/register.json";
+import plGender from "../../Translations/pl/gender.json";
 
 export const i18nInitializer = () => {
   const language = localStorage.getItem('language') == null ? 'en' : localStorage.getItem('language');
@@ -19,11 +23,15 @@ export const i18nInitializer = () => {
         login: enLogin,
         footer: enFooter,
         notfound: enNotFound,
+        register: enRegister,
+        gender: enGender,
       },
       pl: {
         login: plLogin,
         footer: plFooter,
         notfound: plNotFound,
+        register: plRegister,
+        gender: plGender,
       }
     }
   });

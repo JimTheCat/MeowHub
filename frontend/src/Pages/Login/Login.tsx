@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   Center,
-  Container,
   Divider,
   Group,
   PasswordInput,
@@ -93,7 +92,10 @@ export const Login = () => {
         <Group>
           {Languages().map((language) => {
             return (
-              <Text sx={{cursor: 'pointer'}} onClick={() => i18n.changeLanguage(language.code)}>{language.name}</Text>
+              <Text sx={{cursor: 'pointer'}} onClick={() => {
+                i18n.changeLanguage(language.code);
+                localStorage.setItem('language', language.code)
+              }}>{language.name}</Text>
             )
           })}
         </Group>

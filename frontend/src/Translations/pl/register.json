@@ -21,7 +21,14 @@
 			"invalid": "Twoje hasło nie spełnia wszystkich wymagań",
 			"label": "Hasło",
 			"notmatch": "Hasła nie są takie same!",
-			"placeholder": "Wprowadź hasło"
+			"placeholder": "Wprowadź hasło",
+			"requirement": {
+				"length": "Zawiera co najmniej 8 znaków",
+				"lowercase": "Zawiera małą literę",
+				"number": "Zawiera cyfrę",
+				"special": "Zawiera znak specjalny",
+				"uppercase": "Zawiera wielką literę"
+			}
 		},
 		"repeatemail": {
 			"label": "Powtórz email",

@@ -36,12 +36,7 @@ function PasswordRequirement({ meets, label }: { meets: boolean; label: string }
   );
 }
 
-const requirements = [
-  { re: /[0-9]/, label: 'Includes number' },
-  { re: /[a-z]/, label: 'Includes lowercase letter' },
-  { re: /[A-Z]/, label: 'Includes uppercase letter' },
-  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol' },
-];
+
 
 export const Register = () => {
 
@@ -51,6 +46,13 @@ export const Register = () => {
   const [visible, { toggle }] = useDisclosure(false);
   const [popoverOpened, setPopoverOpened] = useState(false);
   const [passwordValue, setPasswordValue] = useState('');
+
+  const requirements = [
+    { re: /[0-9]/, label: t('card.password.requirement.number') },
+    { re: /[a-z]/, label: t('card.password.requirement.lowercase') },
+    { re: /[A-Z]/, label: t('card.password.requirement.uppercase') },
+    { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: t('card.password.requirement.special') },
+  ];
 
   const checks = requirements.map((requirement, index) => (
     <PasswordRequirement key={index} label={requirement.label} meets={requirement.re.test(passwordValue)} />
@@ -200,7 +202,7 @@ export const Register = () => {
                   </Popover.Target>
                   <Popover.Dropdown>
                     <Progress color={color} value={strength} size={5} mb="xs" />
-                    <PasswordRequirement label="Includes at least 8 characters" meets={passwordValue.length > 7} />
+                    <PasswordRequirement label={t('card.password.requirement.length')} meets={passwordValue.length > 7} />
                     {checks}
                   </Popover.Dropdown>
                 </Popover>

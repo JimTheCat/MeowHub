@@ -21,7 +21,14 @@
 			"invalid": "Your password does not pass all requirements",
 			"label": "Password",
 			"notmatch": "Passwords are not the same!",
-			"placeholder": "Enter your password"
+			"placeholder": "Enter your password",
+			"requirement": {
+				"length": "Includes at least 8 characters",
+				"lowercase": "Includes lowercase letter",
+				"number": "Includes number",
+				"special": "Includes special symbol",
+				"uppercase": "Includes uppercase letter"
+			}
 		},
 		"repeatemail": {
 			"label": "Repeat email",

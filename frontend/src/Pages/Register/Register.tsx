@@ -74,7 +74,7 @@ export const Register = () => {
       surname: (value) => (/^\S+$/.test(value) ? null : t('card.surname.invalid')),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : t('card.email.invalid')),
       age: (value) => (calculateAge(value) >= 18 ? null : t('card.age.invalid')),
-      password: () => (strength == 100 ? null : t('card.password.invalid')),
+      password: () => (strength === 100 ? null : t('card.password.invalid')),
       repeatEmail: (value) => (value === form.values.email ? null : t('card.email.notmatch')),
       repeatPassword: (value) => (value === passwordValue ? null : t('card.password.notmatch')),
       agree: (value) => (value ? null : t('card.agree.invalid')),
@@ -109,7 +109,7 @@ export const Register = () => {
       <Center h={"inherit"}>
         <Card maw={500} radius={"md"} shadow={"lg"} sx={{position: "inherit"}}> {/*here is login form*/}
           <form onSubmit={form.onSubmit((values: any) => {
-            console.log("User data: " + values);
+            console.log(values);
             navigate('/');
           })}>
             <Grid columns={2}>

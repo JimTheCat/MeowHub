@@ -22,6 +22,21 @@
 					<file_node>
 						<name>footer</name>
 						<children>
+							<concept_node>
+								<name>creators</name>
+								<description/>
+								<comment/>
+								<translations>
+									<translation>
+										<language>en-US</language>
+										<approved>true</approved>
+									</translation>
+									<translation>
+										<language>pl-PL</language>
+										<approved>true</approved>
+									</translation>
+								</translations>
+							</concept_node>
 							<folder_node>
 								<name>language</name>
 								<children>
@@ -247,21 +262,6 @@
 									</concept_node>
 								</children>
 							</folder_node>
-							<concept_node>
-								<name>creators</name>
-								<description/>
-								<comment/>
-								<translations>
-									<translation>
-										<language>en-US</language>
-										<approved>true</approved>
-									</translation>
-									<translation>
-										<language>pl-PL</language>
-										<approved>true</approved>
-									</translation>
-								</translations>
-							</concept_node>
 							<folder_node>
 								<name>title</name>
 								<children>

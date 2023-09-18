@@ -18,6 +18,9 @@ export const ThemeProvider = ({children}: { children: ReactNode }) => {
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
       <MantineProvider theme={{
         colorScheme: colorScheme,
+        colors: {
+          'footer-color': ['#191919', '#c0bdbd']
+        },
         fontFamily: 'Lato, sans-serif',
       }} withGlobalStyles withNormalizeCSS>
         {children}

@@ -40,7 +40,7 @@ export const Login = () => {
         <Center h={"inherit"}>
           <Group align={"center"} spacing={300}>
             <Stack spacing="xs">
-              <Text size={72} fw={700} variant={"gradient"}
+              <Text size={92} fw={400} variant={"gradient"} ff={'Cabin Sketch'} sx={{lineHeight: 1}}
                     gradient={{from: 'hotpink', to: 'aqua', deg: 45}}>{t('title.label')}</Text>
               <Text>{t('title.sublabel')}</Text>
             </Stack>

@@ -1,7 +1,6 @@
 import {Group, Text} from "@mantine/core";
 import {Languages} from "../../Services/Constants";
 import {useTranslation} from "react-i18next";
-import {useState} from "react";
 
 export const Footer = () => {
 

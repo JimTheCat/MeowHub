@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  mailcatcher:
+    image: dockage/mailcatcher:0.7.1
+    ports:
+      - "1080:1080"
+      - "1025:1025"

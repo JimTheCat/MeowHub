@@ -16,6 +16,7 @@ import {useNavigate} from "react-router-dom";
 import {IconAt, IconLock} from "@tabler/icons-react";
 import {Languages} from "../../Services/Constants";
 import { useTranslation } from "react-i18next";
+import {ParticleBg} from "../../Components/ParticleBg";
 
 export const Login = () => {
 
@@ -35,6 +36,7 @@ export const Login = () => {
   return (
     <>
       <ContainerVhVw vh={100} vw={99}>
+        <ParticleBg />
         <Center h={"inherit"}>
           <Group align={"center"} spacing={300}>
             <Stack spacing="xs">

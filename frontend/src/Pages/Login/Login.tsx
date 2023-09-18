@@ -69,7 +69,7 @@ export const Login = () => {
                   </Stack>
                   <Group position={"center"}>
                     <Button color={'green'} mt={5} onClick={() => {
-                      navigate("/mainpage")
+                      navigate("/register");
                     }}>{t('card.signup')}</Button>
                   </Group>
                 </form>
@@ -90,9 +90,9 @@ export const Login = () => {
       </ContainerVhVw>
       <Group position={"apart"} p={"md"} sx={{backgroundColor: "#191919"}}>
         <Group>
-          {Languages().map((language) => {
+          {Languages().map((language, key) => {
             return (
-              <Text sx={{cursor: 'pointer'}} onClick={() => {
+              <Text key={key} sx={{cursor: 'pointer'}} onClick={() => {
                 i18n.changeLanguage(language.code);
                 localStorage.setItem('language', language.code)
               }}>{language.name}</Text>

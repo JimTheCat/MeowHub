@@ -2,8 +2,11 @@ import React, {useCallback} from "react";
 import Particles from "react-tsparticles";
 import type { Engine } from "tsparticles-engine";
 import {loadFull} from "tsparticles";
+import {useMantineTheme} from "@mantine/core";
 
 export const ParticleBg = () => {
+
+  const theme = useMantineTheme();
 
   const customInit = useCallback(async (engine: Engine) => {
     await loadFull(engine);
@@ -39,10 +42,10 @@ export const ParticleBg = () => {
     },
     particles: {
       color: {
-        value: "#ffffff"
+        value: theme.colorScheme === 'dark' ? "#ffffff" : "#000000"
       },
       links: {
-        color: "#ffffff",
+        color: theme.colorScheme === 'dark' ? "#ffffff" : "#000000",
         distance: 60,
         enable: true,
         opacity: 0.6,
@@ -57,7 +60,7 @@ export const ParticleBg = () => {
         outModes: {
           default: "bounce"
         },
-        random: true,
+        random: false,
         speed: .7,
         straight: false
       },
@@ -66,7 +69,7 @@ export const ParticleBg = () => {
           enable: true,
           area: 800
         },
-        value: 80
+        value: 60
       },
       opacity: {
         value: 0.3

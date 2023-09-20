@@ -14,13 +14,13 @@ import {ContainerVhVw} from "../../Components/ContainerVhVw";
 import {useForm} from "@mantine/form";
 import {useNavigate} from "react-router-dom";
 import {IconAt, IconLock} from "@tabler/icons-react";
-import {Languages} from "../../Services/Constants";
 import { useTranslation } from "react-i18next";
 import {ParticleBg} from "../../Components/ParticleBg";
+import {Footer} from "../../Components/Footer";
 
 export const Login = () => {
 
-  const {t, i18n} = useTranslation('login');
+  const {t} = useTranslation('login');
   const navigate = useNavigate();
   const form = useForm({
     initialValues: {
@@ -42,7 +42,7 @@ export const Login = () => {
             <Stack spacing="xs">
               <Text size={92} fw={400} variant={"gradient"} ff={'Cabin Sketch'} sx={{lineHeight: 1}}
                     gradient={{from: 'hotpink', to: 'aqua', deg: 45}}>{t('title.label')}</Text>
-              <Text>{t('title.sublabel')}</Text>
+              <Text size={"lg"}>{t('title.sublabel')}</Text>
             </Stack>
             <Box>
               <Card w={300} radius={"md"} shadow={"md"}> {/*here is login form*/}
@@ -90,21 +90,7 @@ export const Login = () => {
           </Group>
         </Center>
       </ContainerVhVw>
-      <Group position={"apart"} p={"md"} sx={{backgroundColor: "#191919"}}>
-        <Group>
-          {Languages().map((language, key) => {
-            return (
-              <Text key={key} sx={{cursor: 'pointer'}} onClick={() => {
-                i18n.changeLanguage(language.code);
-                localStorage.setItem('language', language.code)
-              }}>{language.name}</Text>
-            )
-          })}
-        </Group>
-        <Text>
-          {t('creators')}
-        </Text>
-      </Group>
+      <Footer />
     </>
   )
 }

@@ -17,6 +17,7 @@ import {IconAt, IconLock} from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import {ParticleBg} from "../../Components/ParticleBg";
 import {Footer} from "../../Components/Footer";
+import {BluredGradient} from "../../Components/BluredGradient";
 
 export const Login = () => {
 
@@ -76,16 +77,7 @@ export const Login = () => {
                   </Group>
                 </form>
               </Card>
-              <Box sx={(theme) => ({
-                position: 'absolute',
-                backgroundImage: theme.fn.gradient({from: 'hotpink', to: 'cyan', deg: 45}),
-                zIndex: -1,
-                width: '35%',
-                height: '40%',
-                top: '0',
-                filter: 'blur(500px)',
-
-              })}/>
+              <BluredGradient/>
             </Box>
           </Group>
         </Center>

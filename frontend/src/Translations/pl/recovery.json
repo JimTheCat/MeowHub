@@ -1,0 +1,22 @@
+{
+	"card": {
+		"isNotSent": {
+			"button": {
+				"cancel": "Anuluj",
+				"submit": "Wyślij"
+			},
+			"email": {
+				"invalid": "Niepoprawny email",
+				"label": "Email",
+				"placeholder": "Wpisz swój adres email"
+			},
+			"subtext": "Podaj swój adres e-mail, a my wyślemy Ci link umożliwiający zresetowanie hasła.",
+			"title": "Odzyskaj swoje hasło"
+		},
+		"isSent": {
+			"button": "Przejdź do logowania",
+			"subtext": "Sprawdź swoją pocztę email, aby uzyskać dalsze instrukcje",
+			"title": "Email został wysłany!"
+		}
+	}
+}

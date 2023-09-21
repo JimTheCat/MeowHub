@@ -1,0 +1,22 @@
+{
+	"card": {
+		"isNotSent": {
+			"button": {
+				"cancel": "Cancel",
+				"submit": "Submit"
+			},
+			"email": {
+				"invalid": "Invalid email",
+				"label": "Email",
+				"placeholder": "Enter your email address"
+			},
+			"subtext": "Enter your email address and we will send you a link to reset your password.",
+			"title": "Recover your password"
+		},
+		"isSent": {
+			"button": "Go to login",
+			"subtext": "Please check your email for further instructions",
+			"title": "Email has been sent!"
+		}
+	}
+}

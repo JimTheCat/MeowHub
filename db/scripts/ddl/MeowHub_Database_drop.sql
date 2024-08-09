@@ -1,26 +1,28 @@
--- Drop constraints
-ALTER TABLE users DROP CONSTRAINT IF EXISTS fk_role;
-ALTER TABLE users DROP CONSTRAINT IF EXISTS fk_status;
-ALTER TABLE groups DROP CONSTRAINT IF EXISTS fk_images_id;
-ALTER TABLE comments DROP CONSTRAINT IF EXISTS fk_comments_users;
-ALTER TABLE comments DROP CONSTRAINT IF EXISTS fk_comments_posts;
-ALTER TABLE group_users DROP CONSTRAINT IF EXISTS fk_group_users_groups;
-ALTER TABLE group_users DROP CONSTRAINT IF EXISTS fk_group_users_users;
-ALTER TABLE posts_images DROP CONSTRAINT IF EXISTS fk_posts_images_posts;
-ALTER TABLE posts_images DROP CONSTRAINT IF EXISTS fk_posts_images_images;
-ALTER TABLE posts_tags DROP CONSTRAINT IF EXISTS fk_posts_tags_posts;
-ALTER TABLE posts_tags DROP CONSTRAINT IF EXISTS fk_posts_tags_tags;
+-- Usunięcie tabel, zaczynając od tabel z zależnościami
 
--- Drop tables
-DROP TABLE IF EXISTS posts_tags;
-DROP TABLE IF EXISTS posts_images;
-DROP TABLE IF EXISTS group_users;
-DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS tags;
-DROP TABLE IF EXISTS groups;
-DROP TABLE IF EXISTS images;
-DROP TABLE IF EXISTS status;
-DROP TABLE IF EXISTS user_roles;
-DROP TABLE IF EXISTS DUAL;
+-- Drop Table: group_users
+DROP TABLE group_users CASCADE CONSTRAINTS;
+
+-- Drop Table: comments
+DROP TABLE comments CASCADE CONSTRAINTS;
+
+-- Drop Table: posts
+DROP TABLE posts CASCADE CONSTRAINTS;
+
+-- Drop Table: users
+DROP TABLE users CASCADE CONSTRAINTS;
+
+-- Drop Table: tags
+DROP TABLE tags CASCADE CONSTRAINTS;
+
+-- Drop Table: groups
+DROP TABLE groups CASCADE CONSTRAINTS;
+
+-- Drop Table: images
+DROP TABLE images CASCADE CONSTRAINTS;
+
+-- Drop Table: user_status
+DROP TABLE user_status CASCADE CONSTRAINTS;
+
+-- Drop Table: user_roles
+DROP TABLE user_roles CASCADE CONSTRAINTS;

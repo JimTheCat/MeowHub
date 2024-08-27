@@ -16,6 +16,9 @@ DROP TABLE IF EXISTS h_posts;
 -- Drop Table: h_users
 DROP TABLE IF EXISTS h_users;
 
+--DROP Table: h_users_sessions
+DROP TABLE h_users_sessions CASCADE CONSTRAINTS;
+
 -- Drop Table: h_tags
 DROP TABLE IF EXISTS h_tags;
 

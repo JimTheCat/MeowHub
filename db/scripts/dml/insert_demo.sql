@@ -1,55 +1,53 @@
--- Table: user_roles
-INSERT INTO user_roles (id, name, description, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 'Admin', 'Administrator role', 1, current_timestamp, NULL, NULL),
-(2, 'User', 'Regular user role', 1, current_timestamp, NULL, NULL);
+-- Insert into user_roles
+INSERT INTO user_roles (name, description)
+VALUES ('Admin', 'Administrator role');
+INSERT INTO user_roles (name, description)
+VALUES ('User', 'Regular user role');
 
--- Table: status
-INSERT INTO status (id, name, description, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 'Active', 'Active status', 1, current_timestamp, NULL, NULL),
-(2, 'Inactive', 'Inactive status', 1, current_timestamp, NULL, NULL);
+-- Insert into user_status
+INSERT INTO user_status (name, description)
+VALUES ('Active', 'Active status');
+INSERT INTO user_status (name, description)
+VALUES ('Inactive', 'Inactive status');
 
--- Table: images
-INSERT INTO images (id, image, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, E'\\x', 1, current_timestamp, NULL, NULL),
-(2, E'\\x', 1, current_timestamp, NULL, NULL);
+-- Insert into images
+INSERT INTO images (image)
+VALUES (EMPTY_BLOB());
+INSERT INTO images (image)
+VALUES (EMPTY_BLOB());
 
--- Table: groups
-INSERT INTO groups (id, name, description, images_id, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 'Group A', 'Description for Group A', 1, 1, current_timestamp, NULL, NULL),
-(2, 'Group B', 'Description for Group B', 1, 1, current_timestamp, NULL, NULL);
+-- Insert into groups
+INSERT INTO groups (name, description, images_id)
+VALUES ('Group1', 'First group', 1);
+INSERT INTO groups (name, description, images_id)
+VALUES ('Group2', 'Second group', 2);
 
--- Table: tags
-INSERT INTO tags (id, name, description, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 'Tag1', 'Description for Tag1', 1, current_timestamp, NULL, NULL),
-(2, 'Tag2', 'Description for Tag2', 1, current_timestamp, NULL, NULL);
+-- Insert into tags
+INSERT INTO tags (name, description)
+VALUES ('Technology', 'Tech related posts');
+INSERT INTO tags (name, description)
+VALUES ('Lifestyle', 'Lifestyle related posts');
 
--- Table: users
-INSERT INTO users (id, login, name, second_name, lastname, password, salt, refresh_token, role, birthdate, email, status, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 'user1', 'John', NULL, 'Doe', 'password1', 'salt1', NULL, 1, '1990-01-01', 'john.doe@example.com', 1, 1, current_timestamp, NULL, NULL),
-(2, 'user2', 'Jane', NULL, 'Smith', 'password2', 'salt2', NULL, 2, '1991-02-02', 'jane.smith@example.com', 1, 1, current_timestamp, NULL, NULL);
+-- Insert into users
+INSERT INTO users (login, name, second_name, lastname, password, salt, role, birthdate, email, status)
+VALUES ('admin', 'admin', '', 'lastname', 'admin', 'salt1', 1, TO_DATE('1990-01-01', 'YYYY-MM-DD'), 'jdoe@example.com', 1);
+INSERT INTO users (login, name, second_name, lastname, password, salt, role, birthdate, email, status)
+VALUES ('user', 'user', 'B', 'Smith', 'user', 'salt2', 2, TO_DATE('1985-05-10', 'YYYY-MM-DD'), 'asmith@example.com', 1);
 
--- Table: posts
-INSERT INTO posts (id, content, date, users_id, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 'Post content 1', 1234567890, 1, 1, current_timestamp, NULL, NULL),
-(2, 'Post content 2', 1234567890, 2, 1, current_timestamp, NULL, NULL);
+-- Insert into posts
+INSERT INTO posts (content, post_date, user_id)
+VALUES ('This is the first post.', 1, 1);
+INSERT INTO posts (content, post_date, user_id)
+VALUES ('This is the second post.', 2, 2);
 
--- Table: comments
-INSERT INTO comments (idi, comment, users_id, posts_id, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 'Comment 1', 1, 1, 1, current_timestamp, NULL, NULL),
-(2, 'Comment 2', 2, 2, 1, current_timestamp, NULL, NULL);
+-- Insert into comments
+INSERT INTO comments (comment_value, users_id, posts_id)
+VALUES ('Great post!', 1, 1);
+INSERT INTO comments (comment_value, users_id, posts_id)
+VALUES ('Thanks for sharing.', 2, 2);
 
--- Table: group_users
-INSERT INTO group_users (groups_id, users_id, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 1, 1, current_timestamp, NULL, NULL),
-(2, 2, 1, current_timestamp, NULL, NULL);
-
--- Table: posts_images
-INSERT INTO posts_images (posts_id, images_id, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 1, 1, current_timestamp, NULL, NULL),
-(2, 2, 1, current_timestamp, NULL, NULL);
-
--- Table: posts_tags
-INSERT INTO posts_tags (posts_id, tags_id, create_user_id, create_date, mod_user_id, mod_date) VALUES 
-(1, 1, 1, current_timestamp, NULL, NULL),
-(2, 2, 1, current_timestamp, NULL, NULL);
-
+-- Insert into group_users
+INSERT INTO group_users (groups_id, users_id)
+VALUES (1, 1);
+INSERT INTO group_users (groups_id, users_id)
+VALUES (2, 2);

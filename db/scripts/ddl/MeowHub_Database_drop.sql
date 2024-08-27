@@ -9,6 +9,9 @@ DROP TABLE comments CASCADE CONSTRAINTS;
 -- Drop Table: posts
 DROP TABLE posts CASCADE CONSTRAINTS;
 
+--DROP Table: users_sessions
+DROP TABLE users_sessions CASCADE CONSTRAINTS;
+
 -- Drop Table: users
 DROP TABLE users CASCADE CONSTRAINTS;
 

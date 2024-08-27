@@ -18,6 +18,9 @@ DROP TABLE h_posts CASCADE CONSTRAINTS;
 -- Drop Table: h_users
 DROP TABLE h_users CASCADE CONSTRAINTS;
 
+--DROP Table: h_users_sessions
+DROP TABLE h_users_sessions CASCADE CONSTRAINTS;
+
 -- Drop Table: h_tags
 DROP TABLE h_tags CASCADE CONSTRAINTS;
 

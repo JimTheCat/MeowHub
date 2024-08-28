@@ -5,18 +5,19 @@ services:
       - "1080:1080"
       - "1025:1025"
   oracle-db:
-    image: container-registry.oracle.com/database/enterprise:latest
+    image: container-registry.oracle.com/database/express:latest
     environment:
-      - ORACLE_SID=ORCLCDB
-      - ORACLE_PDB=ORCLPDB1
-      - ORACLE_PWD=Oracle_123
+      - ORACLE_SID=XE
+      - ORACLE_PDB=XEPDB1
+      - ORACLE_PWD=oracle
     ports:
       - "1521:1521"
     volumes:
       - oracle-data:/opt/oracle/oradata
       - oracle-backup:/opt/oracle/backup
+      - ./db/scripts:/opt/oracle/scripts/startup
     healthcheck:
-      test: [ "CMD", "sqlplus", "-L", "sys/Oracle_123@//localhost:1521/ORCLCDB as sysdba", "@healthcheck.sql" ]
+      test: [ "CMD", "sqlplus", "-L", "sys/oracle//localhost:1521/XE as sysdba", "@healthcheck.sql" ]
       interval: 30s
       timeout: 10s
       retries: 5

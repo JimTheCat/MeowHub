@@ -15,7 +15,8 @@ import plGender from "../../Translations/pl/gender.json";
 import plRecovery from "../../Translations/pl/recovery.json";
 
 export const i18nInitializer = () => {
-  const language = localStorage.getItem('language') == null ? 'en' : localStorage.getItem('language');
+  let language = localStorage.getItem('language');
+  if (language === null) language = 'en';
 
   return i18next.init({
     interpolation: { escapeValue: false },  // React already does escaping

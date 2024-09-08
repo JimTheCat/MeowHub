@@ -1,4 +1,4 @@
-import {Box, Button, Card, Center, Divider, Group, Stack, Text, TextInput, Title} from "@mantine/core";
+import {Box, Button, Card, Center, Divider, getGradient, Group, Stack, Text, TextInput, Title} from "@mantine/core";
 import {ContainerVhVw} from "../../Components/ContainerVhVw";
 import {useNavigate} from "react-router-dom";
 import React from "react";
@@ -24,14 +24,14 @@ export const Recovery = () => {
       <ContainerVhVw vw={99} vh={100}>
         <Center h={"inherit"}>
           { !isSent &&
-            <Card maw={500} radius={"md"} shadow={"lg"} sx={{position: "inherit"}}>
+              <Card maw={500} radius={"md"} shadow={"lg"} style={{position: "inherit"}}>
               <form onSubmit={form.onSubmit((values: any) => {
                 console.log(values);
                 setIsSent(true);
               })}>
-                <Stack spacing={"md"} justify={"center"} p={"xl"}>
-                  <Title order={2} align={"center"}>{t('card.isNotSent.title')}</Title>
-                  <Text size={"sm"} align={"center"}>{t('card.isNotSent.subtext')}</Text>
+                  <Stack gap={"md"} justify={"center"} p={"xl"}>
+                      <Title order={2}>{t('card.isNotSent.title')}</Title>
+                      <Text size={"sm"}>{t('card.isNotSent.subtext')}</Text>
                   <TextInput
                     placeholder={t('card.isNotSent.email.placeholder')}
                     label={t('card.isNotSent.email.label')}
@@ -40,7 +40,7 @@ export const Recovery = () => {
                     {...form.getInputProps('email')}
                   />
                   <Divider variant={"solid"}/>
-                  <Group position={"apart"}>
+                      <Group justify={"space-between"}>
                     <Button color="red" onClick={() => navigate('/')}>{t('card.isNotSent.button.cancel')}</Button>
                     <Button type="submit" color={'green'}>{t('card.isNotSent.button.submit')}</Button>
                   </Group>
@@ -50,18 +50,18 @@ export const Recovery = () => {
             </Card>
           }
           { isSent &&
-            <Card maw={500} radius={"md"} shadow={"lg"} sx={{position: "inherit"}}>
-              <Stack spacing={"md"} justify={"center"} p={"xl"}>
-                <Title order={2} align={"center"}>{t('card.isSent.title')}</Title>
-                <Text size={"sm"} align={"center"}>{t('card.isSent.subtext')}</Text>
+              <Card maw={500} radius={"md"} shadow={"lg"} style={{position: "inherit"}}>
+                  <Stack gap={"md"} justify={"center"} p={"xl"}>
+                      <Title order={2}>{t('card.isSent.title')}</Title>
+                      <Text size={"sm"}>{t('card.isSent.subtext')}</Text>
                 <Divider variant={"solid"}/>
                 <Button color={'green'} onClick={() => navigate('/')}>{t('card.isSent.button')}</Button>
               </Stack>
             </Card>
           }
-          <Box sx={(theme) => ({
+          <Box style={(theme) => ({
             position: 'absolute',
-            backgroundImage: theme.fn.gradient({from: 'hotpink', to: 'cyan', deg: 45}),
+            backgroundImage: getGradient({from: 'hotpink', to: 'cyan', deg: 45}, theme),
             zIndex: -1,
             width: '35%',
             height: '40%',

@@ -12,8 +12,8 @@ export const NotFound = () => {
     <ContainerVhVw vh={100} vw={99}>
       <Center h={"inherit"}>
         <Stack align={"center"}>
-          <Text size={32} weight={700}>{t('label')}</Text>
-          <Group align={"center"} spacing={100} >
+          <Text size={'32'} fw={700}>{t('label')}</Text>
+          <Group align={"center"} gap={100}>
             <Image maw={240} mx="auto" radius="md" src={photo} alt="Cat error 404"/>
             <Button color={'pink'} size={"xl"} variant="light" onClick={() => navigate("/")}>{t('button')}</Button>
           </Group>

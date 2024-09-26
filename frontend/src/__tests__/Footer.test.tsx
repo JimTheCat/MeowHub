@@ -1,7 +1,8 @@
 import React from 'react';
-import {fireEvent, render} from '@testing-library/react';
+import {fireEvent} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {Footer} from '../Components/Footer';
+import {render} from "../test-utils/render";
 
 const mockChangeLanguage = jest.fn();
 

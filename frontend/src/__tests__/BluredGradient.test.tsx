@@ -1,7 +1,7 @@
 import React from 'react';
-import {render} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import {BluredGradient} from '../Components/BluredGradient';
+import {render} from "../test-utils/render";
 
 test('renders BluredGradient component with default values', () => {
   const { container } = render(<BluredGradient />);

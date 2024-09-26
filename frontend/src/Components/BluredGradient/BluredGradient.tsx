@@ -1,4 +1,4 @@
-import {Box} from "@mantine/core";
+import {Box, getGradient} from "@mantine/core";
 
 interface props {
   fromColor?: string;
@@ -9,13 +9,13 @@ interface props {
 
 export const BluredGradient = (prop: props) => {
   return (
-    <Box sx={(theme) => ({
+    <Box style={(theme) => ({
       position: 'absolute',
-      backgroundImage: theme.fn.gradient({
+      backgroundImage: getGradient({
         from: prop.fromColor || 'hotpink',
         to: prop.toColor || 'cyan',
         deg: prop.deg || 45,
-      }),
+      }, theme),
       zIndex: -1,
       width: '35%',
       height: '40%',

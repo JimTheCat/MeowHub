@@ -1,0 +1,54 @@
+{
+	"card": {
+		"age": {
+			"invalid": "Your age is under 16",
+			"label": "Date of birthdate",
+			"placeholder": "Choose date of your birthdate"
+		},
+		"cancel": "Cancel",
+		"email": {
+			"invalid": "Your email is invalid",
+			"label": "Email",
+			"notmatch": "Emails are not the same!",
+			"placeholder": "Enter your email"
+		},
+		"name": {
+			"invalid": "Name can not contain white chars",
+			"label": "Name",
+			"placeholder": "John"
+		},
+		"password": {
+			"invalid": "Your password does not pass all requirements",
+			"label": "Password",
+			"notmatch": "Passwords are not the same!",
+			"placeholder": "Enter your password",
+			"requirement": {
+				"length": "Includes at least 8 characters",
+				"lowercase": "Includes lowercase letter",
+				"number": "Includes number",
+				"special": "Includes special symbol",
+				"uppercase": "Includes uppercase letter"
+			}
+		},
+		"repeatemail": {
+			"label": "Repeat email",
+			"placeholder": "Repeat your email"
+		},
+		"repeatpassword": {
+			"label": "Repeat password",
+			"placeholder": "Repeat your password"
+		},
+		"sex": {
+			"label": "Gender"
+		},
+		"signup": "Sign up",
+		"surname": {
+			"invalid": "Surname can not contain white chars",
+			"label": "Surname",
+			"placeholder": "Smith"
+		},
+		"tos": {
+			"label": "I agree with Term of Service"
+		}
+	}
+}

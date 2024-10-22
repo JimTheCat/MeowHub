@@ -1,0 +1,20 @@
+{
+	"card": {
+		"email": {
+			"invalid": "Niepoprawny email",
+			"label": "Email",
+			"placeholder": "Wprowadź swój email"
+		},
+		"login": "Zaloguj się",
+		"password": {
+			"label": "Hasło",
+			"placeholder": "Wprowadź hasło"
+		},
+		"recovery": "Zapomniałeś hasła?",
+		"signup": "Zarejestruj się"
+	},
+	"title": {
+		"label": "MeowHub",
+		"sublabel": "Znajdź swoją bratnią duszę do memienia!"
+	}
+}

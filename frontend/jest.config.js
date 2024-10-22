@@ -1,8 +1,15 @@
-/** @type {import('ts-jest').JestConfigWithTsJest} **/
-module.exports = {
-    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-    testEnvironment: "node",
+/** @type {import('jest').Config} */
+const config = {
+    preset: 'ts-jest',
+    testEnvironment: 'node',
     transform: {
-        "^.+.tsx?$": ["ts-jest", {}],
+        "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
     },
+    "transformIgnorePatterns": [
+        "node_modules/(?!variables/.*)"
+    ],
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
+    // ... rest of your config
 };
+
+export default config;

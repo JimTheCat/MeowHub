@@ -1,0 +1,20 @@
+{
+	"card": {
+		"email": {
+			"invalid": "Invalid email",
+			"label": "Email",
+			"placeholder": "Enter your email"
+		},
+		"login": "Log in",
+		"password": {
+			"label": "Password",
+			"placeholder": "Enter your password"
+		},
+		"recovery": "Forgot password?",
+		"signup": "Sign up"
+	},
+	"title": {
+		"label": "MeowHub",
+		"sublabel": "Find your meme soulmate!"
+	}
+}

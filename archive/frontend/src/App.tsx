@@ -1,6 +1,6 @@
-import './App.css'
+import './App.css';
 import {Route, Routes} from "react-router";
-import {Root} from "./Pages/Root";
+import { Root } from './Pages/Root';
 
 function App() {
   return (
@@ -10,4 +10,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

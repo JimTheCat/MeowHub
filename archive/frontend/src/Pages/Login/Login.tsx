@@ -19,7 +19,8 @@ export const Login = () => {
     },
 
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : t('card.email.invalid')),
+      email: (value) => (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        .test(value) ? null : t('card.email.invalid')),
     },
   });
 

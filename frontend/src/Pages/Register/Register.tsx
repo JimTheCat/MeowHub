@@ -78,7 +78,8 @@ export const Register = () => {
     validate: {
       name: (value) => (/^\S+$/.test(value)? null : t('card.name.invalid')),
       surname: (value) => (/^\S+$/.test(value) ? null : t('card.surname.invalid')),
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : t('card.email.invalid')),
+      email: (value) => (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        .test(value) ? null : t('card.email.invalid')),
       age: (value) => (calculateAge(value) >= 18 ? null : t('card.age.invalid')),
       password: () => (strength === 100 ? null : t('card.password.invalid')),
       repeatEmail: (value) => (value === form.values.email ? null : t('card.email.notmatch')),

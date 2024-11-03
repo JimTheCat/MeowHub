@@ -1,5 +1,5 @@
-import {ActionIcon, AppShell, Group, Title, useMantineColorScheme} from "@mantine/core";
-import {MoonStars, Sun} from 'tabler-icons-react';
+import {ActionIcon, AppShell, Group, MantineColor, Title, useMantineColorScheme} from "@mantine/core";
+import {IconMoonStars, IconSun} from '@tabler/icons-react';
 import {Outlet, useNavigate} from "react-router-dom";
 
 export const Layout = () => {
@@ -25,11 +25,11 @@ export const Layout = () => {
             Reimbursement Calculation App</Title>
           <ActionIcon
             variant="outline"
-            color={dark ? 'yellow' : 'blue'}
+            color={dark ? "yellow" as MantineColor : "blue" as MantineColor} // I don't know what happened here but works ¯\_(ツ)_/¯
             onClick={() => toggleColorScheme()}
             title="Toggle color scheme"
           >
-            {dark ? <Sun size={18}/> : <MoonStars size={18}/>}
+            {dark ? <IconSun size={18}/> : <IconMoonStars size={18}/>}
           </ActionIcon>
         </Group>
       </AppShell.Header>

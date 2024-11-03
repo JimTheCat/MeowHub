@@ -1,4 +1,3 @@
-import React from 'react';
 import {render} from '@testing-library/react';
 import '@testing-library/jest-dom'; // Dla dodatkowych matcherów
 import {ContainerVhVw} from '../Components/ContainerVhVw'; // Import komponentu

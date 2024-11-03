@@ -1,12 +1,12 @@
-import React, {useCallback} from "react";
+import {useCallback} from "react";
 import Particles from "react-tsparticles";
-import type { Engine } from "tsparticles-engine";
+import type {Engine} from "tsparticles-engine";
 import {loadFull} from "tsparticles";
-import {useMantineTheme} from "@mantine/core";
+import {useColorScheme} from "@mantine/hooks";
 
 export const ParticleBg = () => {
 
-  const theme = useMantineTheme();
+  const colorScheme = useColorScheme();
 
   const customInit = useCallback(async (engine: Engine) => {
     await loadFull(engine);
@@ -42,10 +42,10 @@ export const ParticleBg = () => {
     },
     particles: {
       color: {
-        value: theme.colorScheme === 'dark' ? "#ffffff" : "#000000"
+        value: colorScheme === 'dark' ? "#ffffff" : "#000000"
       },
       links: {
-        color: theme.colorScheme === 'dark' ? "#ffffff" : "#000000",
+        color: colorScheme === 'dark' ? "#ffffff" : "#000000",
         distance: 60,
         enable: true,
         opacity: 0.6,

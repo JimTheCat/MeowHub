@@ -3,12 +3,16 @@ import {
   Box,
   Button,
   Card,
-  Center, Checkbox, Divider,
+  Center,
+  Checkbox,
+  Divider,
+  getGradient,
   Grid,
   Group,
   NativeSelect,
   PasswordInput,
-  Popover, Progress,
+  Popover,
+  Progress,
   Text,
   TextInput
 } from "@mantine/core";
@@ -16,7 +20,7 @@ import {useForm} from "@mantine/form";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import {DatePickerInput} from "@mantine/dates";
-import React, {useState} from "react";
+import {useState} from "react";
 import 'dayjs/locale/pl';
 import 'dayjs/locale/en';
 import {Gender} from "../../Services/Constants";
@@ -26,8 +30,8 @@ import {IconCheck, IconX} from "@tabler/icons-react";
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
   return (
     <Text
-      color={meets ? 'teal' : 'red'}
-      sx={{ display: 'flex', alignItems: 'center' }}
+      c={meets ? 'teal' : 'red'}
+      style={{display: 'flex', alignItems: 'center'}}
       mt={7}
       size="sm"
     >
@@ -74,7 +78,8 @@ export const Register = () => {
     validate: {
       name: (value) => (/^\S+$/.test(value)? null : t('card.name.invalid')),
       surname: (value) => (/^\S+$/.test(value) ? null : t('card.surname.invalid')),
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : t('card.email.invalid')),
+      email: (value) => (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        .test(value) ? null : t('card.email.invalid')),
       age: (value) => (calculateAge(value) >= 18 ? null : t('card.age.invalid')),
       password: () => (strength === 100 ? null : t('card.password.invalid')),
       repeatEmail: (value) => (value === form.values.email ? null : t('card.email.notmatch')),
@@ -109,7 +114,7 @@ export const Register = () => {
   return(
     <ContainerVhVw vh={100} vw={99}>
       <Center h={"inherit"}>
-        <Card maw={500} radius={"md"} shadow={"lg"} sx={{position: "inherit"}}> {/*here is login form*/}
+        <Card maw={500} radius={"md"} shadow={"lg"} style={{position: "inherit"}}> {/*here is login form*/}
           <form onSubmit={form.onSubmit((values: any) => {
             console.log(values);
             navigate('/');
@@ -228,15 +233,15 @@ export const Register = () => {
               </Grid.Col>
             </Grid>
             <Divider mt={"xl"} mb={"xs"} />
-            <Group position={"apart"}>
+            <Group justify={"space-between"}>
               <Button color={'red'} mt={5} onClick={() => navigate('/')}>{t('card.cancel')}</Button>
               <Button color={'green'} mt={5} type="submit">{t('card.signup')}</Button>
             </Group>
           </form>
         </Card>
-        <Box sx={(theme) => ({
+        <Box style={(theme) => ({
           position: 'absolute',
-          backgroundImage: theme.fn.gradient({from: 'hotpink', to: 'cyan', deg: 45}),
+          backgroundImage: getGradient({from: 'hotpink', to: 'cyan', deg: 45}, theme),
           zIndex: -1,
           width: '35%',
           height: '40%',

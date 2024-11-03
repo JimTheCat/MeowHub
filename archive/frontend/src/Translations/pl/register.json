@@ -1,0 +1,54 @@
+{
+	"card": {
+		"age": {
+			"invalid": "Twój wiek jest poniżej 16 lat",
+			"label": "Data urodzenia",
+			"placeholder": "Wybierz datę swoich urodzin"
+		},
+		"cancel": "Anuluj",
+		"email": {
+			"invalid": "Twój email jest niepoprawny",
+			"label": "Email",
+			"notmatch": "Emaile nie są takie same!",
+			"placeholder": "Wprowadź swój email"
+		},
+		"name": {
+			"invalid": "Imię nie może zawierać białych znaków",
+			"label": "Imię",
+			"placeholder": "Jan"
+		},
+		"password": {
+			"invalid": "Twoje hasło nie spełnia wszystkich wymagań",
+			"label": "Hasło",
+			"notmatch": "Hasła nie są takie same!",
+			"placeholder": "Wprowadź hasło",
+			"requirement": {
+				"length": "Zawiera co najmniej 8 znaków",
+				"lowercase": "Zawiera małą literę",
+				"number": "Zawiera cyfrę",
+				"special": "Zawiera znak specjalny",
+				"uppercase": "Zawiera wielką literę"
+			}
+		},
+		"repeatemail": {
+			"label": "Powtórz email",
+			"placeholder": "Powtórz swój email"
+		},
+		"repeatpassword": {
+			"label": "Powtórz hasło",
+			"placeholder": "Powtórz swoje hasło"
+		},
+		"sex": {
+			"label": "Płeć"
+		},
+		"signup": "Zarejestruj się",
+		"surname": {
+			"invalid": "Nazwisko nie może zawierać białych znaków",
+			"label": "Nazwisko",
+			"placeholder": "Kowalski"
+		},
+		"tos": {
+			"label": "Zgadzam się z Warunkami korzystania z Usługi"
+		}
+	}
+}

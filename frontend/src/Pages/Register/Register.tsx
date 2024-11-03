@@ -20,7 +20,7 @@ import {useForm} from "@mantine/form";
 import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 import {DatePickerInput} from "@mantine/dates";
-import React, {useState} from "react";
+import {useState} from "react";
 import 'dayjs/locale/pl';
 import 'dayjs/locale/en';
 import {Gender} from "../../Services/Constants";

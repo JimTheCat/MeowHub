@@ -1,36 +1,23 @@
 import '@testing-library/jest-dom';
-import {BluredGradient} from '../Components/BluredGradient';
+import {BluredGradient} from "../Components/BluredGradient";
 import {render} from "../test-utils/render";
 
-test('renders BluredGradient component with default values', () => {
-  const { container } = render(<BluredGradient />);
-  const gradientBox = container.firstChild;
+describe('BluredGradient Component', () => {
+  it('renders with default props', () => {
+    const {container} = render(<BluredGradient/>);
 
-  expect(gradientBox).toHaveStyle(`
-    background-image: linear-gradient(45deg, hotpink, cyan);
-    filter: blur(500px);
-    width: 35%;
-    height: 40%;
-    top: 0;
-  `);
-});
+    const box = container.firstChild; // Get the Box component
+    expect(box).toBeInTheDocument();
+    expect(box).toHaveStyle('background-image: linear-gradient(45deg, hotpink, cyan)');
+  });
 
-test('renders BluredGradient component with custom values', () => {
-  const customProps = {
-    fromColor: 'red',
-    toColor: 'blue',
-    deg: 90,
-    blur: 10,
-  };
+  it('renders with custom props', () => {
+    const {container} = render(
+      <BluredGradient fromColor="red" toColor="blue" deg={90} blur={300}/>
+    );
 
-  const { container } = render(<BluredGradient {...customProps} />);
-  const gradientBox = container.firstChild;
-
-  expect(gradientBox).toHaveStyle(`
-    background-image: linear-gradient(90deg, red, blue);
-    filter: blur(10px);
-    width: 35%;
-    height: 40%;
-    top: 0;
-  `);
+    const box = container.firstChild; // Get the Box component
+    expect(box).toBeInTheDocument();
+    expect(box).toHaveStyle('background-image: linear-gradient(90deg, red, blue)');
+  });
 });

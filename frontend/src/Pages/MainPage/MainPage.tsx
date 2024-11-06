@@ -1,7 +1,9 @@
+import {Box, Title} from "@mantine/core";
+
 export const MainPage = () => {
     return (
-        <div>
-            <h1>Main Page</h1>
-        </div>
+      <Box p={"md"}>
+        <Title order={1}>Main page</Title>
+      </Box>
     )
 }

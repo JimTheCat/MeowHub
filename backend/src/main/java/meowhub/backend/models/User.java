@@ -71,6 +71,8 @@ public class User {
     @Column(length = 20, name = "gender")
     private Gender gender;
 
+    private LocalDate birthdate;
+
     private boolean accountNonLocked = true;
 
     private boolean accountNonExpired = true;

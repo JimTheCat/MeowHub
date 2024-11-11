@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
@@ -38,7 +40,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CommandLineRunner initData(RoleRepository roleRepository, UserRepository userRepository) {
+    public CommandLineRunner initData(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
             Role userRole = roleRepository.findByRoleName(ApplicationRole.ROLE_USER)
                     .orElseGet(() -> roleRepository.save(new Role(ApplicationRole.ROLE_USER)));
@@ -46,7 +48,7 @@ public class SecurityConfig {
                     .orElseGet(() -> roleRepository.save(new Role(ApplicationRole.ROLE_ADMIN)));
 
             if (!userRepository.existsByLogin("user1")) {
-                User user1 = new User("user1", "user1@example.com", "{noop}password1");
+                User user1 = new User("user1", "user1@example.com", passwordEncoder.encode("password1"));
                 user1.setName("Jan");
                 user1.setSurname("Kos");
                 user1.setAccountNonLocked(false);
@@ -61,7 +63,7 @@ public class SecurityConfig {
             }
 
             if (!userRepository.existsByLogin("admin")) {
-                User admin = new User("admin", "admin@example.com", "{noop}adminPass");
+                User admin = new User("admin", "admin@example.com", passwordEncoder.encode("adminPass"));
                 admin.setName("Olgierd");
                 admin.setSurname("Jarosz");
                 admin.setAccountNonLocked(true);
@@ -76,5 +78,10 @@ public class SecurityConfig {
             }
 
         };
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

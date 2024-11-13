@@ -1,12 +1,7 @@
-import {AppShell, Skeleton, useMantineColorScheme} from "@mantine/core";
-import {Outlet, useNavigate} from "react-router-dom";
+import {AppShell, Skeleton} from "@mantine/core";
+import {Outlet} from "react-router-dom";
 
 export const Layout = () => {
-
-  const navigate = useNavigate();
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
-
   return (
     <AppShell
       navbar={{width: 300, breakpoint: 'xs'}}

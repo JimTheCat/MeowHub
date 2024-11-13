@@ -1,19 +1,16 @@
 import {Card, Grid, Group, Image, Text, UnstyledButton} from "@mantine/core";
 import {Multimedia} from "../../../Services/Constants/DummyMultimedia.tsx";
+import {useNavigate} from "react-router-dom";
 
 export const ProfileMultimedia = (props: { multimedia: Multimedia[] }) => {
 
-  const handleButtonClick = (event) => {
-    event.preventDefault();
-
-    window.open(event.target.href, '_blank', 'noopener,noreferrer');
-  }
+  const navigate = useNavigate();
 
   return (
     <Card shadow="sm" px="lg" pt={"lg"} radius="md" w={400} withBorder>
       <Group justify={"space-between"} mb={15}>
         <Text size={"lg"}>Multimedia</Text>
-        <UnstyledButton component="a" href="https://www.google.com" onClick={handleButtonClick} c="dimmed">Wyświetl
+        <UnstyledButton onClick={() => navigate("https://www.google.com")} c="dimmed">Wyświetl
           wszystko</UnstyledButton>
       </Group>
 

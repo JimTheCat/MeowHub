@@ -9,12 +9,9 @@ export const CardProfileTop = (props: { userDetails: DummyUserType }) => {
 
   return (
     <Card shadow="sm" padding="lg" radius="md" w={"fit-content"} withBorder>
-      <Card.Section withBorder>
-        <Box h={150} w={500}>
-          <Stack justify={"center"} align={"center"} h={"inherit"}>
-            Placeholder for background photo
-          </Stack>
-        </Box>
+      <Card.Section withBorder w={500}>
+        <Image h={150} fit={"cover"}
+               src={"https://c4.wallpaperflare.com/wallpaper/264/666/478/3-316-16-9-aspect-ratio-s-sfw-wallpaper-preview.jpg"}/>
       </Card.Section>
 
       <Box pos={"relative"} top={-35}>
@@ -33,7 +30,7 @@ export const CardProfileTop = (props: { userDetails: DummyUserType }) => {
               fit={"cover"}
               onLoad={() => setIsProfilePictureLoaded(true)}
               radius={180}
-              bd={"2px solid"}
+              bd={"2px solid dimmed"}
               display={isProfilePictureLoaded ? "block" : "none"}
             />
           </Box>

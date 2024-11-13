@@ -1,19 +1,17 @@
 import {Card, Grid, Group, Image, Text, UnstyledButton} from "@mantine/core";
 import {DummyFriendsType} from "../../../Services/Constants/DummyUser.tsx";
+import {useNavigate} from "react-router-dom";
 
 export const ProfileFriends = (props: { friends: DummyFriendsType }) => {
 
-  const handleButtonClick = (event) => {
-    event.preventDefault();
-
-    window.open(event.target.href, '_blank', 'noopener,noreferrer');
-  }
+  const navigate = useNavigate();
 
   return (
     <Card shadow="sm" px="lg" pt={"lg"} radius="md" w={400} withBorder>
       <Group justify={"space-between"} mb={15}>
         <Text size={"lg"}>Friends</Text>
-        <UnstyledButton component="a" href="https://www.google.com" onClick={handleButtonClick} c="dimmed">Wyświetl
+        <UnstyledButton component="a" href="https://www.google.com" onClick={() => navigate("https://www.google.com")}
+                        c="dimmed">Wyświetl
           wszystko</UnstyledButton>
       </Group>
 

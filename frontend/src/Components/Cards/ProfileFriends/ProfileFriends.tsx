@@ -10,9 +10,9 @@ export const ProfileFriends = (props: { friends: DummyFriendsType }) => {
     <Card shadow="sm" px="lg" pt={"lg"} radius="md" w={400} withBorder>
       <Group justify={"space-between"} mb={15}>
         <Text size={"lg"}>Friends</Text>
-        <UnstyledButton component="a" href="https://www.google.com" onClick={() => navigate("https://www.google.com")}
-                        c="dimmed">Wyświetl
-          wszystko</UnstyledButton>
+        <UnstyledButton onClick={() => navigate("https://www.google.com")} c="dimmed">
+          Wyświetl wszystko
+        </UnstyledButton>
       </Group>
 
       <Grid gutter={"xs"} align={"center"}>

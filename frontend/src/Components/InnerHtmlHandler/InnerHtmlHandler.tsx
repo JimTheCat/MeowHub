@@ -3,8 +3,8 @@ import DOMPurify from 'dompurify';
 
 export const InnerHtmlHandler = (props: { innerHtml: string }) => {
 
+  //TODO: Define allowed tags and attributes for DOMPurify sanitizer
   // const allowedArgs = {
-  //   //TODO: Define allowed tags and attributes
   //   ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'ul', 'li', 'br'],
   //   ALLOWED_ATTR: ['href', 'title'],
   // }

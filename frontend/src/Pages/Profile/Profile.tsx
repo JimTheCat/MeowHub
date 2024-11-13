@@ -5,6 +5,7 @@ import {Box, Group, Stack} from "@mantine/core";
 import {ProfileAboutMe} from "../../Components/Cards/ProfileAboutMe";
 import {ProfileMultimedia} from "../../Components/Cards/ProfileMultimedia";
 import {DummyMultimedia} from "../../Services/Constants/DummyMultimedia.tsx";
+import {ProfileFriends} from "../../Components/Cards/ProfileFriends";
 
 export const Profile = () => {
 
@@ -18,10 +19,12 @@ export const Profile = () => {
             <CardProfileTop userDetails={DummyUser}/>
             <ProfileAboutMe htmlContent={DummyUser.profileDetails ? DummyUser.profileDetails : ""}/>
 
+            {/*TODO: Implement post map*/}
             {/*Here should be post map*/}
           </Stack>
           <Stack>
             <ProfileMultimedia multimedia={DummyMultimedia}/>
+            <ProfileFriends friends={DummyUser.friends!}/>
           </Stack>
         </Group>
       </Box>

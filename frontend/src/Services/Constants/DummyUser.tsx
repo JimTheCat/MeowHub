@@ -16,7 +16,7 @@ type DummySimpleUserType = {
   profilePicture?: string | null
 }
 
-type DummyFriendsType = {
+export type DummyFriendsType = {
   totalFriends: number,
   friendsDetails: DummySimpleUserType[] | null
 }
@@ -25,10 +25,10 @@ const DummyUserFriends: DummyFriendsType = {
   totalFriends: 2,
   friendsDetails: [
     {
-      profilePicture: ""
+      profilePicture: "https://med.gov.bz/wp-content/uploads/2020/08/dummy-profile-pic-300x300.jpg"
     },
     {
-      profilePicture: ""
+      profilePicture: "https://med.gov.bz/wp-content/uploads/2020/08/dummy-profile-pic-300x300.jpg"
     }
   ]
 }

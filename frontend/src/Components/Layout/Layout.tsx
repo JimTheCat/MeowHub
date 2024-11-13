@@ -1,39 +1,23 @@
-import {ActionIcon, AppShell, Group, MantineColor, Title, useMantineColorScheme} from "@mantine/core";
-import {IconMoonStars, IconSun} from '@tabler/icons-react';
-import {Outlet, useNavigate} from "react-router-dom";
+import {AppShell, Skeleton} from "@mantine/core";
+import {Outlet} from "react-router-dom";
 
 export const Layout = () => {
-
-  const navigate = useNavigate();
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
-
   return (
     <AppShell
-      header={{
-        height: 70,
-      }}
+      navbar={{width: 300, breakpoint: 'xs'}}
     >
-      <AppShell.Header>
-        <Group justify={"space-between"}>
-          <Title
-            order={2}
-            onClick={() => {
-              navigate("/")
-            }}
-            style={{cursor: 'pointer'}}>
-            Reimbursement Calculation App</Title>
-          <ActionIcon
-            variant="outline"
-            color={dark ? "yellow" as MantineColor : "blue" as MantineColor} // I don't know what happened here but works ¯\_(ツ)_/¯
-            onClick={() => toggleColorScheme()}
-            title="Toggle color scheme"
-          >
-            {dark ? <IconSun size={18}/> : <IconMoonStars size={18}/>}
-          </ActionIcon>
-        </Group>
-      </AppShell.Header>
-      <Outlet/>
+      {/*TODO: Modify a navbar*/}
+      <AppShell.Navbar p="md">
+        Navbar
+        {Array(15)
+          .fill(0)
+          .map((_, index) => (
+            <Skeleton key={index} h={28} mt="sm" animate={false}/>
+          ))}
+      </AppShell.Navbar>
+      <AppShell.Main>
+        <Outlet/>
+      </AppShell.Main>
     </AppShell>
   );
 }

@@ -1,5 +1,6 @@
-import {AppShell, Skeleton} from "@mantine/core";
+import {AppShell} from "@mantine/core";
 import {Outlet} from "react-router-dom";
+import {Navbar} from "../Navbar";
 
 export const Layout = () => {
   return (
@@ -7,13 +8,8 @@ export const Layout = () => {
       navbar={{width: 300, breakpoint: 'xs'}}
     >
       {/*TODO: Modify a navbar*/}
-      <AppShell.Navbar p="md">
-        Navbar
-        {Array(15)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false}/>
-          ))}
+      <AppShell.Navbar withBorder={false}>
+        <Navbar/>
       </AppShell.Navbar>
       <AppShell.Main>
         <Outlet/>

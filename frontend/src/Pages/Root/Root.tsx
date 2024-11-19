@@ -6,6 +6,7 @@ import {Register} from "../Register";
 import {NotFound} from "../NotFound";
 import {Recovery} from "../Recovery";
 import {Profile} from "../Profile";
+import {Search} from "../Search";
 
 export const Root = () => {
   return(
@@ -15,6 +16,7 @@ export const Root = () => {
       <Route path="/passwordrecovery" element={ <Recovery/>} />
       <Route element={<Layout/>}>
         <Route path="/mainpage" element={ <MainPage/> }/>
+        <Route path="/search" element={<Search/>}/>
         <Route path="/profile/:userTag" element={<Profile/>}/>
       </Route>
       <Route path="*" element={ <NotFound/> }/>

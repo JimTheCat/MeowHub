@@ -58,14 +58,14 @@ export const Navbar = () => {
         <Card mt={"lg"} p={"xs"} display={"flex"} h={"100%"} withBorder>
           <Stack justify={"space-between"} h={"100%"}>
             <Box>
-              <MenuButton icon={<IconHome/>} text={"Strona główna"}/>
-              <MenuButton icon={<IconZoom/>} text={"Wyszukaj"}/>
-              <MenuButton icon={<IconPencil/>} text={"Napisz post"}/>
-              <MenuButton icon={<IconUsers/>} text={"Znajomi"}/>
-              <MenuButton icon={<IconUsersGroup/>} text={"Grupy"}/>
-              <MenuButton icon={<IconUserPlus/>} text={"Obserwowani"}/>
-              <MenuButton icon={<IconUserHeart/>} text={"Matching"}/>
-              <MenuButton icon={<IconMail/>} text={"Wiadomości"}/>
+              <MenuButton icon={<IconHome/>} text={"Strona główna"} href={"/mainpage"}/>
+              <MenuButton icon={<IconZoom/>} text={"Wyszukaj"} href={"/search"}/>
+              <MenuButton icon={<IconPencil/>} text={"Napisz post"} href={"placeholder1"}/>
+              <MenuButton icon={<IconUsers/>} text={"Znajomi"} href={"placeholder2"}/>
+              <MenuButton icon={<IconUsersGroup/>} text={"Grupy"} href={"placeholder3"}/>
+              <MenuButton icon={<IconUserPlus/>} text={"Obserwowani"} href={"placeholder4"}/>
+              <MenuButton icon={<IconUserHeart/>} text={"Matching"} href={"placeholder5"}/>
+              <MenuButton icon={<IconMail/>} text={"Wiadomości"} href={"placeholder6"}/>
             </Box>
             <Box>
               <MenuButton icon={<IconSettings/>} text={"Ustawienia"}/>

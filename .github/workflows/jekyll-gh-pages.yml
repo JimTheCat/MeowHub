@@ -1,4 +1,4 @@
-name: Deploy Jekyll without _config.yml
+name: Deploy Vite React App to GitHub Pages
 
 on:
   push:
@@ -15,36 +15,44 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      # Pobranie kodu źródłowego
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      # Instalacja Node.js i zależności
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-      - name: Build with Jekyll
+      - name: Install dependencies
         run: |
-          mkdir -p ./frontend/_site # Ensure output directory exists
-          jekyll build --source ./frontend --destination ./frontend/_site
-        env:
-          JEKYLL_NO_CONFIG: "1" # Inform Jekyll to ignore _config.yml
+          cd frontend
+          npm install
 
+      # Budowanie aplikacji Vite
+      - name: Build project
+        run: |
+          cd frontend
+          npm run build
+
+      # Przesłanie artefaktów (pliki zbudowane w folderze "dist")
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./frontend/_site
+          path: frontend/dist
 
-  # Deployment job
   deploy:
+    runs-on: ubuntu-latest
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
+      # Wdrożenie na GitHub Pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

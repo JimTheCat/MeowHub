@@ -29,21 +29,19 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: |
-          cd frontend
-          npm install
+        working-directory: ./frontend
+        run: npm install
 
       # Budowanie aplikacji Vite
       - name: Build project
-        run: |
-          cd frontend
-          npm run build
+        working-directory: ./frontend
+        run: npm run build
 
-      # Przesłanie artefaktów (pliki zbudowane w folderze "dist")
+      # Przesyłanie artefaktów (pliki zbudowane w folderze "dist")
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/dist
+          path: ./frontend/dist
 
   deploy:
     runs-on: ubuntu-latest

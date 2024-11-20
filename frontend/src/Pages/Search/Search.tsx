@@ -1,7 +1,8 @@
-import {Autocomplete, AutocompleteProps, Avatar, Box, Group, Text} from '@mantine/core';
+import {Autocomplete, AutocompleteProps, Avatar, Box, ComboboxItem, Group, OptionsFilter, Text} from '@mantine/core';
 import {useState} from 'react';
-import {IconSearch} from "@tabler/icons-react";
+import {IconSearch, IconX} from "@tabler/icons-react";
 import {SuggestedUsers} from "../../Components/SuggestedUsers";
+import {useNavigate} from "react-router-dom";
 
 type SuggestedUser = {
   id: number;
@@ -17,6 +18,7 @@ const users: SuggestedUser[] = [
   {id: 3, name: 'Olivia Chen', avatar: 'https://via.placeholder.com/40', tag: '@olivia'},
   {id: 4, name: 'Ethan Barnes', avatar: 'https://via.placeholder.com/40', tag: '@ethan'},
   {id: 5, name: 'Mason Taylor', avatar: 'https://via.placeholder.com/40', tag: '@mason'},
+  {id: 6, name: "Jan Kowalski", avatar: 'https://via.placeholder.com/40', tag: '@johndoe'},
 ];
 
 const usersData = users.reduce((acc, user) => {
@@ -38,28 +40,51 @@ const renderAutocompleteOption: AutocompleteProps['renderOption'] = ({option}) =
 
 export const Search = () => {
   const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
-  // Dane do Autocomplete (tylko nazwy użytkowników)
-  const filteredData = users
-    .filter((user) =>
-      user.name.toLowerCase().includes(query.toLowerCase()) ||
-      user.tag.toLowerCase().includes(query.toLowerCase())
-    )
-    .map((user) => user.name);
+  const convertedData = users
+    .map((user) => ({
+      value: user.name,
+      label: user.name,
+      tag: user.tag,
+      avatar: user.avatar,
+    }));
+
+  // Dane do Autocomplete (nazwy użytkowników i tagi użytkowników)
+  const optionsFilter: OptionsFilter = ({options, search}) => {
+
+    if (!search) {
+      return options;
+    }
+
+    return (options as ComboboxItem[]).filter((option) => {
+      const searchLower = search.toLowerCase();
+      return option.value.toLowerCase().includes(searchLower) || usersData[option.value].tag.toLowerCase().includes(searchLower);
+    });
+  };
+
+  const handleClear = () => {
+    setQuery('');
+  }
 
   return (
     <Box p="xl" w="60dvw">
       <Autocomplete
-        data={filteredData}
+        data={convertedData}
         leftSection={<IconSearch/>}
+        rightSection={query ? <IconX onClick={handleClear} style={{cursor: "pointer"}}/> : null}
         renderOption={renderAutocompleteOption}
         maxDropdownHeight={300}
         placeholder="Wyszukaj"
+        filter={optionsFilter}
         limit={5}
         size="xl"
         radius="xl"
         value={query}
         onChange={setQuery}
+        onOptionSubmit={(value) => {
+          navigate(`/profile/${usersData[value].tag}`)
+        }}
       />
 
       <SuggestedUsers/>

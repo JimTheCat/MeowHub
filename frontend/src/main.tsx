@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 import i18next from "i18next";
 import {createTheme, MantineProvider} from "@mantine/core";
 import {BrowserRouter} from "react-router-dom";

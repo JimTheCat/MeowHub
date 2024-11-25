@@ -60,7 +60,7 @@ export const Navbar = () => {
             <Box>
               <MenuButton icon={<IconHome/>} text={"Strona główna"} href={"/mainpage"}/>
               <MenuButton icon={<IconZoom/>} text={"Wyszukaj"} href={"/search"}/>
-              <MenuButton icon={<IconPencil/>} text={"Napisz post"} href={"placeholder1"}/>
+              <MenuButton icon={<IconPencil/>} text={"Napisz post"} href={"/createpost"}/>
               <MenuButton icon={<IconUsers/>} text={"Znajomi"} href={"placeholder2"}/>
               <MenuButton icon={<IconUsersGroup/>} text={"Grupy"} href={"placeholder3"}/>
               <MenuButton icon={<IconUserPlus/>} text={"Obserwowani"} href={"placeholder4"}/>

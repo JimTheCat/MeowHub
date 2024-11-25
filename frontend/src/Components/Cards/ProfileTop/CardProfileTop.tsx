@@ -14,7 +14,7 @@ export const CardProfileTop = (props: { userDetails: DummyUserType }) => {
                src={"https://c4.wallpaperflare.com/wallpaper/264/666/478/3-316-16-9-aspect-ratio-s-sfw-wallpaper-preview.jpg"}/>
       </Card.Section>
 
-      <Box pos={"relative"} top={-35}>
+      <Box pos={"relative"} mt={-35}>
         <Group>
           <Box>
             {!isProfilePictureLoaded && (

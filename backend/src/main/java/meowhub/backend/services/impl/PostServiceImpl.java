@@ -1,5 +1,6 @@
 package meowhub.backend.services.impl;
 
+import lombok.RequiredArgsConstructor;
 import meowhub.backend.dtos.PostDto;
 import meowhub.backend.models.Post;
 import meowhub.backend.repositories.PostRepository;
@@ -10,16 +11,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
     private final PostRepository postRepository;
 
-    public PostServiceImpl(PostRepository postRepository) {
-        this.postRepository = postRepository;
-    }
-
     @Override
     public List<PostDto> getPostsForUser(String login) {
-        if(login == null) {
+        if (login == null) {
             throw new UsernameNotFoundException("Empty login");
         }
 
@@ -37,7 +35,7 @@ public class PostServiceImpl implements PostService {
         return convertToPostDto(postRepository.save(post));
     }
 
-    private PostDto convertToPostDto(Post post){
+    private PostDto convertToPostDto(Post post) {
         return PostDto.builder()
                 .content(post.getContentHtml())
                 .ownerLogin(post.getOwnerLogin())

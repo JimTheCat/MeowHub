@@ -1,5 +1,6 @@
 package meowhub.backend.services.impl;
 
+import lombok.RequiredArgsConstructor;
 import meowhub.backend.dtos.UserDto;
 import meowhub.backend.models.ApplicationRole;
 import meowhub.backend.models.Role;
@@ -12,14 +13,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
 
     @Override
     public List<UserDto> getAllUsers() {

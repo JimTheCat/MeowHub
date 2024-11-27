@@ -1,5 +1,6 @@
 package meowhub.backend.security.controllers;
 
+import lombok.RequiredArgsConstructor;
 import meowhub.backend.dtos.UserDto;
 import meowhub.backend.services.UserService;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
+@RequiredArgsConstructor
 public class AdminController {
     private final UserService userService;
-
-    public AdminController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/all-users")
     public ResponseEntity<List<UserDto>> getAllUsers() {

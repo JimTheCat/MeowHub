@@ -1,4 +1,4 @@
-package meowhub.backend.security.jwt;
+package meowhub.backend.security.requests;
 
 import lombok.Getter;
 import lombok.Setter;

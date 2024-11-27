@@ -1,5 +1,6 @@
 package meowhub.backend.controllers;
 
+import lombok.RequiredArgsConstructor;
 import meowhub.backend.dtos.PostDto;
 import meowhub.backend.services.PostService;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/posts")
+@RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
-
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
 
     @GetMapping("/get-all")
     public ResponseEntity<List<PostDto>> getAllUsersPosts(@AuthenticationPrincipal UserDetails userDetails) {

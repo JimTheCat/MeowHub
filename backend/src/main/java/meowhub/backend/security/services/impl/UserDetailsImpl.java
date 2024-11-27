@@ -1,4 +1,4 @@
-package meowhub.backend.security.services;
+package meowhub.backend.security.services.impl;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

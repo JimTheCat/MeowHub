@@ -1,4 +1,4 @@
-package meowhub.backend.security.jwt;
+package meowhub.backend.security.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

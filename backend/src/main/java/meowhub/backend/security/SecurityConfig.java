@@ -37,6 +37,11 @@ public class SecurityConfig {
                 .requestMatchers("/api/csrf-token/**").permitAll()
                 .requestMatchers("/api/auth/public/**").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                .requestMatchers(
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html"
+                ).permitAll()
                 .anyRequest().authenticated()
         );
 

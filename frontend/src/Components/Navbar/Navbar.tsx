@@ -68,7 +68,7 @@ export const Navbar = () => {
               <MenuButton icon={<IconMail/>} text={"Wiadomości"} href={"placeholder6"}/>
             </Box>
             <Box>
-              <MenuButton icon={<IconSettings/>} text={"Ustawienia"}/>
+              <MenuButton icon={<IconSettings/>} text={"Ustawienia"} href={"/settings"}/>
               <MenuButton icon={<IconLogout/>} text={"Wyloguj się"}/>
             </Box>
           </Stack>

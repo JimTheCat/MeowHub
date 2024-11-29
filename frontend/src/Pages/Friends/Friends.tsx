@@ -25,7 +25,7 @@ const dummyUsers: SuggestedUser[] = [
 export const Friends = () => {
   return (
     <Center>
-      <Card shadow="sm" padding="lg" mt={"md"} radius="md" w={"fit-content"} withBorder>
+      <Card shadow="sm" padding="lg" m={"md"} radius="md" w={"fit-content"} withBorder>
         <Group justify={"space-between"} align={"flex-start"}>
           <Title mb={"md"} order={2}>
             List of friends

@@ -63,7 +63,7 @@ export const Navbar = () => {
               <MenuButton icon={<IconPencil/>} text={"Napisz post"} href={"/createpost"}/>
               <MenuButton icon={<IconUsers/>} text={"Znajomi"} href={"/friends"}/>
               <MenuButton icon={<IconUsersGroup/>} text={"Grupy"} href={"/groups"}/>
-              <MenuButton icon={<IconUserPlus/>} text={"Obserwowani"} href={"placeholder4"}/>
+              <MenuButton icon={<IconUserPlus/>} text={"Obserwowani"} href={"/following"}/>
               <MenuButton icon={<IconUserHeart/>} text={"Matching"} href={"placeholder5"}/>
               <MenuButton icon={<IconMail/>} text={"Wiadomości"} href={"placeholder6"}/>
             </Box>

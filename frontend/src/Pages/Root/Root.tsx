@@ -8,6 +8,7 @@ import {Recovery} from "../Recovery";
 import {Profile} from "../Profile";
 import {Search} from "../Search";
 import {Post} from "../Post";
+import {Friends} from "../Friends";
 import {Settings} from "../Settings";
 
 export const Root = () => {
@@ -21,6 +22,7 @@ export const Root = () => {
         <Route path="/search" element={<Search/>}/>
         <Route path="/profile/:userTag" element={<Profile/>}/>
         <Route path="/createpost" element={<Post/>}/>
+        <Route path="/friends" element={<Friends/>}/>
       </Route>
       <Route path="/settings" element={<Settings/>}/>
 

@@ -8,6 +8,7 @@ import {Recovery} from "../Recovery";
 import {Profile} from "../Profile";
 import {Search} from "../Search";
 import {Post} from "../Post";
+import {Messenger} from "../Messenger";
 
 export const Root = () => {
   return(
@@ -20,6 +21,8 @@ export const Root = () => {
         <Route path="/search" element={<Search/>}/>
         <Route path="/profile/:userTag" element={<Profile/>}/>
         <Route path="/createpost" element={<Post/>}/>
+        <Route path="/messages" element={<Messenger/>}/>
+        <Route path="/messages/:conversationId" element={<Messenger/>}/>
       </Route>
       <Route path="*" element={ <NotFound/> }/>
     </Routes>

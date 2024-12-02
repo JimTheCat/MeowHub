@@ -65,7 +65,7 @@ export const Navbar = () => {
               <MenuButton icon={<IconUsersGroup/>} text={"Grupy"} href={"placeholder3"}/>
               <MenuButton icon={<IconUserPlus/>} text={"Obserwowani"} href={"placeholder4"}/>
               <MenuButton icon={<IconUserHeart/>} text={"Matching"} href={"placeholder5"}/>
-              <MenuButton icon={<IconMail/>} text={"Wiadomości"} href={"placeholder6"}/>
+              <MenuButton icon={<IconMail/>} text={"Wiadomości"} href={"/messages"}/>
             </Box>
             <Box>
               <MenuButton icon={<IconSettings/>} text={"Ustawienia"}/>

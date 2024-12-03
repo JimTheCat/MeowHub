@@ -1,5 +1,8 @@
-import {ActionIcon, Avatar, Card, Flex, Group, ScrollArea, Stack, Text, TextInput, Title} from "@mantine/core";
-import {IconDots, IconSearch} from "@tabler/icons-react";
+import {ActionIcon, Avatar, Card, Flex, Group, ScrollArea, Stack, Text, Title} from "@mantine/core";
+import {IconSearch} from "@tabler/icons-react";
+import {MessageSender} from "../MessageSender";
+import {SingleMessage} from "../SingleMessage";
+import {MessengerChatSettings} from "../MessengerChatSettings/MessengerChatSettings.tsx";
 
 const user: any = {
   conversationId: 1,
@@ -269,23 +272,12 @@ const messages: MessageType[] = [
 
 export const Chat = (props: { conversationId: string }) => {
 
+  const loggedUserId = 2000; // our dummy user id
+
   if (props.conversationId !== user.conversationId.toString()) {
     return (
       <Text>Preview available only for id: 1</Text>
     );
-  }
-
-  const handleMessageDisplay = (message: MessageType) => {
-    // if the message is from the logged user then display it on the right
-    // else display it on the left
-
-    const loggedUserId = 2000; // TODO: Replace this value with the actual logged user id after implementing authentication
-
-    if (message.sender_id === loggedUserId) {
-      return "right"
-    }
-
-    return "left";
   }
 
   return (
@@ -303,25 +295,20 @@ export const Chat = (props: { conversationId: string }) => {
             <ActionIcon color={"gray"} c={"gray"} variant={"subtle"} radius={"xl"} size={"xl"}>
               <IconSearch stroke={1.5}/>
             </ActionIcon>
-            <ActionIcon color={"gray"} c={"gray"} variant={"subtle"} radius={"xl"} size={"xl"}>
-              <IconDots stroke={1.5}/>
-            </ActionIcon>
+            <MessengerChatSettings/>
           </Group>
         </Group>
       </Card>
 
-      <ScrollArea.Autosize p={"xs"} h={"fit-content"} style={{flexGrow: 1}}>
+      <ScrollArea.Autosize p={"xs"} h={"fit-content"} style={{flexGrow: 1}} offsetScrollbars>
         <Stack gap={"xs"} justify={"flex-end"}>
           {messages.map((message) => (
-            <Group key={message.id} justify={handleMessageDisplay(message)}>
-              <Text>{message.message}</Text>
-              <Text c={"dimmed"}>{message.date}</Text>
-            </Group>
+            <SingleMessage message={message} isSender={message.sender_id === loggedUserId}/>
           ))}
         </Stack>
       </ScrollArea.Autosize>
 
-      <TextInput placeholder={"Type a message"} radius={"xl"} m={"md"} size={"xl"}/>
+      <MessageSender/>
 
     </Flex>
   )

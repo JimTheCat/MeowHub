@@ -160,16 +160,33 @@ export const Messenger = () => {
   }
 
   const simulateUserStatusChanges = (users: DummyUserType[]) => {
+    const crypto = window.crypto;
+
+    const getCryptoRandom = () => {
+      const array = new Uint32Array(1);
+      crypto.getRandomValues(array);
+      return array[0] / (0xFFFFFFFF + 1); // Normalizacja do zakresu 0–1
+    };
+
+    // swap Math.random() with crypto.getRandomValues() for better randomness
     users.forEach((user) => {
       setInterval(() => {
         const statuses = ["online", "away", "offline"];
-        user.status = statuses[Math.floor(Math.random() * statuses.length)];
+        user.status = statuses[Math.floor(getCryptoRandom() * statuses.length)];
         updateUserStatusInApp(user);
-      }, Math.random() * 100000 + 50000);
+      }, getCryptoRandom() * 100000 + 50000);
     });
   }
 
   const simulateUserActivity = (users: DummyUserType[]) => {
+    const crypto = window.crypto;
+
+    const getCryptoRandom = () => {
+      const array = new Uint32Array(1);
+      crypto.getRandomValues(array);
+      return array[0] / (0xFFFFFFFF + 1); // Normalizacja do zakresu 0–1
+    };
+
     users.forEach((user) => {
       setInterval(() => {
         user.lastActiveAt = new Date();
@@ -177,7 +194,7 @@ export const Messenger = () => {
           user.status = "online";
           updateUserStatusInApp(user);
         }
-      }, Math.random() * 300000 + 60000); // Aktywność co 1-6 minut
+      }, getCryptoRandom() * 300000 + 60000); // Aktywność co 1-6 minut
     });
   }
 

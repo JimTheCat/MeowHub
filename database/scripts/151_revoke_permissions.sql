@@ -1,0 +1,1 @@
+REVOKE INSERT, UPDATE, DELETE ON mh_users.h_users FROM PUBLIC;

@@ -165,7 +165,7 @@ export const Messenger = () => {
     const getCryptoRandom = () => {
       const array = new Uint32Array(1);
       crypto.getRandomValues(array);
-      return array[0] / (0xFFFFFFFF + 1); // Normalizacja do zakresu 0–1
+      return array[0] / (0xFFFFFFFF + 1); // Normalize to range 0–1
     };
 
     // swap Math.random() with crypto.getRandomValues() for better randomness
@@ -194,7 +194,7 @@ export const Messenger = () => {
           user.status = "online";
           updateUserStatusInApp(user);
         }
-      }, getCryptoRandom() * 300000 + 60000); // Aktywność co 1-6 minut
+      }, getCryptoRandom() * 300000 + 60000);
     });
   }
 

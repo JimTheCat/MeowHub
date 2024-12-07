@@ -12,6 +12,7 @@ import {Following} from "../Following";
 import {Groups} from "../Groups";
 import {Friends} from "../Friends";
 import {Settings} from "../Settings";
+import {Messenger} from "../Messenger";
 
 export const Root = () => {
   return (
@@ -27,6 +28,8 @@ export const Root = () => {
         <Route path="/following" element={<Following/>}/>
         <Route path="/groups" element={<Groups/>}/>
         <Route path="/friends" element={<Friends/>}/>
+        <Route path="/messages" element={<Messenger/>}/>
+        <Route path="/messages/:conversationId" element={<Messenger/>}/>
       </Route>
       <Route path="/settings" element={<Settings/>}/>
 

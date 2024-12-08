@@ -12,8 +12,9 @@ import {Following} from "../Following";
 import {Groups} from "../Groups";
 import {Friends} from "../Friends";
 import {Settings} from "../Settings";
+import {Messenger} from "../Messenger";
 import {ProtectedRoute} from "../../Components/ProtectedRoute";
-import {PublicRoute} from "../../Components/PublicRoute/PublicRoute.tsx";
+import {PublicRoute} from "../../Components/PublicRoute";
 import {useAuthStore} from "../../Services/authStore.ts";
 
 export const Root = () => {
@@ -39,6 +40,8 @@ export const Root = () => {
           <Route path="/following" element={<Following/>}/>
           <Route path="/groups" element={<Groups/>}/>
           <Route path="/friends" element={<Friends/>}/>
+          <Route path="/messages" element={<Messenger/>}/>
+          <Route path="/messages/:conversationId" element={<Messenger/>}/>
         </Route>
         <Route path="/settings" element={<Settings/>}/>
       </Route>

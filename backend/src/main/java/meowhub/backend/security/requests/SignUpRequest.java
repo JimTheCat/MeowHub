@@ -2,7 +2,7 @@ package meowhub.backend.security.requests;
 
 import lombok.Getter;
 import lombok.Setter;
-import meowhub.backend.models.Gender;
+import meowhub.backend.constants.Genders;
 
 import java.time.LocalDate;
 
@@ -12,7 +12,7 @@ public class SignUpRequest {
     private String name;
     private String surname;
     private LocalDate birthdate;
-    private Gender gender;
+    private Genders gender;
     private String email;
     private String login;
     private String password;

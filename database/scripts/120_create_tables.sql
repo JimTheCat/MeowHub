@@ -128,14 +128,14 @@ CREATE TABLE mh_users.Roles
 -- Table: User_tokens
 CREATE TABLE mh_users.User_tokens
 (
-    id            varchar2(36) DEFAULT sys_guid() NOT NULL,
-    user_id       varchar2(36) NOT NULL,
-    token         varchar2(40) NULL,
-    refresh_token varchar2(40) NULL,
-    created_at    date         NOT NULL,
-    created_by    varchar2(36) NOT NULL,
-    modified_at   date         NULL,
-    modified_by   varchar2(36) NULL,
+    id            varchar2(36)  DEFAULT sys_guid() NOT NULL,
+    user_id       varchar2(36)  NOT NULL,
+    token         varchar2(512) NULL,
+    refresh_token varchar2(512) NULL,
+    created_at    date          NOT NULL,
+    created_by    varchar2(36)  NOT NULL,
+    modified_at   date          NULL,
+    modified_by   varchar2(36)  NULL,
     CONSTRAINT User_tokens_pk PRIMARY KEY (id)
 );
 

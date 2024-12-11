@@ -1,9 +1,8 @@
 import {AppShell, Avatar, Box, Card, Group, Image, Stack, Text} from "@mantine/core";
-import MeowHubLogo from "../../../public/mh_logo.svg";
+import MeowHubLogo from "../../Assets/mh_logo.svg";
 import {MenuButton} from "../Buttons/Menu";
 import {
   IconHome,
-  IconLogout,
   IconMail,
   IconPencil,
   IconSettings,
@@ -13,17 +12,27 @@ import {
   IconUsersGroup,
   IconZoom
 } from "@tabler/icons-react";
+import {LogOut} from "../Buttons/LogOut/LogOut.tsx";
+import {useAuthStore} from "../../Services/authStore.ts";
+import {useNavigate} from "react-router-dom";
 
 export const Navbar = () => {
 
-  const nickname = "Placeholder name";
+  const auth = useAuthStore();
+  const nickname = auth.user?.login;
+  const navigate = useNavigate();
+
+  const handleProfileClick = () => {
+    navigate(`/profile/${auth.user?.tag}`);
+  }
 
   return (
     <>
 
       {/*Logo*/}
       <AppShell.Section>
-        <Card p={"xs"} mb={"lg"} withBorder radius={"md"}>
+        <Card p={"xs"} mb={"lg"} withBorder radius={"md"} style={{cursor: "pointer"}}
+              onClick={() => navigate("/mainpage")}>
           <Image
             src={MeowHubLogo}
             alt="MeowHub Logo"
@@ -35,7 +44,7 @@ export const Navbar = () => {
 
       {/*Profile*/}
       <AppShell.Section>
-        <Card p={"xs"} withBorder>
+        <Card p={"xs"} withBorder style={{cursor: "pointer"}} onClick={handleProfileClick}>
           <Group>
             <Avatar radius={180} size={"xl"}/>
             <Stack justify={"center"} gap={0}>
@@ -69,7 +78,7 @@ export const Navbar = () => {
             </Box>
             <Box>
               <MenuButton icon={<IconSettings/>} text={"Ustawienia"} href={"/settings"}/>
-              <MenuButton icon={<IconLogout/>} text={"Wyloguj się"}/>
+              <LogOut/>
             </Box>
           </Stack>
         </Card>

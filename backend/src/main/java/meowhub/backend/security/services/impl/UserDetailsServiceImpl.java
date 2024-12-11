@@ -2,7 +2,7 @@ package meowhub.backend.security.services.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.models.User;
+import meowhub.backend.jpa_buddy.User;
 import meowhub.backend.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

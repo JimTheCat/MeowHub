@@ -1,10 +1,11 @@
 package meowhub.backend.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import meowhub.backend.constants.Genders;
+import meowhub.backend.constants.Roles;
 import meowhub.backend.dtos.UserDto;
-import meowhub.backend.models.ApplicationRole;
-import meowhub.backend.models.Role;
-import meowhub.backend.models.User;
+import meowhub.backend.jpa_buddy.Role;
+import meowhub.backend.jpa_buddy.User;
 import meowhub.backend.repositories.RoleRepository;
 import meowhub.backend.repositories.UserRepository;
 import meowhub.backend.services.UserService;
@@ -32,10 +33,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changeUserRole(String userId, String roleName) {
+    public void changeUserRole(String userId, String roleCode) {
         User user = userRepository.findById(userId).orElseThrow();
-        ApplicationRole applicationRole = ApplicationRole.valueOf(roleName);
-        Role role = roleRepository.findByRoleName(applicationRole).orElseThrow();
+        Role role = roleRepository.findByCode(roleCode).orElseThrow();
 
         user.setRole(role);
         userRepository.save(user);
@@ -44,17 +44,19 @@ public class UserServiceImpl implements UserService {
     private UserDto mapToUserDto(User user) {
         if (user == null) throw new NullPointerException();
 
+        Genders gender = Genders.valueOf(user.getGender().getCode());
+        Roles role = Roles.valueOf(user.getRole().getCode());
+
         return UserDto.builder()
-                .userId(user.getUserId())
+                .userId(user.getId())
                 .login(user.getLogin())
                 .email(user.getEmail())
                 .name(user.getName())
                 .surname(user.getSurname())
                 .birthdate(user.getBirthdate())
-                .isAccountNonExpired(user.isAccountNonExpired())
-                .gender(user.getGender())
-                .createdAt(user.getCreatedDate())
-                .applicationRole(user.getRole().getRoleName())
+                .gender(gender)
+                .createdAt(user.getCreatedAt())
+                .role(role)
                 .build();
     }
 }

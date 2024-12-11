@@ -1,9 +1,14 @@
 package meowhub.backend.security.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.models.ApplicationRole;
-import meowhub.backend.models.Role;
-import meowhub.backend.models.User;
+import meowhub.backend.constants.PrivacySettings;
+import meowhub.backend.constants.Roles;
+import meowhub.backend.jpa_buddy.Gender;
+import meowhub.backend.jpa_buddy.PrivacySetting;
+import meowhub.backend.jpa_buddy.Role;
+import meowhub.backend.jpa_buddy.User;
+import meowhub.backend.repositories.GenderRepository;
+import meowhub.backend.repositories.PrivacySettingRepository;
 import meowhub.backend.repositories.RoleRepository;
 import meowhub.backend.repositories.UserRepository;
 import meowhub.backend.security.jwt.JwtUtils;
@@ -32,6 +37,8 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PrivacySettingRepository privacySettingRepository;
+    private final GenderRepository genderRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -57,8 +64,14 @@ public class AuthServiceImpl implements AuthService {
     public void signUpUser(SignUpRequest request) {
         validateSignUpRequest(request);
 
-        Role userRole = roleRepository.findByRoleName(ApplicationRole.ROLE_USER)
-                .orElseGet(() -> roleRepository.save(new Role(ApplicationRole.ROLE_USER)));
+        Role userRole = roleRepository.findByCode(Roles.ROLE_USER.name())
+                .orElseGet(() -> roleRepository.save(new Role(Roles.ROLE_USER)));
+
+        Gender gender = genderRepository.findByCode(request.getGender().name())
+                .orElseThrow(IllegalArgumentException::new);
+
+        PrivacySetting publicSettings = privacySettingRepository.findByCode(PrivacySettings.PUBLIC.name())
+                .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.PUBLIC)));
 
         User user = User.builder()
                 .email(request.getEmail())
@@ -66,7 +79,12 @@ public class AuthServiceImpl implements AuthService {
                 .surname(request.getSurname())
                 .login(request.getLogin())
                 .birthdate(request.getBirthdate())
-                .gender(request.getGender())
+                .gender(gender)
+                .profilePrivacy(publicSettings)
+                .postsPrivacy(publicSettings)
+                .friendsPrivacy(publicSettings)
+                .birthdate(request.getBirthdate())
+                .salt("salt")
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(userRole)
                 .build();

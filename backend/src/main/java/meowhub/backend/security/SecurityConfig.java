@@ -1,8 +1,14 @@
 package meowhub.backend.security;
 
-import meowhub.backend.models.ApplicationRole;
-import meowhub.backend.models.Role;
-import meowhub.backend.models.User;
+import meowhub.backend.constants.Genders;
+import meowhub.backend.constants.PrivacySettings;
+import meowhub.backend.constants.Roles;
+import meowhub.backend.jpa_buddy.Gender;
+import meowhub.backend.jpa_buddy.PrivacySetting;
+import meowhub.backend.jpa_buddy.Role;
+import meowhub.backend.jpa_buddy.User;
+import meowhub.backend.repositories.PrivacySettingRepository;
+import meowhub.backend.repositories.GenderRepository;
 import meowhub.backend.repositories.RoleRepository;
 import meowhub.backend.repositories.UserRepository;
 import meowhub.backend.security.jwt.AuthEntryPointJwt;
@@ -53,40 +59,56 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CommandLineRunner initData(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public CommandLineRunner initData(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, PrivacySettingRepository privacySettingRepository, GenderRepository genderRepository) {
         return args -> {
-            Role userRole = roleRepository.findByRoleName(ApplicationRole.ROLE_USER)
-                    .orElseGet(() -> roleRepository.save(new Role(ApplicationRole.ROLE_USER)));
-            Role adminRole = roleRepository.findByRoleName(ApplicationRole.ROLE_ADMIN)
-                    .orElseGet(() -> roleRepository.save(new Role(ApplicationRole.ROLE_ADMIN)));
+            Role userRole = roleRepository.findByCode(Roles.ROLE_USER.name())
+                    .orElseGet(() -> roleRepository.save(new Role(Roles.ROLE_USER)));
+            Role adminRole = roleRepository.findByCode(Roles.ROLE_ADMIN.name())
+                    .orElseGet(() -> roleRepository.save(new Role(Roles.ROLE_ADMIN)));
+
+            PrivacySetting publicSetting = privacySettingRepository.findByCode(PrivacySettings.PUBLIC.name())
+                    .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.PUBLIC)));
+
+            Gender female = genderRepository.findByCode(Genders.FEMALE.name())
+                    .orElseGet(() -> genderRepository.save(new Gender(Genders.FEMALE)));
 
             if (!userRepository.existsByLogin("user1")) {
-                User user1 = new User("user1", "user1@example.com", passwordEncoder.encode("password1"));
+                User user1 = new User();
+                user1.setLogin("user1");
+                user1.setPassword(passwordEncoder.encode("password1"));
+                user1.setEmail("user1@example.com");
                 user1.setName("Jan");
                 user1.setSurname("Kos");
+                user1.setSalt("salt");
                 user1.setAccountNonLocked(false);
-                user1.setAccountNonExpired(true);
+                user1.setBirthdate(LocalDate.of(1990, 1, 1));
                 user1.setCredentialsNonExpired(true);
-                user1.setEnabled(true);
                 user1.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
-                user1.setAccountExpiryDate(LocalDate.now().plusYears(1));
-                user1.setSignUpMethod("email");
                 user1.setRole(userRole);
+                user1.setPostsPrivacy(publicSetting);
+                user1.setFriendsPrivacy(publicSetting);
+                user1.setProfilePrivacy(publicSetting);
+                user1.setGender(female);
                 userRepository.save(user1);
             }
 
             if (!userRepository.existsByLogin("admin")) {
-                User admin = new User("admin", "admin@example.com", passwordEncoder.encode("adminPass"));
-                admin.setName("Olgierd");
-                admin.setSurname("Jarosz");
-                admin.setAccountNonLocked(true);
-                admin.setAccountNonExpired(true);
+                User admin = new User();
+                admin.setLogin("admin");
+                admin.setPassword(passwordEncoder.encode("adminPass"));
+                admin.setEmail("admin@example.com");
+                admin.setName("Gustaw");
+                admin.setSurname("Jeleń");
+                admin.setSalt("salt");
+                admin.setAccountNonLocked(false);
+                admin.setBirthdate(LocalDate.of(1980, 1, 1));
                 admin.setCredentialsNonExpired(true);
-                admin.setEnabled(true);
                 admin.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
-                admin.setAccountExpiryDate(LocalDate.now().plusYears(1));
-                admin.setSignUpMethod("email");
                 admin.setRole(adminRole);
+                admin.setPostsPrivacy(publicSetting);
+                admin.setFriendsPrivacy(publicSetting);
+                admin.setProfilePrivacy(publicSetting);
+                admin.setGender(female);
                 userRepository.save(admin);
             }
 

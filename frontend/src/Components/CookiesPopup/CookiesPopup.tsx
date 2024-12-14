@@ -26,15 +26,12 @@ export const CookiesPopup = () => {
     >
       <Text>
         Nasza strona korzysta z ciasteczek w celu zapewnienia najlepszej jakości usług. Kontynuując
-        przeglądanie, akceptujesz naszą politykę prywatności.
+        przeglądanie, akceptujesz naszą <a href="/privacy" target="_blank">politykę prywatności</a>.
       </Text>
 
       <Group justify="flex-end" mt="md">
         <Button onClick={handleAccept} color="blue">
           Akceptuję
-        </Button>
-        <Button onClick={() => setOpened(false)} variant="subtle">
-          Odrzuć
         </Button>
       </Group>
     </Modal>

@@ -23,7 +23,7 @@ export const MainPage = () => {
           <Post key={post.ownerLogin} userId={post.ownerLogin} contentHtml={post.content} createdAt={post.createdAt}
                 photosUrls={
                   // generate 100 random photos
-                  Array.from({length: 4}, () => {
+                  Array.from({length: 100}, () => {
                     return "https://picsum.photos/seed/" + Math.random() + "/800/2200";
                   })
                 }

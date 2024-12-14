@@ -136,7 +136,7 @@ export const Post = (props: PostProps) => {
   } as User;
 
   return (
-    <Card w={"30vw"} radius={"md"} p={"lg"}>
+    <Card w={"30vw"} radius={"md"} p={"lg"} my={'lg'}>
       <Stack>
         <Group justify="space-between">
           <Group onClick={() => navigate(`/profile/${auth.user?.tag}`)} style={{cursor: "pointer"}}>

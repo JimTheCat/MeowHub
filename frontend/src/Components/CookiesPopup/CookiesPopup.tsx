@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react';
-import {Button, Group, Modal, Text} from '@mantine/core';
+import {Button, Group, Modal, Text, UnstyledButton} from '@mantine/core';
 
 export const CookiesPopup = () => {
   const [opened, setOpened] = useState<boolean>(false);
 
   useEffect(() => {
     const hasAcceptedCookies = localStorage.getItem('cookiesAccepted');
-    if (!hasAcceptedCookies) {
+    if (!hasAcceptedCookies && !window.location.pathname.includes('/privacy')) {
       setOpened(true);
     }
   }, []);
@@ -22,11 +22,15 @@ export const CookiesPopup = () => {
       onClose={() => setOpened(false)}
       title="Używamy ciasteczek 🍪"
       centered
+      closeOnEscape={false}
+      closeOnClickOutside={false}
+      withCloseButton={false}
       size="md"
     >
       <Text>
         Nasza strona korzysta z ciasteczek w celu zapewnienia najlepszej jakości usług. Kontynuując
-        przeglądanie, akceptujesz naszą <a href="/privacy" target="_blank">politykę prywatności</a>.
+        przeglądanie, akceptujesz naszą <UnstyledButton c={'blue'} onClick={() => window.open("/privacy", '_blank')}>politykę
+        prywatności</UnstyledButton>.
       </Text>
 
       <Group justify="flex-end" mt="md">

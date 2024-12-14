@@ -28,6 +28,7 @@ export const Root = () => {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/passwordrecovery" element={<Recovery/>}/>
+        <Route path="/privacy" element={<div>Privacy</div>}/>
       </Route>
 
       {/*Protected routes*/}

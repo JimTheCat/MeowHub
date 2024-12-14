@@ -11,6 +11,7 @@ import {BrowserRouter} from "react-router-dom";
 import {I18nextProvider} from "react-i18next";
 import {i18nInitializer} from "./Services/Utils";
 import {ThemeProvider} from "./Providers/ThemeProvider.tsx";
+import {CookiesPopup} from "./Components/CookiesPopup";
 
 i18nInitializer();
 
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')!).render(
       <ThemeProvider>
         <BrowserRouter>
           <I18nextProvider i18n={i18next}>
+            <CookiesPopup/>
             <App/>
           </I18nextProvider>
         </BrowserRouter>

@@ -1,6 +1,6 @@
-package meowhub.backend.repositories;
+package meowhub.backend.users.repositories;
 
-import meowhub.backend.jpa_buddy.Gender;
+import meowhub.backend.users.models.Gender;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

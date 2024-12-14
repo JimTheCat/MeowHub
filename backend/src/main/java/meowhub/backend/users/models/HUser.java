@@ -1,4 +1,4 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.users.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 
@@ -23,7 +22,6 @@ import java.time.LocalDate;
 public class HUser {
     @Id
     @Size(max = 36)
-    @ColumnDefault("sys_guid()")
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
 

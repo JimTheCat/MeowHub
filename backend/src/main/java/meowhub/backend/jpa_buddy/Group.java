@@ -15,7 +15,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -32,7 +31,6 @@ import java.util.Set;
 public class Group {
     @Id
     @Size(max = 36)
-    @ColumnDefault("sys_guid()")
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;

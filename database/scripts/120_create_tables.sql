@@ -37,8 +37,8 @@ CREATE TABLE mh_posts.Comments
     id                  varchar2(36)   DEFAULT sys_guid() NOT NULL,
     post_id             varchar2(36)   NOT NULL,
     user_id             varchar2(36)   NOT NULL,
-    value               varchar2(2000) NULL,
-    "index"             number         NULL,
+    content             varchar2(2000) NULL,
+    comment_index       number         NULL,
     answered_comment_id varchar2(36)   NULL,
     created_at          date           NOT NULL,
     created_by          varchar2(36)   NOT NULL,
@@ -63,13 +63,13 @@ CREATE TABLE mh_posts.Post_Pictures
 -- Table: Posts
 CREATE TABLE mh_posts.Posts
 (
-    id          varchar2(36) DEFAULT sys_guid() NOT NULL,
-    user_id     varchar2(36) NOT NULL,
+    id           varchar2(36) DEFAULT sys_guid() NOT NULL,
+    user_id      varchar2(36) NOT NULL,
     content_Html clob         NOT NULL,
-    created_at  date         NOT NULL,
-    created_by  varchar2(36) NOT NULL,
-    modified_at date         NULL,
-    modified_by varchar2(36) NULL,
+    created_at   date         NOT NULL,
+    created_by   varchar2(36) NOT NULL,
+    modified_at  date         NULL,
+    modified_by  varchar2(36) NULL,
     CONSTRAINT Posts_pk PRIMARY KEY (id)
 );
 
@@ -280,7 +280,7 @@ CREATE TABLE mh_matching.Matching_Profile_Pictures
     id                  varchar2(36) DEFAULT sys_guid() NOT NULL,
     matching_profile_id varchar2(36) NOT NULL,
     picture_id          varchar2(36) NOT NULL,
-    "index"             number       NOT NULL,
+    picture_index       number       NOT NULL,
     post_date           date         NOT NULL,
     created_at          date         NOT NULL,
     created_by          varchar2(36) NOT NULL,
@@ -319,14 +319,14 @@ CREATE TABLE mh_profiles.Profile_Data
 -- Table: Profile_Pictures
 CREATE TABLE mh_profiles.Profile_Pictures
 (
-    id          varchar2(36) DEFAULT sys_guid() NOT NULL,
-    profile_id  varchar2(36) NOT NULL,
-    picture_id  varchar2(36) NOT NULL,
-    "index"     number       NOT NULL,
-    created_at  date         NOT NULL,
-    created_by  varchar2(36) NOT NULL,
-    modified_at date         NULL,
-    modified_by varchar2(36) NULL,
+    id            varchar2(36) DEFAULT sys_guid() NOT NULL,
+    profile_id    varchar2(36) NOT NULL,
+    picture_id    varchar2(36) NOT NULL,
+    picture_index number       NOT NULL,
+    created_at    date         NOT NULL,
+    created_by    varchar2(36) NOT NULL,
+    modified_at   date         NULL,
+    modified_by   varchar2(36) NULL,
     CONSTRAINT Profile_Pictures_pk PRIMARY KEY (id)
 );
 
@@ -336,7 +336,7 @@ CREATE TABLE mh_profiles.Profile_User_Data
     id              varchar2(36)  DEFAULT sys_guid() NOT NULL,
     profile_id      varchar2(36)  NOT NULL,
     profile_data_Id varchar2(36)  NOT NULL,
-    value           varchar2(200) NOT NULL,
+    content         varchar2(200) NOT NULL,
     created_at      date          NOT NULL,
     created_by      varchar2(36)  NOT NULL,
     modified_at     date          NULL,
@@ -366,7 +366,7 @@ CREATE TABLE mh_user_relations.User_Relations
     sender_id        varchar2(36) NOT NULL,
     receiver_id      varchar2(36) NOT NULL,
     send_date        date         NOT NULL,
-    answer_date      date         NOT NULL,
+    answer_date      date         NULL,
     created_at       date         NOT NULL,
     created_by       varchar2(36) NOT NULL,
     modified_at      date         NULL,

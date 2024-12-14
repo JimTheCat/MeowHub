@@ -1,49 +1,39 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.users.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import meowhub.backend.constants.Genders;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "USER_TOKENS", schema = "mh_users")
-public class UserToken {
+@NoArgsConstructor
+@Table(name = "GENDERS", schema = "mh_users")
+public class Gender {
     @Id
     @Size(max = 36)
-    @ColumnDefault("sys_guid()")
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
 
+    @Size(max = 20)
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private User user;
-
-    @Size(max = 512)
-    @Column(name = "TOKEN", length = 512)
-    private String token;
-
-    @Size(max = 512)
-    @Column(name = "REFRESH_TOKEN", length = 512)
-    private String refreshToken;
+    @Column(name = "CODE", nullable = false, length = 20)
+    private String code;
 
     @Column(name = "CREATED_AT")
     private LocalDate createdAt;
@@ -59,4 +49,10 @@ public class UserToken {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
+    @OneToMany(mappedBy = "gender")
+    private Set<User> users = new LinkedHashSet<>();
+
+    public Gender(Genders genders) {
+        this.code = genders.name();
+    }
 }

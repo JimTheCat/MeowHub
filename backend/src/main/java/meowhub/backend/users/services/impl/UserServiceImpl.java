@@ -1,14 +1,14 @@
-package meowhub.backend.services.impl;
+package meowhub.backend.users.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import meowhub.backend.constants.Genders;
 import meowhub.backend.constants.Roles;
 import meowhub.backend.dtos.UserDto;
-import meowhub.backend.jpa_buddy.Role;
-import meowhub.backend.jpa_buddy.User;
-import meowhub.backend.repositories.RoleRepository;
-import meowhub.backend.repositories.UserRepository;
-import meowhub.backend.services.UserService;
+import meowhub.backend.users.models.Role;
+import meowhub.backend.users.models.User;
+import meowhub.backend.users.repositories.RoleRepository;
+import meowhub.backend.users.repositories.UserRepository;
+import meowhub.backend.users.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

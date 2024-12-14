@@ -1,48 +1,47 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.users.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import meowhub.backend.constants.Roles;
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
-@Table(name = "ROLES", schema = "mh_users", uniqueConstraints = {
-        @UniqueConstraint(name = "ROLES_ROLE_NAME_UQ", columnNames = {"CODE"})
-})
-public class Role {
+@Table(name = "USER_TOKENS", schema = "mh_users")
+public class UserToken {
     @Id
     @Size(max = 36)
-    @ColumnDefault("sys_guid()")
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
 
-    @Size(max = 10)
     @NotNull
-    @Column(name = "CODE", nullable = false, length = 10)
-    private String code;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "USER_ID", nullable = false)
+    private User user;
 
-    @Size(max = 50)
-    @Column(name = "DESCRIPTION", length = 50)
-    private String description;
+    @Size(max = 512)
+    @Column(name = "TOKEN", length = 512)
+    private String token;
+
+    @Size(max = 512)
+    @Column(name = "REFRESH_TOKEN", length = 512)
+    private String refreshToken;
 
     @Column(name = "CREATED_AT")
     private LocalDate createdAt;
@@ -58,10 +57,4 @@ public class Role {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> users = new LinkedHashSet<>();
-
-    public Role (Roles roles) {
-        this.setCode(roles.name());
-    }
 }

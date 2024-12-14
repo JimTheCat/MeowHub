@@ -28,6 +28,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Configuration
 @EnableWebSecurity
@@ -83,7 +84,7 @@ public class SecurityConfig {
                 user1.setAccountNonLocked(false);
                 user1.setBirthdate(LocalDate.of(1990, 1, 1));
                 user1.setCredentialsNonExpired(true);
-                user1.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
+                user1.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
                 user1.setRole(userRole);
                 user1.setPostsPrivacy(publicSetting);
                 user1.setFriendsPrivacy(publicSetting);
@@ -103,7 +104,7 @@ public class SecurityConfig {
                 admin.setAccountNonLocked(false);
                 admin.setBirthdate(LocalDate.of(1980, 1, 1));
                 admin.setCredentialsNonExpired(true);
-                admin.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
+                admin.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
                 admin.setRole(adminRole);
                 admin.setPostsPrivacy(publicSetting);
                 admin.setFriendsPrivacy(publicSetting);

@@ -1,4 +1,4 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.users.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import meowhub.backend.users.models.User;
+import meowhub.backend.jpa_buddy.Group;
+import meowhub.backend.jpa_buddy.MatchingProfilePicture;
+import meowhub.backend.posts.models.PostPicture;
+import meowhub.backend.jpa_buddy.ProfilePicture;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -25,8 +28,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "COMMENTS", schema = "mh_posts")
-public class Comment {
+@Table(name = "PICTURES", schema = "mh_users")
+public class Picture {
     @Id
     @Size(max = 36)
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -36,26 +39,12 @@ public class Comment {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "POST_ID", nullable = false)
-    private Post post;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @Size(max = 2000)
-    @Column(name = "CONTENT", length = 2000)
-    private String content;
-
-    @Column(name = "COMMENT_INDEX")
-    private Long index;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "ANSWERED_COMMENT_ID")
-    private Comment answeredComment;
+    @NotNull
+    @Column(name = "PICTURE", nullable = false)
+    private byte[] picture;
 
     @Column(name = "CREATED_AT")
     private LocalDate createdAt;
@@ -71,7 +60,16 @@ public class Comment {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    @OneToMany(mappedBy = "answeredComment")
-    private Set<Comment> comments = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "picture")
+    private Set<Group> groups = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "picture")
+    private Set<MatchingProfilePicture> matchingProfilePictures = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "picture")
+    private Set<PostPicture> postPictures = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "picture")
+    private Set<ProfilePicture> profilePictures = new LinkedHashSet<>();
 
 }

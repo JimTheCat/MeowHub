@@ -20,15 +20,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import meowhub.backend.jpa_buddy.Chatroom;
 import meowhub.backend.jpa_buddy.ChatroomMessage;
-import meowhub.backend.jpa_buddy.Comment;
+import meowhub.backend.posts.models.Comment;
 import meowhub.backend.jpa_buddy.GroupchatMessage;
 import meowhub.backend.jpa_buddy.MatchingProfile;
-import meowhub.backend.jpa_buddy.Picture;
-import meowhub.backend.jpa_buddy.Post;
+import meowhub.backend.posts.models.Post;
 import meowhub.backend.jpa_buddy.Profile;
 import meowhub.backend.jpa_buddy.UserGroup;
 import meowhub.backend.jpa_buddy.UserRelation;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

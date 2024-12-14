@@ -1,4 +1,4 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.posts.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -25,8 +26,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "PICTURES", schema = "mh_users")
-public class Picture {
+@Table(name = "POSTS", schema = "mh_posts")
+public class Post {
     @Id
     @Size(max = 36)
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -40,8 +41,9 @@ public class Picture {
     private User user;
 
     @NotNull
-    @Column(name = "PICTURE", nullable = false)
-    private byte[] picture;
+    @Lob
+    @Column(name = "CONTENT_HTML", nullable = false)
+    private String contentHtml;
 
     @Column(name = "CREATED_AT")
     private LocalDate createdAt;
@@ -57,16 +59,10 @@ public class Picture {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    @OneToMany(mappedBy = "picture")
-    private Set<Group> groups = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "post")
+    private Set<Comment> comments = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "picture")
-    private Set<MatchingProfilePicture> matchingProfilePictures = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "picture")
+    @OneToMany(mappedBy = "post")
     private Set<PostPicture> postPictures = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "picture")
-    private Set<ProfilePicture> profilePictures = new LinkedHashSet<>();
 
 }

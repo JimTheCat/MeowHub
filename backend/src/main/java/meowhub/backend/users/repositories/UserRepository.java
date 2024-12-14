@@ -1,6 +1,6 @@
-package meowhub.backend.repositories;
+package meowhub.backend.users.repositories;
 
-import meowhub.backend.jpa_buddy.User;
+import meowhub.backend.users.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package meowhub.backend.services;
+package meowhub.backend.users.services;
 
 import meowhub.backend.dtos.UserDto;
 

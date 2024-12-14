@@ -1,4 +1,4 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.users.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,8 +12,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import meowhub.backend.constants.Genders;
-import org.hibernate.annotations.ColumnDefault;
+import meowhub.backend.constants.PrivacySettings;
 
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -23,18 +22,17 @@ import java.util.Set;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "GENDERS", schema = "mh_users")
-public class Gender {
+@Table(name = "PRIVACY_SETTINGS", schema = "mh_users")
+public class PrivacySetting {
     @Id
     @Size(max = 36)
-    @ColumnDefault("sys_guid()")
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
 
-    @Size(max = 20)
+    @Size(max = 36)
     @NotNull
-    @Column(name = "CODE", nullable = false, length = 20)
+    @Column(name = "CODE", nullable = false, length = 36)
     private String code;
 
     @Column(name = "CREATED_AT")
@@ -51,10 +49,16 @@ public class Gender {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    @OneToMany(mappedBy = "gender")
-    private Set<User> users = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "profilePrivacy")
+    private Set<User> usersProfilePrivacy = new LinkedHashSet<>();
 
-    public Gender(Genders genders) {
-        this.code = genders.name();
+    @OneToMany(mappedBy = "postsPrivacy")
+    private Set<User> usersPostsPrivacy = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "friendsPrivacy")
+    private Set<User> usersFriendsPrivacy = new LinkedHashSet<>();
+
+    public PrivacySetting(PrivacySettings privacySetting) {
+        this.code = privacySetting.name();
     }
 }

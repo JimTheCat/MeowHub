@@ -1,12 +1,27 @@
 import {useTranslation} from "react-i18next";
 
-export const Gender: () => string[] = () => {
+export type GenderType = {
+  label: string;
+  value: string;
+}
+
+export const Gender: () => GenderType[] = () => {
 
   const {t} = useTranslation('gender');
   return (
     [
-      t("male"),
-      t("female"),
-      t("other")
-    ] as string[]);
+      {
+        label: t("male"),
+        value: "MALE"
+      },
+      {
+        label: t("female"),
+        value: "FEMALE"
+      },
+      {
+        label: t("other"),
+        value: "OTHER"
+      }
+    ]
+  );
 }

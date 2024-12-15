@@ -30,9 +30,10 @@
 				"uppercase": "Includes uppercase letter"
 			}
 		},
-		"repeatemail": {
-			"label": "Repeat email",
-			"placeholder": "Repeat your email"
+		"uniqueLogin": {
+			"invalid": "Tag can not contain white chars",
+			"label": "Tag",
+			"placeholder": "Unique tag"
 		},
 		"repeatpassword": {
 			"label": "Repeat password",

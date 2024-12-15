@@ -11,11 +11,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "@mantine/core": "^7.14.1",
-    "@mantine/dates": "^7.14.1",
-    "@mantine/form": "^7.14.1",
-    "@mantine/hooks": "^7.14.1",
-    "@mantine/tiptap": "^7.14.1",
+    "@mantine/core": "^7.15.1",
+    "@mantine/dates": "^7.15.1",
+    "@mantine/form": "^7.15.1",
+    "@mantine/hooks": "^7.15.1",
+    "@mantine/notifications": "^7.15.1",
+    "@mantine/tiptap": "^7.15.1",
     "@tabler/icons-react": "^3.23.0",
     "@tiptap/extension-highlight": "^2.10.0",
     "@tiptap/extension-link": "^2.10.0",

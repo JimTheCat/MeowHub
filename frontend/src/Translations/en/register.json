@@ -31,7 +31,7 @@
 			}
 		},
 		"uniqueLogin": {
-			"invalid": "Tag can not contain white chars",
+			"invalid": "Tag cannot contain white chars",
 			"label": "Tag",
 			"placeholder": "Unique tag"
 		},

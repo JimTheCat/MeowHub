@@ -1,7 +1,7 @@
 {
 	"card": {
 		"email": {
-			"invalid": "Niepoprawny tag bądź email",
+			"invalid": "Niepoprawny tag lub email",
 			"label": "Tag / Email",
 			"placeholder": "Wprowadź swój tag lub email"
 		},

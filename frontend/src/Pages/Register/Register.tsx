@@ -66,7 +66,7 @@ export const Register = () => {
     initialValues: {
       name: '',
       surname: '',
-      age: null,
+      birthDate: null,
       gender: Gender().at(0)!.value,
       login: '',
       email: '',
@@ -80,7 +80,7 @@ export const Register = () => {
       surname: (value) => (/^\S+$/.test(value) ? null : t('card.surname.invalid')),
       email: (value) => (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
         .test(value) ? null : t('card.email.invalid')),
-      age: (value) => (calculateAge(value) >= 18 ? null : t('card.age.invalid')),
+      birthDate: (value) => (calculateAge(value) >= 18 ? null : t('card.age.invalid')),
       login: (value) => (/^\S+$/.test(value) ? null : t('card.uniqueLogin.invalid')),
       password: () => (strength === 100 ? null : t('card.password.invalid')),
       repeatPassword: (value) => (value === passwordValue ? null : t('card.password.notmatch')),
@@ -117,7 +117,7 @@ export const Register = () => {
   type FormValues = {
     name: string;
     surname: string;
-    age: Date;
+    birthDate: Date;
     gender: string
     login: string,
     email: string,
@@ -130,7 +130,7 @@ export const Register = () => {
     const dto = {
       name: values.name,
       surname: values.surname,
-      birthdate: values.age.toISOString().split('T')[0], // Format: "YYYY-MM-DD"
+      birthdate: values.birthDate.toISOString().split('T')[0], // Format: "YYYY-MM-DD"
       gender: values.gender,
       email: values.email,
       login: values.login,
@@ -177,10 +177,10 @@ export const Register = () => {
                 onChange={
                   (value) => {
                     setDate(value);
-                    form.setFieldValue('age', value);
+                    form.setFieldValue('birthDate', value);
                   }
                 }
-                {...form.getInputProps('age')}
+                {...form.getInputProps('birthDate')}
                 label={t('card.age.label')}
                 valueFormat={"DD MMMM YYYY"}
                 placeholder={t('card.age.placeholder')}

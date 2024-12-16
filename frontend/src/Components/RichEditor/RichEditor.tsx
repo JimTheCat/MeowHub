@@ -8,7 +8,7 @@ import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
 import Placeholder from "@tiptap/extension-placeholder";
 
-export const RichEditor = () => {
+export const RichEditor = ({onContentChange}: { onContentChange?: (html: string) => void }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -20,10 +20,13 @@ export const RichEditor = () => {
       TextAlign.configure({types: ['heading', 'paragraph']}),
       Placeholder.configure({placeholder: 'What\'s on your mind?'}),
     ],
+    onUpdate({editor}) {
+      onContentChange && onContentChange(editor.getHTML());
+    },
   });
 
   return (
-    <RichTextEditor editor={editor}>
+    <RichTextEditor editor={editor} variant={"subtle"}>
       <RichTextEditor.Toolbar>
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.Bold/>

@@ -4,7 +4,6 @@ import {MenuButton} from "../Buttons/Menu";
 import {
   IconHome,
   IconMail,
-  IconPencil,
   IconSettings,
   IconUserHeart,
   IconUserPlus,
@@ -15,16 +14,28 @@ import {
 import {LogOut} from "../Buttons/LogOut/LogOut.tsx";
 import {useAuthStore} from "../../Services/authStore.ts";
 import {useNavigate} from "react-router-dom";
+import {CreatePost} from "../../Pages/CreatePost";
+import {BasicUserInfo} from "../../Services/DTOs/User.tsx";
+import {useEffect, useState} from "react";
+import api from "../../Services/api.ts";
 
 export const Navbar = () => {
 
   const auth = useAuthStore();
-  const nickname = auth.user?.login;
   const navigate = useNavigate();
+  const [basicUserInfo, setBasicUserInfo] = useState<BasicUserInfo | null>(null);
 
   const handleProfileClick = () => {
     navigate(`/profile/${auth.user?.tag}`);
   }
+
+  useEffect(() => {
+    if (auth.user) {
+      api.get<BasicUserInfo>('/api/users/get-basic-user-info', {params: {login: auth.user.login}}).then((response) => {
+        setBasicUserInfo(response.data);
+      });
+    }
+  }, [auth.user]);
 
   return (
     <>
@@ -49,7 +60,7 @@ export const Navbar = () => {
             <Avatar radius={180} size={"xl"}/>
             <Stack justify={"center"} gap={0}>
               <Text>Witaj</Text>
-              <Text>{nickname}!</Text>
+              <Text>{basicUserInfo?.name} {basicUserInfo?.surname}</Text>
             </Stack>
           </Group>
         </Card>
@@ -61,7 +72,7 @@ export const Navbar = () => {
         <AppShell.Section grow component={ScrollArea}>
           <MenuButton icon={<IconHome/>} text={"Strona główna"} href={"/mainpage"}/>
           <MenuButton icon={<IconZoom/>} text={"Wyszukaj"} href={"/search"}/>
-          <MenuButton icon={<IconPencil/>} text={"Napisz post"} href={"/createpost"}/>
+          <CreatePost/>
           <MenuButton icon={<IconUsers/>} text={"Znajomi"} href={"/friends"}/>
           <MenuButton icon={<IconUsersGroup/>} text={"Grupy"} href={"/groups"}/>
           <MenuButton icon={<IconUserPlus/>} text={"Obserwowani"} href={"/following"}/>

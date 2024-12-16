@@ -20,7 +20,7 @@ import {useNavigate} from "react-router-dom";
 import {ImageWithSkeleton} from "../../ImageWithSkeleton/ImageWithSkeleton.tsx";
 
 type PostProps = {
-  userId: string;
+  ownerLogin: string;
   contentHtml: string;
   photosUrls?: string[];
   createdAt: string;
@@ -29,7 +29,7 @@ type PostProps = {
 export const Post = (props: PostProps) => {
 
   const auth = useAuthStore();
-  const isOwner = auth.user?.login === props.userId;
+  const isOwner = auth.user?.login === props.ownerLogin;
   const navigate = useNavigate();
 
   /*Render this element each time when number of photos will change*/

@@ -15,7 +15,7 @@ export const MenuButton = (props: MenuButtonProps) => {
   const navigate = useNavigate();
 
   // check if the current location is a part of the href
-  const isActive = location.pathname.includes(props.href || "") && props.href !== undefined;
+  const isActive = location.pathname.includes(props.href ?? "") && props.href !== undefined;
 
   return (
     <Button

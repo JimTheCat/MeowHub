@@ -20,7 +20,7 @@ export const MainPage = () => {
 
         {/*Posts*/}
         {posts.map((post) => (
-          <Post key={post.ownerLogin} userId={post.ownerLogin} contentHtml={post.content} createdAt={post.createdAt}
+          <Post key={post.ownerLogin} ownerLogin={post.ownerLogin} contentHtml={post.content} createdAt={post.createdAt}
                 photosUrls={
                   // generate 100 random photos
                   Array.from({length: 100}, () => {

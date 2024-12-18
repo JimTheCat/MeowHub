@@ -6,3 +6,11 @@ export type User = {
   birthDate?: string;
   gender?: string;
 }
+
+export type BasicUserInfo = {
+  "id": string,
+  "name": string,
+  "surname": string,
+  "login": string,
+  "profilePicture": string | null
+}

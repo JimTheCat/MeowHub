@@ -1,5 +1,5 @@
 import {Group, Text, useMantineColorScheme} from "@mantine/core";
-import {Languages} from "../../../../Services/Constants";
+import {Languages} from "../../../shared/consts/Languages.tsx";
 import {useTranslation} from "react-i18next";
 
 export const Footer = () => {

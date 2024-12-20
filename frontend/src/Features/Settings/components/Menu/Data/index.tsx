@@ -1,1 +1,1 @@
-export * from './Data.tsx';
+export * from './Data';

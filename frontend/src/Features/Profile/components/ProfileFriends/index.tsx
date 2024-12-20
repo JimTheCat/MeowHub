@@ -1,1 +1,1 @@
-export * from './ProfileFriends.tsx'
+export * from './ProfileFriends'

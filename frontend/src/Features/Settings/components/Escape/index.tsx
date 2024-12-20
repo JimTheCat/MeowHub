@@ -1,1 +1,1 @@
-export * from './Escape.tsx';
+export * from './Escape';

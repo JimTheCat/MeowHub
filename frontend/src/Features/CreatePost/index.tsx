@@ -1,1 +1,1 @@
-export * from './CreatePost.tsx';
+export * from './CreatePost';

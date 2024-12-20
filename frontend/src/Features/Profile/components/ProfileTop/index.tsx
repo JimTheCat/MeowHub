@@ -1,1 +1,1 @@
-export * from "./CardProfileTop.tsx"
+export * from "./CardProfileTop"

@@ -1,1 +1,1 @@
-export * from './ParticleBg.tsx';
+export * from './ParticleBg';

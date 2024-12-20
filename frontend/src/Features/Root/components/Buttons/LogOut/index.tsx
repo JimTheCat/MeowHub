@@ -1,1 +1,1 @@
-export * from './LogOut.tsx';
+export * from './LogOut';

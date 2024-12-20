@@ -1,1 +1,1 @@
-export * from './MessageOptions.tsx';
+export * from './MessageOptions';

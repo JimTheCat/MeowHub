@@ -1,1 +1,1 @@
-export * from './PublicRoute.tsx';
+export * from './PublicRoute';

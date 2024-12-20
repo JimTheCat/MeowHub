@@ -1,1 +1,1 @@
-export * from './CookiesPopup.tsx';
+export * from './CookiesPopup';

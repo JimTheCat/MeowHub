@@ -1,1 +1,1 @@
-export * from './UnselectedChat.tsx';
+export * from './UnselectedChat';

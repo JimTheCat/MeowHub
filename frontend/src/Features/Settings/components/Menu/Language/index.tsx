@@ -1,1 +1,1 @@
-export * from './Language.tsx';
+export * from './Language';

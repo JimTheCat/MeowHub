@@ -1,1 +1,1 @@
-export * from './InnerHtmlHandler.tsx';
+export * from './InnerHtmlHandler';

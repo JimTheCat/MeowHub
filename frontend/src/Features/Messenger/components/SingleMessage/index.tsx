@@ -1,1 +1,1 @@
-export * from './SingleMessage.tsx';
+export * from './SingleMessage';

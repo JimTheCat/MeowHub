@@ -1,1 +1,1 @@
-export * from "./ContainerVhVw.tsx"
+export * from "./ContainerVhVw"

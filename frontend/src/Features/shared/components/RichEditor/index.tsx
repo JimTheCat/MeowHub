@@ -1,1 +1,1 @@
-export * from './RichEditor.tsx';
+export * from './RichEditor';

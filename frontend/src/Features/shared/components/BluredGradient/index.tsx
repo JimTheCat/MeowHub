@@ -1,1 +1,1 @@
-export * from './BluredGradient.tsx';
+export * from './BluredGradient';

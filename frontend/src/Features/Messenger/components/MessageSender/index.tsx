@@ -1,1 +1,1 @@
-export * from './MessageSender.tsx';
+export * from './MessageSender';

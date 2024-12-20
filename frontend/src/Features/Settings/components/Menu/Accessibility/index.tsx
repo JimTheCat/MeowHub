@@ -1,1 +1,1 @@
-export * from './Accessibility.tsx';
+export * from './Accessibility';

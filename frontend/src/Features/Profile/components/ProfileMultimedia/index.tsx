@@ -1,1 +1,1 @@
-export * from './ProfileMultimedia.tsx'
+export * from './ProfileMultimedia'

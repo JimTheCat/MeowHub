@@ -1,1 +1,1 @@
-export * from './CenterContainer.tsx';
+export * from './CenterContainer';

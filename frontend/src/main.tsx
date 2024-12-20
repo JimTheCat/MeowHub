@@ -10,9 +10,9 @@ import i18next from "i18next";
 import {createTheme, MantineProvider} from "@mantine/core";
 import {BrowserRouter} from "react-router-dom";
 import {I18nextProvider} from "react-i18next";
-import {i18nInitializer} from "./Services/Utils";
+import {i18nInitializer} from "./Utils";
 import {ThemeProvider} from "./Providers/ThemeProvider.tsx";
-import {CookiesPopup} from "./Components/CookiesPopup";
+import {CookiesPopup} from "./Features/shared/components/CookiesPopup";
 import {AlertProvider} from "./Providers/AlertProvider.tsx";
 
 i18nInitializer();

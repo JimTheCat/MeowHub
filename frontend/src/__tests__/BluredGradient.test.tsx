@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
-import {BluredGradient} from "../Components/BluredGradient";
-import {render} from "../test-utils/render";
+import {BluredGradient} from "../Features/shared/components/BluredGradient";
+import {render} from "./test-utils/render";
 
 describe('BluredGradient Component', () => {
   it('renders with default props', () => {

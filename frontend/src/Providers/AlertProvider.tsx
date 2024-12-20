@@ -1,7 +1,7 @@
 // src/providers/AlertProvider.tsx
 import React, {createContext, ReactNode, useContext, useMemo} from 'react';
 import {Notifications, showNotification} from '@mantine/notifications';
-import {setApiErrorHandler} from "../Services/api.ts";
+import {setApiErrorHandler} from "../Features/shared/services/api.ts";
 
 // Context type
 interface AlertContextType {

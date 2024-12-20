@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import {BluredGradient} from "../Components/BluredGradient";
+import {BluredGradient} from "../Features/shared/components/BluredGradient";
 import {render} from "../test-utils/render";
 
 describe('BluredGradient Component', () => {

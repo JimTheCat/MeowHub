@@ -14,6 +14,7 @@ import {i18nInitializer} from "./Utils";
 import {ThemeProvider} from "./Providers/ThemeProvider.tsx";
 import {CookiesPopup} from "./Features/shared/components/CookiesPopup";
 import {AlertProvider} from "./Providers/AlertProvider.tsx";
+import {ModalsProvider} from "@mantine/modals";
 
 i18nInitializer();
 
@@ -27,16 +28,18 @@ const theme = createTheme({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <MantineProvider theme={theme} defaultColorScheme={'dark'}>
-      <AlertProvider>
-        <ThemeProvider>
-          <BrowserRouter>
-            <I18nextProvider i18n={i18next}>
-              <CookiesPopup/>
-              <App/>
-            </I18nextProvider>
-          </BrowserRouter>
-        </ThemeProvider>
-      </AlertProvider>
+      <ModalsProvider>
+        <AlertProvider>
+          <ThemeProvider>
+            <BrowserRouter>
+              <I18nextProvider i18n={i18next}>
+                <CookiesPopup/>
+                <App/>
+              </I18nextProvider>
+            </BrowserRouter>
+          </ThemeProvider>
+        </AlertProvider>
+      </ModalsProvider>
     </MantineProvider>
   </StrictMode>,
 )

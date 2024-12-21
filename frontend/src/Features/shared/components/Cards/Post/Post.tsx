@@ -1,23 +1,12 @@
-import {
-  ActionIcon,
-  Avatar,
-  BackgroundImage,
-  Box,
-  Button,
-  Card,
-  Divider,
-  Group,
-  SimpleGrid,
-  Stack,
-  Text
-} from "@mantine/core";
+import {Avatar, BackgroundImage, Box, Button, Card, Divider, Group, SimpleGrid, Stack, Text} from "@mantine/core";
 import {User} from "../../../types/User.tsx";
 import {InnerHtmlHandler} from "../../InnerHtmlHandler";
 import {DateFormatter} from "../../../utils/DateFormatter.tsx";
-import {IconDots, IconMessage, IconPaw, IconShare3} from "@tabler/icons-react";
+import {IconMessage, IconPaw, IconShare3} from "@tabler/icons-react";
 import {useAuthStore} from "../../../services/authStore.ts";
 import {useNavigate} from "react-router-dom";
 import {ImageWithSkeleton} from "../../ImageWithSkeleton";
+import {MenuPost} from "./components/MenuPost";
 
 type PostProps = {
   ownerLogin: string;
@@ -147,10 +136,7 @@ export const Post = (props: PostProps) => {
             </Stack>
           </Group>
           {isOwner &&
-              <ActionIcon size="lg" color="gray" radius={"xl"} variant={"subtle"} onClick={() => {
-              }}>
-                  <IconDots stroke={1.5}/>
-              </ActionIcon>
+              <MenuPost content={props.contentHtml}/>
           }
         </Group>
 

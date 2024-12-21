@@ -4,6 +4,7 @@ import {EditPost} from "../EditPost";
 import {RemovePost} from "../RemovePost";
 
 type MenuPostProps = {
+  postId?: string;
   content?: string;
 }
 
@@ -17,8 +18,8 @@ export const MenuPost = (props: MenuPostProps) => {
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Label>Manage</Menu.Label>
-        <EditPost content={props.content}/>
-        <RemovePost/>
+        <EditPost postId={props.postId} content={props.content}/>
+        <RemovePost postId={props.postId}/>
       </Menu.Dropdown>
     </Menu>
   );

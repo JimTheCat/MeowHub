@@ -3,6 +3,7 @@ import {IconPencil} from "@tabler/icons-react";
 import {Menu, rem} from "@mantine/core";
 import {useRef, useState} from "react";
 import {ModalRichContent} from "../../../../../consts";
+import api from "../../../../../services/api.ts";
 
 type EditPostProps = {
   content?: string;
@@ -20,8 +21,7 @@ export const EditPost = (props: EditPostProps) => {
   }
 
   const handleEditPost = () => {
-    // TODO: Replace with actual edit logic
-    console.log('Edit post: ', contentRef.current);
+    api.put(`/api/posts/${props.postId}`, null, {params: {content: contentRef.current}});
   };
 
   return (

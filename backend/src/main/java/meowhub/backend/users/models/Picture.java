@@ -21,7 +21,7 @@ import meowhub.backend.jpa_buddy.ProfilePicture;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -47,14 +47,14 @@ public class Picture {
     private byte[] picture;
 
     @Column(name = "CREATED_AT")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Size(max = 36)
     @Column(name = "CREATED_BY", length = 36)
     private String createdBy;
 
     @Column(name = "MODIFIED_AT")
-    private LocalDate modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @Size(max = 36)
     @Column(name = "MODIFIED_BY", length = 36)

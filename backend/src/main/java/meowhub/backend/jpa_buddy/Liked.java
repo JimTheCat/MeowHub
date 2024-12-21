@@ -16,7 +16,7 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -47,19 +47,15 @@ public class Liked {
     @JoinColumn(name = "LIKE_TYPE_ID", nullable = false)
     private LikeType likeType;
 
-    @NotNull
-    @Column(name = "LIKED_DATE", nullable = false)
-    private LocalDate likedDate;
-
     @Column(name = "CREATED_AT")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Size(max = 36)
     @Column(name = "CREATED_BY", length = 36)
     private String createdBy;
 
     @Column(name = "MODIFIED_AT")
-    private LocalDate modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @Size(max = 36)
     @Column(name = "MODIFIED_BY", length = 36)

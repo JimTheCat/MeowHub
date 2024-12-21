@@ -13,11 +13,11 @@ INSERT INTO mh_users.genders (code) VALUES ('OTHER');
 -- table: mh_users.privacy_settings
 INSERT INTO mh_users.privacy_settings (code) VALUES ('PUBLIC');
 INSERT INTO mh_users.privacy_settings (code) VALUES ('PRIVATE');
-INSERT INTO mh_users.privacy_settings (code) VALUES ('FRIENDS');
+INSERT INTO mh_users.privacy_settings (code) VALUES ('FRIENDS_ONLY');
 
 ---------------------------------------- || MH_USER_RELATIONS SCHEMA || ----------------------------------------
 -- table: mh_user_relations.relations_types
-INSERT INTO mh_user_relations.relation_types (code) VALUES ('SENT INVITATION');
+INSERT INTO mh_user_relations.relation_types (code) VALUES ('SENT_INVITATION');
 INSERT INTO mh_user_relations.relation_types (code) VALUES ('REJECTED');
 INSERT INTO mh_user_relations.relation_types (code) VALUES ('FRIENDS');
 

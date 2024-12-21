@@ -17,7 +17,7 @@ import meowhub.backend.users.models.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -50,20 +50,20 @@ public class UserRelation {
 
     @NotNull
     @Column(name = "SEND_DATE", nullable = false)
-    private LocalDate sendDate;
+    private LocalDateTime sendDate;
 
     @Column(name = "ANSWER_DATE")
-    private LocalDate answerDate;
+    private LocalDateTime answerDate;
 
     @Column(name = "CREATED_AT")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Size(max = 36)
     @Column(name = "CREATED_BY", length = 36)
     private String createdBy;
 
     @Column(name = "MODIFIED_AT")
-    private LocalDate modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @Size(max = 36)
     @Column(name = "MODIFIED_BY", length = 36)

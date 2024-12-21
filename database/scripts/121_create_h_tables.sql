@@ -21,8 +21,6 @@ CREATE TABLE mh_users.h_users
     credentials_expiry_date date          NULL,
     created_at              date          NOT NULL,
     created_by              varchar2(36)  NOT NULL,
-    CONSTRAINT h_Users_login_UQ UNIQUE (login),
-    CONSTRAINT h_Users_email_UQ UNIQUE (email),
     CONSTRAINT h_users_account_non_locked_ch CHECK (account_non_locked IN (0, 1)),
     CONSTRAINT h_users_credentials_non_expired_ch CHECK (credentials_non_expired IN (0, 1)),
     CONSTRAINT h_users_operation_type_ch CHECK (operation_type IN ('INSERT', 'UPDATE', 'DELETE')),

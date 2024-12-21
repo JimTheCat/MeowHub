@@ -4,18 +4,18 @@ import jakarta.annotation.PostConstruct;
 import meowhub.backend.constants.Genders;
 import meowhub.backend.constants.PrivacySettings;
 import meowhub.backend.constants.Roles;
-import meowhub.backend.jpa_buddy.Comment;
-import meowhub.backend.jpa_buddy.Picture;
-import meowhub.backend.jpa_buddy.Post;
-import meowhub.backend.jpa_buddy.PostPicture;
+import meowhub.backend.posts.models.Comment;
+import meowhub.backend.users.models.Picture;
+import meowhub.backend.posts.models.Post;
+import meowhub.backend.posts.models.PostPicture;
 import meowhub.backend.jpa_buddy.Profile;
 import meowhub.backend.jpa_buddy.ProfileData;
 import meowhub.backend.jpa_buddy.ProfilePicture;
 import meowhub.backend.jpa_buddy.ProfileUserData;
 import meowhub.backend.jpa_buddy.RelationType;
 import meowhub.backend.jpa_buddy.UserRelation;
-import meowhub.backend.repositories.CommentRepository;
-import meowhub.backend.repositories.PostRepository;
+import meowhub.backend.posts.repositories.CommentRepository;
+import meowhub.backend.posts.repositories.PostRepository;
 import meowhub.backend.repositories.ProfileDataRepository;
 import meowhub.backend.repositories.ProfilePictureRepository;
 import meowhub.backend.repositories.ProfileRepository;
@@ -28,7 +28,7 @@ import meowhub.backend.users.models.Role;
 import meowhub.backend.users.models.User;
 import meowhub.backend.users.repositories.GenderRepository;
 import meowhub.backend.users.repositories.PictureRepository;
-import meowhub.backend.repositories.PostPictureRepository;
+import meowhub.backend.posts.repositories.PostPictureRepository;
 import meowhub.backend.users.repositories.PrivacySettingRepository;
 import meowhub.backend.users.repositories.RoleRepository;
 import meowhub.backend.users.repositories.UserRepository;
@@ -36,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @TestConfiguration
 public class InitDataTestConfig {
@@ -83,6 +84,7 @@ public class InitDataTestConfig {
     private void initUser() {
         Role role = roleRepository.save(new Role(Roles.ROLE_USER));
         PrivacySetting publicSetting = privacySettingRepository.save(new PrivacySetting(PrivacySettings.PUBLIC));
+        PrivacySetting friendsOnlySetting = privacySettingRepository.save(new PrivacySetting(PrivacySettings.FRIENDS_ONLY));
         Gender gender = genderRepository.save(new Gender(Genders.FEMALE));
 
         user1 = new User();
@@ -95,7 +97,7 @@ public class InitDataTestConfig {
         user1.setAccountNonLocked(false);
         user1.setBirthdate(LocalDate.of(1990, 1, 1));
         user1.setCredentialsNonExpired(true);
-        user1.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
+        user1.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
         user1.setRole(role);
         user1.setPostsPrivacy(publicSetting);
         user1.setFriendsPrivacy(publicSetting);
@@ -113,9 +115,9 @@ public class InitDataTestConfig {
         user2.setAccountNonLocked(false);
         user2.setBirthdate(LocalDate.of(1991, 11, 11));
         user2.setCredentialsNonExpired(true);
-        user2.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
+        user2.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
         user2.setRole(role);
-        user2.setPostsPrivacy(publicSetting);
+        user2.setPostsPrivacy(friendsOnlySetting);
         user2.setFriendsPrivacy(publicSetting);
         user2.setProfilePrivacy(publicSetting);
         user2.setGender(gender);
@@ -131,40 +133,50 @@ public class InitDataTestConfig {
         user3.setAccountNonLocked(false);
         user3.setBirthdate(LocalDate.of(1991, 11, 11));
         user3.setCredentialsNonExpired(true);
-        user3.setCredentialsExpiryDate(LocalDate.now().plusYears(1));
+        user3.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
         user3.setRole(role);
         user3.setPostsPrivacy(publicSetting);
         user3.setFriendsPrivacy(publicSetting);
         user3.setProfilePrivacy(publicSetting);
         user3.setGender(gender);
-        user3 = userRepository.save(user2);
+        user3 = userRepository.save(user3);
     }
 
     private void initPosts() {
         Picture picture = new Picture();
-        picture.setUser(user1);
+        picture.setUser(user3);
         picture.setPicture("9ffdc87faedbe9a1ee2d1993eabafad12fca90c8cfeadffee99166defe4e2ab5bb4b483dccd2ba5b4fb8ea51a4238e0f7cb3ea3dea7b1d06013fc99cc325b604da6b469ffa6baba27e7ad69a9251c5c6102acd30fdbb4e2dbd78992593487b27777ce".getBytes());
         picture = pictureRepository.save(picture);
 
-        Post post = new Post();
-        post.setUser(user1);
-        post.setContentHtml("Hello world");
-        post = postRepository.save(post);
+        Post post1 = new Post();
+        post1.setUser(user1);
+        post1.setContentHtml("Hello world 1");
+        postRepository.save(post1);
+
+        Post post2 = new Post();
+        post2.setUser(user2);
+        post2.setContentHtml("Hello world 2");
+        postRepository.save(post2);
+
+        Post post3 = new Post();
+        post3.setUser(user3);
+        post3.setContentHtml("Hello world 3");
+        post3 = postRepository.save(post3);
 
         PostPicture postPicture = new PostPicture();
         postPicture.setPicture(picture);
-        postPicture.setPost(post);
+        postPicture.setPost(post3);
         postPictureRepository.save(postPicture);
 
         Comment comment1 = new Comment();
-        comment1.setPost(post);
+        comment1.setPost(post3);
         comment1.setUser(user2);
         comment1.setContent("Nice post");
         commentRepository.save(comment1);
 
         Comment comment2 = new Comment();
-        comment2.setPost(post);
-        comment2.setUser(user3);
+        comment2.setPost(post3);
+        comment2.setUser(user1);
         comment2.setAnsweredComment(comment1);
         comment2.setContent("Yeah, I agree");
         commentRepository.save(comment2);
@@ -210,7 +222,7 @@ public class InitDataTestConfig {
 
     private void initUserRelations() {
         RelationType friends = new RelationType();
-        friends.setCode("FRIEND");
+        friends.setCode("FRIENDS");
         friends = relationTypeRepository.save(friends);
 
         RelationType sentInvitation = new RelationType();
@@ -225,21 +237,21 @@ public class InitDataTestConfig {
         user1ToUser2SentInvitation.setSender(user1);
         user1ToUser2SentInvitation.setReceiver(user2);
         user1ToUser2SentInvitation.setRelationType(sentInvitation);
-        user1ToUser2SentInvitation.setSendDate(LocalDate.now());
+        user1ToUser2SentInvitation.setSendDate(LocalDateTime.now());
         userRelationRepository.save(user1ToUser2SentInvitation);
 
         UserRelation user1ToUser3Rejected = new UserRelation();
         user1ToUser3Rejected.setSender(user1);
         user1ToUser3Rejected.setReceiver(user2);
         user1ToUser3Rejected.setRelationType(rejected);
-        user1ToUser3Rejected.setSendDate(LocalDate.now());
+        user1ToUser3Rejected.setSendDate(LocalDateTime.now());
         userRelationRepository.save(user1ToUser3Rejected);
 
         UserRelation user3ToUser2Friends = new UserRelation();
         user3ToUser2Friends.setSender(user3);
         user3ToUser2Friends.setReceiver(user2);
         user3ToUser2Friends.setRelationType(friends);
-        user3ToUser2Friends.setSendDate(LocalDate.now());
+        user3ToUser2Friends.setSendDate(LocalDateTime.now());
         userRelationRepository.save(user3ToUser2Friends);
     }
 }

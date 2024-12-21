@@ -14,10 +14,11 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import meowhub.backend.users.models.Picture;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -48,19 +49,15 @@ public class MatchingProfilePicture {
     @Column(name = "PICTURE_INDEX", nullable = false)
     private Long index;
 
-    @NotNull
-    @Column(name = "POST_DATE", nullable = false)
-    private LocalDate postDate;
-
     @Column(name = "CREATED_AT")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Size(max = 36)
     @Column(name = "CREATED_BY", length = 36)
     private String createdBy;
 
     @Column(name = "MODIFIED_AT")
-    private LocalDate modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @Size(max = 36)
     @Column(name = "MODIFIED_BY", length = 36)

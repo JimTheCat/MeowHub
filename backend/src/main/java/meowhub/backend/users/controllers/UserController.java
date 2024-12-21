@@ -15,7 +15,7 @@ import org.webjars.NotFoundException;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("get-basic-user-info")
+    @GetMapping("basic-user-info")
     public ResponseEntity<BasicUserInfoDto> getBasicUserInfo(String login) {
         try {
             userService.getBasicUserInfo(login);

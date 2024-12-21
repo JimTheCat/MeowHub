@@ -6,6 +6,7 @@ import meowhub.backend.constants.Genders;
 import meowhub.backend.constants.Roles;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -17,7 +18,7 @@ public class UserDto {
     private String surname;
     private LocalDate birthdate;
     private Genders gender;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     private Roles role;
     private boolean isAccountNonExpired;
 }

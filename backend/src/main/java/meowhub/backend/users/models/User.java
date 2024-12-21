@@ -20,19 +20,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import meowhub.backend.jpa_buddy.Chatroom;
 import meowhub.backend.jpa_buddy.ChatroomMessage;
-import meowhub.backend.jpa_buddy.Comment;
+import meowhub.backend.posts.models.Comment;
 import meowhub.backend.jpa_buddy.GroupchatMessage;
 import meowhub.backend.jpa_buddy.MatchingProfile;
-import meowhub.backend.jpa_buddy.Picture;
-import meowhub.backend.jpa_buddy.Post;
+import meowhub.backend.posts.models.Post;
 import meowhub.backend.jpa_buddy.Profile;
 import meowhub.backend.jpa_buddy.UserGroup;
 import meowhub.backend.jpa_buddy.UserRelation;
-import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -128,17 +127,17 @@ public class User {
     private Boolean credentialsNonExpired = false;
 
     @Column(name = "CREDENTIALS_EXPIRY_DATE")
-    private LocalDate credentialsExpiryDate;
+    private LocalDateTime credentialsExpiryDate;
 
     @Column(name = "CREATED_AT")
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Size(max = 36)
     @Column(name = "CREATED_BY",length = 36)
     private String createdBy;
 
     @Column(name = "MODIFIED_AT")
-    private LocalDate modifiedAt;
+    private LocalDateTime modifiedAt;
 
     @Size(max = 36)
     @Column(name = "MODIFIED_BY", length = 36)

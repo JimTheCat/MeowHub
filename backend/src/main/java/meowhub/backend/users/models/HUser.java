@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -103,11 +104,11 @@ public class HUser {
     private Boolean credentialsNonExpired = false;
 
     @Column(name = "CREDENTIALS_EXPIRY_DATE")
-    private LocalDate credentialsExpiryDate;
+    private LocalDateTime credentialsExpiryDate;
 
     @NotNull
     @Column(name = "CREATED_AT", nullable = false)
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Size(max = 36)
     @NotNull

@@ -97,7 +97,6 @@ export const Post = (props: PostDTO) => {
         >
           <Text
             size="xl"
-            w={700}
             c="white"
             ta="center"
             style={{
@@ -124,7 +123,7 @@ export const Post = (props: PostDTO) => {
   };
 
   return (
-    <Card w={"30vw"} radius={"md"} p={"lg"} my={'lg'}>
+    <Card w={"30vw"} radius={"md"} p={"lg"}>
       <Stack>
         <Group justify="space-between">
           <Group onClick={() => navigate(`/profile/@${props.author.login}`)} style={{cursor: "pointer"}}>

@@ -1,80 +1,65 @@
-import {useCallback, useEffect, useState} from "react";
-import api from "../../../shared/services/api.ts";
-import {Group, Loader, ScrollArea, Text} from "@mantine/core";
-import {Post} from "../../../shared/components/Cards/Post";
-import {PostDTO} from "../../types/Post.tsx";
+import React, {useEffect, useRef} from "react";
+import {Box, Loader, Text} from "@mantine/core";
 
-export const InfiniteScroll = () => {
-  const [posts, setPosts] = useState<PostDTO[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(0);
+interface InfiniteScrollProps {
+  loadMore: () => Promise<void>;
+  hasMore: boolean;
+  loading: boolean;
+  children: React.ReactNode;
+}
 
-  const loadPosts = useCallback(async () => {
-    if (loading || !hasMore) return;
-
-    setLoading(true);
-
-    try {
-      const response = await api.get(`/api/posts`, {
-        params: {pageNo: page, pageSize: 10},
-      });
-
-      const newPosts = response.data.content;
-
-      setPosts((prevPosts) => [...prevPosts, ...newPosts]);
-      setHasMore(response.data.totalPages > page + 1);
-      setPage((prevPage) => prevPage + 1);
-    } catch (error) {
-      console.error('Error loading posts:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, [loading, hasMore, page]);
+export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
+                                                                loadMore,
+                                                                hasMore,
+                                                                loading,
+                                                                children,
+                                                              }) => {
+  const sentinelRef = useRef<HTMLDivElement | null>(null);
+  const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    loadPosts();
-  }, [loadPosts]);
+    // IntersectionObserver callback
+    const handleIntersection: IntersectionObserverCallback = (entries) => {
+      const [entry] = entries;
+      if (entry.isIntersecting && hasMore && !loading) {
+        loadMore();
+      }
+    };
 
-  // Funkcja do obsługi scrolla
-  const handleScroll = (event: { currentTarget: any; }) => {
-    const target = event.currentTarget;
-    if (target.scrollHeight - target.scrollTop <= target.clientHeight + 10) {
-      loadPosts();
+    if (sentinelRef.current) {
+      observer.current = new IntersectionObserver(handleIntersection, {
+        root: null,
+        rootMargin: "100px", // Load earlier when close to the bottom
+        threshold: 0.1, // Trigger when sentinel is at least 10% visible
+      });
+
+      observer.current.observe(sentinelRef.current);
     }
-  };
+
+    return () => {
+      if (observer.current && sentinelRef.current) {
+        observer.current.unobserve(sentinelRef.current);
+      }
+    };
+  }, [hasMore, loading, loadMore]);
 
   return (
-    <ScrollArea
-      onScroll={handleScroll}
-      offsetScrollbars
-    >
-      {posts.map((post) => (
-        <Post
-          key={post.id}
-          author={post.author}
-          content={post.content}
-          createdAt={post.createdAt}
-          numberOfComments={post.numberOfComments}
-          id={post.id}
-          photosUrls={
-            // generate 100 random photos
-            Array.from({length: 100}, () => {
-              return "https://picsum.photos/seed/" + Math.random() + "/800/2200";
-            })
-          }
-        />
-      ))}
+    <Box style={{position: "relative"}}>
+      {children}
+      {/* Sentinel element */}
+      <div ref={sentinelRef} style={{height: 1, visibility: "hidden"}}/>
+      {/* Loading indicator */}
       {loading && (
-        <Group justify={"center"} mt="lg">
-          <Loader/>
-        </Group>
+        <Box style={{textAlign: "center", margin: "20px 0"}}>
+          <Loader size="md"/>
+        </Box>
       )}
+      {/* End of data */}
       {!hasMore && !loading && (
         <Text ta="center" c="dimmed" mt="lg">
-          No more posts to load
+          No more posts ಥ_ಥ
         </Text>
       )}
-    </ScrollArea>
+    </Box>
   );
-}
+};

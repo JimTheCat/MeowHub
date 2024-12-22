@@ -4,17 +4,17 @@ import lombok.RequiredArgsConstructor;
 import meowhub.backend.constants.Genders;
 import meowhub.backend.constants.Roles;
 import meowhub.backend.dtos.UserDto;
+import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.users.dtos.BasicUserInfoDto;
 import meowhub.backend.users.models.Role;
 import meowhub.backend.users.models.User;
 import meowhub.backend.users.repositories.RoleRepository;
 import meowhub.backend.users.repositories.UserRepository;
 import meowhub.backend.users.services.UserService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,8 +37,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changeUserRole(String userId, String roleCode) {
-        User user = userRepository.findById(userId).orElseThrow();
-        Role role = roleRepository.findByCode(roleCode).orElseThrow();
+        User user = userRepository.findById(userId)
+                .orElseThrow();
+        Role role = roleRepository.findByCode(roleCode)
+                .orElseThrow();
 
         user.setRole(role);
         userRepository.save(user);
@@ -46,10 +48,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public BasicUserInfoDto getBasicUserInfo(String login) {
-        Optional<BasicUserInfoDto> basicUserInfoDto = userRepository.findBasicUserInfoByLogin(login);
-        if(basicUserInfoDto.isEmpty()) throw new NotFoundException("User not found");
-
-        return basicUserInfoDto.get();
+        return userRepository.findBasicUserInfoByLogin(login)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
     }
 
     private UserDto mapToUserDto(User user) {

@@ -3,6 +3,8 @@ package meowhub.backend.security.services.impl;
 import lombok.RequiredArgsConstructor;
 import meowhub.backend.constants.PrivacySettings;
 import meowhub.backend.constants.Roles;
+import meowhub.backend.shared.constants.AlertConstants;
+import meowhub.backend.shared.exceptions.NotUniqueObjectException;
 import meowhub.backend.users.models.Gender;
 import meowhub.backend.users.models.PrivacySetting;
 import meowhub.backend.users.models.Role;
@@ -16,7 +18,6 @@ import meowhub.backend.security.requests.LoginRequest;
 import meowhub.backend.security.requests.SignUpRequest;
 import meowhub.backend.security.responses.LoginResponse;
 import meowhub.backend.security.services.AuthService;
-import org.hibernate.NonUniqueObjectException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -68,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
                 .orElseGet(() -> roleRepository.save(new Role(Roles.ROLE_USER)));
 
         Gender gender = genderRepository.findByCode(request.getGender().name())
-                .orElseThrow(IllegalArgumentException::new);
+                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "gender", "gender.code", request.getGender())));
 
         PrivacySetting publicSettings = privacySettingRepository.findByCode(PrivacySettings.PUBLIC.name())
                 .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.PUBLIC)));
@@ -95,14 +96,12 @@ public class AuthServiceImpl implements AuthService {
     private void validateSignUpRequest(SignUpRequest request) {
         boolean isLoginNotUnique = userRepository.existsByLogin(request.getLogin());
         if (isLoginNotUnique) {
-            throw new NonUniqueObjectException("The login is already in use.", "login");
+            throw new NotUniqueObjectException(String.format(AlertConstants.NOT_UNIQUE_OBJECT, "login", request.getLogin()));
         }
 
         boolean isEmailNotUnique = userRepository.existsByEmail(request.getEmail());
         if (isEmailNotUnique) {
-            throw new NonUniqueObjectException("The email is already in use.", "email");
+            throw new NotUniqueObjectException(String.format(AlertConstants.NOT_UNIQUE_OBJECT, "email", request.getEmail()));
         }
     }
-
-
 }

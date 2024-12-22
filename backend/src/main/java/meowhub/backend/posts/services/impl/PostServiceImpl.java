@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import meowhub.backend.posts.dtos.PostDto;
 import meowhub.backend.posts.models.Post;
 import meowhub.backend.posts.services.PostService;
+import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.users.dtos.BasicUserInfoDto;
 import meowhub.backend.users.models.User;
 import meowhub.backend.posts.repositories.PostRepository;
@@ -14,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +34,7 @@ public class PostServiceImpl implements PostService {
     public Page<PostDto> getPostsForUser(String login, String requestedBy, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         userRepository.findByLogin(login)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User: '%s' not found", login)));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
 
         if (login.equals(requestedBy)) {
             return postRepository.findOwn(login, pageable);
@@ -43,12 +46,14 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDto createPost(String login, String content) {
         User postOwner = userRepository.findByLogin(login)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format("User: '%s' not found", login)));
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
         Post post = new Post();
         post.setContentHtml(content);
         post.setUser(postOwner);
+        post.setCreatedAt(LocalDateTime.now());
+        post = postRepository.save(post);
 
-        return convertToPostDto(postRepository.save(post));
+        return convertToPostDto(post);
     }
 
     @Override
@@ -64,9 +69,11 @@ public class PostServiceImpl implements PostService {
     }
 
     private Post findUserPost(String login, String postId) {
-        userRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException(String.format("User: '%s' not found", login)));
+        userRepository.findByLogin(login)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
+
         return postRepository.findByUserLoginAndId(login, postId)
-                .orElseThrow(() -> new NotFoundException(String.format("Post with id: '%s' not found for user '%s'", postId, login)));
+                .orElseThrow(() -> new NotFoundException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "post", "id", postId)));
     }
 
     private PostDto convertToPostDto(Post post) {
@@ -74,7 +81,10 @@ public class PostServiceImpl implements PostService {
             return null;
         }
 
-        BasicUserInfoDto author = userRepository.findBasicUserInfoByLogin(post.getUser().getLogin()).orElseThrow();
+        String login = post.getUser().getLogin();
+        BasicUserInfoDto author = userRepository.findBasicUserInfoByLogin(login)
+                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
+
         return PostDto.builder()
                 .id(post.getId())
                 .content(post.getContentHtml())

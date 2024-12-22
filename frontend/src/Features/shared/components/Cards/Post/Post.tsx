@@ -1,4 +1,16 @@
-import {Avatar, BackgroundImage, Box, Button, Card, Divider, Group, SimpleGrid, Stack, Text} from "@mantine/core";
+import {
+  Avatar,
+  BackgroundImage,
+  Badge,
+  Box,
+  Button,
+  Card,
+  Divider,
+  Group,
+  SimpleGrid,
+  Stack,
+  Text
+} from "@mantine/core";
 import {InnerHtmlHandler} from "../../InnerHtmlHandler";
 import {DateFormatter} from "../../../utils/DateFormatter.tsx";
 import {IconMessage, IconPaw, IconShare3} from "@tabler/icons-react";
@@ -142,7 +154,12 @@ export const Post = (props: PostDTO) => {
           <Button variant={"subtle"} color={"gray"} leftSection={<IconPaw stroke={1.5}/>}>
             Reaction
           </Button>
-          <Button variant={"subtle"} color={"gray"} leftSection={<IconMessage stroke={1.5}/>}>
+          <Button
+            variant={"subtle"}
+            color={"gray"}
+            leftSection={<IconMessage stroke={1.5}/>}
+            rightSection={<Badge color={"gray"} circle>{props.numberOfComments}</Badge>}
+          >
             Comment
           </Button>
           <Button variant={"subtle"} color={"gray"} leftSection={<IconShare3 stroke={1.5}/>}>

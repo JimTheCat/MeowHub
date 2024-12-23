@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.webjars.NotFoundException;
 
 @RestController
 @RequestMapping("/api/users")
@@ -16,12 +15,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("basic-user-info")
-    public ResponseEntity<BasicUserInfoDto> getBasicUserInfo(String login) {
-        try {
-            userService.getBasicUserInfo(login);
-            return ResponseEntity.ok(userService.getBasicUserInfo(login));
-        } catch (NotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<BasicUserInfoDto> getBasicUserInfoTemp(String login) {
+        return ResponseEntity.ok(userService.getBasicUserInfo(login));
     }
 }

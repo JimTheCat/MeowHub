@@ -15,7 +15,7 @@ const suggestedUsers: SuggestedUser[] = [
 
 export const SuggestedUsers = () => {
   return (
-    <Card p="lg" withBorder mt="lg">
+    <Card w={'100%'} p="lg" withBorder mt="lg">
       <Text size="lg" mb="sm">
         Suggested Users
       </Text>

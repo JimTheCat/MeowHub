@@ -31,7 +31,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     if (auth.user) {
-      api.get<BasicUserInfo>('/api/users/get-basic-user-info', {params: {login: auth.user.login}}).then((response) => {
+      api.get<BasicUserInfo>('/api/users/basic-user-info', {params: {login: auth.user.login}}).then((response) => {
         setBasicUserInfo(response.data);
       });
     }

@@ -7,12 +7,11 @@ export const ImageWithSkeleton = (props: {
   radius: number | MantineRadius,
   style?: MantineStyleProp
 }) => {
-
   const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   return (
     <>
-      {!isImageLoaded && <Skeleton height={400} radius={props.radius}/>}
+      {!isImageLoaded && <Skeleton style={props.style} radius={props.radius}/>}
       <Image
         src={props.src}
         alt={props.alt}

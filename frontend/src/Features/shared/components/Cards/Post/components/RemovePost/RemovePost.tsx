@@ -1,6 +1,7 @@
 import {Menu, rem, Text} from "@mantine/core";
 import {IconTrash} from "@tabler/icons-react";
 import {ModificationModal} from "../../../../ModificationModal";
+import api from "../../../../../services/api.ts";
 
 type RemovePostProps = {
   postId?: string;
@@ -8,8 +9,7 @@ type RemovePostProps = {
 
 export const RemovePost = (props: RemovePostProps) => {
   const handleRemoval = () => {
-    // TODO: Replace with actual removal logic
-    console.log('Remove post: ', props.postId);
+    api.delete(`/api/posts/${props.postId}`);
   };
 
   return (

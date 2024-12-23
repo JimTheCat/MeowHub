@@ -1,5 +1,16 @@
-import {Avatar, BackgroundImage, Box, Button, Card, Divider, Group, SimpleGrid, Stack, Text} from "@mantine/core";
-import {User} from "../../../types/User.tsx";
+import {
+  Avatar,
+  BackgroundImage,
+  Badge,
+  Box,
+  Button,
+  Card,
+  Divider,
+  Group,
+  SimpleGrid,
+  Stack,
+  Text
+} from "@mantine/core";
 import {InnerHtmlHandler} from "../../InnerHtmlHandler";
 import {DateFormatter} from "../../../utils/DateFormatter.tsx";
 import {IconMessage, IconPaw, IconShare3} from "@tabler/icons-react";
@@ -7,18 +18,12 @@ import {useAuthStore} from "../../../services/authStore.ts";
 import {useNavigate} from "react-router-dom";
 import {ImageWithSkeleton} from "../../ImageWithSkeleton";
 import {MenuPost} from "./components/MenuPost";
+import {PostDTO} from "../../../../MainPage/types/Post.tsx";
 
-type PostProps = {
-  ownerLogin: string;
-  contentHtml: string;
-  photosUrls?: string[];
-  createdAt: string;
-}
-
-export const Post = (props: PostProps) => {
+export const Post = (props: PostDTO) => {
 
   const auth = useAuthStore();
-  const isOwner = auth.user?.login === props.ownerLogin;
+  const isOwner = auth.user?.login === props.author.login;
   const navigate = useNavigate();
 
   /*Render this element each time when number of photos will change*/
@@ -92,7 +97,6 @@ export const Post = (props: PostProps) => {
         >
           <Text
             size="xl"
-            w={700}
             c="white"
             ta="center"
             style={{
@@ -118,29 +122,23 @@ export const Post = (props: PostProps) => {
     );
   };
 
-  const user = {
-    name: "John",
-    surname: "Doe",
-    login: "johndoe",
-  } as User;
-
   return (
-    <Card w={"30vw"} radius={"md"} p={"lg"} my={'lg'}>
+    <Card w={"30vw"} radius={"md"} p={"lg"}>
       <Stack>
         <Group justify="space-between">
-          <Group onClick={() => navigate(`/profile/${auth.user?.tag}`)} style={{cursor: "pointer"}}>
+          <Group onClick={() => navigate(`/profile/@${props.author.login}`)} style={{cursor: "pointer"}}>
             <Avatar src={null} size={"lg"} radius={180}/>
             <Stack gap={0}>
-              <Text>{user.name} {user.surname}</Text>
+              <Text>{props.author.name} {props.author.surname}</Text>
               <Text c="dimmed">{DateFormatter(props.createdAt)}</Text>
             </Stack>
           </Group>
           {isOwner &&
-              <MenuPost content={props.contentHtml}/>
+              <MenuPost postId={props.id} content={props.content}/>
           }
         </Group>
 
-        <InnerHtmlHandler innerHtml={props.contentHtml}/>
+        <InnerHtmlHandler innerHtml={props.content}/>
 
         {/*// Show photos if they exist*/}
         {props.photosUrls && props.photosUrls.length > 0 && (
@@ -155,7 +153,12 @@ export const Post = (props: PostProps) => {
           <Button variant={"subtle"} color={"gray"} leftSection={<IconPaw stroke={1.5}/>}>
             Reaction
           </Button>
-          <Button variant={"subtle"} color={"gray"} leftSection={<IconMessage stroke={1.5}/>}>
+          <Button
+            variant={"subtle"}
+            color={"gray"}
+            leftSection={<IconMessage stroke={1.5}/>}
+            rightSection={<Badge color={"gray"} circle>{props.numberOfComments}</Badge>}
+          >
             Comment
           </Button>
           <Button variant={"subtle"} color={"gray"} leftSection={<IconShare3 stroke={1.5}/>}>

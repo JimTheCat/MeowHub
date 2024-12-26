@@ -1,0 +1,22 @@
+.controls {
+    transition: opacity 150ms ease;
+    opacity: 0;
+}
+
+.root {
+    &:hover {
+        .controls {
+            opacity: 1;
+        }
+    }
+}
+
+.indicator {
+    width: 8px;
+    height: 8px;
+    transition: width 250ms ease;
+
+    &[data-active] {
+        width: 12px;
+    }
+}

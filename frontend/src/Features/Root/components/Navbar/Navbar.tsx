@@ -1,6 +1,6 @@
 import {AppShell, Avatar, Card, Group, Image, ScrollArea, Stack, Text} from "@mantine/core";
 import MeowHubLogo from "../../../../Assets/mh_logo.svg";
-import {MenuButton} from "../Buttons/Menu";
+import {MenuButton} from "../../../shared/components/MenuButton";
 import {
   IconHome,
   IconMail,
@@ -70,17 +70,17 @@ export const Navbar = () => {
 
       <Card mt={"lg"} p={"xs"} h={"100%"} withBorder>
         <AppShell.Section grow component={ScrollArea}>
-          <MenuButton icon={<IconHome/>} text={"Strona główna"} href={"/mainpage"}/>
-          <MenuButton icon={<IconZoom/>} text={"Wyszukaj"} href={"/search"}/>
+          <MenuButton mainMenu icon={<IconHome/>} text={"Strona główna"} href={"/mainpage"}/>
+          <MenuButton mainMenu icon={<IconZoom/>} text={"Wyszukaj"} href={"/search"}/>
           <CreatePost/>
-          <MenuButton icon={<IconUsers/>} text={"Znajomi"} href={"/friends"}/>
-          <MenuButton icon={<IconUsersGroup/>} text={"Grupy"} href={"/groups"}/>
-          <MenuButton icon={<IconUserPlus/>} text={"Obserwowani"} href={"/following"}/>
-          <MenuButton icon={<IconUserHeart/>} text={"Matching"} href={"placeholder5"}/>
-          <MenuButton icon={<IconMail/>} text={"Wiadomości"} href={"/messages"}/>
+          <MenuButton mainMenu icon={<IconUsers/>} text={"Znajomi"} href={"/friends"}/>
+          <MenuButton mainMenu icon={<IconUsersGroup/>} text={"Grupy"} href={"/groups"}/>
+          <MenuButton mainMenu icon={<IconUserPlus/>} text={"Obserwowani"} href={"/following"}/>
+          <MenuButton mainMenu icon={<IconUserHeart/>} text={"Matching"} href={"/matching"}/>
+          <MenuButton mainMenu icon={<IconMail/>} text={"Wiadomości"} href={"/messages"}/>
         </AppShell.Section>
         <AppShell.Section>
-          <MenuButton icon={<IconSettings/>} text={"Ustawienia"} href={"/settings"}/>
+          <MenuButton mainMenu icon={<IconSettings/>} text={"Ustawienia"} href={"/settings"}/>
           <LogOut/>
         </AppShell.Section>
       </Card>

@@ -5,8 +5,8 @@ import meowhub.backend.posts.models.Post;
 import meowhub.backend.posts.repositories.PostRepository;
 import meowhub.backend.posts.services.impl.PostServiceImpl;
 import meowhub.backend.users.dtos.BasicUserInfoDto;
+import meowhub.backend.users.facades.UserPostServiceFacade;
 import meowhub.backend.users.models.User;
-import meowhub.backend.users.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,11 +35,11 @@ class PostServiceImplTest {
     @Mock
     private PostRepository postRepository;
 
-    @Mock
-    private UserRepository userRepository;
-
     @InjectMocks
     private PostServiceImpl postService;
+
+    @Mock
+    private UserPostServiceFacade userPostServiceFacade;
 
     private User user;
     private PostDto postDto;
@@ -85,7 +85,6 @@ class PostServiceImplTest {
     void testGetPostsForUser() {
         // Given
         Page<PostDto> mockPage = new PageImpl<>(List.of(postDto));
-        when(userRepository.findByLogin("john_doe")).thenReturn(Optional.of(user));
         when(postRepository.findByUserLoginIfPublicOrFriend(any(String.class), any(String.class), any(PageRequest.class))).thenReturn(mockPage);
         when(postRepository.findOwn(any(String.class), any(PageRequest.class))).thenReturn(mockPage);
 
@@ -105,8 +104,8 @@ class PostServiceImplTest {
     @Test
     void testCreatePost() {
         // Given
-        when(userRepository.findByLogin("john_doe")).thenReturn(Optional.of(user));
-        when(userRepository.findBasicUserInfoByLogin("john_doe")).thenReturn(Optional.of(basicUserInfoDto));
+        when(userPostServiceFacade.findUserByLogin("john_doe")).thenReturn(user);
+        when(userPostServiceFacade.getBasicUserInfo("john_doe")).thenReturn(basicUserInfoDto);
         when(postRepository.save(any(Post.class))).thenReturn(post);
 
         // When
@@ -115,15 +114,13 @@ class PostServiceImplTest {
         // Then
         assertNotNull(result);
         assertEquals("Initial content", result.getContent());
-        verify(userRepository, times(1)).findByLogin("john_doe");
+        verify(userPostServiceFacade, times(1)).findUserByLogin("john_doe");
         verify(postRepository, times(1)).save(any(Post.class));
     }
 
     @Test
     void testUpdatePost() {
         // Given
-        when(userRepository.findByLogin("john_doe")).thenReturn(Optional.of(user));
-        when(userRepository.findBasicUserInfoByLogin("john_doe")).thenReturn(Optional.of(basicUserInfoDto));
         when(postRepository.save(any(Post.class))).thenReturn(post);
         when(postRepository.findByUserLoginAndId("john_doe", "post-id")).thenReturn(Optional.of(post));
 
@@ -139,7 +136,6 @@ class PostServiceImplTest {
     @Test
     void testDeletePost() {
         // Given
-        when(userRepository.findByLogin("john_doe")).thenReturn(Optional.of(user));
         when(postRepository.findByUserLoginAndId("john_doe", "post-id")).thenReturn(Optional.of(post));
 
         // When
@@ -152,12 +148,14 @@ class PostServiceImplTest {
     @Test
     void testCreatePost_UserNotFound() {
         // Given
-        when(userRepository.findByLogin("unknown_user")).thenReturn(Optional.empty());
+        String unknownUser = "unknown_user";
+        when(userPostServiceFacade.findUserByLogin(unknownUser)).thenThrow(UsernameNotFoundException.class);
 
-        // When & Then
+        // When
         assertThrows(UsernameNotFoundException.class,
-                () -> postService.createPost("unknown_user", "content"));
-        verify(userRepository, times(1)).findByLogin("unknown_user");
+                () -> postService.createPost(unknownUser, "Sample content"));
+
+        verify(userPostServiceFacade, times(1)).findUserByLogin(unknownUser);
     }
 }
 

@@ -2,42 +2,35 @@ package meowhub.backend.users.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import meowhub.backend.constants.Genders;
+import meowhub.backend.constants.PrivacySettings;
 import meowhub.backend.constants.Roles;
-import meowhub.backend.dtos.UserDto;
-import meowhub.backend.shared.constants.AlertConstants;
-import meowhub.backend.users.dtos.BasicUserInfoDto;
+import meowhub.backend.users.models.Gender;
+import meowhub.backend.users.models.PrivacySetting;
 import meowhub.backend.users.models.Role;
 import meowhub.backend.users.models.User;
+import meowhub.backend.users.repositories.GenderRepository;
+import meowhub.backend.users.repositories.PrivacySettingRepository;
 import meowhub.backend.users.repositories.RoleRepository;
 import meowhub.backend.users.repositories.UserRepository;
 import meowhub.backend.users.services.UserService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final PrivacySettingRepository privacySettingRepository;
+    private final GenderRepository genderRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
-    public List<UserDto> getAllUsers() {
-        return userRepository.findAll().stream().map(this::mapToUserDto).toList();
-    }
-
-    @Override
-    public UserDto getUserById(String userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow();
-
-        return mapToUserDto(user);
-    }
-
-    @Override
-    public void changeUserRole(String userId, String roleCode) {
-        User user = userRepository.findById(userId)
+    public void changeUserRole(String login, String roleCode) {
+        User user = userRepository.findByLogin(login)
                 .orElseThrow();
         Role role = roleRepository.findByCode(roleCode)
                 .orElseThrow();
@@ -46,28 +39,29 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
-    @Override
-    public BasicUserInfoDto getBasicUserInfo(String login) {
-        return userRepository.findBasicUserInfoByLogin(login)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
-    }
-
-    private UserDto mapToUserDto(User user) {
-        if (user == null) throw new NullPointerException();
-
-        Genders gender = Genders.valueOf(user.getGender().getCode());
-        Roles role = Roles.valueOf(user.getRole().getCode());
-
-        return UserDto.builder()
-                .userId(user.getId())
-                .login(user.getLogin())
-                .email(user.getEmail())
-                .name(user.getName())
-                .surname(user.getSurname())
-                .birthdate(user.getBirthdate())
-                .gender(gender)
-                .createdAt(user.getCreatedAt())
-                .role(role)
-                .build();
+    public User createUser(String login, String name, String surname, String email, String password, LocalDate birthdate, Roles role, Genders gender) {
+        Role userRole = roleRepository.findByCode(role.name())
+                .orElseGet(() -> roleRepository.save(new Role(role)));
+        PrivacySetting publicSetting = privacySettingRepository.findByCode(PrivacySettings.PUBLIC.name())
+                .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.PUBLIC)));
+        Gender userGender = genderRepository.findByCode(gender.name())
+                .orElseGet(() -> genderRepository.save(new Gender(gender)));
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setEmail(email);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setAccountNonLocked(false);
+        user.setBirthdate(birthdate);
+        user.setCredentialsNonExpired(true);
+        user.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
+        user.setRole(userRole);
+        user.setPostsPrivacy(publicSetting);
+        user.setFriendsPrivacy(publicSetting);
+        user.setProfilePrivacy(publicSetting);
+        user.setGender(userGender);
+        userRepository.save(user);
+        return user;
     }
 }

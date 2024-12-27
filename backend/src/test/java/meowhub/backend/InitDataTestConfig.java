@@ -93,7 +93,6 @@ public class InitDataTestConfig {
         user1.setEmail("admin1@example.com");
         user1.setName("Jan");
         user1.setSurname("Kos");
-        user1.setSalt("salt");
         user1.setAccountNonLocked(false);
         user1.setBirthdate(LocalDate.of(1990, 1, 1));
         user1.setCredentialsNonExpired(true);
@@ -111,7 +110,6 @@ public class InitDataTestConfig {
         user2.setEmail("user1@example.com");
         user2.setName("Gustaw");
         user2.setSurname("Jeleń");
-        user2.setSalt("salt");
         user2.setAccountNonLocked(false);
         user2.setBirthdate(LocalDate.of(1991, 11, 11));
         user2.setCredentialsNonExpired(true);
@@ -129,7 +127,6 @@ public class InitDataTestConfig {
         user3.setEmail("grzegorz@example.com");
         user3.setName("Grzegorz");
         user3.setSurname("Saakaszwili");
-        user3.setSalt("salt");
         user3.setAccountNonLocked(false);
         user3.setBirthdate(LocalDate.of(1991, 11, 11));
         user3.setCredentialsNonExpired(true);

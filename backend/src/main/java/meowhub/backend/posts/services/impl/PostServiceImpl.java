@@ -6,13 +6,12 @@ import meowhub.backend.posts.models.Post;
 import meowhub.backend.posts.services.PostService;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.users.dtos.BasicUserInfoDto;
+import meowhub.backend.users.facades.UserPostServiceFacade;
 import meowhub.backend.users.models.User;
 import meowhub.backend.posts.repositories.PostRepository;
-import meowhub.backend.users.repositories.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
@@ -21,8 +20,8 @@ import java.time.LocalDateTime;
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
+    private final UserPostServiceFacade userPostServiceFacade;
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
 
     @Override
     public Page<PostDto> getPosts(String requestedBy, int pageNo, int pageSize) {
@@ -33,8 +32,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDto> getPostsForUser(String login, String requestedBy, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        userRepository.findByLogin(login)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
+        userPostServiceFacade.validateIfUserExists(login);
 
         if (login.equals(requestedBy)) {
             return postRepository.findOwn(login, pageable);
@@ -45,8 +43,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto createPost(String login, String content) {
-        User postOwner = userRepository.findByLogin(login)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
+        User postOwner = userPostServiceFacade.findUserByLogin(login);
         Post post = new Post();
         post.setContentHtml(content);
         post.setUser(postOwner);
@@ -69,8 +66,7 @@ public class PostServiceImpl implements PostService {
     }
 
     private Post findUserPost(String login, String postId) {
-        userRepository.findByLogin(login)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
+        userPostServiceFacade.validateIfUserExists(login);
 
         return postRepository.findByUserLoginAndId(login, postId)
                 .orElseThrow(() -> new NotFoundException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "post", "id", postId)));
@@ -81,9 +77,7 @@ public class PostServiceImpl implements PostService {
             return null;
         }
 
-        String login = post.getUser().getLogin();
-        BasicUserInfoDto author = userRepository.findBasicUserInfoByLogin(login)
-                .orElseThrow(() -> new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
+        BasicUserInfoDto author = userPostServiceFacade.getBasicUserInfo(post.getUser().getLogin());
 
         return PostDto.builder()
                 .id(post.getId())

@@ -1,16 +1,8 @@
 package meowhub.backend.security;
 
 import meowhub.backend.constants.Genders;
-import meowhub.backend.constants.PrivacySettings;
 import meowhub.backend.constants.Roles;
-import meowhub.backend.users.models.Gender;
-import meowhub.backend.users.models.PrivacySetting;
-import meowhub.backend.users.models.Role;
-import meowhub.backend.users.models.User;
-import meowhub.backend.users.repositories.PrivacySettingRepository;
-import meowhub.backend.users.repositories.GenderRepository;
-import meowhub.backend.users.repositories.RoleRepository;
-import meowhub.backend.users.repositories.UserRepository;
+import meowhub.backend.users.facades.UserAuthServiceFacade;
 import meowhub.backend.security.jwt.AuthEntryPointJwt;
 import meowhub.backend.security.jwt.AuthTokenFilter;
 import org.springframework.boot.CommandLineRunner;
@@ -28,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Configuration
 @EnableWebSecurity
@@ -60,69 +51,16 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CommandLineRunner initData(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder, PrivacySettingRepository privacySettingRepository, GenderRepository genderRepository) {
+    public CommandLineRunner initData(UserAuthServiceFacade userAuthServiceFacade) {
         return args -> {
-            Role userRole = roleRepository.findByCode(Roles.ROLE_USER.name())
-                    .orElseGet(() -> roleRepository.save(new Role(Roles.ROLE_USER)));
-            Role adminRole = roleRepository.findByCode(Roles.ROLE_ADMIN.name())
-                    .orElseGet(() -> roleRepository.save(new Role(Roles.ROLE_ADMIN)));
-
-            PrivacySetting publicSetting = privacySettingRepository.findByCode(PrivacySettings.PUBLIC.name())
-                    .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.PUBLIC)));
-
-            PrivacySetting privateSetting = privacySettingRepository.findByCode(PrivacySettings.PRIVATE.name())
-                    .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.PRIVATE)));
-
-            PrivacySetting friendsOnlySetting = privacySettingRepository.findByCode(PrivacySettings.FRIENDS_ONLY.name())
-                    .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.FRIENDS_ONLY)));
-
-            Gender female = genderRepository.findByCode(Genders.FEMALE.name())
-                    .orElseGet(() -> genderRepository.save(new Gender(Genders.FEMALE)));
-
-            Gender male = genderRepository.findByCode(Genders.MALE.name())
-                    .orElseGet(() -> genderRepository.save(new Gender(Genders.MALE)));
-
-            Gender other = genderRepository.findByCode(Genders.OTHER.name())
-                    .orElseGet(() -> genderRepository.save(new Gender(Genders.OTHER)));
-
-            if (!userRepository.existsByLogin("user1")) {
-                User user1 = new User();
-                user1.setLogin("user1");
-                user1.setPassword(passwordEncoder.encode("password1"));
-                user1.setEmail("user1@example.com");
-                user1.setName("Jan");
-                user1.setSurname("Kos");
-                user1.setAccountNonLocked(false);
-                user1.setBirthdate(LocalDate.of(1990, 1, 1));
-                user1.setCredentialsNonExpired(true);
-                user1.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
-                user1.setRole(userRole);
-                user1.setPostsPrivacy(publicSetting);
-                user1.setFriendsPrivacy(publicSetting);
-                user1.setProfilePrivacy(publicSetting);
-                user1.setGender(male);
-                userRepository.save(user1);
+            if (!userAuthServiceFacade.existsByLogin("user1")) {
+                userAuthServiceFacade.createUser("user1", "Gustaw", "Jeleń", "user1@gmail.com", "userPass", LocalDate.of(1970, 10, 14), Roles.ROLE_USER, Genders.MALE);
             }
 
-            if (!userRepository.existsByLogin("admin")) {
-                User admin = new User();
-                admin.setLogin("admin");
-                admin.setPassword(passwordEncoder.encode("adminPass"));
-                admin.setEmail("admin@example.com");
-                admin.setName("Gustaw");
-                admin.setSurname("Jeleń");
-                admin.setAccountNonLocked(false);
-                admin.setBirthdate(LocalDate.of(1980, 1, 1));
-                admin.setCredentialsNonExpired(true);
-                admin.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
-                admin.setRole(adminRole);
-                admin.setPostsPrivacy(publicSetting);
-                admin.setFriendsPrivacy(publicSetting);
-                admin.setProfilePrivacy(publicSetting);
-                admin.setGender(male);
-                userRepository.save(admin);
-            }
+            if (!userAuthServiceFacade.existsByLogin("admin")) {
+                userAuthServiceFacade.createUser("admin", "Jan", "Kos", "admin@gmail.com", "adminPass", LocalDate.of(1979, 12, 11), Roles.ROLE_ADMIN, Genders.MALE);
 
+            }
         };
     }
 

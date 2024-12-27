@@ -85,7 +85,6 @@ public class AuthServiceImpl implements AuthService {
                 .postsPrivacy(publicSettings)
                 .friendsPrivacy(publicSettings)
                 .birthdate(request.getBirthdate())
-                .salt("salt")
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(userRole)
                 .build();

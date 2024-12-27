@@ -61,11 +61,6 @@ public class HUser {
     @Column(name = "PASSWORD", nullable = false, length = 120)
     private String password;
 
-    @Size(max = 20)
-    @NotNull
-    @Column(name = "SALT", nullable = false, length = 20)
-    private String salt;
-
     @NotNull
     @Column(name = "BIRTHDATE", nullable = false)
     private LocalDate birthdate;

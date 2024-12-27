@@ -80,7 +80,6 @@ public class SecurityConfig {
                 user1.setEmail("user1@example.com");
                 user1.setName("Jan");
                 user1.setSurname("Kos");
-                user1.setSalt("salt");
                 user1.setAccountNonLocked(false);
                 user1.setBirthdate(LocalDate.of(1990, 1, 1));
                 user1.setCredentialsNonExpired(true);
@@ -100,7 +99,6 @@ public class SecurityConfig {
                 admin.setEmail("admin@example.com");
                 admin.setName("Gustaw");
                 admin.setSurname("Jeleń");
-                admin.setSalt("salt");
                 admin.setAccountNonLocked(false);
                 admin.setBirthdate(LocalDate.of(1980, 1, 1));
                 admin.setCredentialsNonExpired(true);

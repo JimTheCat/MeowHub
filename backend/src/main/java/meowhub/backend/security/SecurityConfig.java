@@ -70,8 +70,20 @@ public class SecurityConfig {
             PrivacySetting publicSetting = privacySettingRepository.findByCode(PrivacySettings.PUBLIC.name())
                     .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.PUBLIC)));
 
+            PrivacySetting privateSetting = privacySettingRepository.findByCode(PrivacySettings.PRIVATE.name())
+                    .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.PRIVATE)));
+
+            PrivacySetting friendsOnlySetting = privacySettingRepository.findByCode(PrivacySettings.FRIENDS_ONLY.name())
+                    .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.FRIENDS_ONLY)));
+
             Gender female = genderRepository.findByCode(Genders.FEMALE.name())
                     .orElseGet(() -> genderRepository.save(new Gender(Genders.FEMALE)));
+
+            Gender male = genderRepository.findByCode(Genders.MALE.name())
+                    .orElseGet(() -> genderRepository.save(new Gender(Genders.MALE)));
+
+            Gender other = genderRepository.findByCode(Genders.OTHER.name())
+                    .orElseGet(() -> genderRepository.save(new Gender(Genders.OTHER)));
 
             if (!userRepository.existsByLogin("user1")) {
                 User user1 = new User();
@@ -88,7 +100,7 @@ public class SecurityConfig {
                 user1.setPostsPrivacy(publicSetting);
                 user1.setFriendsPrivacy(publicSetting);
                 user1.setProfilePrivacy(publicSetting);
-                user1.setGender(female);
+                user1.setGender(male);
                 userRepository.save(user1);
             }
 
@@ -107,7 +119,7 @@ public class SecurityConfig {
                 admin.setPostsPrivacy(publicSetting);
                 admin.setFriendsPrivacy(publicSetting);
                 admin.setProfilePrivacy(publicSetting);
-                admin.setGender(female);
+                admin.setGender(male);
                 userRepository.save(admin);
             }
 

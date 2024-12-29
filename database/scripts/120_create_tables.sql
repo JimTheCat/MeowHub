@@ -147,7 +147,6 @@ CREATE TABLE mh_users.Users
     login                   varchar2(20)  NOT NULL,
     email                   varchar2(50)  NOT NULL,
     password                varchar2(120) NOT NULL,
-    salt                    varchar2(20)  NOT NULL,
     birthdate               date          NOT NULL,
     gender_id               varchar2(36)  NOT NULL,
     profile_privacy_id      varchar2(36)  NOT NULL,

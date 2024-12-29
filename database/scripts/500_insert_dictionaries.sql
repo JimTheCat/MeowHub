@@ -2,8 +2,8 @@
 
 ---------------------------------------- || MH_USERS SCHEMA || ----------------------------------------
 -- table: mh_users.roles
-INSERT INTO mh_users.roles (code, description) VALUES ('USER_ROLE', 'Regular user role with basic permissions');
-INSERT INTO mh_users.roles (code, description) VALUES ('ADMIN_ROLE', 'Admin role with all permissions');
+INSERT INTO mh_users.roles (code, description) VALUES ('ROLE_USER', 'Regular user role with basic permissions');
+INSERT INTO mh_users.roles (code, description) VALUES ('ROLE_ADMIN', 'Admin role with all permissions');
 
 -- table: mh_users.genders
 INSERT INTO mh_users.genders (code) VALUES ('FEMALE');

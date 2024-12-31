@@ -1,4 +1,4 @@
-import {AppShell, Stack} from "@mantine/core";
+import {AppShell} from "@mantine/core";
 import {Aside} from "./components/Aside";
 import React from "react";
 import {Main} from "./components/Main";
@@ -19,9 +19,7 @@ export const Matching = (props: MatchingProps) => {
         <Aside/>
       </AppShell.Aside>
       <AppShell.Main p={0}>
-        <Stack mih={"inherit"} p={'lg'} align={'center'} justify={'center'} gap={0}>
-          {props.component ? props.component : <Main/>}
-        </Stack>
+        {props.component ? props.component : <Main/>}
       </AppShell.Main>
     </AppShell>
   );

@@ -3,6 +3,13 @@
     opacity: 0;
 }
 
+.control {
+    &[data-inactive] {
+        opacity: 0;
+        cursor: default;
+    }
+}
+
 .root {
     &:hover {
         .controls {
@@ -12,11 +19,11 @@
 }
 
 .indicator {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 4px;
     transition: width 250ms ease;
 
     &[data-active] {
-        width: 12px;
+        width: 40px;
     }
 }

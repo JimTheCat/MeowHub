@@ -163,6 +163,7 @@ public class InitDataTestConfig {
         PostPicture postPicture = new PostPicture();
         postPicture.setPicture(picture);
         postPicture.setPost(post3);
+        postPicture.setIndex(0L);
         postPictureRepository.save(postPicture);
 
         Comment comment1 = new Comment();

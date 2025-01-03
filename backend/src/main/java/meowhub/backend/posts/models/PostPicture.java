@@ -42,6 +42,10 @@ public class PostPicture {
     @JoinColumn(name = "PICTURE_ID", nullable = false)
     private Picture picture;
 
+    @NotNull
+    @Column(name = "PICTURE_INDEX", nullable = false)
+    private Long index;
+
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
 

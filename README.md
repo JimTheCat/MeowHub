@@ -3,7 +3,9 @@ Engineering Thesis
 
 ## Database
 For production environment, you need to have an oracle database.
-If you don't have a created an oracle database yet, run script `database/install.sql`.
+If you didn't create oracle database yet, run script `database/install.sql`.
+(run the application to instatiate mock users via SecurityConfig)
+For mock data, run script `database/scripts/510_insert_mock_data.sql` on your database - as it is not included in `install.sql` script.
 
 
 ## Profiles

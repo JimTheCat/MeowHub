@@ -52,6 +52,7 @@ CREATE TABLE mh_posts.Post_Pictures
     id          varchar2(36) DEFAULT sys_guid() NOT NULL,
     post_id     varchar2(36) NOT NULL,
     picture_id  varchar2(36) NOT NULL,
+    picture_index number       NOT NULL,
     created_at  date         NOT NULL,
     created_by  varchar2(36) NOT NULL,
     modified_at date         NULL,

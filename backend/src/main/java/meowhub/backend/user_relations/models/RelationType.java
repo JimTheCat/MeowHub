@@ -1,4 +1,4 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.user_relations.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

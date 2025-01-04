@@ -364,7 +364,8 @@ CREATE TABLE mh_user_relations.User_Relations
     created_by       varchar2(36) NOT NULL,
     modified_at      date         NULL,
     modified_by      varchar2(36) NULL,
-    CONSTRAINT User_Relations_pk PRIMARY KEY (id)
+    CONSTRAINT User_Relations_pk PRIMARY KEY (id),
+    CONSTRAINT UQ_Sender_Receiver UNIQUE (sender_id, receiver_id)
 );
 
 -- Table: Relation_Types

@@ -2,6 +2,8 @@ package meowhub.backend.users.repositories;
 
 import meowhub.backend.users.dtos.BasicUserInfoDto;
 import meowhub.backend.users.models.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -33,4 +35,27 @@ public interface UserRepository extends JpaRepository<User, String> {
         FETCH FIRST 1 ROWS ONLY
     """)
     Optional<BasicUserInfoDto> findBasicUserInfoByLogin(@Param("login") String login);
+
+
+    @Query("""
+        SELECT new meowhub.backend.users.dtos.BasicUserInfoDto (
+            u.id,
+            u.name,
+            u.surname,
+            u.login,
+            null
+        )
+         FROM User u
+        WHERE LOWER(u.login) LIKE LOWER(CONCAT('%', :query, '%'))
+           OR LOWER(u.name) LIKE LOWER(CONCAT('%', :query, '%'))
+           OR LOWER(u.surname) LIKE LOWER(CONCAT('%', :query, '%'))
+        ORDER BY
+           CASE
+               WHEN LOWER(u.login) LIKE LOWER(CONCAT('%', :query, '%')) THEN 1
+               WHEN LOWER(u.name) LIKE LOWER(CONCAT('%', :query, '%')) THEN 2
+               WHEN LOWER(u.surname) LIKE LOWER(CONCAT('%', :query, '%')) THEN 3
+               ELSE 4
+           END
+    """)
+        Page<BasicUserInfoDto> searchByQuery(@Param("query") String query, Pageable pageable);
 }

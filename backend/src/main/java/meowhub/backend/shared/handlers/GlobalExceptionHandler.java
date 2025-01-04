@@ -2,6 +2,7 @@ package meowhub.backend.shared.handlers;
 
 import meowhub.backend.shared.dtos.AlertDto;
 import meowhub.backend.shared.exceptions.NotUniqueObjectException;
+import meowhub.backend.shared.exceptions.RelationException;
 import meowhub.backend.shared.utils.AlertUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<AlertDto> handleNotFoundException(NotFoundException ex) {
         return new ResponseEntity<>(AlertUtils.resourceNotFoundException(ex.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(RelationException.class)
+    public ResponseEntity<AlertDto> handleNotFoundException(RelationException ex) {
+        if(ex.getMessage().contains("exists")) {
+            return new ResponseEntity<>(AlertUtils.relationAlreadyExists(ex.getMessage()), HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(AlertUtils.relationNotFoundException(ex.getMessage()), HttpStatus.NOT_FOUND);
+        }
     }
 
     @ExceptionHandler(Exception.class)

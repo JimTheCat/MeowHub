@@ -1,12 +1,13 @@
 import axios from 'axios';
+import {Alert} from "../types/Alert.tsx";
 
 const api = axios.create({
   withCredentials: true, // Cookie handling
 });
 
-let showError: ((message: string) => void) | null = null;
+let showError: ((alert: Alert) => void) | null = null;
 
-export const setApiErrorHandler = (handler: (message: string) => void) => {
+export const setApiErrorHandler = (handler: (alert: Alert) => void) => {
   showError = handler;
 };
 
@@ -26,7 +27,14 @@ const fetchCsrfToken = async (): Promise<string | null> => {
   } catch (error) {
     console.error('Failed to fetch CSRF token:', error);
     if (showError) {
-      showError('Failed to fetch CSRF token');
+      showError(
+        {
+          title: 'Failed to fetch CSRF token',
+          message: 'Failed to fetch CSRF token from the server',
+          level: 'ERROR',
+          timestamp: new Date().toISOString(),
+        }
+      );
     }
     return null;
   }
@@ -61,9 +69,19 @@ api.interceptors.response.use(
   (error) => {
     if (showError) {
       if (error.response) {
-        showError(error.response.data?.message || 'An error occurred');
+        showError({
+          title: error.response.statusText,
+          message: error.response.data.message,
+          level: 'ERROR',
+          timestamp: new Date().toISOString(),
+        });
       } else {
-        showError('Network error or server is not reachable');
+        showError({
+          title: 'Network error',
+          message: 'Failed to connect to the server',
+          level: 'ERROR',
+          timestamp: new Date().toISOString(),
+        });
       }
     }
     return Promise.reject(new Error(error));

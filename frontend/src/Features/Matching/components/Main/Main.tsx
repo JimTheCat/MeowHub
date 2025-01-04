@@ -3,6 +3,7 @@ import {ProfileCard} from "./components";
 import {useEffect, useState} from "react";
 
 type ProfileDummy = {
+  id: number;
   name: string;
   age: number;
   location: string;
@@ -17,9 +18,10 @@ export const Main = () => {
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
-    // Symulacja pobierania profili
+    // Dummy data
     const newProfiles = [
       {
+        id: 1,
         name: "Iza",
         age: 23,
         location: "London",
@@ -30,6 +32,7 @@ export const Main = () => {
         ],
       },
       {
+        id: 2,
         name: "John",
         age: 29,
         location: "New York",
@@ -40,6 +43,7 @@ export const Main = () => {
         ],
       },
       {
+        id: 3,
         name: "Alice",
         age: 25,
         location: "Berlin",
@@ -50,6 +54,7 @@ export const Main = () => {
         ],
       },
       {
+        id: 4,
         name: "Iza",
         age: 23,
         location: "London",
@@ -60,6 +65,7 @@ export const Main = () => {
         ],
       },
       {
+        id: 5,
         name: "John",
         age: 29,
         location: "New York",
@@ -70,6 +76,7 @@ export const Main = () => {
         ],
       },
       {
+        id: 6,
         name: "Alice",
         age: 25,
         location: "Berlin",
@@ -92,7 +99,7 @@ export const Main = () => {
       setCurrentIndex((prev) => prev + 1);
       setSwipeDirection("");
       setIsAnimating(false);
-    }, 500); // Czas animacji
+    }, 500); // Time of animation
   };
 
   return (
@@ -105,11 +112,11 @@ export const Main = () => {
       }}
     >
       {profiles
-        .slice(currentIndex, currentIndex + 2) // Tylko bieżąca karta i następna
+        .slice(currentIndex, currentIndex + 2) // Only two profiles at a time
         .map((profile, index) => {
           return (
             <ProfileCard
-              key={currentIndex + index}
+              key={profile.id}
               profile={profile}
               isActive={index === 0}
               isNext={index === 1}

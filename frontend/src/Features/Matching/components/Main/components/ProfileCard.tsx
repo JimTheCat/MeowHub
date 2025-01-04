@@ -1,5 +1,5 @@
 import {Badge, Box, Button, Card, Group, Image, ScrollArea, Stack, Text} from "@mantine/core";
-import {Carousel} from "@mantine/carousel";
+import {Carousel, Embla, useAnimationOffsetEffect} from "@mantine/carousel";
 import {IconCheck, IconX} from "@tabler/icons-react";
 import {useEffect, useState} from "react";
 import classes from "./carousel.module.css";
@@ -27,13 +27,17 @@ export const ProfileCard = ({
                             }: ProfileProps) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [styles, setStyles] = useState({
-    transform: "translate(-50%, -50%) scale(1)",
+    transform: "translate(-50%, -50%) scale(0.9)",
     opacity: 1,
   });
+  const [embla, setEmbla] = useState<Embla | null>(null);
+  const DURATION = 500;
+
+  useAnimationOffsetEffect(embla, DURATION);
 
   useEffect(() => {
     if (swipeDirection) {
-      // Animacja przesuwania aktywnej karty
+      // Animation for swiping
       const directionTransform =
         swipeDirection === "left"
           ? "translate(-150%, -50%)"
@@ -45,31 +49,47 @@ export const ProfileCard = ({
         opacity: 0,
       });
 
-      // Po zakończeniu animacji wykonaj swipe i zresetuj styl
+      // Reset styles after animation
       const timeout = setTimeout(() => {
         handleSwipe(swipeDirection);
         setIsAnimating(false);
         setStyles({
-          transform: "translate(-50%, -50%) scale(0.9)", // Nowa karta wychodzi spod poprzedniej
+          transform: "translate(-50%, -50%) scale(0.9)", // Default scale
           opacity: 1,
         });
       }, 500);
 
       return () => clearTimeout(timeout);
     } else if (isNext) {
-      // Skalowanie nowej karty, która czeka na swoją kolej
-      setStyles({
+      // Animation for next card
+      setStyles((prevStyles) => ({
+        ...prevStyles,
         transform: "translate(-50%, -50%) scale(0.9)",
         opacity: 1,
-      });
+      }));
     } else if (isActive) {
-      // Reset do domyślnego stanu dla aktywnej karty
+      // Animation for active card
       setStyles({
         transform: "translate(-50%, -50%) scale(1)",
         opacity: 1,
       });
     }
+
+    const timeout = setTimeout(() => {
+      if (embla) {
+        embla.reInit();
+      }
+    }, 300); // Run after the animation
+    return () => clearTimeout(timeout);
   }, [swipeDirection, isActive, isNext, handleSwipe]);
+
+  const handleZIndex = () => {
+    if (isActive) {
+      return 100;
+    }
+
+    return isNext ? 50 : 1;
+  }
 
   return (
     <Card
@@ -84,7 +104,7 @@ export const ProfileCard = ({
         transition: isAnimating
           ? "transform 0.5s ease, opacity 0.5s ease"
           : "transform 0.3s ease, opacity 0.3s ease",
-        zIndex: isActive ? 10 : isNext ? 5 : 1,
+        zIndex: handleZIndex(),
         boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.2)",
         overflow: "hidden",
         '--card-padding': '0',
@@ -92,18 +112,18 @@ export const ProfileCard = ({
       component={ScrollArea}
     >
       <Box mah="calc(90dvh - 80px)">
-        {/* Sekcja karuzeli */}
+        {/* Carousel section */}
         <Card.Section h="70vh">
-          <Carousel classNames={classes} withIndicators>
+          <Carousel classNames={classes} getEmblaApi={setEmbla} withIndicators>
             {profile.photos.map((photo) => (
-              <Carousel.Slide key={photo.index}>
-                <Image src={photo.url} alt="Profile photo" h="70vh"/>
+              <Carousel.Slide key={photo.index} pos={'relative'} h="70vh">
+                <Image src={photo.url} alt="Profile photo" h={'100%'}/>
               </Carousel.Slide>
             ))}
           </Carousel>
         </Card.Section>
 
-        {/* Sekcja informacji użytkownika */}
+        {/* Profile information */}
         <Stack gap="xs" p="md">
           <Group justify="apart">
             <Text size="xl" fw={700}>
@@ -120,7 +140,7 @@ export const ProfileCard = ({
         </Stack>
       </Box>
 
-      {/* Sekcja przycisków */}
+      {/* Swipe buttons */}
       <Group
         justify="space-evenly"
         pos={'absolute'}

@@ -48,6 +48,7 @@ export const useAuthStore = create<AuthState>((set) => {
     logout: () => {
       set({user: null, token: null});
       localStorage.removeItem("token");
+      localStorage.removeItem("X-XSRF-TOKEN");
     },
     isLogged: () => {
       return !!localStorage.getItem("token");

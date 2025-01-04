@@ -4,6 +4,7 @@ import {
   Card,
   Divider,
   Group,
+  NativeSelect,
   ScrollArea,
   SimpleGrid,
   Stack,
@@ -12,17 +13,21 @@ import {
   Title
 } from "@mantine/core";
 import {EditableImage} from "./components/EditableImage/EditableImage.tsx";
-import {useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useForm} from "@mantine/form";
-import axios from "axios";
+import {IconGenderBigender} from "@tabler/icons-react";
+import {sexualityProfile} from "../../const";
 
-type City = {
-  label: string;
-  value: string;
-};
+declare global {
+  interface Window {
+    google: any;
+  }
+}
 
 export const MatchProfile = () => {
-  const [cities, setCities] = useState<City[]>([]);
+  const [cityQuery, setCityQuery] = useState("");
+  const [cities, setCities] = useState<string[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
   const dummyProfileData = {
     name: "Iza",
@@ -33,6 +38,7 @@ export const MatchProfile = () => {
       {index: "1", url: "https://picsum.photos/seed/1/800/600"},
       {index: "2", url: "https://picsum.photos/seed/2/800/600"},
     ],
+    sexuality: "homosexual",
   };
 
   const form = useForm({
@@ -41,56 +47,50 @@ export const MatchProfile = () => {
       age: dummyProfileData.age,
       location: dummyProfileData.location,
       bio: dummyProfileData.bio,
+      sexuality: dummyProfileData.sexuality,
     },
-    onValuesChange: () => {
+    onValuesChange: (values) => {
+      if (values.location) {
+        // Set city query to the value of the location input
+        setCityQuery(values.location);
+        setIsTyping(true);
+      }
       setIsChanged(true);
     },
   });
 
-  // Funkcja do pobrania danych miast
-  const fetchCities = async (latitude: number, longitude: number) => {
-    const apiKey = '4b114eb519c94e9aa1294d2a7b20966c';  // Twój klucz API
-    const language = localStorage.getItem('language') || 'en';  // Pobierz preferencję językową z localStorage
+  // Fetch cities from Google Places API
+  const fetchCities = useCallback((input: string) => {
+    if (!input || !window.google) return;
 
-    try {
-      const response = await axios.get(
-        `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}&language=${language}`
-      );
-
-      const data = response.data.results;
-      const citiesList = data.map((result: any) => {
-        const city = result.components.city || result.components.town || result.components.village;
-        return {
-          label: city, // label zależy od języka w API
-          value: result.components.city || result.components.town || result.components.village || city,
-        };
-      });
-
-      setCities(citiesList);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const sendGeoLocation = () => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const {latitude, longitude} = position.coords;
-          fetchCities(latitude, longitude);
-        },
-        () => {
-          console.log("Geolocation is not available. fetchCities with default coordinates");
-          fetchCities(51.5074, 0.1278); // Londyn
+    const language = localStorage.getItem("language") ?? 'en';
+    const service = new window.google.maps.places.AutocompleteService();
+    service.getPlacePredictions(
+      {
+        input,
+        types: ["(cities)"],
+        language
+      },
+      (predictions: any[], status: string) => {
+        if (status === "OK" && predictions) {
+          setCities(predictions.map((p) => p.description));
+        } else {
+          setCities([]);
         }
-      );
-    }
-  };
+      }
+    );
+  }, []);
 
-  // Ładowanie miast po renderowaniu komponentu
-  // useEffect(() => {
-  //   sendGeoLocation();
-  // }, []);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (isTyping) {
+        fetchCities(cityQuery);
+        setIsTyping(false);
+      }
+    }, 500);
+
+    return () => clearTimeout(timeout);
+  }, [cityQuery, isTyping, fetchCities]);
 
   return (
     <form
@@ -113,6 +113,7 @@ export const MatchProfile = () => {
           <Divider my={"md"}/>
 
           {/* Settings of profile */}
+          <Title order={2}>Settings</Title>
           <Stack gap="lg">
             <TextInput
               placeholder="Name"
@@ -132,6 +133,12 @@ export const MatchProfile = () => {
               label={"Bio"}
               key={form.key("bio")}
               {...form.getInputProps("bio")}
+            />
+            <NativeSelect
+              label={'Sexuality'}
+              data={sexualityProfile}
+              leftSection={<IconGenderBigender/>}
+              {...form.getInputProps("sexuality")}
             />
           </Stack>
         </Card>

@@ -1,16 +1,38 @@
 package meowhub.backend.shared.utils;
 
+import lombok.NoArgsConstructor;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.shared.constants.AlertLevel;
 import meowhub.backend.shared.dtos.AlertDto;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor(access = lombok.AccessLevel.PRIVATE)
 public class AlertUtils {
 
     public static AlertDto userNotFoundException(String msg) {
         AlertDto alertDto = new AlertDto();
         alertDto.setTitle(AlertConstants.USER_WITH_LOGIN_NOT_FOUND_TITLE);
+        alertDto.setMessage(msg);
+        alertDto.setLevel(AlertLevel.ERROR);
+        alertDto.setTimestamp(LocalDateTime.now());
+
+        return alertDto;
+    }
+
+    public static AlertDto relationNotFoundException(String msg) {
+        AlertDto alertDto = new AlertDto();
+        alertDto.setTitle(AlertConstants.RELATION_FOR_USERS_NOT_FOUND_TITLE);
+        alertDto.setMessage(msg);
+        alertDto.setLevel(AlertLevel.ERROR);
+        alertDto.setTimestamp(LocalDateTime.now());
+
+        return alertDto;
+    }
+
+    public static AlertDto relationAlreadyExists(String msg) {
+        AlertDto alertDto = new AlertDto();
+        alertDto.setTitle(AlertConstants.RELATION_ALREADY_EXISTS_TITLE);
         alertDto.setMessage(msg);
         alertDto.setLevel(AlertLevel.ERROR);
         alertDto.setTimestamp(LocalDateTime.now());
@@ -66,8 +88,5 @@ public class AlertUtils {
         alertDto.setTimestamp(LocalDateTime.now());
 
         return alertDto;
-    }
-
-    private AlertUtils() {
     }
 }

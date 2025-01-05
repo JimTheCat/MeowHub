@@ -10,6 +10,9 @@ import meowhub.backend.users.dtos.BasicUserInfoDto;
 import meowhub.backend.users.models.User;
 import meowhub.backend.users.repositories.UserRepository;
 import meowhub.backend.users.services.UserQueryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserQueryServiceImpl implements UserQueryService {
     private final UserRepository userRepository;
+
+    public Page<BasicUserInfoDto> searchUsers(String query, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        if (query == null || query.isBlank()) {
+            return userRepository.findAll(pageable).map(user -> new BasicUserInfoDto(user.getId(), user.getName(), user.getSurname(), user.getLogin(), null));
+        }
+
+        return userRepository.searchByQuery(query, pageable);
+    }
 
     @Override
     public BasicUserInfoDto getBasicUserInfo(String login) {

@@ -26,7 +26,7 @@ import meowhub.backend.jpa_buddy.MatchingProfile;
 import meowhub.backend.posts.models.Post;
 import meowhub.backend.jpa_buddy.Profile;
 import meowhub.backend.jpa_buddy.UserGroup;
-import meowhub.backend.jpa_buddy.UserRelation;
+import meowhub.backend.user_relations.models.UserRelation;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 

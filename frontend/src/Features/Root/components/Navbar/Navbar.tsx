@@ -5,8 +5,8 @@ import {
   IconHome,
   IconMail,
   IconSettings,
+  IconTopologyFull,
   IconUserHeart,
-  IconUserPlus,
   IconUsers,
   IconUsersGroup,
   IconZoom
@@ -75,7 +75,7 @@ export const Navbar = () => {
           <CreatePost/>
           <MenuButton mainMenu icon={<IconUsers/>} text={"Znajomi"} href={"/friends"}/>
           <MenuButton mainMenu icon={<IconUsersGroup/>} text={"Grupy"} href={"/groups"}/>
-          <MenuButton mainMenu icon={<IconUserPlus/>} text={"Obserwowani"} href={"/following"}/>
+          <MenuButton mainMenu icon={<IconTopologyFull/>} text={"Relacje"} href={"/relations"}/>
           <MenuButton mainMenu icon={<IconUserHeart/>} text={"Matching"} href={"/matching"}/>
           <MenuButton mainMenu icon={<IconMail/>} text={"Wiadomości"} href={"/messages"}/>
         </AppShell.Section>

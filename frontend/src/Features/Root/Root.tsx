@@ -7,7 +7,6 @@ import {NotFound} from "../NotFound";
 import {Recovery} from "../Recovery";
 import {Profile} from "../Profile";
 import {Search} from "../Search";
-import {Following} from "../Following";
 import {Groups} from "../Groups";
 import {Friends} from "../Friends";
 import {Settings} from "../Settings";
@@ -15,6 +14,7 @@ import {Messenger} from "../Messenger";
 import {ProtectedRoute} from "./components/ProtectedRoute";
 import {PublicRoute} from "./components/PublicRoute";
 import {useAuthStore} from "../shared/services/authStore.ts";
+import {Relations} from "../Relations";
 import {Matching} from "../Matching";
 import {MatchProfile} from "../Matching/components/Profile";
 import {MatchFilters} from "../Matching/components/Filters";
@@ -41,7 +41,7 @@ export const Root = () => {
           <Route path="/mainpage" element={<MainPage/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path="/profile/:userTag" element={<Profile/>}/>
-          <Route path="/following" element={<Following/>}/>
+          <Route path="/relations" element={<Relations/>}/>
           <Route path="/groups" element={<Groups/>}/>
           <Route path="/friends" element={<Friends/>}/>
           <Route path="/matching" element={<Matching/>}/>

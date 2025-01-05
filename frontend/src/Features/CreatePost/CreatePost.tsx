@@ -20,7 +20,12 @@ export const CreatePost = () => {
     const contentToSave = contentRef.current;
     console.log('Create post: ', contentToSave);
     if (!contentToSave) {
-      alert.showError('Post is empty!');
+      alert.showError({
+        title: 'Error',
+        message: 'Content is empty',
+        level: 'WARNING',
+        timestamp: new Date().toISOString()
+      });
       return;
     }
 

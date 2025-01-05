@@ -15,6 +15,11 @@ import {Messenger} from "../Messenger";
 import {ProtectedRoute} from "./components/ProtectedRoute";
 import {PublicRoute} from "./components/PublicRoute";
 import {useAuthStore} from "../shared/services/authStore.ts";
+import {Matching} from "../Matching";
+import {MatchProfile} from "../Matching/components/Profile";
+import {MatchFilters} from "../Matching/components/Filters";
+import {MatchTests} from "../Matching/components/Tests";
+import {MatchSettings} from "../Matching/components/Settings";
 
 export const Root = () => {
 
@@ -39,6 +44,11 @@ export const Root = () => {
           <Route path="/following" element={<Following/>}/>
           <Route path="/groups" element={<Groups/>}/>
           <Route path="/friends" element={<Friends/>}/>
+          <Route path="/matching" element={<Matching/>}/>
+          <Route path="/matching/profile" element={<Matching component={<MatchProfile/>}/>}/>
+          <Route path="/matching/filters" element={<Matching component={<MatchFilters/>}/>}/>
+          <Route path="/matching/tests" element={<Matching component={<MatchTests/>}/>}/>
+          <Route path="/matching/settings" element={<Matching component={<MatchSettings/>}/>}/>
           <Route path="/messages" element={<Messenger/>}/>
           <Route path="/messages/:conversationId" element={<Messenger/>}/>
         </Route>

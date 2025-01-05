@@ -2,10 +2,11 @@
 import React, {createContext, ReactNode, useContext, useMemo} from 'react';
 import {Notifications, showNotification} from '@mantine/notifications';
 import {setApiErrorHandler} from "../Features/shared/services/api.ts";
+import {Alert} from "../Features/shared/types/Alert.tsx";
 
 // Context type
 interface AlertContextType {
-  showError: (message: string) => void;
+  showError: (alert: Alert) => void;
 }
 
 const AlertContext = createContext<AlertContextType | undefined>(undefined);
@@ -16,11 +17,22 @@ interface AlertProviderProps {
 }
 
 export const AlertProvider: React.FC<AlertProviderProps> = ({children}) => {
-  const showError = (message: string) => {
+
+  const handleColor = (level: string) => {
+    if (level === 'ERROR') {
+      return 'red';
+    } else if (level === 'WARNING') {
+      return 'yellow';
+    } else {
+      return 'blue';
+    }
+  }
+
+  const showError = (alert: Alert) => {
     showNotification({
-      title: 'Error',
-      message,
-      color: 'red',
+      title: alert.title,
+      message: alert.message,
+      color: handleColor(alert.level),
       position: 'bottom-right',
     });
   };

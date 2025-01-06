@@ -15,7 +15,7 @@ import {LogOut} from "../Buttons/LogOut";
 import {useAuthStore} from "../../../shared/services/authStore.ts";
 import {useNavigate} from "react-router-dom";
 import {CreatePost} from "../../../CreatePost";
-import {BasicUserInfo} from "../../../shared/types/User.tsx";
+import {BasicUserInfo} from "../../../shared/types";
 import {useEffect, useState} from "react";
 import api from "../../../shared/services/api.ts";
 

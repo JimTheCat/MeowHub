@@ -4,6 +4,7 @@ import {Box, Card, Divider, Pagination, ScrollArea, Tabs, Title} from "@mantine/
 import {IconArrowDownLeft, IconCircleX, IconSend} from "@tabler/icons-react";
 import api from "../shared/services/api";
 import {UserGrid} from "./components/UserGrid";
+import {useAlert} from "../../Providers/AlertProvider.tsx";
 
 export const Relations = () => {
   const [activeTab, setActiveTab] = useState<string | null>("sent");
@@ -11,6 +12,7 @@ export const Relations = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const alert = useAlert();
 
   const fetchData = async (page: number) => {
     setIsLoading(true);
@@ -35,6 +37,38 @@ export const Relations = () => {
       setIsLoading(false);
     }
   };
+
+  const handleAcceptRequest = (login: string) => {
+    api.post(`/api/relations/${login}/accept`).then(r => {
+      if (r.status === 200) {
+        fetchData(currentPage).then(r => r);
+        alert.showError(
+          {
+            title: 'Success',
+            message: 'Friend request accepted',
+            level: 'INFO',
+            timestamp: new Date().toISOString()
+          }
+        );
+      }
+    });
+  }
+
+  const handleCancelRequest = (login: string) => {
+    api.post(`/api/relations/${login}/reject`).then(r => {
+      if (r.status === 200) {
+        fetchData(currentPage).then(r => r);
+        alert.showError(
+          {
+            title: 'Success',
+            message: 'Friend request rejected',
+            level: 'INFO',
+            timestamp: new Date().toISOString()
+          }
+        );
+      }
+    });
+  }
 
   // Fetch data when activeTab or currentPage changes
   useEffect(() => {
@@ -69,7 +103,14 @@ export const Relations = () => {
                 <UserGrid emptyMessage="No sent requests" sentRequests={data} isLoading={isLoading}/>
               </Tabs.Panel>
               <Tabs.Panel value="received">
-                <UserGrid emptyMessage="No received requests" sentRequests={data} isLoading={isLoading}/>
+                <UserGrid
+                  emptyMessage="No received requests"
+                  isReceived
+                  sentRequests={data}
+                  isLoading={isLoading}
+                  handleAcceptRequest={handleAcceptRequest}
+                  handleCancelRequest={handleCancelRequest}
+                />
               </Tabs.Panel>
               <Tabs.Panel value="rejected">
                 <UserGrid emptyMessage="No rejected requests" sentRequests={data} isLoading={isLoading}/>

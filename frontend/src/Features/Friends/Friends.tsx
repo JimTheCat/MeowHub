@@ -1,46 +1,61 @@
-import {Card, Center, Group, SimpleGrid, Text, Title} from "@mantine/core";
+import {Card, Center, Divider, Group, Image, SimpleGrid, Stack, Text, Title} from "@mantine/core";
 import {FriendDetailed} from "./components/FriendDetailed";
-
-type SuggestedUser = {
-  id: number;
-  name: string;
-  avatar: string;
-  tag: string;
-};
-
-const dummyUsers: SuggestedUser[] = [
-  {id: 1, name: "Alice Johnson", avatar: "https://via.placeholder.com/40", tag: "@alicejohnson"},
-  {id: 2, name: "Bob Smith", avatar: "https://via.placeholder.com/40", tag: "@bobsmith"},
-  {id: 3, name: "Charlie Brown", avatar: "https://via.placeholder.com/40", tag: "@charliebrown"},
-  {id: 4, name: "David Johnson", avatar: "https://via.placeholder.com/40", tag: "@davidjohnson"},
-  {id: 5, name: "Eve Johnson", avatar: "https://via.placeholder.com/40", tag: "@evejohnson"},
-  {id: 6, name: "Frank Johnson", avatar: "https://via.placeholder.com/40", tag: "@frankjohnson"},
-  {id: 7, name: "Grace Johnson", avatar: "https://via.placeholder.com/40", tag: "@gracejohnson"},
-  {id: 8, name: "Hannah Johnson", avatar: "https://via.placeholder.com/40", tag: "@hannahjohnson"},
-  {id: 9, name: "Isaac Johnson", avatar: "https://via.placeholder.com/40", tag: "@isaacjohnson"},
-  {id: 10, name: "Jack Johnson", avatar: "https://via.placeholder.com/40", tag: "@jackjohnson"},
-  {id: 11, name: "Katie Johnson", avatar: "https://via.placeholder.com/40", tag: "@katiejohnson"},
-];
+import {BasicUserInfo} from "../shared/types";
+import {useEffect, useState} from "react";
+import api from "../shared/services/api.ts";
+import cat_no_friends from "./assets/cat_no_friends.png";
 
 export const Friends = () => {
+  const [friends, setFriends] = useState<BasicUserInfo[]>([]);
+
+  const fetchFriends = () => {
+    api.get('/api/relations/friends').then((response) => {
+      setFriends(response.data.content);
+    });
+  };
+
+  useEffect(() => {
+    fetchFriends();
+  }, []);
+
   return (
     <Center>
-      <Card shadow="sm" padding="lg" m={"md"} radius="md" w={"fit-content"} withBorder>
-        <Group justify={"space-between"} align={"flex-start"}>
-          <Title mb={"md"} order={2}>
-            List of friends
-          </Title>
-          <Text>
-            Total friends: {dummyUsers.length}
-          </Text>
+      <Card shadow="sm" padding="lg" m={"md"} radius="md" withBorder>
+        <Group justify={"space-between"}>
+          <Title order={2}>List of friends</Title>
+          <Text>Total friends: {friends.length}</Text>
         </Group>
-        {/*List of friends*/}
-        <SimpleGrid cols={3} spacing="lg">
-          {dummyUsers.map((user) => (
-            <FriendDetailed key={user.id} friend={user}/>
-          ))}
-        </SimpleGrid>
+
+        <Divider mt={"md"}/>
+        {/* Friends list */}
+        {friends.length > 0 ? (
+          <SimpleGrid mt={"md"} cols={3} spacing="lg">
+            {friends.map((user) => (
+              <FriendDetailed
+                key={user.id}
+                friend={user}
+                onRemove={fetchFriends} // Refresh friends list after removing a friend
+              />
+            ))}
+          </SimpleGrid>
+        ) : (
+          <Stack align="center" mt="xl">
+            <Image
+              src={cat_no_friends}
+              radius={"md"}
+              alt="No friends yet"
+              width={200}
+              height={200}
+            />
+            <Text size="lg" c="dimmed" mt="md" ta="center">
+              You don’t have any friends yet. 🐾
+            </Text>
+            <Text size="sm" c="dimmed" ta="center">
+              Start connecting with people and build your social circle!
+            </Text>
+          </Stack>
+        )}
       </Card>
     </Center>
-  )
-}
+  );
+};

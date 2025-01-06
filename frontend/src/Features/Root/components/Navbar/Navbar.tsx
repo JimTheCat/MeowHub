@@ -5,8 +5,8 @@ import {
   IconHome,
   IconMail,
   IconSettings,
+  IconTopologyFull,
   IconUserHeart,
-  IconUserPlus,
   IconUsers,
   IconUsersGroup,
   IconZoom
@@ -15,7 +15,7 @@ import {LogOut} from "../Buttons/LogOut";
 import {useAuthStore} from "../../../shared/services/authStore.ts";
 import {useNavigate} from "react-router-dom";
 import {CreatePost} from "../../../CreatePost";
-import {BasicUserInfo} from "../../../shared/types/User.tsx";
+import {BasicUserInfo} from "../../../shared/types";
 import {useEffect, useState} from "react";
 import api from "../../../shared/services/api.ts";
 
@@ -75,7 +75,7 @@ export const Navbar = () => {
           <CreatePost/>
           <MenuButton mainMenu icon={<IconUsers/>} text={"Znajomi"} href={"/friends"}/>
           <MenuButton mainMenu icon={<IconUsersGroup/>} text={"Grupy"} href={"/groups"}/>
-          <MenuButton mainMenu icon={<IconUserPlus/>} text={"Obserwowani"} href={"/following"}/>
+          <MenuButton mainMenu icon={<IconTopologyFull/>} text={"Relacje"} href={"/relations"}/>
           <MenuButton mainMenu icon={<IconUserHeart/>} text={"Matching"} href={"/matching"}/>
           <MenuButton mainMenu icon={<IconMail/>} text={"Wiadomości"} href={"/messages"}/>
         </AppShell.Section>

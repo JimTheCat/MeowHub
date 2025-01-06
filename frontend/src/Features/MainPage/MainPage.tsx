@@ -17,7 +17,7 @@ export const MainPage = () => {
     setLoading(true);
     try {
       const response = await api.get(`/api/posts`, {
-        params: {pageNo: page, pageSize: 3},
+        params: {pageNo: page, pageSize: 10},
       });
 
       const data = response.data;

@@ -52,6 +52,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<AlertDto> handleIllegalArgumentException(IllegalArgumentException ex) {
+        ex.printStackTrace();
         return new ResponseEntity<>(AlertUtils.illegalArgumentException(ex.getMessage()), HttpStatus.NOT_ACCEPTABLE);
     }
 

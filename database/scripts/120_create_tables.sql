@@ -49,14 +49,15 @@ CREATE TABLE mh_posts.Comments
 -- Table: Post_Pictures
 CREATE TABLE mh_posts.Post_Pictures
 (
-    id          varchar2(36) DEFAULT sys_guid() NOT NULL,
-    post_id     varchar2(36) NOT NULL,
-    picture_id  varchar2(36) NOT NULL,
-    picture_index number       NOT NULL,
-    created_at  date         NOT NULL,
-    created_by  varchar2(36) NOT NULL,
-    modified_at date         NULL,
-    modified_by varchar2(36) NULL,
+    id            varchar2(36)   DEFAULT sys_guid() NOT NULL,
+    post_id       varchar2(36)   NOT NULL,
+    oci_name      varchar2(100)  NOT NULL,
+    oci_url       varchar2(2000) NOT NULL,
+    picture_index number         NOT NULL,
+    created_at    date           NOT NULL,
+    created_by    varchar2(36)   NOT NULL,
+    modified_at   date           NULL,
+    modified_by   varchar2(36)   NULL,
     CONSTRAINT Post_Pictures_pk PRIMARY KEY (id)
 );
 
@@ -84,19 +85,6 @@ CREATE TABLE mh_users.Genders
     modified_at date         NULL,
     modified_by varchar2(36) NULL,
     CONSTRAINT Genders_pk PRIMARY KEY (id)
-);
-
--- Table: Pictures
-CREATE TABLE mh_users.Pictures
-(
-    id          varchar2(36) DEFAULT sys_guid() NOT NULL,
-    user_id     varchar2(36) NOT NULL,
-    picture     BLOB         NOT NULL,
-    created_at  date         NOT NULL,
-    created_by  varchar2(36) NOT NULL,
-    modified_at date         NULL,
-    modified_by varchar2(36) NULL,
-    CONSTRAINT Pictures_pk PRIMARY KEY (id)
 );
 
 -- Table: Privacy_Settings
@@ -187,15 +175,14 @@ CREATE TABLE mh_groups.Groupchat_messages
 -- Table: Groups
 CREATE TABLE mh_groups.Groups
 (
-    id          varchar2(36)  DEFAULT sys_guid() NOT NULL,
-    name        varchar2(40)  NOT NULL,
-    description varchar2(200) NOT NULL,
-    picture_id  varchar2(36)  NOT NULL,
-    created_at  date          NOT NULL,
-    created_by  varchar2(36)  NOT NULL,
-    modified_at date          NULL,
-    modified_by varchar2(36)  NULL,
-    CONSTRAINT Groups_name_UQ UNIQUE (name),
+    id          varchar2(36)   DEFAULT sys_guid() NOT NULL,
+    name        varchar2(40)   NOT NULL,
+    description varchar2(200)  NOT NULL,
+    created_at  date           NOT NULL,
+    created_by  varchar2(36)   NOT NULL,
+    modified_at date           NULL,
+    modified_by varchar2(36)   NULL,
+    CONSTRAINT Groups_name_UQ  UNIQUE (name),
     CONSTRAINT Groups_pk PRIMARY KEY (id)
 );
 
@@ -272,15 +259,16 @@ CREATE TABLE mh_matching.Matching_Chats
 -- Table: Matching_Profile_Pictures
 CREATE TABLE mh_matching.Matching_Profile_Pictures
 (
-    id                  varchar2(36) DEFAULT sys_guid() NOT NULL,
-    matching_profile_id varchar2(36) NOT NULL,
-    picture_id          varchar2(36) NOT NULL,
-    picture_index       number       NOT NULL,
-    created_at          date         NOT NULL,
-    created_by          varchar2(36) NOT NULL,
-    modified_at         date         NULL,
-    modified_by         varchar2(36) NULL,
-    CONSTRAINT Matching_Profile_Pictures_UQ UNIQUE (matching_profile_id, picture_id),
+    id                  varchar2(36)   DEFAULT sys_guid() NOT NULL,
+    matching_profile_id varchar2(36)   NOT NULL,
+    oci_name            varchar2(100)  NOT NULL,
+    oci_url             varchar2(2000) NOT NULL,
+    picture_index       number         NOT NULL,
+    created_at          date           NOT NULL,
+    created_by          varchar2(36)   NOT NULL,
+    modified_at         date           NULL,
+    modified_by         varchar2(36)   NULL,
+    CONSTRAINT Matching_Profile_id_idx UNIQUE (matching_profile_id),
     CONSTRAINT Matching_Profile_Pictures_pk PRIMARY KEY (id)
 );
 
@@ -313,14 +301,15 @@ CREATE TABLE mh_profiles.Profile_Data
 -- Table: Profile_Pictures
 CREATE TABLE mh_profiles.Profile_Pictures
 (
-    id            varchar2(36) DEFAULT sys_guid() NOT NULL,
-    profile_id    varchar2(36) NOT NULL,
-    picture_id    varchar2(36) NOT NULL,
-    picture_index number       NOT NULL,
-    created_at    date         NOT NULL,
-    created_by    varchar2(36) NOT NULL,
-    modified_at   date         NULL,
-    modified_by   varchar2(36) NULL,
+    id            varchar2(36)   DEFAULT sys_guid() NOT NULL,
+    profile_id    varchar2(36)   NOT NULL,
+    oci_name      varchar2(100)  NOT NULL,
+    oci_url       varchar2(2000) NOT NULL,
+    picture_index number         NOT NULL,
+    created_at    date           NOT NULL,
+    created_by    varchar2(36)   NOT NULL,
+    modified_at   date           NULL,
+    modified_by   varchar2(36)   NULL,
     CONSTRAINT Profile_Pictures_pk PRIMARY KEY (id)
 );
 

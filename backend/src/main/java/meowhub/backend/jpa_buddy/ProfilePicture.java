@@ -13,7 +13,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import meowhub.backend.users.models.Picture;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -37,10 +36,12 @@ public class ProfilePicture {
     private Profile profile;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "PICTURE_ID", nullable = false)
-    private Picture picture;
+    @Column(name = "OCI_NAME", nullable = false, length = 100)
+    private String ociName;
+
+    @NotNull
+    @Column(name = "OCI_URL", nullable = false, length = 2000)
+    private String ociUrl;
 
     @NotNull
     @Column(name = "PICTURE_INDEX", nullable = false)

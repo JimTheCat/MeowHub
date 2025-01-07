@@ -157,9 +157,6 @@ public class User {
     private final Set<MatchingProfile> matchingProfiles = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private final Set<Picture> pictures = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user")
     private final Set<Post> posts = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")

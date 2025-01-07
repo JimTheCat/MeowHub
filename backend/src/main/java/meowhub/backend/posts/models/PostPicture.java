@@ -12,8 +12,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import meowhub.backend.users.models.Picture;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "POST_PICTURES", schema = "mh_posts")
+@NoArgsConstructor
 public class PostPicture {
     @Id
     @Size(max = 36)
@@ -37,10 +38,12 @@ public class PostPicture {
     private Post post;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "PICTURE_ID", nullable = false)
-    private Picture picture;
+    @Column(name = "OCI_NAME", nullable = false, length = 100)
+    private String ociName;
+
+    @NotNull
+    @Column(name = "OCI_URL", nullable = false, length = 2000)
+    private String ociUrl;
 
     @NotNull
     @Column(name = "PICTURE_INDEX", nullable = false)
@@ -60,4 +63,10 @@ public class PostPicture {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
+    public PostPicture(Post post, String ociName, String ociUrl, Long index) {
+        this.post = post;
+        this.ociName = ociName;
+        this.ociUrl = ociUrl;
+        this.index = index;
+    }
 }

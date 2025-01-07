@@ -9,12 +9,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import meowhub.backend.users.models.Picture;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -23,9 +21,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "MATCHING_PROFILE_PICTURES", schema = "mh_matching", uniqueConstraints = {
-        @UniqueConstraint(name = "MATCHING_PROFILE_PICTURES_UQ", columnNames = {"MATCHING_PROFILE_ID", "PICTURE_ID"})
-})
+@Table(name = "MATCHING_PROFILE_PICTURES", schema = "mh_matching")
 public class MatchingProfilePicture {
     @Id
     @Size(max = 36)
@@ -40,10 +36,12 @@ public class MatchingProfilePicture {
     private MatchingProfile matchingProfile;
 
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "PICTURE_ID", nullable = false)
-    private Picture picture;
+    @Column(name = "OCI_NAME", nullable = false, length = 100)
+    private String ociName;
+
+    @NotNull
+    @Column(name = "OCI_URL", nullable = false, length = 2000)
+    private String ociUrl;
 
     @NotNull
     @Column(name = "PICTURE_INDEX", nullable = false)
@@ -62,5 +60,4 @@ public class MatchingProfilePicture {
     @Size(max = 36)
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
-
 }

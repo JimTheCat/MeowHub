@@ -5,7 +5,6 @@ import meowhub.backend.constants.Genders;
 import meowhub.backend.constants.PrivacySettings;
 import meowhub.backend.constants.Roles;
 import meowhub.backend.posts.models.Comment;
-import meowhub.backend.users.models.Picture;
 import meowhub.backend.posts.models.Post;
 import meowhub.backend.posts.models.PostPicture;
 import meowhub.backend.jpa_buddy.Profile;
@@ -27,7 +26,6 @@ import meowhub.backend.users.models.PrivacySetting;
 import meowhub.backend.users.models.Role;
 import meowhub.backend.users.models.User;
 import meowhub.backend.users.repositories.GenderRepository;
-import meowhub.backend.users.repositories.PictureRepository;
 import meowhub.backend.posts.repositories.PostPictureRepository;
 import meowhub.backend.users.repositories.PrivacySettingRepository;
 import meowhub.backend.users.repositories.RoleRepository;
@@ -48,8 +46,6 @@ public class InitDataTestConfig {
     private GenderRepository genderRepository;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private PictureRepository pictureRepository;
     @Autowired
     private PostRepository postRepository;
     @Autowired
@@ -140,11 +136,6 @@ public class InitDataTestConfig {
     }
 
     private void initPosts() {
-        Picture picture = new Picture();
-        picture.setUser(user3);
-        picture.setPicture("9ffdc87faedbe9a1ee2d1993eabafad12fca90c8cfeadffee99166defe4e2ab5bb4b483dccd2ba5b4fb8ea51a4238e0f7cb3ea3dea7b1d06013fc99cc325b604da6b469ffa6baba27e7ad69a9251c5c6102acd30fdbb4e2dbd78992593487b27777ce".getBytes());
-        picture = pictureRepository.save(picture);
-
         Post post1 = new Post();
         post1.setUser(user1);
         post1.setContentHtml("Hello world 1");
@@ -161,8 +152,9 @@ public class InitDataTestConfig {
         post3 = postRepository.save(post3);
 
         PostPicture postPicture = new PostPicture();
-        postPicture.setPicture(picture);
         postPicture.setPost(post3);
+        postPicture.setOciName("test.jpg");
+        postPicture.setOciUrl("https://example.com/test.jpg");
         postPicture.setIndex(0L);
         postPictureRepository.save(postPicture);
 
@@ -181,11 +173,6 @@ public class InitDataTestConfig {
     }
 
     private void initProfiles() {
-        Picture picture = new Picture();
-        picture.setUser(user1);
-        picture.setPicture("1ffdc87faedbe9a1ee2d1993eabafad12fca90c8cfeadffee99166defe4e2ab5bb4b483dccd2ba5b4fb8ea51a4238e0f7cb3ea3dea7b1d06013fc99cc325b604da6b469ffa6baba27e7ad69a9251c5c6102acd30fdbb4e2dbd78992593487b27777ce".getBytes());
-        pictureRepository.save(picture);
-
         Profile profile = new Profile();
         profile.setUser(user1);
         profile.setProfileDetailsHtml("Hello this is my profile");
@@ -193,7 +180,8 @@ public class InitDataTestConfig {
 
         ProfilePicture profilePicture = new ProfilePicture();
         profilePicture.setProfile(profile);
-        profilePicture.setPicture(picture);
+        profilePicture.setOciName("test.jpg");
+        profilePicture.setOciUrl("https://example.com/test.jpg");
         profilePicture.setIndex(0L);
         profilePictureRepository.save(profilePicture);
 

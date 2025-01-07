@@ -29,21 +29,6 @@ BEGIN
 END;
 /
 
-CREATE OR REPLACE TRIGGER mh_users.pictures_audit_trg
-    BEFORE INSERT OR UPDATE
-    ON mh_users.pictures
-    FOR EACH ROW
-BEGIN
-    IF INSERTING THEN
-        :NEW.created_at := CURRENT_TIMESTAMP;
-        :NEW.created_by := mh_meowhub.get_user_id;
-    ELSIF UPDATING THEN
-        :NEW.modified_at := CURRENT_TIMESTAMP;
-        :NEW.modified_by := mh_meowhub.get_user_id;
-    END IF;
-END;
-/
-
 CREATE OR REPLACE TRIGGER mh_users.privacy_settints_audit_trg
     BEFORE INSERT OR UPDATE
     ON mh_users.privacy_settings

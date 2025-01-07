@@ -58,12 +58,12 @@ export const ParticleBg = () => {
         enable: false,
       },
       move: {
-        direction: "random", // Losowy kierunek ruchu
+        direction: "random",
         enable: true,
         outModes: {
-          default: "bounce", // Cząsteczki odbijają się od krawędzi
+          default: "bounce",
         },
-        random: true, // Włącz losowość ruchu
+        random: true,
         speed: {min: 1, max: 2},
         straight: false,
         attract: {
@@ -93,7 +93,7 @@ export const ParticleBg = () => {
         direction: "random",
       },
       shape: {
-        type: "image", // Ustawiamy kształt na obraz
+        type: "image",
         options: {
           image: {
             src: colorScheme === 'dark' ? kitty_dark : kitty_light,

@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {loadFull} from "tsparticles";
 import {useColorScheme} from "@mantine/hooks";
 import type {Container, Engine, IOptions} from "@tsparticles/engine";
@@ -6,7 +6,7 @@ import Particles, {initParticlesEngine} from "@tsparticles/react";
 import kitty_light from "./assets/kitty_light.svg";
 import kitty_dark from "./assets/kitty_dark.svg";
 
-export const ParticleBg = () => {
+export const ParticleBg = React.memo(() => {
   const colorScheme = useColorScheme();
 
   useEffect(() => {
@@ -109,10 +109,9 @@ export const ParticleBg = () => {
     detectRetina: true,
   };
 
-
   const particlesLoaded = async (container: Container | undefined) => {
     console.log(container);
   };
 
   return <Particles id="tsparticles" particlesLoaded={particlesLoaded} options={options as IOptions}/>;
-};
+});

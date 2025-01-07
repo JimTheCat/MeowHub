@@ -30,6 +30,8 @@
     "@tiptap/pm": "^2.10.0",
     "@tiptap/react": "^2.10.0",
     "@tiptap/starter-kit": "^2.10.0",
+    "@tsparticles/engine": "^3.7.1",
+    "@tsparticles/react": "^3.0.0",
     "axios": "^1.7.9",
     "dayjs": "^1.11.13",
     "embla-carousel-react": "^7.1.0",
@@ -40,8 +42,7 @@
     "react-i18next": "^15.0.3",
     "react-router": "^6.27.0",
     "react-router-dom": "^6.27.0",
-    "react-tsparticles": "^2.12.2",
-    "tsparticles": "^2.12.0",
+    "tsparticles": "^3.7.1",
     "zustand": "^5.0.2"
   },
   "devDependencies": {

@@ -2,17 +2,17 @@ package meowhub.backend.posts;
 
 import meowhub.backend.posts.dtos.PostDto;
 import meowhub.backend.posts.models.Post;
+import meowhub.backend.posts.repositories.PostPictureRepository;
 import meowhub.backend.posts.repositories.PostRepository;
 import meowhub.backend.posts.services.impl.PostServiceImpl;
+import meowhub.backend.shared.utils.PictureUtils;
 import meowhub.backend.users.dtos.BasicUserInfoDto;
 import meowhub.backend.users.facades.UserPostServiceFacade;
 import meowhub.backend.users.models.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -29,17 +29,21 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
 class PostServiceImplTest {
 
     @Mock
     private PostRepository postRepository;
 
-    @InjectMocks
-    private PostServiceImpl postService;
+    @Mock
+    private PostPictureRepository postPictureRepository;
 
     @Mock
     private UserPostServiceFacade userPostServiceFacade;
+
+    @Mock
+    private PictureUtils pictureUtils;
+
+    private PostServiceImpl postService;
 
     private User user;
     private PostDto postDto;
@@ -48,6 +52,10 @@ class PostServiceImplTest {
 
     @BeforeEach
     void setUp() {
+        // Ręczne inicjalizowanie mocków
+        MockitoAnnotations.initMocks(this);
+        postService = new PostServiceImpl(userPostServiceFacade, postRepository, pictureUtils, postPictureRepository);
+
         // Setup mock user and post
         user = new User();
         user.setId("user-id");
@@ -109,7 +117,7 @@ class PostServiceImplTest {
         when(postRepository.save(any(Post.class))).thenReturn(post);
 
         // When
-        PostDto result = postService.createPost("john_doe", "New content");
+        PostDto result = postService.createPost("john_doe", "content1", null);
 
         // Then
         assertNotNull(result);
@@ -153,7 +161,7 @@ class PostServiceImplTest {
 
         // When
         assertThrows(UsernameNotFoundException.class,
-                () -> postService.createPost(unknownUser, "Sample content"));
+                () -> postService.createPost(unknownUser, "content2", null));
 
         verify(userPostServiceFacade, times(1)).findUserByLogin(unknownUser);
     }

@@ -14,6 +14,8 @@ public class AlertConstants {
     public static final String NOT_UNIQUE_OBJECT_TITLE = "Not unique object";
     public static final String ILLEGAL_ARGUMENT_TITLE = "Illegal argument";
 
+    public static final String VALUE_REQUIRED_TITLE = "Value required";
+
     //message
     public static final String USER_WITH_LOGIN_NOT_FOUND = "User with login '%s' not found";
 
@@ -25,4 +27,6 @@ public class AlertConstants {
     public static final String BAD_CREDENTIALS = "Bad credentials";
     public static final String NOT_UNIQUE_OBJECT = "%s:'%s' is not unique";
     public static final String ILLEGAL_ARGUMENT = "%s cannot be equal %s";
+
+    public static final String POST_CONTENT_OR_PICTURE_REQUIRED = "Post content or picture is required";
 }

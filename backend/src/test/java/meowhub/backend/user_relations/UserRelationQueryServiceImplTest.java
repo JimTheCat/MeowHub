@@ -1,5 +1,6 @@
 package meowhub.backend.user_relations;
 
+import meowhub.backend.dtos.RelationType;
 import meowhub.backend.shared.exceptions.RelationException;
 import meowhub.backend.user_relations.repositories.UserRelationRepository;
 import meowhub.backend.user_relations.services.impl.UserRelationQueryServiceImpl;
@@ -13,11 +14,19 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 class UserRelationQueryServiceImplTest {
 
@@ -30,108 +39,141 @@ class UserRelationQueryServiceImplTest {
     @InjectMocks
     private UserRelationQueryServiceImpl userRelationQueryService;
 
-    private static final String VALID_LOGIN = "user";
-    private static final String OTHER_USER = "requestedUser";
+    private BasicUserInfoDto testUserInfo;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this); // Inicjalizacja mocków
+        testUserInfo = new BasicUserInfoDto();
     }
 
     @Test
-    void getFriends_ShouldReturnFriends() {
-        // Given
-        PageRequest pageable = PageRequest.of(0, 10);
-        Page<BasicUserInfoDto> mockPage = new PageImpl<>(Collections.emptyList());
-        when(userRelationRepository.findFriendsFor(VALID_LOGIN, pageable)).thenReturn(mockPage);
+    void testGetFriends() {
+        // Arrange
+        String login = "testUser";
+        int page = 0;
+        int size = 10;
+        Pageable pageable = PageRequest.of(page, size);
 
-        // When
-        Page<BasicUserInfoDto> result = userRelationQueryService.getFriends(VALID_LOGIN, 0, 10);
+        Page<BasicUserInfoDto> friendsPage = new PageImpl<>(Collections.singletonList(testUserInfo));
+        when(userRelationRepository.findFriendsFor(login, pageable)).thenReturn(friendsPage);
 
-        // Then
+        // Act
+        Page<BasicUserInfoDto> result = userRelationQueryService.getFriends(login, page, size);
+
+        // Assert
         assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(userRelationRepository, times(1)).findFriendsFor(VALID_LOGIN, pageable);
+        assertEquals(1, result.getTotalElements());
+        verify(userRelationRepository, times(1)).findFriendsFor(login, pageable);
     }
 
     @Test
-    void getFriendsForUser_ShouldReturnFriendsForUserWhenPermitted() {
-        // Given
-        PageRequest pageable = PageRequest.of(0, 10);
-        Page<BasicUserInfoDto> mockPage = new PageImpl<>(Collections.emptyList());
-        when(userRelationRepository.canViewUserPosts(OTHER_USER, VALID_LOGIN)).thenReturn(true);
-        when(userRelationRepository.findFriendsFor(OTHER_USER, pageable)).thenReturn(mockPage);
+    void testGetFriendsForUser_Success() {
+        // Arrange
+        String login = "targetUser";
+        String requestedBy = "requestingUser";
+        int page = 0;
+        int size = 10;
+        Pageable pageable = PageRequest.of(page, size);
 
-        // When
-        Page<BasicUserInfoDto> result = userRelationQueryService.getFriendsForUser(OTHER_USER, VALID_LOGIN, 0, 10);
+        Page<BasicUserInfoDto> friendsPage = new PageImpl<>(Collections.singletonList(testUserInfo));
+        when(userRelationRepository.canViewUserPosts(login, requestedBy)).thenReturn(true);
+        when(userRelationRepository.findFriendsFor(login, pageable)).thenReturn(friendsPage);
 
-        // Then
+        // Act
+        Page<BasicUserInfoDto> result = userRelationQueryService.getFriendsForUser(login, requestedBy, page, size);
+
+        // Assert
         assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(userRelationServiceFacade, times(1)).validateIfUserExists(OTHER_USER);
-        verify(userRelationRepository, times(1)).canViewUserPosts(OTHER_USER, VALID_LOGIN);
-        verify(userRelationRepository, times(1)).findFriendsFor(OTHER_USER, pageable);
+        assertEquals(1, result.getTotalElements());
+        verify(userRelationServiceFacade, times(1)).validateIfUserExists(login);
+        verify(userRelationRepository, times(1)).canViewUserPosts(login, requestedBy);
+        verify(userRelationRepository, times(1)).findFriendsFor(login, pageable);
     }
 
     @Test
-    void getFriendsForUser_ShouldThrowExceptionWhenNotPermitted() {
-        // Given
-        when(userRelationRepository.canViewUserPosts(OTHER_USER, VALID_LOGIN)).thenReturn(false);
+    void testGetFriendsForUser_Failure() {
+        // Arrange
+        String login = "targetUser";
+        String requestedBy = "requestingUser";
+        int page = 0;
+        int size = 10;
 
-        // When & Assert
+        when(userRelationRepository.canViewUserPosts(login, requestedBy)).thenReturn(false);
+
+        // Act & Assert
         assertThrows(RelationException.class, () ->
-                userRelationQueryService.getFriendsForUser(OTHER_USER, VALID_LOGIN, 0, 10));
-        verify(userRelationServiceFacade, times(1)).validateIfUserExists(OTHER_USER);
-        verify(userRelationRepository, times(1)).canViewUserPosts(OTHER_USER, VALID_LOGIN);
-        verify(userRelationRepository, never()).findFriendsFor(anyString(), any());
+                userRelationQueryService.getFriendsForUser(login, requestedBy, page, size)
+        );
+
+        verify(userRelationServiceFacade, times(1)).validateIfUserExists(login);
+        verify(userRelationRepository, times(1)).canViewUserPosts(login, requestedBy);
+        verify(userRelationRepository, never()).findFriendsFor(anyString(), any(Pageable.class));
     }
 
     @Test
-    void getPendingSentRequests_ShouldReturnPendingRequests() {
-        // Given
-        PageRequest pageable = PageRequest.of(0, 10);
-        Page<BasicUserInfoDto> mockPage = new PageImpl<>(Collections.emptyList());
-        when(userRelationRepository.findRelationsFor(VALID_LOGIN, "SENT_INVITATION", pageable)).thenReturn(mockPage);
+    void testGetPendingSentRequests() {
+        // Arrange
+        String login = "testUser";
+        int page = 0;
+        int size = 10;
+        Pageable pageable = PageRequest.of(page, size);
 
-        // When
-        Page<BasicUserInfoDto> result = userRelationQueryService.getPendingSentRequests(VALID_LOGIN, 0, 10);
+        Page<BasicUserInfoDto> pendingRequestsPage = new PageImpl<>(Collections.singletonList(testUserInfo));
+        when(userRelationRepository.findRelationsFor(login, RelationType.SENT_INVITATION.name(), pageable))
+                .thenReturn(pendingRequestsPage);
 
-        // Then
+        // Act
+        Page<BasicUserInfoDto> result = userRelationQueryService.getPendingSentRequests(login, page, size);
+
+        // Assert
         assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(userRelationRepository, times(1)).findRelationsFor(VALID_LOGIN, "SENT_INVITATION", pageable);
+        assertEquals(1, result.getTotalElements());
+        verify(userRelationRepository, times(1))
+                .findRelationsFor(login, RelationType.SENT_INVITATION.name(), pageable);
     }
 
     @Test
-    void getReceivedRequests_ShouldReturnReceivedRequests() {
-        // Given
-        PageRequest pageable = PageRequest.of(0, 10);
-        Page<BasicUserInfoDto> mockPage = new PageImpl<>(Collections.emptyList());
-        when(userRelationRepository.findRelationsWhereReceiverIs(VALID_LOGIN, "SENT_INVITATION", pageable)).thenReturn(mockPage);
+    void testGetReceivedRequests() {
+        // Arrange
+        String login = "testUser";
+        int page = 0;
+        int size = 10;
+        Pageable pageable = PageRequest.of(page, size);
 
-        // When
-        Page<BasicUserInfoDto> result = userRelationQueryService.getReceivedRequests(VALID_LOGIN, 0, 10);
+        Page<BasicUserInfoDto> receivedRequestsPage = new PageImpl<>(Collections.singletonList(testUserInfo));
+        when(userRelationRepository.findRelationsWhereReceiverIs(login, RelationType.SENT_INVITATION.name(), pageable))
+                .thenReturn(receivedRequestsPage);
 
-        // Then
+        // Act
+        Page<BasicUserInfoDto> result = userRelationQueryService.getReceivedRequests(login, page, size);
+
+        // Assert
         assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(userRelationRepository, times(1)).findRelationsWhereReceiverIs(VALID_LOGIN, "SENT_INVITATION", pageable);
+        assertEquals(1, result.getTotalElements());
+        verify(userRelationRepository, times(1))
+                .findRelationsWhereReceiverIs(login, RelationType.SENT_INVITATION.name(), pageable);
     }
 
     @Test
-    void getRejectedRequests_ShouldReturnRejectedRequests() {
-        // Given
-        PageRequest pageable = PageRequest.of(0, 10);
-        Page<BasicUserInfoDto> mockPage = new PageImpl<>(Collections.emptyList());
-        when(userRelationRepository.findRelationsWhereReceiverIs(VALID_LOGIN, "REJECTED", pageable)).thenReturn(mockPage);
+    void testGetRejectedRequests() {
+        // Arrange
+        String login = "testUser";
+        int page = 0;
+        int size = 10;
+        Pageable pageable = PageRequest.of(page, size);
 
-        // When
-        Page<BasicUserInfoDto> result = userRelationQueryService.getRejectedRequests(VALID_LOGIN, 0, 10);
+        Page<BasicUserInfoDto> rejectedRequestsPage = new PageImpl<>(Collections.singletonList(testUserInfo));
+        when(userRelationRepository.findRelationsWhereReceiverIs(login, RelationType.REJECTED.name(), pageable))
+                .thenReturn(rejectedRequestsPage);
 
-        // Then
+        // Act
+        Page<BasicUserInfoDto> result = userRelationQueryService.getRejectedRequests(login, page, size);
+
+        // Assert
         assertNotNull(result);
-        assertTrue(result.isEmpty());
-        verify(userRelationRepository, times(1)).findRelationsWhereReceiverIs(VALID_LOGIN, "REJECTED", pageable);
+        assertEquals(1, result.getTotalElements());
+        verify(userRelationRepository, times(1))
+                .findRelationsWhereReceiverIs(login, RelationType.REJECTED.name(), pageable);
     }
 }
-

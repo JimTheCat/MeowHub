@@ -28,19 +28,21 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, AuthEntryPointJwt unauthorizedHandler, AuthTokenFilter authenticationJwtTokenFilter) throws Exception {
         http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/api/auth/public/**")
+                .ignoringRequestMatchers("/api/auth/public/**", "/api/ext/**")
         );
 
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers("/api/csrf-token/**").permitAll()
                 .requestMatchers("/api/auth/public/**").permitAll()
+                .requestMatchers("/api/ext/**").permitAll()
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers(
                         "/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/swagger-ui.html"
                 ).permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
+//                .anyRequest().authenticated()
         );
 
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

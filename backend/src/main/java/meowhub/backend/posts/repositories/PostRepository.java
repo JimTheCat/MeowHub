@@ -2,6 +2,7 @@ package meowhub.backend.posts.repositories;
 
 import meowhub.backend.posts.dtos.PostDto;
 import meowhub.backend.posts.models.Post;
+import meowhub.backend.shared.dtos.PictureDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -24,18 +26,18 @@ public interface PostRepository extends JpaRepository<Post, String> {
                         u.name,
                         u.surname,
                         u.login,
-                        pictures.picture
+                        pp.ociUrl
                     ),
                     (SELECT COUNT(c.id) FROM Comment c WHERE c.post.id = p.id),
                     p.createdAt
                 )
                 FROM User u
                 JOIN u.posts p
-                LEFT JOIN Picture pictures ON pictures.user.id = u.id
-                LEFT JOIN ProfilePicture pp ON pp.picture.id = pictures.id
+                LEFT JOIN Profile profile ON profile.user.id = u.id
+                LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id
                 LEFT JOIN u.postsPrivacy postsPrivacy
                 WHERE postsPrivacy.code = 'PUBLIC'
-                       OR (postsPrivacy.code = 'FRIENDS_ONLY' AND u.id IN (u.id, 
+                       OR (postsPrivacy.code = 'FRIENDS_ONLY' AND u.id IN (u.id,
                             (SELECT r.receiver.id
                             FROM User sender
                             JOIN sender.userRelationsSender r
@@ -62,18 +64,18 @@ public interface PostRepository extends JpaRepository<Post, String> {
                         u.name,
                         u.surname,
                         u.login,
-                        pictures.picture
+                        pp.ociUrl
                     ),
                     (SELECT COUNT(c.id) FROM Comment c WHERE c.post.id = p.id),
                     p.createdAt
                 )
                 FROM User u
                 JOIN u.posts p
-                LEFT JOIN Picture pictures ON pictures.user.id = u.id
-                LEFT JOIN ProfilePicture pp ON pp.picture.id = pictures.id
+                LEFT JOIN Profile profile ON profile.user.id = u.id
+                LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id
                 LEFT JOIN u.postsPrivacy postsPrivacy
                 WHERE u.login = :login
-                  AND (postsPrivacy.code = 'PUBLIC' 
+                  AND (postsPrivacy.code = 'PUBLIC'
                        OR (postsPrivacy.code = 'FRIENDS_ONLY' AND u.id IN (
                             SELECT r.receiver.id
                             FROM User sender
@@ -101,15 +103,15 @@ public interface PostRepository extends JpaRepository<Post, String> {
                         u.name,
                         u.surname,
                         u.login,
-                        pictures.picture
+                        pp.ociUrl
                     ),
                     (SELECT COUNT(c.id) FROM Comment c WHERE c.post.id = p.id),
                     p.createdAt
                 )
                 FROM User u
                 JOIN u.posts p
-                LEFT JOIN Picture pictures ON pictures.user.id = u.id
-                LEFT JOIN ProfilePicture pp ON pp.picture.id = pictures.id
+                LEFT JOIN Profile profile ON profile.user.id = u.id
+                LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id
                 LEFT JOIN u.postsPrivacy postsPrivacy
                 WHERE u.login = :login
                 ORDER BY p.createdAt DESC

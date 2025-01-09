@@ -69,12 +69,6 @@ ALTER TABLE mh_groups.Groupchat_messages
         FOREIGN KEY (answered_message_id)
             REFERENCES mh_groups.Groupchat_messages (id);
 
--- Reference: Groups_Pictures (table: Groups)
-ALTER TABLE mh_groups.Groups
-    ADD CONSTRAINT Groups_Pictures
-        FOREIGN KEY (picture_id)
-            REFERENCES mh_users.Pictures (id);
-
 -- Reference: User_Groups_Groups (table: User_Groups)
 ALTER TABLE mh_groups.User_Groups
     ADD CONSTRAINT User_Groups_Groups
@@ -130,12 +124,6 @@ ALTER TABLE mh_matching.Matching_Chats
         FOREIGN KEY (sender_id)
             REFERENCES mh_matching.Matching_Profiles (id);
 
--- Reference: Matching_Profile_Pictures (table: Matching_Profile_Pictures)
-ALTER TABLE mh_matching.Matching_Profile_Pictures
-    ADD CONSTRAINT Matching_Profile_Pictures
-        FOREIGN KEY (picture_id)
-            REFERENCES mh_users.Pictures (id);
-
 -- Reference: Matching_Profile_Pictures_MP (table: Matching_Profile_Pictures)
 ALTER TABLE mh_matching.Matching_Profile_Pictures
     ADD CONSTRAINT Matching_Profile_Pictures_MP
@@ -149,11 +137,6 @@ ALTER TABLE mh_matching.Matching_Profiles
             REFERENCES mh_users.Users (id);
 
 ---------------------------------------- || MH_USERS SCHEMA || ----------------------------------------
--- Reference: Pictures_Users (table: Pictures)
-ALTER TABLE mh_users.Pictures
-    ADD CONSTRAINT Pictures_Users
-        FOREIGN KEY (user_id)
-            REFERENCES mh_users.Users (id);
 
 -- Reference: User_tokens_Users (table: User_tokens)
 ALTER TABLE mh_users.User_tokens
@@ -192,11 +175,6 @@ ALTER TABLE mh_users.Users
             REFERENCES mh_users.Roles (id);
 
 ---------------------------------------- || MH_POSTS SCHEMA || ----------------------------------------
--- Reference: Posts_Pictures_Pictures (table: Post_Pictures)
-ALTER TABLE mh_posts.Post_Pictures
-    ADD CONSTRAINT Posts_Pictures_Pictures
-        FOREIGN KEY (picture_id)
-            REFERENCES mh_users.Pictures (id);
 
 -- Reference: Posts_Pictures_Posts (table: Post_Pictures)
 ALTER TABLE mh_posts.Post_Pictures
@@ -211,27 +189,10 @@ ALTER TABLE mh_posts.Posts
             REFERENCES mh_users.Users (id);
 
 ---------------------------------------- || MH_PROFILES SCHEMA || ----------------------------------------
--- Reference: Profile_Pictures_Pictures (table: Profile_Pictures)
-ALTER TABLE mh_profiles.Profile_Pictures
-    ADD CONSTRAINT Profile_Pictures_Pictures
-        FOREIGN KEY (picture_id)
-            REFERENCES mh_users.Pictures (id);
 
 -- Reference: Profile_Pictures_Profiles (table: Profile_Pictures)
 ALTER TABLE mh_profiles.Profile_Pictures
     ADD CONSTRAINT Profile_Pictures_Profiles
-        FOREIGN KEY (profile_id)
-            REFERENCES mh_profiles.Profiles (id);
-
--- Reference: Profile_User_Data_Profile_Data (table: Profile_User_Data)
-ALTER TABLE mh_profiles.Profile_User_Data
-    ADD CONSTRAINT Profile_User_Data_Profile_Data
-        FOREIGN KEY (profile_data_Id)
-            REFERENCES mh_profiles.Profile_Data (id);
-
--- Reference: Profile_User_Data_Profiles (table: Profile_User_Data)
-ALTER TABLE mh_profiles.Profile_User_Data
-    ADD CONSTRAINT Profile_User_Data_Profiles
         FOREIGN KEY (profile_id)
             REFERENCES mh_profiles.Profiles (id);
 

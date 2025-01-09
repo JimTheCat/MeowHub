@@ -2,6 +2,7 @@ package meowhub.backend.security.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import meowhub.backend.constants.Roles;
+import meowhub.backend.profiles.services.facades.ProfileAuthServiceFacade;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.shared.exceptions.NotUniqueObjectException;
 import meowhub.backend.users.facades.UserAuthServiceFacade;
@@ -28,6 +29,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtUtils jwtUtils;
     private final AuthenticationManager authenticationManager;
     private final UserAuthServiceFacade userAuthServiceFacade;
+    private final ProfileAuthServiceFacade profileAuthServiceFacade;
 
     @Override
     public LoginResponse authenticateUser(LoginRequest request) {
@@ -52,6 +54,7 @@ public class AuthServiceImpl implements AuthService {
     public void signUpUser(SignUpRequest request) {
         validateSignUpRequest(request);
         userAuthServiceFacade.createUser(request.getLogin(), request.getName(), request.getSurname(), request.getEmail(), request.getPassword(), request.getBirthdate(), Roles.ROLE_USER, request.getGender());
+        profileAuthServiceFacade.createProfile(request);
     }
 
     private void validateSignUpRequest(SignUpRequest request) {

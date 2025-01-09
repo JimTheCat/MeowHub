@@ -7,18 +7,14 @@ import meowhub.backend.constants.Roles;
 import meowhub.backend.posts.models.Comment;
 import meowhub.backend.posts.models.Post;
 import meowhub.backend.posts.models.PostPicture;
-import meowhub.backend.jpa_buddy.Profile;
-import meowhub.backend.jpa_buddy.ProfileData;
-import meowhub.backend.jpa_buddy.ProfilePicture;
-import meowhub.backend.jpa_buddy.ProfileUserData;
+import meowhub.backend.profiles.models.Profile;
+import meowhub.backend.profiles.models.ProfilePicture;
 import meowhub.backend.user_relations.models.RelationType;
 import meowhub.backend.user_relations.models.UserRelation;
 import meowhub.backend.posts.repositories.CommentRepository;
 import meowhub.backend.posts.repositories.PostRepository;
-import meowhub.backend.repositories.ProfileDataRepository;
-import meowhub.backend.repositories.ProfilePictureRepository;
-import meowhub.backend.repositories.ProfileRepository;
-import meowhub.backend.repositories.ProfileUserDataRepository;
+import meowhub.backend.profiles.repositories.ProfilePictureRepository;
+import meowhub.backend.profiles.repositories.ProfileRepository;
 import meowhub.backend.user_relations.repositories.RelationTypeRepository;
 import meowhub.backend.user_relations.repositories.UserRelationRepository;
 import meowhub.backend.users.models.Gender;
@@ -60,10 +56,6 @@ public class InitDataTestConfig {
     private UserRelationRepository userRelationRepository;
     @Autowired
     private CommentRepository commentRepository;
-    @Autowired
-    private ProfileUserDataRepository profileUserDataRepository;
-    @Autowired
-    private ProfileDataRepository profileDataRepository;
 
     private User user1;
     private User user2;
@@ -182,28 +174,8 @@ public class InitDataTestConfig {
         profilePicture.setProfile(profile);
         profilePicture.setOciName("test.jpg");
         profilePicture.setOciUrl("https://example.com/test.jpg");
-        profilePicture.setIndex(0L);
+        profilePicture.setIsCurrentProfilePicture(Boolean.TRUE);
         profilePictureRepository.save(profilePicture);
-
-        ProfileData profileDataBirthPlace = new ProfileData();
-        profileDataBirthPlace.setCode("Urodzony w: ");
-        profileDataRepository.save(profileDataBirthPlace);
-
-        ProfileData profileDataRelationshipStatus = new ProfileData();
-        profileDataRelationshipStatus.setCode("W relacji: ");
-        profileDataRepository.save(profileDataRelationshipStatus);
-
-        ProfileUserData profileUserDataBirthPlace = new ProfileUserData();
-        profileUserDataBirthPlace.setProfile(profile);
-        profileUserDataBirthPlace.setProfileData(profileDataBirthPlace);
-        profileUserDataBirthPlace.setContent("Warszawa");
-        profileUserDataRepository.save(profileUserDataBirthPlace);
-
-        ProfileUserData profileUserDataRelationshipStatus = new ProfileUserData();
-        profileUserDataRelationshipStatus.setProfile(profile);
-        profileUserDataRelationshipStatus.setProfileData(profileDataBirthPlace);
-        profileUserDataRelationshipStatus.setContent("Wolny");
-        profileUserDataRepository.save(profileUserDataRelationshipStatus);
     }
 
     private void initUserRelations() {

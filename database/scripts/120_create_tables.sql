@@ -66,7 +66,7 @@ CREATE TABLE mh_posts.Posts
 (
     id           varchar2(36) DEFAULT sys_guid() NOT NULL,
     user_id      varchar2(36) NOT NULL,
-    content_Html clob         NOT NULL,
+    content_Html clob         NULL,
     created_at   date         NOT NULL,
     created_by   varchar2(36) NOT NULL,
     modified_at  date         NULL,

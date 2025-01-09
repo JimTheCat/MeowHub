@@ -29,12 +29,7 @@ export const CreatePost = () => {
       return;
     }
 
-    api.post('/api/posts', null, {
-      params: {content: contentToSave},
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    }).then((response) => {
+    api.post('/api/posts', null, {params: {content: contentToSave}}).then((response) => {
       if (response.status === 200) {
         close();
       }

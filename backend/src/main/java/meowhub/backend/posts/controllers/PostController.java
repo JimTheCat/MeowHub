@@ -42,7 +42,7 @@ public class PostController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<PostDto> createPost(@RequestPart("content") String content, @RequestPart(value = "pictures", required = false) List<MultipartFile> pictures, @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<PostDto> createPost(@RequestPart(value = "content", required = false) String content, @RequestPart(value = "pictures", required = false) List<MultipartFile> pictures, @AuthenticationPrincipal UserDetails userDetails) {
         PostDto postDto = postService.createPost(userDetails.getUsername(), content, pictures);
         return ResponseEntity.ok(postDto);
     }

@@ -24,7 +24,7 @@ class UserRepositoryIntegrationTest {
     private UserRepository userRepository;
 
     @Test
-    void testFindUserByLogin(){
+    void testFindUserByLogin() {
         Optional<User> result = userRepository.findByLogin("admin");
         assertTrue(result.isPresent());
         assertEquals("admin", result.get().getLogin());
@@ -39,6 +39,5 @@ class UserRepositoryIntegrationTest {
         assertNotNull(result.get().getId());
         assertNotNull(result.get().getName());
         assertNotNull(result.get().getSurname());
-//        assertNotNull(result.get().getProfilePicture());
     }
 }

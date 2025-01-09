@@ -61,6 +61,10 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public PostDto createPost(String login, String content, List<MultipartFile> pictures) {
+        if((content == null || content.isEmpty()) && (pictures == null || pictures.isEmpty())) {
+            throw new NullPointerException(AlertConstants.POST_CONTENT_OR_PICTURE_REQUIRED);
+        }
+
         User postOwner = userPostServiceFacade.findUserByLogin(login);
         Post post = new Post();
         post.setContentHtml(content);

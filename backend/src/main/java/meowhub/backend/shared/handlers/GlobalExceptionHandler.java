@@ -56,4 +56,8 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(AlertUtils.illegalArgumentException(ex.getMessage()), HttpStatus.NOT_ACCEPTABLE);
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<AlertDto> handleIllegalStateException(NullPointerException ex) {
+        return new ResponseEntity<>(AlertUtils.valueRequired(ex.getMessage()), HttpStatus.NOT_ACCEPTABLE);
+    }
 }

@@ -14,5 +14,5 @@ public class BasicUserInfoDto {
     private String name;
     private String surname;
     private String login;
-    private byte[] profilePicture; //TODO: add picture functionality
+    private String profilePictureUrl;
 }

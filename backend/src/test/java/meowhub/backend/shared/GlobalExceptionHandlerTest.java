@@ -6,16 +6,14 @@ import meowhub.backend.shared.exceptions.NotUniqueObjectException;
 import meowhub.backend.shared.handlers.GlobalExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
 class GlobalExceptionHandlerTest {
+
     private GlobalExceptionHandler globalExceptionHandler;
 
     @BeforeEach

@@ -3,6 +3,7 @@ package meowhub.backend.profiles.controllers;
 import lombok.RequiredArgsConstructor;
 import meowhub.backend.profiles.dtos.ProfileDto;
 import meowhub.backend.profiles.services.ProfileService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,5 +35,10 @@ public class ProfileController {
     @PostMapping("/pictures")
     public ResponseEntity<ProfileDto> addPictures(@RequestPart MultipartFile file, @AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(profileService.addProfilePicture(file, userDetails.getUsername()));
+    }
+
+    @GetMapping("/{login}/media")
+    public ResponseEntity<Page<String>> getUserMedia(@PathVariable String login, @AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(profileService.getUserMedia(login, userDetails.getUsername(), page, size));
     }
 }

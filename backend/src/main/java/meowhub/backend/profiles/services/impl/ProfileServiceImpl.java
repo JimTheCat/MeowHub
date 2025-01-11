@@ -12,6 +12,9 @@ import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.shared.utils.PictureUtils;
 import meowhub.backend.users.facades.UserProfileServiceFacade;
 import meowhub.backend.users.models.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,17 +49,6 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public ProfileDto getProfile(String login, String requesterLogin) {
-        userProfileServiceFacade.validateIfUserExists(login);
-
-        if(login.equals(requesterLogin)){
-            return profileRepository.getOwnProfile(login);
-        } else {
-            return profileRepository.getProfileIfPublicOrFriends(login, requesterLogin);
-        }
-    }
-
-    @Override
     public ProfileDto addProfilePicture(MultipartFile file, String login) {
         if(file == null || file.getContentType() == null || file.getContentType().isEmpty()){
             throw new NullPointerException(AlertConstants.VALUE_REQUIRED_TITLE);
@@ -80,5 +72,29 @@ public class ProfileServiceImpl implements ProfileService {
         profilePictureRepository.save(profilePicture);
 
         return profileRepository.getOwnProfile(login);
+    }
+
+    @Override
+    public ProfileDto getProfile(String login, String requesterLogin) {
+        userProfileServiceFacade.validateIfUserExists(login);
+
+        if(login.equals(requesterLogin)){
+            return profileRepository.getOwnProfile(login);
+        } else {
+            return profileRepository.getProfileIfPublicOrFriends(login, requesterLogin);
+        }
+    }
+
+
+    @Override
+    public Page<String> getUserMedia(String login, String requesterLogin, int page, int size) {
+        userProfileServiceFacade.validateIfUserExists(login);
+        Pageable pageable = PageRequest.of(page, size);
+
+        if(login.equals(requesterLogin)){
+            return profilePictureRepository.getOwnMedia(login, pageable);
+        } else {
+            return profilePictureRepository.getAnotherUserMediaIfPublicOrFriends(login, requesterLogin, pageable);
+        }
     }
 }

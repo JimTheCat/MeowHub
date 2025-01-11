@@ -286,18 +286,6 @@ CREATE TABLE mh_matching.Matching_Profiles
 );
 
 ---------------------------------------- || MH_PROFILES SCHEMA || ----------------------------------------
--- Table: Profile_Data
-CREATE TABLE mh_profiles.Profile_Data
-(
-    id          varchar2(36) DEFAULT sys_guid() NOT NULL,
-    code        varchar2(40) NOT NULL,
-    created_at  date         NOT NULL,
-    created_by  varchar2(36) NOT NULL,
-    modified_at date         NULL,
-    modified_by varchar2(36) NULL,
-    CONSTRAINT Profile_Data_pk PRIMARY KEY (id)
-);
-
 -- Table: Profile_Pictures
 CREATE TABLE mh_profiles.Profile_Pictures
 (
@@ -305,26 +293,13 @@ CREATE TABLE mh_profiles.Profile_Pictures
     profile_id    varchar2(36)   NOT NULL,
     oci_name      varchar2(100)  NOT NULL,
     oci_url       varchar2(2000) NOT NULL,
-    picture_index number         NOT NULL,
+    is_current_pp number(1)      NOT NULL,
     created_at    date           NOT NULL,
     created_by    varchar2(36)   NOT NULL,
     modified_at   date           NULL,
     modified_by   varchar2(36)   NULL,
-    CONSTRAINT Profile_Pictures_pk PRIMARY KEY (id)
-);
-
--- Table: Profile_User_Data
-CREATE TABLE mh_profiles.Profile_User_Data
-(
-    id              varchar2(36)  DEFAULT sys_guid() NOT NULL,
-    profile_id      varchar2(36)  NOT NULL,
-    profile_data_Id varchar2(36)  NOT NULL,
-    content         varchar2(200) NOT NULL,
-    created_at      date          NOT NULL,
-    created_by      varchar2(36)  NOT NULL,
-    modified_at     date          NULL,
-    modified_by     varchar2(36)  NULL,
-    CONSTRAINT Profile_User_Data_pk PRIMARY KEY (id)
+    CONSTRAINT Profile_Pictures_pk PRIMARY KEY (id),
+    CONSTRAINT Profile_Pictures_is_current_pp_ch CHECK (is_current_pp IN (0, 1))
 );
 
 -- Table: Profiles

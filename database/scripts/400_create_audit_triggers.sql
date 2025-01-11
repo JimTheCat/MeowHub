@@ -199,36 +199,6 @@ BEGIN
 END;
 /
 
-CREATE OR REPLACE TRIGGER mh_profiles.profile_data_audit_trg
-    BEFORE INSERT OR UPDATE
-    ON mh_profiles.profile_data
-    FOR EACH ROW
-BEGIN
-    IF INSERTING THEN
-        :NEW.created_at := CURRENT_TIMESTAMP;
-        :NEW.created_by := mh_meowhub.get_user_id;
-    ELSIF UPDATING THEN
-        :NEW.modified_at := CURRENT_TIMESTAMP;
-        :NEW.modified_by := mh_meowhub.get_user_id;
-    END IF;
-END;
-/
-
-CREATE OR REPLACE TRIGGER mh_profiles.profile_user_data_audit_trg
-    BEFORE INSERT OR UPDATE
-    ON mh_profiles.profile_user_data
-    FOR EACH ROW
-BEGIN
-    IF INSERTING THEN
-        :NEW.created_at := CURRENT_TIMESTAMP;
-        :NEW.created_by := mh_meowhub.get_user_id;
-    ELSIF UPDATING THEN
-        :NEW.modified_at := CURRENT_TIMESTAMP;
-        :NEW.modified_by := mh_meowhub.get_user_id;
-    END IF;
-END;
-/
-
 ---------------------------------------- || MH_GROUPS SCHEMA AUDIT TRIGGERS || ----------------------------------------
 CREATE OR REPLACE TRIGGER mh_groups.groups_audit_trg
     BEFORE INSERT OR UPDATE

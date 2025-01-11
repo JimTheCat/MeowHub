@@ -62,36 +62,13 @@ CREATE INDEX mh_matching.Matching_Chats_receiver_id_idx
         (receiver_id ASC)
 ;
 
--- Table: mh_matching.Matching_Profile_Pictures
-CREATE INDEX mh_matching.Match_Pr_Pict_match_pr_id_idx
-    on mh_matching.Matching_Profile_Pictures
-        (matching_profile_id ASC)
-;
-
-CREATE INDEX mh_matching.Match_Pr_Pic_pic_id_idx
-    on mh_matching.Matching_Profile_Pictures
-        (picture_id ASC)
-;
-
 -- Table: mh_matching.Matching_Profiles
 CREATE INDEX mh_matching.Matching_Profiles_user_id_idx
     on mh_matching.Matching_Profiles
         (user_id ASC)
 ;
 
----------------------------------------- || MH_USERS SCHEMA || ----------------------------------------
--- Table: mh_users.Pictures
-CREATE INDEX Pictures_user_id_idx
-    on mh_users.Pictures
-        (user_id ASC)
-;
-
 ---------------------------------------- || MH_PROFILES SCHEMA || ----------------------------------------
--- Table: mh_profiles.Profile_User_Data
-CREATE INDEX mh_profiles.Pr_User_Data_profile_id_idx
-    on mh_profiles.Profile_User_Data
-        (profile_id ASC)
-;
 
 -- Table: mh_profiles.Profiles
 CREATE INDEX mh_profiles.Profiles_user_id_idx

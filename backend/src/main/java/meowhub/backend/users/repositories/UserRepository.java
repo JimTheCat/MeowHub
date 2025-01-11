@@ -29,7 +29,7 @@ public interface UserRepository extends JpaRepository<User, String> {
         )
         FROM User u
         LEFT JOIN Profile p ON p.user.id = u.id
-        LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id
+        LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
         WHERE u.login = :login
         ORDER BY pp.id
         FETCH FIRST 1 ROWS ONLY
@@ -43,9 +43,11 @@ public interface UserRepository extends JpaRepository<User, String> {
             u.name,
             u.surname,
             u.login,
-            null
+            pp.ociUrl
         )
          FROM User u
+         JOIN Profile p ON p.user.id = u.id
+         LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
         WHERE LOWER(u.login) LIKE LOWER(CONCAT('%', :query, '%'))
            OR LOWER(u.name) LIKE LOWER(CONCAT('%', :query, '%'))
            OR LOWER(u.surname) LIKE LOWER(CONCAT('%', :query, '%'))

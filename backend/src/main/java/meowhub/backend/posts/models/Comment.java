@@ -1,6 +1,7 @@
 package meowhub.backend.posts.models;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import meowhub.backend.profiles.services.BooleanConverter;
 import meowhub.backend.users.models.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -49,8 +51,10 @@ public class Comment {
     @Column(name = "CONTENT", length = 2000)
     private String content;
 
-    @Column(name = "COMMENT_INDEX")
-    private Long index;
+    @Column(name = "IS_DELETED", nullable = false)
+    @NotNull
+    @Convert(converter = BooleanConverter.class)
+    private Boolean isDeleted = Boolean.FALSE;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.RESTRICT)

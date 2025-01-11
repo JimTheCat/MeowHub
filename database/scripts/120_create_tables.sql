@@ -37,13 +37,15 @@ CREATE TABLE mh_posts.Comments
     post_id             varchar2(36)   NOT NULL,
     user_id             varchar2(36)   NOT NULL,
     content             varchar2(2000) NULL,
-    comment_index       number         NULL,
+    is_deleted          number(1)      NOT NULL,
     answered_comment_id varchar2(36)   NULL,
     created_at          date           NOT NULL,
     created_by          varchar2(36)   NOT NULL,
     modified_at         date           NULL,
     modified_by         varchar2(36)   NULL,
-    CONSTRAINT Comments_pk PRIMARY KEY (id)
+    CONSTRAINT Comments_pk PRIMARY KEY (id),
+    CONSTRAINT comments_is_deleted_ch CHECK (is_deleted IN (0, 1))
+
 );
 
 -- Table: Post_Pictures

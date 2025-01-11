@@ -103,7 +103,7 @@ public class PostServiceImpl implements PostService {
     private Post findUserPost(String login, String postId) {
         userPostServiceFacade.validateIfUserExists(login);
 
-        return postRepository.findByUserLoginAndId(login, postId)
+        return postRepository.findById(postId)
                 .orElseThrow(() -> new NotFoundException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "post", "id", postId)));
     }
 

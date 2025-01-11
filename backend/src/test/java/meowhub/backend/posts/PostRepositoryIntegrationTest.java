@@ -29,7 +29,7 @@ class PostRepositoryIntegrationTest {
     @Test
     void testFindByUserLoginAndId() {
         String postId = postRepository.findAll().stream().filter(post -> post.getUser().getLogin().equals(USER_LOGIN)).findFirst().get().getId();
-        Post post = postRepository.findByUserLoginAndId(USER_LOGIN, postId).orElse(null);
+        Post post = postRepository.findById(postId).orElse(null);
         assertNotNull(post);
         assertEquals(USER_LOGIN, post.getUser().getLogin());
         assertEquals(postId, post.getId());

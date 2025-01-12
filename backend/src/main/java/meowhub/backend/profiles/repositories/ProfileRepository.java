@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ProfileRepository extends JpaRepository<Profile, String> {
 
     @Query("""
-        SELECT new meowhub.backend.profiles.dtos.ProfileDto(pp.ociUrl, p.profileDetailsHtml)
+        SELECT new meowhub.backend.profiles.dtos.ProfileDto(pp.ociUrl, p.profileDetailsHtml, p.user.createdAt)
           FROM Profile p
           LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
         WHERE p.user.login = :login
@@ -19,7 +19,7 @@ public interface ProfileRepository extends JpaRepository<Profile, String> {
     ProfileDto getOwnProfile(@Param("login")  String login);
 
     @Query("""
-        SELECT new meowhub.backend.profiles.dtos.ProfileDto(pp.ociUrl, p.profileDetailsHtml)
+        SELECT new meowhub.backend.profiles.dtos.ProfileDto(pp.ociUrl, p.profileDetailsHtml, p.user.createdAt)
           FROM Profile p
           LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
           JOIN User u ON u.id = p.user.id

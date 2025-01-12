@@ -188,6 +188,12 @@ ALTER TABLE mh_posts.Posts
         FOREIGN KEY (user_id)
             REFERENCES mh_users.Users (id);
 
+-- Reference: Posts_Comments_Posts (table: Pictures)
+ALTER TABLE mh_posts.Comments
+    ADD CONSTRAINT Posts_Comments_Posts
+        FOREIGN KEY (post_id)
+            REFERENCES mh_posts.posts (id);
+
 ---------------------------------------- || MH_PROFILES SCHEMA || ----------------------------------------
 
 -- Reference: Profile_Pictures_Profiles (table: Profile_Pictures)

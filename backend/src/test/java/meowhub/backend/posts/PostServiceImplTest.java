@@ -130,7 +130,7 @@ class PostServiceImplTest {
     void testUpdatePost() {
         // Given
         when(postRepository.save(any(Post.class))).thenReturn(post);
-        when(postRepository.findByUserLoginAndId("john_doe", "post-id")).thenReturn(Optional.of(post));
+        when(postRepository.findById("post-id")).thenReturn(Optional.of(post));
 
         // When
         PostDto result = postService.updatePost("john_doe", "post-id", "Updated content");
@@ -144,7 +144,7 @@ class PostServiceImplTest {
     @Test
     void testDeletePost() {
         // Given
-        when(postRepository.findByUserLoginAndId("john_doe", "post-id")).thenReturn(Optional.of(post));
+        when(postRepository.findById("post-id")).thenReturn(Optional.of(post));
 
         // When
         postService.deletePost("john_doe", "post-id");

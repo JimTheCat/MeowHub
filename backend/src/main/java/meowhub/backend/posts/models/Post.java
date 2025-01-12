@@ -40,9 +40,8 @@ public class Post {
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
 
-    @NotNull
     @Lob
-    @Column(name = "CONTENT_HTML", nullable = false)
+    @Column(name = "CONTENT_HTML")
     private String contentHtml;
 
     @Column(name = "CREATED_AT")
@@ -64,5 +63,4 @@ public class Post {
 
     @OneToMany(mappedBy = "post")
     private Set<PostPicture> postPictures = new LinkedHashSet<>();
-
 }

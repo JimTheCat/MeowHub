@@ -1,3 +1,5 @@
+import {PictureDTO} from "./Picture.tsx";
+
 export type PostDTO = {
   id: string,
   content: string,
@@ -8,7 +10,7 @@ export type PostDTO = {
     name: string;
     surname: string;
     login: string;
-    profilePicture: string | null;
+    profilePictureUrl: string | null;
   },
-  photosUrls?: string[]
+  pictures?: PictureDTO[]
 };

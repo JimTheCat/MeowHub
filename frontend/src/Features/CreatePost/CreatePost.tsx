@@ -41,14 +41,11 @@ export const CreatePost = () => {
     // Prepare form data
     const formData = new FormData();
     if (contentToSave) formData.append("content", contentToSave);
-    images.forEach((image, index) => {
-      formData.append(`images[${index}]`, image);
+    images.forEach((image) => {
+      formData.append(`pictures`, image);
     });
 
-    // TODO: After photos integration
-    const response = await api.post("/api/posts", formData, {
-      headers: {"Content-Type": "multipart/form-data"},
-    });
+    const response = await api.post("/api/posts", formData);
 
     if (response.status === 200) {
       alert.showError({
@@ -71,7 +68,9 @@ export const CreatePost = () => {
       color="gray"
       onClick={() =>
         ModificationModal({
-          handleAction: handleCreatePost,
+          handleAction: () => {
+            handleCreatePost().catch();
+          },
           title: "Create post",
           buttonConfirmText: "Create",
           buttonConfirmColor: "blue",

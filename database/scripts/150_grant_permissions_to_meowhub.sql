@@ -15,6 +15,12 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON mh_matching.liked TO mh_meowhub;
 GRANT SELECT, INSERT, UPDATE, DELETE ON mh_matching.like_types TO mh_meowhub;
 GRANT SELECT, INSERT, UPDATE, DELETE ON mh_matching.matching_profile_pictures TO mh_meowhub;
 
+GRANT SELECT, INSERT, UPDATE, DELETE ON mh_matching.pets TO mh_meowhub;
+GRANT SELECT, INSERT, UPDATE, DELETE ON mh_matching.sexuality TO mh_meowhub;
+GRANT SELECT, INSERT, UPDATE, DELETE ON mh_matching.how_often TO mh_meowhub;
+GRANT SELECT, INSERT, UPDATE, DELETE ON mh_matching.looking_for TO mh_meowhub;
+GRANT SELECT, INSERT, UPDATE, DELETE ON mh_matching.education TO mh_meowhub;
+
 --users
 GRANT SELECT, INSERT, UPDATE, DELETE ON mh_users.users TO mh_meowhub;
 GRANT SELECT, INSERT, UPDATE, DELETE ON mh_users.privacy_settings TO mh_meowhub;

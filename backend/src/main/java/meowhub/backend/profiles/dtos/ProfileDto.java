@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ProfileDto {
-    private String profilePicture;
+    private String profilePictureUrl;
     private String content;
 }

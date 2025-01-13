@@ -9,6 +9,7 @@ import meowhub.backend.profiles.repositories.ProfileRepository;
 import meowhub.backend.profiles.services.ProfileService;
 import meowhub.backend.security.requests.SignUpRequest;
 import meowhub.backend.shared.constants.AlertConstants;
+import meowhub.backend.shared.constants.Modules;
 import meowhub.backend.shared.utils.PictureUtils;
 import meowhub.backend.users.facades.UserProfileServiceFacade;
 import meowhub.backend.users.models.User;
@@ -63,7 +64,7 @@ public class ProfileServiceImpl implements ProfileService {
             profilePictureRepository.save(currentProfilePicture.get());
         }
 
-        Pair<String, String> pictureDetails = pictureUtils.uploadPictureToOCIAndGetAuthorizedUrlToAccessIt(file, login);
+        Pair<String, String> pictureDetails = pictureUtils.uploadPictureToOCIAndGetAuthorizedUrlToAccessIt(file, login, Modules.PROFILES);
         ProfilePicture profilePicture = new ProfilePicture();
         profilePicture.setProfile(profile);
         profilePicture.setOciName(pictureDetails.getFirst());

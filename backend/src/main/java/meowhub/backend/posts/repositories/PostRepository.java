@@ -109,7 +109,7 @@ public interface PostRepository extends JpaRepository<Post, String> {
                 FROM User u
                 JOIN u.posts p
                 LEFT JOIN Profile profile ON profile.user.id = u.id
-                LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id
+                LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id AND pp.isCurrentProfilePicture = true
                 LEFT JOIN u.postsPrivacy postsPrivacy
                 WHERE u.login = :login
                 ORDER BY p.createdAt DESC

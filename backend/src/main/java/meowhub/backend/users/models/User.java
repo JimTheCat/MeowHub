@@ -22,7 +22,7 @@ import meowhub.backend.jpa_buddy.Chatroom;
 import meowhub.backend.jpa_buddy.ChatroomMessage;
 import meowhub.backend.posts.models.Comment;
 import meowhub.backend.jpa_buddy.GroupchatMessage;
-import meowhub.backend.jpa_buddy.MatchingProfile;
+import meowhub.backend.matching.models.MatchingProfile;
 import meowhub.backend.posts.models.Post;
 import meowhub.backend.profiles.models.Profile;
 import meowhub.backend.jpa_buddy.UserGroup;

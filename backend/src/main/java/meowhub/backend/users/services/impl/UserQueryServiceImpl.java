@@ -25,11 +25,6 @@ public class UserQueryServiceImpl implements UserQueryService {
 
     public Page<BasicUserInfoDto> searchUsers(String query, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-
-        if (query == null || query.isBlank()) {
-            return userRepository.findAll(pageable).map(user -> new BasicUserInfoDto(user.getId(), user.getName(), user.getSurname(), user.getLogin(), null));
-        }
-
         return userRepository.searchByQuery(query, pageable);
     }
 

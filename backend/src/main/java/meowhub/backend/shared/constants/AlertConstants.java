@@ -27,6 +27,9 @@ public class AlertConstants {
     public static final String BAD_CREDENTIALS = "Bad credentials";
     public static final String NOT_UNIQUE_OBJECT = "%s:'%s' is not unique";
     public static final String ILLEGAL_ARGUMENT = "%s cannot be equal %s";
+    public static final String ALREADY_EXISTS = "%s already exists for %s";
+    public static final String HEIGHT_TOO_LOW = "Height is too low. Required at least 140";
+    public static final String TOO_MANY_PICTURES = "Too many pictures. Maximum is %d. With added pictures will be %d";
 
     public static final String POST_CONTENT_OR_PICTURE_REQUIRED = "Post content or picture is required";
 }

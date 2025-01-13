@@ -68,6 +68,41 @@ CREATE INDEX mh_matching.Matching_Profiles_user_id_idx
         (user_id ASC)
 ;
 
+CREATE INDEX Matching_Profiles_sexuality_id_idx
+    on mh_matching.Matching_Profiles
+        (Sexuality_id ASC)
+;
+
+CREATE INDEX Matching_Profiles_pets_id_idx
+    on mh_matching.Matching_Profiles
+        (Pets_id ASC)
+;
+
+CREATE INDEX Matching_Profiles_education_id_idx
+    on mh_matching.Matching_Profiles
+        (Education_id ASC)
+;
+
+CREATE INDEX Matching_Profiles_looking_for_id_idx
+    on mh_matching.Matching_Profiles
+        (Looking_for_id ASC)
+;
+
+CREATE INDEX Matching_Profiles_smoker_id_idx
+    on mh_matching.Matching_Profiles
+        (smoker_id ASC)
+;
+
+CREATE INDEX Matching_Profiles_excersizes_id_idx
+    on mh_matching.Matching_Profiles
+        (excersizes_id ASC)
+;
+
+CREATE INDEX Matching_Profiles_drinker_id_idx
+    on mh_matching.Matching_Profiles
+        (drinker_id ASC)
+;
+
 ---------------------------------------- || MH_PROFILES SCHEMA || ----------------------------------------
 
 -- Table: mh_profiles.Profiles

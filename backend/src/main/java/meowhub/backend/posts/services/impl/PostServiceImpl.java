@@ -8,6 +8,7 @@ import meowhub.backend.posts.models.PostPicture;
 import meowhub.backend.posts.repositories.PostPictureRepository;
 import meowhub.backend.posts.services.PostService;
 import meowhub.backend.shared.constants.AlertConstants;
+import meowhub.backend.shared.constants.Modules;
 import meowhub.backend.shared.dtos.PictureDto;
 import meowhub.backend.shared.utils.PictureUtils;
 import meowhub.backend.users.dtos.BasicUserInfoDto;
@@ -79,7 +80,7 @@ public class PostServiceImpl implements PostService {
         List<PostPicture> postPictures = new ArrayList<>();
         for (int i = 0; i < pictures.size(); i++) {
             MultipartFile picture = pictures.get(i);
-            Pair<String, String> pictureInfo = pictureUtils.uploadPictureToOCIAndGetAuthorizedUrlToAccessIt(picture, postOwner.getLogin());
+            Pair<String, String> pictureInfo = pictureUtils.uploadPictureToOCIAndGetAuthorizedUrlToAccessIt(picture, postOwner.getLogin(), Modules.POSTS);
             Long pictureIndex = (long) i;
             postPictures.add(new PostPicture(post, pictureInfo.getFirst(), pictureInfo.getSecond(), pictureIndex));
         }

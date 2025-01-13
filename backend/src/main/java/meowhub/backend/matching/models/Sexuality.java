@@ -1,4 +1,4 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.matching.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,15 +12,15 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "LIKE_TYPES", schema = "mh_matching")
-public class LikeType {
+@Table(name = "SEXUALITY", schema = "MH_MATCHING")
+public class Sexuality {
     @Id
     @Size(max = 36)
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -32,21 +32,23 @@ public class LikeType {
     @Column(name = "CODE", nullable = false, length = 20)
     private String code;
 
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
+    @NotNull
+    @Column(name = "CREATED_AT", nullable = false)
+    private LocalDate createdAt;
 
     @Size(max = 36)
-    @Column(name = "CREATED_BY", length = 36)
+    @NotNull
+    @Column(name = "CREATED_BY", nullable = false, length = 36)
     private String createdBy;
 
     @Column(name = "MODIFIED_AT")
-    private LocalDateTime modifiedAt;
+    private LocalDate modifiedAt;
 
     @Size(max = 36)
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    @OneToMany(mappedBy = "likeType")
-    private Set<Liked> likeds = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "sexuality")
+    private Set<MatchingProfile> matchingProfiles = new LinkedHashSet<>();
 
 }

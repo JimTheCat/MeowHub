@@ -1,4 +1,4 @@
-package meowhub.backend.users.models;
+package meowhub.backend.matching.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,21 +10,17 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
-import meowhub.backend.constants.Genders;
-import meowhub.backend.matching.models.MatchingProfile;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@NoArgsConstructor
-@Table(name = "GENDERS", schema = "mh_users")
-public class Gender {
+@Table(name = "PETS", schema = "MH_MATCHING")
+public class Pet {
     @Id
     @Size(max = 36)
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -36,27 +32,23 @@ public class Gender {
     @Column(name = "CODE", nullable = false, length = 20)
     private String code;
 
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
+    @NotNull
+    @Column(name = "CREATED_AT", nullable = false)
+    private LocalDate createdAt;
 
     @Size(max = 36)
-    @Column(name = "CREATED_BY", length = 36)
+    @NotNull
+    @Column(name = "CREATED_BY", nullable = false, length = 36)
     private String createdBy;
 
     @Column(name = "MODIFIED_AT")
-    private LocalDateTime modifiedAt;
+    private LocalDate modifiedAt;
 
     @Size(max = 36)
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    @OneToMany(mappedBy = "gender")
-    private Set<User> users = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "gender")
+    @OneToMany(mappedBy = "pets")
     private Set<MatchingProfile> matchingProfiles = new LinkedHashSet<>();
 
-    public Gender(Genders genders) {
-        this.code = genders.name();
-    }
 }

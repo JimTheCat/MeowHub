@@ -33,9 +33,8 @@ public interface PostRepository extends JpaRepository<Post, String> {
                 JOIN u.posts p
                 LEFT JOIN Profile profile ON profile.user.id = u.id
                 LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id
-                LEFT JOIN u.postsPrivacy postsPrivacy
-                WHERE postsPrivacy.code = 'PUBLIC'
-                       OR (postsPrivacy.code = 'FRIENDS_ONLY' AND u.id IN (u.id,
+                WHERE u.postsPrivacy.code = 'PUBLIC'
+                       OR (u.postsPrivacy.code = 'FRIENDS_ONLY' AND u.id IN (u.id,
                             (SELECT r.receiver.id
                             FROM User sender
                             JOIN sender.userRelationsSender r
@@ -91,6 +90,36 @@ public interface PostRepository extends JpaRepository<Post, String> {
                        )) ORDER BY p.createdAt DESC
             """)
     Page<PostDto> findByUserLoginIfPublicOrFriend(@Param("login") String login, @Param("requestedBy") String requestedBy, Pageable pageable);
+
+    @Query("""
+                       SELECT new meowhub.backend.posts.dtos.PostDto (
+                                p.id,
+                                p.contentHtml,
+                                new meowhub.backend.users.dtos.BasicUserInfoDto (
+                                    u.id,
+                                    u.name,
+                                    u.surname,
+                                    u.login,
+                                    pp.ociUrl
+                                ),
+                                (SELECT COUNT(c.id) FROM Comment c WHERE c.post.id = p.id),
+                                p.createdAt
+                            )
+                            FROM Post p
+                            JOIN User u ON p.user.id = u.id
+                       LEFT JOIN ProfilePicture pp ON pp.profile.user.id = u.id AND pp.isCurrentProfilePicture = true
+                           WHERE p.id = :postId
+                             AND (u.postsPrivacy.code = 'PUBLIC'
+                                  OR (u.postsPrivacy.code = 'FRIENDS_ONLY' AND (
+                                        SELECT COUNT(*)
+                                          FROM UserRelation ur
+                                         WHERE ((ur.receiver.login = u.login AND ur.sender.login = :requestedBy)
+                                            OR (ur.sender.login = u.login AND ur.receiver.login = :requestedBy))
+                                           AND ur.relationType.code = 'FRIENDS'
+                                        ) > 0
+                                   ))
+            """)
+    PostDto getPostByIdIfPublicOrFriends(@Param("requestedBy") String requestedBy, @Param("postId") String postId);
 
     @Query("""
                 SELECT new meowhub.backend.posts.dtos.PostDto (

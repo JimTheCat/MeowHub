@@ -6,6 +6,7 @@ import '@mantine/dates/styles.css';
 import '@mantine/tiptap/styles.css';
 import '@mantine/notifications/styles.css';
 import '@mantine/carousel/styles.css';
+import '@mantine/dropzone/styles.css';
 import i18next from "i18next";
 import {createTheme, MantineProvider} from "@mantine/core";
 import {BrowserRouter} from "react-router-dom";
@@ -27,8 +28,8 @@ const theme = createTheme({
 
 createRoot(document.getElementById('root')!).render(
   <MantineProvider theme={theme} defaultColorScheme={'dark'}>
-    <ModalsProvider>
-      <AlertProvider>
+    <AlertProvider>
+      <ModalsProvider>
         <ThemeProvider>
           <BrowserRouter>
             <I18nextProvider i18n={i18next}>
@@ -37,7 +38,7 @@ createRoot(document.getElementById('root')!).render(
             </I18nextProvider>
           </BrowserRouter>
         </ThemeProvider>
-      </AlertProvider>
-    </ModalsProvider>
+      </ModalsProvider>
+    </AlertProvider>
   </MantineProvider>
 )

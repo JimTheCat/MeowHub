@@ -18,7 +18,7 @@ import {useAuthStore} from "../../../services/authStore.ts";
 import {useNavigate} from "react-router-dom";
 import {ImageWithSkeleton} from "../../ImageWithSkeleton";
 import {MenuPost} from "./components/MenuPost";
-import {PostDTO} from "../../../../MainPage/types/Post.tsx";
+import {PictureDTO, PostDTO} from "../../../types";
 
 export const Post = (props: PostDTO) => {
 
@@ -27,54 +27,66 @@ export const Post = (props: PostDTO) => {
   const navigate = useNavigate();
 
   /*Render this element each time when number of photos will change*/
-  const renderPhotos = (urls: string[]) => {
+  const renderPhotos = (pictures: PictureDTO[]) => {
+    const urls = pictures.map((picture) => picture.url);
     const uniqueKey = `photo-grid-${urls.join("-")}`;
-    const maxHeight = '30vh';
+    const maxHeight = '60vh';
+    const spacing = 8;
 
     if (urls.length === 1) {
       return <ImageWithSkeleton src={urls[0]} alt="" radius="md" key={uniqueKey} style={{maxHeight: maxHeight}}/>;
     }
 
-    if (urls.length === 2 || urls.length === 4) {
+    if (urls.length === 2) {
       return (
-        <SimpleGrid cols={2} spacing="xs" key={uniqueKey}>
+        <Group wrap={'nowrap'} pos={'relative'} align="stretch" gap={'xs'} mah={maxHeight}>
           {urls.map((url) => (
-            <ImageWithSkeleton src={url} alt="" radius="md" key={url} style={{maxHeight: maxHeight}}/>
+            <ImageWithSkeleton src={url} alt="" radius="md" key={url}
+                               style={{maxWidth: `calc(50% - ${spacing / 2}px)`}}/>
           ))}
-        </SimpleGrid>
+        </Group>
       );
     }
 
     if (urls.length === 3) {
-      const spacing = 8;
       return (
-        <Group wrap="nowrap" align="stretch" style={{width: '100%', height: '300px'}}>
+        <Group wrap={'nowrap'} pos={'relative'} align="stretch" gap={'xs'} mah={maxHeight}>
           <ImageWithSkeleton
             src={urls[0]}
             alt=""
             radius="md"
             style={{
+              maxWidth: `calc(50% - ${spacing / 2}px)`,
               flex: 1,
-              height: `calc(100% + ${spacing / 2}px)`,
               objectFit: 'cover',
             }}
           />
 
-          <Stack gap={spacing + 4} style={{flex: 1, height: '100%'}}>
+          <Stack gap={spacing + 4} style={{flex: 1}}>
             <ImageWithSkeleton
               src={urls[1]}
               alt=""
               radius="md"
-              style={{height: `calc(50% - ${spacing / 2}px)`, objectFit: 'cover'}}
+              style={{flex: 1, height: `calc(50% - ${spacing / 2}px)`}}
             />
             <ImageWithSkeleton
               src={urls[2]}
               alt=""
               radius="md"
-              style={{height: `calc(50% - ${spacing / 2}px)`, objectFit: 'cover'}}
+              style={{flex: 1, height: `calc(50% - ${spacing / 2}px)`}}
             />
           </Stack>
         </Group>
+      );
+    }
+
+    if (urls.length === 4) {
+      return (
+        <SimpleGrid cols={2} spacing="xs" key={uniqueKey}>
+          {urls.map((url, idx) => (
+            <ImageWithSkeleton src={url} alt="" radius="md" key={`${url}-${idx}`} style={{maxHeight: maxHeight}}/>
+          ))}
+        </SimpleGrid>
       );
     }
 
@@ -141,9 +153,9 @@ export const Post = (props: PostDTO) => {
         <InnerHtmlHandler innerHtml={props.content}/>
 
         {/*// Show photos if they exist*/}
-        {props.photosUrls && props.photosUrls.length > 0 && (
+        {props.pictures && props.pictures.length > 0 && (
           <Card.Section mt="sm">
-            {renderPhotos(props.photosUrls)}
+            {renderPhotos(props.pictures)}
           </Card.Section>
         )}
 

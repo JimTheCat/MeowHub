@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {PostDTO} from "./types/Post.tsx";
+import {PostDTO} from "../shared/types";
 import api from "../shared/services/api.ts";
 import {Box, Stack} from "@mantine/core";
 import {InfiniteScroll} from "./components/InfiniteScroll";
@@ -49,12 +49,7 @@ export const MainPage = () => {
               content={post.content}
               createdAt={post.createdAt}
               numberOfComments={post.numberOfComments}
-              photosUrls={
-                // generate 100 random photos
-                Array.from({length: 100}, () => {
-                  return "https://picsum.photos/seed/" + Math.random() + "/800/2200";
-                })
-              }
+              pictures={post.pictures}
             />
           ))}
         </Stack>

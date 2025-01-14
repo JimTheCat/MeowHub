@@ -1,21 +1,17 @@
 package meowhub.backend.profiles.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
+import meowhub.backend.users.models.Gender;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class ProfileDto {
     private String profilePicture;
     private String content;
-    private LocalDate createdAt;
-
-    public ProfileDto(String profilePicture, String content, LocalDateTime createdAt) {
-        this.profilePicture = profilePicture;
-        this.content = content;
-        this.createdAt = createdAt.toLocalDate();
-    }
+    private LocalDateTime createdAt;
+    private Gender gender;
 }

@@ -1,29 +1,38 @@
-import {Card, Grid, Group, Image, Text, UnstyledButton} from "@mantine/core";
-import {Multimedia} from "../../consts/DummyMultimedia.tsx";
-import {useNavigate} from "react-router-dom";
+import {AspectRatio, Card, Divider, Group, Image, SimpleGrid, Stack, Text, UnstyledButton} from "@mantine/core";
+import {useNavigate, useParams} from "react-router-dom";
 
-export const ProfileMultimedia = (props: { multimedia: Multimedia[] }) => {
+export const ProfileMultimedia = (props: { multimedia: string[] }) => {
 
   const navigate = useNavigate();
+  const {userTag} = useParams();
 
   return (
     <Card shadow="sm" px="lg" pt={"lg"} radius="md" w={400} withBorder>
-      <Group justify={"space-between"} mb={15}>
+      <Group justify={"space-between"}>
         <Text size={"lg"}>Multimedia</Text>
-        <UnstyledButton onClick={() => navigate("https://www.google.com")} c="dimmed">
-          Wyświetl wszystko
-        </UnstyledButton>
+        {props.multimedia.length > 0 &&
+            <UnstyledButton onClick={() => navigate(`/profile/${userTag}/multimedia`)} c="dimmed">
+                Wyświetl wszystko
+            </UnstyledButton>
+        }
       </Group>
 
-      <Grid gutter={"xs"} align={"center"}>
-        {props.multimedia.map((media, index) => {
+      <Divider my={"sm"}/>
+
+      {props.multimedia.length === 0 &&
+          <Stack align={"center"} gap={0} justify={"center"} style={{height: 200}}>
+              <Text size={"xl"} c={"dimmed"}>Brak multimediów</Text>
+          </Stack>
+      }
+      <SimpleGrid cols={3}>
+        {props.multimedia.map((media) => {
           return (
-            <Grid.Col span={4}>
-              <Image key={index} src={media.url} alt={media.type} w={"auto"} h={100} fit={"contain"}/>
-            </Grid.Col>
+            <AspectRatio ratio={1} key={media}>
+              <Image src={media}/>
+            </AspectRatio>
           );
         })}
-      </Grid>
+      </SimpleGrid>
 
     </Card>
   );

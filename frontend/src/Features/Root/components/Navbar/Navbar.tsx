@@ -57,7 +57,7 @@ export const Navbar = () => {
       <AppShell.Section>
         <Card p={"xs"} withBorder style={{cursor: "pointer"}} onClick={handleProfileClick}>
           <Group>
-            <Avatar radius={180} size={"xl"}/>
+            <Avatar src={basicUserInfo?.profilePictureUrl} radius={180} size={"xl"}/>
             <Stack justify={"center"} gap={0}>
               <Text>Witaj</Text>
               <Text>{basicUserInfo?.name} {basicUserInfo?.surname}</Text>

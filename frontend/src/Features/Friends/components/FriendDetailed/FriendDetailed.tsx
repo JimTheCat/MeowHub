@@ -35,7 +35,7 @@ export const FriendDetailed = ({
       {/*Friend detailed view*/}
       <Group justify={"space-between"}>
         <Group onClick={() => navigate(`/profile/@${friend.login}`)}>
-          <Avatar src={friend.profilePicture} size={"lg"} radius={180}/>
+          <Avatar src={friend.profilePictureUrl} size={"lg"} radius={180}/>
           <Stack gap={0}>
             <Text>{friend.name}</Text>
             <Text>@{friend.login}</Text>

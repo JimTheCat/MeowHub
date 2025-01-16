@@ -20,6 +20,7 @@ import {MatchProfile} from "../Matching/components/Profile";
 import {MatchFilters} from "../Matching/components/Filters";
 import {MatchTests} from "../Matching/components/Tests";
 import {MatchSettings} from "../Matching/components/Settings";
+import {Multimedia} from "../Multimedia";
 
 export const Root = () => {
 
@@ -41,6 +42,7 @@ export const Root = () => {
           <Route path="/mainpage" element={<MainPage/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path="/profile/:userTag" element={<Profile/>}/>
+          <Route path="/profile/:userTag/multimedia" element={<Multimedia/>}/>
           <Route path="/relations" element={<Relations/>}/>
           <Route path="/groups" element={<Groups/>}/>
           <Route path="/friends" element={<Friends/>}/>

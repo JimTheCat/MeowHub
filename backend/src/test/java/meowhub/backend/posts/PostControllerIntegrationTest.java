@@ -39,7 +39,7 @@ class PostControllerIntegrationTest {
         when(postService.getPostsForUser(Mockito.eq(login), Mockito.anyString(), Mockito.anyInt(), Mockito.anyInt()))
                 .thenThrow(new UsernameNotFoundException(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)));
 
-        mockMvc.perform(get("/api/posts/{login}", login))
+        mockMvc.perform(get("/api/posts/user/{login}", login))
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.title").value(AlertConstants.USER_WITH_LOGIN_NOT_FOUND_TITLE))
                 .andExpect(jsonPath("$.message").value(String.format(AlertConstants.USER_WITH_LOGIN_NOT_FOUND, login)))

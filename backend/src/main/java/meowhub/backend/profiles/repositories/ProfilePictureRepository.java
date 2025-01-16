@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Optional;
 
 public interface ProfilePictureRepository extends JpaRepository<ProfilePicture, String> {
-    Optional<ProfilePicture> findByProfileIdAndIsCurrentProfilePicture(String profileId, Boolean currentProfilePicture);
+    Optional<ProfilePicture> findProfilePictureByProfileIdAndIsCurrentProfilePicture(String profileId, Boolean isCurrentProfilePicture);
 
     @Query("""
             SELECT pp.ociUrl

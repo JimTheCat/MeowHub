@@ -67,12 +67,12 @@ export const Search = () => {
         value: `${user.name} ${user.surname}`,
         label: `${user.name} ${user.surname}`,
         tag: `@${user.login}`,
-        profilePicture: user.profilePicture,
+        profilePicture: user.profilePictureUrl,
       }));
 
       // Map user data
       const userDataMap = content.reduce((acc, user) => {
-        acc[`${user.name} ${user.surname}`] = {profilePicture: user.profilePicture, tag: `@${user.login}`};
+        acc[`${user.name} ${user.surname}`] = {profilePicture: user.profilePictureUrl, tag: `@${user.login}`};
         return acc;
       }, {} as Record<string, { profilePicture: string | null; tag: string }>);
 

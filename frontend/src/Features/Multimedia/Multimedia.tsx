@@ -116,7 +116,7 @@ export const Multimedia = () => {
         </Text>
       </Flex>
       <Center px={"xl"} py={"xs"} style={{flexGrow: 1}}>
-        <Stack>
+        <Stack w={'100%'}>
           {/* Main Carousel */}
           <Carousel
             classNames={classes}

@@ -34,11 +34,16 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
-    @GetMapping("/{login}")
+    @GetMapping("/user/{login}")
     public ResponseEntity<Page<PostDto>> getPostsForUser(@PathVariable("login") String login, @AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
         Page<PostDto> posts = postService.getPostsForUser(login, userDetails.getUsername(), pageNo, pageSize);
         return ResponseEntity.ok(posts);
+    }
 
+    @GetMapping("/{postId}")
+    public ResponseEntity<PostDto> getPostById(@PathVariable("postId") String postId, @AuthenticationPrincipal UserDetails userDetails) {
+        PostDto postDto = postService.getPostById(userDetails.getUsername(), postId);
+        return ResponseEntity.ok(postDto);
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

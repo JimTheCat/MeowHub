@@ -57,7 +57,7 @@ public class ProfileServiceImpl implements ProfileService {
                 .orElseThrow(() -> new NullPointerException(AlertConstants.USER_WITH_LOGIN_NOT_FOUND + login));
 
         //setting current profile picture to false if exists
-        Optional<ProfilePicture> currentProfilePicture = profilePictureRepository.findByProfileIdAndIsCurrentProfilePicture(login, Boolean.TRUE);
+        Optional<ProfilePicture> currentProfilePicture = profilePictureRepository.findProfilePictureByProfileIdAndIsCurrentProfilePicture(profile.getId(), Boolean.TRUE);
         if(currentProfilePicture.isPresent()){
             currentProfilePicture.get().setIsCurrentProfilePicture(Boolean.FALSE);
             profilePictureRepository.save(currentProfilePicture.get());

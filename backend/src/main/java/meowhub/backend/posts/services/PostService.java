@@ -11,6 +11,8 @@ public interface PostService {
 
     Page<PostDto> getPostsForUser(String login, String requestedBy, int pageNo, int pageSize);
 
+    PostDto getPostById(String requestedBy, String postId);
+
     PostDto createPost(String login, String content, List<MultipartFile> pictures);
 
     PostDto updatePost(String login, String postId, String content);

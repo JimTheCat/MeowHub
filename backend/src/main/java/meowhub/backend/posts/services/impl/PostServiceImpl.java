@@ -35,6 +35,11 @@ public class PostServiceImpl implements PostService {
     private final PostPictureRepository postPictureRepository;
 
     @Override
+    public PostDto getPostById(String requestedBy, String postId) {
+        return postRepository.getPostByIdIfPublicOrFriends(requestedBy, postId);
+    }
+
+    @Override
     public Page<PostDto> getPosts(String requestedBy, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<PostDto> posts = postRepository.findIfPublicOrFriends(requestedBy, pageable);

@@ -1,3 +1,5 @@
+import {ProfileDetails} from "../../Profile/consts";
+
 export type User = {
   name?: string;
   surname?: string;
@@ -12,5 +14,10 @@ export type BasicUserInfo = {
   "name": string,
   "surname": string,
   "login": string,
-  "profilePicture": string | null
+  "profilePictureUrl": string | null
+}
+
+export type ProfileUser = BasicUserInfo & ProfileDetails & {
+  friends: BasicUserInfo[];
+  createdAt: string;
 }

@@ -18,7 +18,7 @@ export const BasicUser = (props: BasicUserType) => {
       <Avatar
         radius={180}
         size={avatarSize}
-        src={props.user.profilePicture}
+        src={props.user.profilePictureUrl}
       />
 
       <Stack gap={0}>

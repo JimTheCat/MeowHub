@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {PostDTO} from "../shared/types";
 import api from "../shared/services/api.ts";
 import {Box, Stack} from "@mantine/core";
-import {InfiniteScroll} from "./components/InfiniteScroll";
+import {InfiniteScroll} from "../shared/components/InfiniteScroll";
 import {Post} from "../shared/components/Cards/Post";
 
 export const MainPage = () => {

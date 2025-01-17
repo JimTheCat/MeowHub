@@ -20,7 +20,12 @@ import {ImageWithSkeleton} from "../../ImageWithSkeleton";
 import {MenuPost} from "./components/MenuPost";
 import {PictureDTO, PostDTO} from "../../../types";
 
-export const Post = (props: PostDTO) => {
+type PostProps = PostDTO & {
+  cardWidth?: number | string;
+  bordered?: boolean;
+}
+
+export const Post = (props: PostProps) => {
 
   const auth = useAuthStore();
   const isOwner = auth.user?.login === props.author.login;
@@ -135,11 +140,11 @@ export const Post = (props: PostDTO) => {
   };
 
   return (
-    <Card w={"30vw"} radius={"md"} p={"lg"}>
+    <Card w={props.cardWidth ? props.cardWidth : "30vw"} radius={"md"} p={"lg"} withBorder={props.bordered}>
       <Stack>
         <Group justify="space-between">
           <Group onClick={() => navigate(`/profile/@${props.author.login}`)} style={{cursor: "pointer"}}>
-            <Avatar src={null} size={"lg"} radius={180}/>
+            <Avatar src={props.author.profilePictureUrl} size={"lg"} radius={180}/>
             <Stack gap={0}>
               <Text>{props.author.name} {props.author.surname}</Text>
               <Text c="dimmed">{DateFormatter(props.createdAt)}</Text>

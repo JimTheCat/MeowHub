@@ -31,25 +31,6 @@ ALTER TABLE mh_chats.Chatrooms
         FOREIGN KEY (receiver_id)
             REFERENCES mh_users.Users (id);
 
----------------------------------------- || MH_POSTS SCHEMA || ----------------------------------------
--- Reference: Comments_Comments (table: Comments)
-ALTER TABLE mh_posts.Comments
-    ADD CONSTRAINT Comments_Comments
-        FOREIGN KEY (answered_comment_id)
-            REFERENCES mh_posts.Comments (id);
-
--- Reference: Comments_Posts (table: Comments)
-ALTER TABLE mh_posts.Comments
-    ADD CONSTRAINT Comments_Posts
-        FOREIGN KEY (post_id)
-            REFERENCES mh_posts.Posts (id);
-
--- Reference: Comments_Users (table: Comments)
-ALTER TABLE mh_posts.Comments
-    ADD CONSTRAINT Comments_Users
-        FOREIGN KEY (user_id)
-            REFERENCES mh_users.Users (id);
-
 ---------------------------------------- || MH_GROUPS SCHEMA || ----------------------------------------
 -- Reference: Groupchat_messages_Groups (table: Groupchat_messages)
 ALTER TABLE mh_groups.Groupchat_messages
@@ -136,6 +117,42 @@ ALTER TABLE mh_matching.Matching_Profiles
         FOREIGN KEY (user_id)
             REFERENCES mh_users.Users (id);
 
+-- Reference: sexuality_matching_profiles (table: sexuality)
+ALTER TABLE mh_matching.matching_profiles
+    ADD CONSTRAINT sexuality_matching_profiles
+        FOREIGN KEY (sexuality_id)
+            REFERENCES mh_matching.sexuality (id);
+
+-- Reference: education_matching_profiles (table: education)
+ALTER TABLE mh_matching.matching_profiles
+    ADD CONSTRAINT education_matching_profiles
+        FOREIGN KEY (education_id)
+            REFERENCES mh_matching.education (id);
+
+-- Reference: looking_for_matching_profiles (table: looking_for)
+ALTER TABLE mh_matching.matching_profiles
+    ADD CONSTRAINT looking_for_matching_profiles
+        FOREIGN KEY (looking_for_id)
+            REFERENCES mh_matching.looking_for (id);
+
+-- Reference: pets_matching_profiles (table: pets)
+ALTER TABLE mh_matching.matching_profiles
+    ADD CONSTRAINT pets_matching_profiles
+        FOREIGN KEY (pets_id)
+            REFERENCES mh_matching.pets (id);
+
+-- Reference: drinker_matching_profiles (table: how_often)
+ALTER TABLE mh_matching.matching_profiles
+    ADD CONSTRAINT drinker_matching_profiles
+        FOREIGN KEY (drinker_id)
+            REFERENCES mh_matching.how_often (id);
+
+-- Reference: smoker_matching_profiles (table: how_often)
+ALTER TABLE mh_matching.matching_profiles
+    ADD CONSTRAINT smoker_matching_profiles
+        FOREIGN KEY (smoker_id)
+            REFERENCES mh_matching.how_often (id);
+
 ---------------------------------------- || MH_USERS SCHEMA || ----------------------------------------
 
 -- Reference: User_tokens_Users (table: User_tokens)
@@ -188,11 +205,24 @@ ALTER TABLE mh_posts.Posts
         FOREIGN KEY (user_id)
             REFERENCES mh_users.Users (id);
 
--- Reference: Posts_Comments_Posts (table: Pictures)
+-- Reference: Comments_Comments (table: Comments)
 ALTER TABLE mh_posts.Comments
-    ADD CONSTRAINT Posts_Comments_Posts
+    ADD CONSTRAINT Comments_Comments
+        FOREIGN KEY (answered_comment_id)
+            REFERENCES mh_posts.Comments (id);
+
+-- Reference: Comments_Posts (table: Comments)
+ALTER TABLE mh_posts.Comments
+    ADD CONSTRAINT Comments_Posts
         FOREIGN KEY (post_id)
-            REFERENCES mh_posts.posts (id);
+            REFERENCES mh_posts.Posts (id);
+
+-- Reference: Comments_Users (table: Comments)
+ALTER TABLE mh_posts.Comments
+    ADD CONSTRAINT Comments_Users
+        FOREIGN KEY (user_id)
+            REFERENCES mh_users.Users (id);
+
 
 ---------------------------------------- || MH_PROFILES SCHEMA || ----------------------------------------
 

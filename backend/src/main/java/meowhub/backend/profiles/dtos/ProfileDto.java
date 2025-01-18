@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 public class ProfileDto {
-    private String profilePicture;
+    private String profilePictureUrl;
     private String content;
     private LocalDateTime createdAt;
     private String gender;

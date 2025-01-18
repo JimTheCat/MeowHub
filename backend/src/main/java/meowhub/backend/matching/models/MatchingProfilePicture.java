@@ -1,4 +1,4 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.matching.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,25 +8,24 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import meowhub.backend.users.models.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "MATCHING_PROFILES", schema = "mh_matching")
-public class MatchingProfile {
+@NoArgsConstructor
+@Table(name = "MATCHING_PROFILE_PICTURES", schema = "mh_matching")
+public class MatchingProfilePicture {
     @Id
     @Size(max = 36)
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -36,12 +35,20 @@ public class MatchingProfile {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "USER_ID", nullable = false)
-    private User user;
+    @JoinColumn(name = "MATCHING_PROFILE_ID", nullable = false)
+    private MatchingProfile matchingProfile;
 
-    @Size(max = 2000)
-    @Column(name = "PROFILE_DETAILS_HTML", length = 2000)
-    private String profileDetailsHtml;
+    @NotNull
+    @Column(name = "OCI_NAME", nullable = false, length = 100)
+    private String ociName;
+
+    @NotNull
+    @Column(name = "OCI_URL", nullable = false, length = 2000)
+    private String ociUrl;
+
+    @NotNull
+    @Column(name = "PICTURE_INDEX", nullable = false)
+    private Long index;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
@@ -57,22 +64,10 @@ public class MatchingProfile {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    @OneToMany(mappedBy = "receiver")
-    private Set<Liked> likedReceiver = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "sender")
-    private Set<Liked> likedSender = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "sender")
-    private Set<MatchingChat> matchingChatsSender = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "receiver")
-    private Set<MatchingChat> matchingChatsReceiver = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "matchingProfile")
-    private Set<MatchingChatMessage> matchingChatMessages = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "matchingProfile")
-    private Set<MatchingProfilePicture> matchingProfilePictures = new LinkedHashSet<>();
-
+    public MatchingProfilePicture(MatchingProfile matchingProfile, String ociName, String ociUrl, Long index) {
+        this.matchingProfile = matchingProfile;
+        this.ociName = ociName;
+        this.ociUrl = ociUrl;
+        this.index = index;
+    }
 }

@@ -1,4 +1,4 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.matching.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

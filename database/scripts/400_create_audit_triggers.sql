@@ -335,3 +335,78 @@ BEGIN
     END IF;
 END;
 /
+
+CREATE OR REPLACE TRIGGER mh_matching.looking_for_audit_trg
+    BEFORE INSERT OR UPDATE
+    ON mh_matching.looking_for
+    FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        :NEW.created_at := CURRENT_TIMESTAMP;
+        :NEW.created_by := mh_meowhub.get_user_id;
+    ELSIF UPDATING THEN
+        :NEW.modified_at := CURRENT_TIMESTAMP;
+        :NEW.modified_by := mh_meowhub.get_user_id;
+    END IF;
+END;
+/
+
+CREATE OR REPLACE TRIGGER mh_matching.pets_audit_trg
+    BEFORE INSERT OR UPDATE
+    ON mh_matching.pets
+    FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        :NEW.created_at := CURRENT_TIMESTAMP;
+        :NEW.created_by := mh_meowhub.get_user_id;
+    ELSIF UPDATING THEN
+        :NEW.modified_at := CURRENT_TIMESTAMP;
+        :NEW.modified_by := mh_meowhub.get_user_id;
+    END IF;
+END;
+/
+
+CREATE OR REPLACE TRIGGER mh_matching.sexuality_audit_trg
+    BEFORE INSERT OR UPDATE
+    ON mh_matching.sexuality
+    FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        :NEW.created_at := CURRENT_TIMESTAMP;
+        :NEW.created_by := mh_meowhub.get_user_id;
+    ELSIF UPDATING THEN
+        :NEW.modified_at := CURRENT_TIMESTAMP;
+        :NEW.modified_by := mh_meowhub.get_user_id;
+    END IF;
+END;
+/
+
+CREATE OR REPLACE TRIGGER mh_matching.education_audit_trg
+    BEFORE INSERT OR UPDATE
+    ON mh_matching.education
+    FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        :NEW.created_at := CURRENT_TIMESTAMP;
+        :NEW.created_by := mh_meowhub.get_user_id;
+    ELSIF UPDATING THEN
+        :NEW.modified_at := CURRENT_TIMESTAMP;
+        :NEW.modified_by := mh_meowhub.get_user_id;
+    END IF;
+END;
+/
+
+CREATE OR REPLACE TRIGGER mh_matching.how_often_audit_trg
+    BEFORE INSERT OR UPDATE
+    ON mh_matching.how_often
+    FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        :NEW.created_at := CURRENT_TIMESTAMP;
+        :NEW.created_by := mh_meowhub.get_user_id;
+    ELSIF UPDATING THEN
+        :NEW.modified_at := CURRENT_TIMESTAMP;
+        :NEW.modified_by := mh_meowhub.get_user_id;
+    END IF;
+END;
+/

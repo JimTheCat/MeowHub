@@ -1,0 +1,51 @@
+{
+  "navbar": {
+    "title": "Polityka Prywatności",
+    "description": "Ta polityka prywatności opisuje, jak przetwarzamy Twoje dane.",
+    "lastUpdated": "Ostatnia aktualizacja: {{date}}"
+  },
+  "table": {
+    "title": "Spis treści",
+    "sections": {
+      "section1": "Dane osobowe",
+      "section2": "Pliki cookie",
+      "section3": "Udostępnianie danych",
+      "section4": "Twoje prawa",
+      "section5": "Bezpieczeństwo danych",
+      "section6": "Przechowywanie danych",
+      "section7": "Kontakt"
+    }
+  },
+  "section1": {
+    "title": "Dane osobowe",
+    "description": "Zbieramy i przetwarzamy dane osobowe w celu świadczenia naszych usług, w tym informacje takie jak imię, nazwisko, adres e-mail oraz aktywność użytkownika na naszej platformie."
+  },
+  "section2": {
+    "title": "Pliki cookie",
+    "description": "Nasza strona używa plików cookie w celu analizy ruchu, personalizacji treści oraz zapewnienia lepszej funkcjonalności. Możesz dostosować ustawienia plików cookie w swojej przeglądarce."
+  },
+  "section3": {
+    "title": "Udostępnianie danych",
+    "description": "Udostępniamy dane osobowe tylko zaufanym partnerom i dostawcom usług, zgodnie z obowiązującym prawem i zasadami ochrony prywatności."
+  },
+  "section4": {
+    "title": "Twoje prawa",
+    "description": "Masz prawo do dostępu do swoich danych, ich poprawienia, usunięcia oraz ograniczenia przetwarzania. Możesz również wycofać zgodę na przetwarzanie danych w dowolnym momencie."
+  },
+  "section5": {
+    "title": "Bezpieczeństwo danych",
+    "description": "Chronimy Twoje dane za pomocą zaawansowanych technologii zabezpieczeń, w tym szyfrowania i ścisłej kontroli dostępu."
+  },
+  "section6": {
+    "title": "Przechowywanie danych",
+    "description": "Twoje dane są przechowywane tak długo, jak jest to konieczne do świadczenia naszych usług lub zgodnie z wymaganiami prawnymi."
+  },
+  "section7": {
+    "title": "Kontakt",
+    "description": "W razie pytań dotyczących ochrony danych osobowych prosimy o kontakt na adres e-mail: kontakt@meowhub.com."
+  },
+  "footer": {
+    "description": "\u00A9 MeowHub. Wszelkie prawa zastrzeżone."
+  },
+  "affix": "Przewiń do góry"
+}

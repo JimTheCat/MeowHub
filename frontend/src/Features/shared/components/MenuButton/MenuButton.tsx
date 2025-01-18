@@ -8,6 +8,7 @@ type MenuButtonProps = {
   icon: React.ReactNode;
   href?: string;
   mainMenu?: boolean;
+  disabled?: boolean;
 }
 
 export const MenuButton = (props: MenuButtonProps) => {
@@ -29,6 +30,7 @@ export const MenuButton = (props: MenuButtonProps) => {
     <Button
       variant={"subtle"}
       size={"md"}
+      disabled={props.disabled}
       leftSection={props.icon}
       autoContrast
       fullWidth

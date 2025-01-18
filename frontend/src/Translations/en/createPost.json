@@ -1,0 +1,35 @@
+{
+  "createPost": {
+    "modal": {
+      "title": "Add post",
+      "buttonConfirmText": "Add post",
+      "buttonCancelText": "Cancel"
+    },
+    "children": "Add post",
+    "alertSuccess": {
+      "title": "Success",
+      "message": "Post has been added successfully!"
+    },
+    "alertError": {
+      "title": "Error",
+      "message": "An error occurred while adding the post!"
+    }
+  },
+  "createPostForm": {
+    "dropzone": {
+      "text": "Drag an image or click to select a file",
+      "textDimmed": "Attach up to 5 files, each file should not exceed 10MB"
+    },
+    "image": {
+      "button": {
+        "label": "Remove image"
+      }
+    },
+    "alert": {
+      "tooManyFiles": {
+        "title": "Too many files",
+        "message": "You can add up to 5 files!"
+      }
+    }
+  }
+}

@@ -5,6 +5,7 @@ import {PostForm} from "./components/PostForm";
 import {useRef, useState} from "react";
 import {useAlert} from "../../Providers/AlertProvider.tsx";
 import api from "../shared/services/api.ts";
+import {useTranslation} from "react-i18next";
 
 export const CreatePost = () => {
   const [content, setContent] = useState("");
@@ -12,6 +13,7 @@ export const CreatePost = () => {
   const [images, setImages] = useState<File[]>([]);
   const imagesRef = useRef(images);
   const alert = useAlert();
+  const {t} = useTranslation('createPost');
 
   const handleContentChange = (html: string) => {
     setContent(html);
@@ -27,11 +29,11 @@ export const CreatePost = () => {
     const contentToSave = contentRef.current;
     const images = imagesRef.current;
 
-    // Walidacja: musi być treść lub zdjęcia
+    // Validation, at least one of the fields should be filled
     if (!contentToSave && images.length === 0) {
       alert.showError({
-        title: "Error",
-        message: "Post cannot be empty. Please add content or images.",
+        title: t("createPost.alertError.title"),
+        message: t("createPost.alertError.message"),
         level: "WARNING",
         timestamp: new Date().toISOString(),
       });
@@ -49,8 +51,8 @@ export const CreatePost = () => {
 
     if (response.status === 200) {
       alert.showError({
-        title: "Success",
-        message: "Post created successfully!",
+        title: t("createPost.alertSuccess.title"),
+        message: t("createPost.alertSuccess.message"),
         level: "INFO",
         timestamp: new Date().toISOString(),
       });
@@ -71,19 +73,22 @@ export const CreatePost = () => {
           handleAction: () => {
             handleCreatePost().catch();
           },
-          title: "Create post",
-          buttonConfirmText: "Create",
+          title: t("createPost.modal.title"),
+          buttonConfirmText: t("createPost.modal.buttonConfirmText"),
+          buttonCancelText: t("createPost.modal.buttonCancelText"),
           buttonConfirmColor: "blue",
           childrenContent: (
             <PostForm
               handleContentChange={handleContentChange}
               setImages={handleImagesChange}
+              dropzoneText={t('createPostForm.dropzone.text')}
+              dropzoneDimmedText={t('createPostForm.dropzone.textDimmed')}
             />
           ),
         })
       }
     >
-      Create post
+      {t("createPost.children")}
     </Button>
   );
 };

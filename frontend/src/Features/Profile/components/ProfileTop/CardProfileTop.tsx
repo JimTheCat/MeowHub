@@ -9,6 +9,7 @@ import {UploadProfilePicture} from "./components/UploadProfilePicture";
 import api from "../../../shared/services/api.ts";
 import {useAlert} from "../../../../Providers/AlertProvider.tsx";
 import {InvitationStatus} from "../../../shared/components/InvitationStatus";
+import {useTranslation} from "react-i18next";
 
 
 export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
@@ -21,6 +22,7 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
   const [changedProfilePicture, setChangedProfilePicture] = useState<File | null>(null);
   const profilePictureRef = useRef(changedProfilePicture);
   const [isHovered, setIsHovered] = useState(false);
+  const {t} = useTranslation('profile');
 
   useEffect(() => {
     if (!props.userDetails?.profilePicture) {
@@ -41,8 +43,8 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
       api.post('/api/profiles/pictures', formData).then(r => {
         if (r.status === 200) {
           alert.showError({
-            title: "Success",
-            message: "Profile picture updated successfully!",
+            title: t('profileTop.alert.title'),
+            message: t('profileTop.alert.message'),
             level: "INFO",
             timestamp: new Date().toISOString(),
           })
@@ -54,13 +56,16 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
   };
 
   const UploadNewImageModal = () => modals.openConfirmModal({
-    title: 'Add new image',
+    title: t('profileTop.modal.title'),
     children: (
       <UploadProfilePicture
         setImage={handleSetProfilePicture}
+        previewButton={t('upload.preview.button')}
+        dropzoneTitle={t('upload.dropzone.title')}
+        dropzoneMessage={t('upload.dropzone.message')}
       />
     ),
-    labels: {confirm: 'Send', cancel: "Cancel"},
+    labels: {confirm: t('profileTop.modal.labels.confirm'), cancel: t('profileTop.modal.labels.cancel')},
     confirmProps: {color: 'green'},
     size: "auto",
     centered: true,
@@ -118,7 +123,7 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
                   bd="2px solid dimmed"
                   variant="filled"
                 />
-                {isHovered && <Overlay radius={180} color={'#000'} backgroundOpacity={0.5}/>}
+                {isHovered && isProfileOfLoggedUser && <Overlay radius={180} color={'#000'} backgroundOpacity={0.5}/>}
               </AspectRatio>
 
               {isProfileOfLoggedUser && isHovered && (
@@ -158,8 +163,8 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
         </Group>
 
         <Stack justify={"flex-start"} gap={0} mt={'md'}>
-          <Text>Dołączył/a: {createdAt}</Text>
-          <Text>Znajomi: {friends.length}</Text>
+          <Text>{t('profileTop.joined', {date: new Date(createdAt).toLocaleDateString()})}</Text>
+          <Text>{t('profileTop.friends', {length: friends.length})}</Text>
         </Stack>
       </Box>
     </Card>

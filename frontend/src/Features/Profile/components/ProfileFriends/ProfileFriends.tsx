@@ -1,6 +1,7 @@
 import {Avatar, Card, Divider, Grid, Group, Stack, Text, Tooltip, UnstyledButton} from "@mantine/core";
 import {useNavigate} from "react-router-dom";
 import {BasicUserInfo} from "../../../shared/types";
+import {useTranslation} from "react-i18next";
 
 type ProfileFriendsProps = {
   friends: BasicUserInfo[];
@@ -10,13 +11,14 @@ export const ProfileFriends = (props: ProfileFriendsProps) => {
 
   const navigate = useNavigate();
   const isNoFriends = props.friends.length === 0;
+  const {t} = useTranslation('profile');
 
   return (
     <Card shadow="sm" px="lg" pt={"lg"} radius="md" w={400} withBorder>
       <Group justify={"space-between"}>
-        <Text size={"lg"}>Friends</Text>
+        <Text size={"lg"}>{t('friends.title')}</Text>
         {!isNoFriends && (
-          <Text size={"sm"} c={'dimmed'}>Total: {props.friends.length}</Text>
+          <Text size={"sm"} c={'dimmed'}>{t('friends.total', {length: props.friends.length.toString()})}</Text>
         )}
       </Group>
 
@@ -24,9 +26,9 @@ export const ProfileFriends = (props: ProfileFriendsProps) => {
 
       {isNoFriends &&
           <Stack align={"center"} gap={0} justify={"center"} style={{height: 200}}>
-              <Text size={"xl"} c={"dimmed"}>No friends yet</Text>
+              <Text size={"xl"} c={"dimmed"}>{t('friends.empty.title')}</Text>
               <UnstyledButton onClick={() => navigate('/search')}>
-                  <Text size={"sm"} c={"blue"}>Find friends</Text>
+                  <Text size={"sm"} c={"blue"}>{t('friends.empty.message')}</Text>
               </UnstyledButton>
           </Stack>
       }

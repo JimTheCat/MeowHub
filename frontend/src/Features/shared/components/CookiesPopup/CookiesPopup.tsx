@@ -1,8 +1,10 @@
 import {useEffect, useState} from 'react';
 import {Button, Group, Modal, Text, UnstyledButton} from '@mantine/core';
+import {Trans, useTranslation} from "react-i18next";
 
 export const CookiesPopup = () => {
   const [opened, setOpened] = useState<boolean>(false);
+  const {t} = useTranslation('cookiesComponent');
 
   useEffect(() => {
     const hasAcceptedCookies = localStorage.getItem('cookiesAccepted');
@@ -20,7 +22,7 @@ export const CookiesPopup = () => {
     <Modal
       opened={opened}
       onClose={() => setOpened(false)}
-      title="Używamy ciasteczek 🍪"
+      title={t('title')}
       centered
       closeOnEscape={false}
       closeOnClickOutside={false}
@@ -28,14 +30,22 @@ export const CookiesPopup = () => {
       size="md"
     >
       <Text>
-        Nasza strona korzysta z ciasteczek w celu zapewnienia najlepszej jakości usług. Kontynuując
-        przeglądanie, akceptujesz naszą <UnstyledButton c={'blue'} onClick={() => window.open("/privacy", '_blank')}>politykę
-        prywatności</UnstyledButton>.
+        <Trans
+          i18nKey={t('message')}
+          components={{
+            1: (
+              <UnstyledButton
+                c={'blue'}
+                onClick={() => window.open('/privacy', '_blank')}
+              />
+            ),
+          }}
+        />
       </Text>
 
       <Group justify="flex-end" mt="md">
         <Button onClick={handleAccept} color="blue">
-          Akceptuję
+          {t('button')}
         </Button>
       </Group>
     </Modal>

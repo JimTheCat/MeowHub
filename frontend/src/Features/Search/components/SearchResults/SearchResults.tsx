@@ -5,6 +5,7 @@ import {useEffect, useState} from "react";
 import api from "../../../shared/services/api.ts";
 import {useAuthStore} from "../../../shared/services/authStore.ts";
 import {InvitationStatus} from "../../../shared/components/InvitationStatus";
+import {useTranslation} from "react-i18next";
 
 export const SearchResults = () => {
   const [searchParams] = useSearchParams();
@@ -12,6 +13,18 @@ export const SearchResults = () => {
   const [filteredUsers, setFilteredUsers] = useState<BasicUserInfo[]>([]);
   const loggedInUser = useAuthStore();
   const navigate = useNavigate();
+  const {t} = useTranslation('search');
+  const personPolish = (count: number) => {
+    const mod = count % 10;
+    const mod2 = count % 100;
+    if (mod === 1 && mod2 !== 11) {
+      return 'osobę';
+    } else if (mod >= 2 && mod <= 4 && (mod2 < 10 || mod2 >= 20)) {
+      return 'osoby';
+    } else {
+      return 'osób';
+    }
+  }
 
   useEffect(() => {
     if (query) {
@@ -33,11 +46,11 @@ export const SearchResults = () => {
     <Card w={'100%'} p="lg" withBorder mt="lg">
       <Group justify={'space-between'} mb='md'>
         <Text size="lg" fw={500}>
-          Wyniki wyszukiwania:
+          {t('results.card.title')}
         </Text>
         {filteredUsers.length > 0 &&
             <Text size="sm" c="dimmed">
-              {filteredUsers.length} results
+              {t('results.card.count', {count: filteredUsers.length, person: personPolish(filteredUsers.length)})}
             </Text>
         }
       </Group>
@@ -60,7 +73,7 @@ export const SearchResults = () => {
           ))
         ) : (
           <Text size="sm" c="dimmed">
-            Brak wyników dla "{query}".
+            {t('results.card.noResults', {query})}
           </Text>
         )}
       </Stack>

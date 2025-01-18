@@ -17,6 +17,7 @@ import {useCallback, useEffect, useState} from "react";
 import {useForm} from "@mantine/form";
 import {IconGenderBigender} from "@tabler/icons-react";
 import {sexualityProfile} from "../../const";
+import {useTranslation} from "react-i18next";
 
 declare global {
   interface Window {
@@ -29,6 +30,7 @@ export const MatchProfile = () => {
   const [cities, setCities] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [isChanged, setIsChanged] = useState(false);
+  const {t} = useTranslation('matching');
   const dummyProfileData = {
     name: "Iza",
     age: 23,
@@ -103,39 +105,39 @@ export const MatchProfile = () => {
       <Stack gap={"md"} align={"center"} justify={"center"} py={"lg"} px={"xl"}>
         <Card mah={"90vh"} withBorder component={ScrollArea}>
           {/* Images */}
-          <Title order={2} mb='md'>Your images</Title>
+          <Title order={2} mb='md'>{t('profile.card.imageSection.title')}</Title>
           <SimpleGrid cols={3} spacing="lg">
             {dummyProfileData.photos.map((photo) => (
-              <EditableImage key={photo.index} src={photo.url} alt={"Photo"}/>
+              <EditableImage key={photo.index} src={photo.url} alt={t('profile.card.imageSection.imageAlt')}/>
             ))}
           </SimpleGrid>
 
           <Divider my={"md"}/>
 
           {/* Settings of profile */}
-          <Title order={2}>Settings</Title>
+          <Title order={2}>{t('profile.card.infoSection.title')}</Title>
           <Stack gap="lg">
             <TextInput
-              placeholder="Name"
-              label={"Name"}
+              placeholder={t('profile.card.infoSection.name.placeholder')}
+              label={t('profile.card.infoSection.name.label')}
               key={form.key("name")}
               {...form.getInputProps("name")}
             />
             <Autocomplete
               data={cities}
-              label={"Location"}
+              label={t('profile.card.infoSection.location.label')}
               key={form.key("location")}
               {...form.getInputProps("location")}
-              placeholder="Start typing a city"
+              placeholder={t('profile.card.infoSection.location.placeholder')}
             />
             <Textarea
-              placeholder="Bio"
-              label={"Bio"}
+              placeholder={t('profile.card.infoSection.bio.placeholder')}
+              label={t('profile.card.infoSection.bio.label')}
               key={form.key("bio")}
               {...form.getInputProps("bio")}
             />
             <NativeSelect
-              label={'Sexuality'}
+              label={t('profile.card.infoSection.sexuality.label')}
               data={sexualityProfile}
               leftSection={<IconGenderBigender/>}
               {...form.getInputProps("sexuality")}
@@ -147,10 +149,10 @@ export const MatchProfile = () => {
         {isChanged && (
           <Group justify={"space-between"}>
             <Button type={"reset"} color="red" radius="lg">
-              Cancel
+              {t('profile.card.button.cancel')}
             </Button>
             <Button type={"submit"} color="green" radius="lg">
-              Save
+              {t('profile.card.button.submit')}
             </Button>
           </Group>
         )}

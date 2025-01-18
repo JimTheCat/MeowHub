@@ -4,6 +4,7 @@ import {Menu, rem} from "@mantine/core";
 import {useRef, useState} from "react";
 import {ModalRichContent} from "../../../../../consts";
 import api from "../../../../../services/api.ts";
+import {useTranslation} from "react-i18next";
 
 type EditPostProps = {
   content?: string;
@@ -11,6 +12,7 @@ type EditPostProps = {
 }
 
 export const EditPost = (props: EditPostProps) => {
+  const {t} = useTranslation('postComponent');
   const [content, setContent] = useState(props.content ?? '');
   const contentRef = useRef(content);
 
@@ -29,14 +31,15 @@ export const EditPost = (props: EditPostProps) => {
       leftSection={<IconPencil style={{width: rem(14), height: rem(14)}}/>}
       onClick={() => ModificationModal({
         handleAction: handleEditPost,
-        title: 'Edit post',
-        buttonConfirmText: 'Save',
+        title: t('editPost.title'),
+        buttonConfirmText: t('editPost.buttonConfirm'),
         buttonConfirmColor: 'blue',
+        buttonCancelText: t('editPost.buttonCancel'),
         content: content,
         childrenContent: <ModalRichContent content={content} handleContentChange={handleContentChange}/>
       })}
     >
-      Edit post
+      {t('editPost.children')}
     </Menu.Item>
   );
 }

@@ -1,0 +1,56 @@
+{
+  "aboutMe": {
+    "card": {
+      "title": "O mnie",
+      "empty": "Brak opisu"
+    },
+    "modal": {
+      "title": "Aktualizuj 'o mnie'",
+      "labels": {
+        "confirm": "Potwierdź",
+        "cancel": "Anuluj"
+      }
+    },
+    "alert": {
+      "title": "Sukces",
+      "message": "Sekcja 'o mnie' została zaktualizowana pomyślnie"
+    }
+  },
+  "friends": {
+    "title": "Znajomi",
+    "total": "Wszystkich: {{length}}",
+    "empty": {
+      "title": "Brak znajomych",
+      "message": "Znajdź znajomych"
+    }
+  },
+  "multimedia": {
+    "title": "Multimedia",
+    "showAll": "Pokaż wszystkie",
+    "empty": "Brak multimediów"
+  },
+  "profileTop": {
+    "joined": "Dołączył/a: {{date}}",
+    "friends": "Znajomi: {{length}}",
+    "modal": {
+      "title": "Dodaj nowe zdjęcie",
+      "labels": {
+        "confirm": "Potwierdź",
+        "cancel": "Anuluj"
+      }
+    },
+    "alert": {
+      "title": "Sukces",
+      "message": "Zdjęcie profilowe zaktualizowano pomyślnie"
+    }
+  },
+  "upload": {
+    "dropzone": {
+      "title": "Przeciągnij i upuść pliki tutaj",
+      "message": "Załącz maksymalnie 1 plik. Plik nie powinien przekraczać 10MB"
+    },
+    "preview": {
+      "button": "Usuń"
+    }
+  }
+}

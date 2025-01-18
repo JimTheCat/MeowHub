@@ -1,14 +1,16 @@
 import {Fieldset, rem, Switch, useMantineTheme} from "@mantine/core";
 import {useState} from "react";
 import {IconCheck, IconX} from "@tabler/icons-react";
+import {useTranslation} from "react-i18next";
 
 export const Notifications = () => {
+  const {t} = useTranslation('settings');
   const theme = useMantineTheme();
   const [emailChecked, setEmailChecked] = useState(false);
   const [pushChecked, setPushChecked] = useState(false);
 
   return (
-    <Fieldset legend="Notifications">
+    <Fieldset legend={t('user.notifications.content.legend')}>
       {/* Notification settings */}
       <Switch
         checked={emailChecked}
@@ -16,7 +18,7 @@ export const Notifications = () => {
         color="teal"
         labelPosition={"left"}
         size="md"
-        label="Email notifications"
+        label={t('user.notifications.content.email.label')}
         thumbIcon={
           emailChecked ? (
             <IconCheck
@@ -41,7 +43,7 @@ export const Notifications = () => {
         color="teal"
         labelPosition={"left"}
         size="md"
-        label="Push notifications"
+        label={t('user.notifications.content.push.label')}
         thumbIcon={
           pushChecked ? (
             <IconCheck

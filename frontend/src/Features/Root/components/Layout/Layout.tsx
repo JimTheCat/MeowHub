@@ -7,7 +7,6 @@ export const Layout = () => {
     <AppShell
       navbar={{width: 300, breakpoint: 'xs'}}
     >
-      {/*TODO: Modify a navbar*/}
       <AppShell.Navbar withBorder={false}>
         <Navbar/>
       </AppShell.Navbar>

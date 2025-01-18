@@ -1,4 +1,5 @@
 import {Avatar, Button, Card, Divider, Group, Stack, Text} from "@mantine/core";
+import {useTranslation} from "react-i18next";
 
 type SuggestedUser = {
   id: number;
@@ -14,10 +15,12 @@ const suggestedUsers: SuggestedUser[] = [
 ];
 
 export const SuggestedUsers = () => {
+  const {t} = useTranslation('search');
+
   return (
     <Card w={'100%'} p="lg" withBorder mt="lg">
       <Text size="lg" mb="sm">
-        Suggested Users
+        {t('suggestedUsers.title')}
       </Text>
       <Divider mb={"md"}/>
       <Group>
@@ -31,7 +34,7 @@ export const SuggestedUsers = () => {
               </Stack>
             </Group>
             <Button variant="light" size="xs">
-              Follow
+              {t('suggestedUsers.button.label')}
             </Button>
           </Group>
         ))}

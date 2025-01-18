@@ -5,6 +5,7 @@ import {IconArrowDownLeft, IconCircleX, IconSend} from "@tabler/icons-react";
 import api from "../shared/services/api";
 import {UserGrid} from "./components/UserGrid";
 import {useAlert} from "../../Providers/AlertProvider.tsx";
+import {useTranslation} from "react-i18next";
 
 export const Relations = () => {
   const [activeTab, setActiveTab] = useState<string | null>("sent");
@@ -13,6 +14,7 @@ export const Relations = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const alert = useAlert();
+  const {t} = useTranslation('relations');
 
   const fetchData = async (page: number) => {
     setIsLoading(true);
@@ -44,8 +46,8 @@ export const Relations = () => {
         fetchData(currentPage).then(r => r);
         alert.showError(
           {
-            title: 'Success',
-            message: 'Friend request accepted',
+            title: t('relations.alerts.accept.title'),
+            message: t('relations.alerts.accept.message'),
             level: 'INFO',
             timestamp: new Date().toISOString()
           }
@@ -60,8 +62,8 @@ export const Relations = () => {
         fetchData(currentPage).then(r => r);
         alert.showError(
           {
-            title: 'Success',
-            message: 'Friend request rejected',
+            title: t('relations.alerts.reject.title'),
+            message: t('relations.alerts.reject.message'),
             level: 'INFO',
             timestamp: new Date().toISOString()
           }
@@ -80,7 +82,7 @@ export const Relations = () => {
       <Card mih="90vh" w="50vw" component={ScrollArea}>
 
         <Box mah={totalPages > 1 ? 'calc(90dvh - 64px)' : ''}>
-          <Title order={2}>Relations</Title>
+          <Title order={2}>{t('relations.card.title')}</Title>
           <Divider my="md"/>
           <Tabs
             value={activeTab}
@@ -88,23 +90,23 @@ export const Relations = () => {
           >
             <Tabs.List>
               <Tabs.Tab value="sent" leftSection={<IconSend/>}>
-                Sent
+                {t('relations.card.tabs.sent')}
               </Tabs.Tab>
               <Tabs.Tab value="received" leftSection={<IconArrowDownLeft/>}>
-                Received
+                {t('relations.card.tabs.received')}
               </Tabs.Tab>
               <Tabs.Tab value="rejected" leftSection={<IconCircleX/>}>
-                Rejected
+                {t('relations.card.tabs.rejected')}
               </Tabs.Tab>
             </Tabs.List>
 
             <Box mb={'xl'}>
               <Tabs.Panel value="sent">
-                <UserGrid emptyMessage="No sent requests" sentRequests={data} isLoading={isLoading}/>
+                <UserGrid emptyMessage={t('relations.card.empty.sent')} sentRequests={data} isLoading={isLoading}/>
               </Tabs.Panel>
               <Tabs.Panel value="received">
                 <UserGrid
-                  emptyMessage="No received requests"
+                  emptyMessage={t('relations.card.empty.received')}
                   isReceived
                   sentRequests={data}
                   isLoading={isLoading}
@@ -113,7 +115,7 @@ export const Relations = () => {
                 />
               </Tabs.Panel>
               <Tabs.Panel value="rejected">
-                <UserGrid emptyMessage="No rejected requests" sentRequests={data} isLoading={isLoading}/>
+                <UserGrid emptyMessage={t('relations.card.empty.rejected')} sentRequests={data} isLoading={isLoading}/>
               </Tabs.Panel>
             </Box>
           </Tabs>

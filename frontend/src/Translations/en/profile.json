@@ -1,0 +1,56 @@
+{
+  "aboutMe": {
+    "card": {
+      "title": "About Me",
+      "empty": "No description"
+    },
+    "modal": {
+      "title": "Update 'About Me'",
+      "labels": {
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+      }
+    },
+    "alert": {
+      "title": "Success",
+      "message": "'About me' section has been updated successfully"
+    }
+  },
+  "friends": {
+    "title": "Friends",
+    "total": "Total: {{length}}",
+    "empty": {
+      "title": "No friends yet",
+      "message": "Find friends"
+    }
+  },
+  "multimedia": {
+    "title": "Multimedia",
+    "showAll": "Show all",
+    "empty": "No multimedia"
+  },
+  "profileTop": {
+    "joined": "Joined: {{date}}",
+    "friends": "Friends: {{length}}",
+    "modal": {
+      "title": "Add new image",
+      "labels": {
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+      }
+    },
+    "alert": {
+      "title": "Success",
+      "message": "Profile picture updated successfully"
+    }
+  },
+  "upload": {
+    "dropzone": {
+      "title": "Drag and drop files here",
+      "message": "Attach up to 1 file. File should not exceed 10MB"
+    },
+    "preview": {
+      "button": "Remove"
+    }
+  }
+}

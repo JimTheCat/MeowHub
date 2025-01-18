@@ -4,9 +4,11 @@ import {BasicUserInfo} from "../shared/types";
 import {useEffect, useState} from "react";
 import api from "../shared/services/api.ts";
 import cat_no_friends from "./assets/cat_no_friends.png";
+import {useTranslation} from "react-i18next";
 
 export const Friends = () => {
   const [friends, setFriends] = useState<BasicUserInfo[]>([]);
+  const {t} = useTranslation('friends');
 
   const fetchFriends = () => {
     api.get('/api/relations/friends').then((response) => {
@@ -22,8 +24,8 @@ export const Friends = () => {
     <Center>
       <Card shadow="sm" padding="lg" m={"md"} radius="md" withBorder>
         <Group justify={"space-between"}>
-          <Title order={2}>List of friends</Title>
-          <Text>Total friends: {friends.length}</Text>
+          <Title order={2}>{t('friends.card.title')}</Title>
+          <Text>{t('friends.card.total')} {friends.length}</Text>
         </Group>
 
         <Divider mt={"md"}/>
@@ -43,15 +45,15 @@ export const Friends = () => {
             <Image
               src={cat_no_friends}
               radius={"md"}
-              alt="No friends yet"
+              alt={t('friends.card.contentWithoutFriends.imageAlt')}
               width={200}
               height={200}
             />
             <Text size="lg" c="dimmed" mt="md" ta="center">
-              You don’t have any friends yet. 🐾
+              {t('friends.card.contentWithoutFriends.text')}
             </Text>
             <Text size="sm" c="dimmed" ta="center">
-              Start connecting with people and build your social circle!
+              {t('friends.card.contentWithoutFriends.subtext')}
             </Text>
           </Stack>
         )}

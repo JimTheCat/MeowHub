@@ -25,6 +25,7 @@ import {Apperance} from "../components/Menu/Apperance";
 import {Accessibility} from "../components/Menu/Accessibility";
 import {Language} from "../components/Menu/Language";
 import {About} from "../components/Menu/About";
+import {useTranslation} from "react-i18next";
 
 type NestedMenuSettingsType = {
   uuid: number;
@@ -34,78 +35,86 @@ type NestedMenuSettingsType = {
 }
 
 // Contains menu items for profile settings
-export const UserSettingsMenu: NestedMenuSettingsType[] = [
-  {
-    label: "My Account",
-    icon: IconUser,
-    description: "Change your personal information",
-    uuid: 0
-  },
-  {
-    label: "Privacy",
-    icon: IconSpy,
-    description: "Control your privacy settings",
-    uuid: 1
-  },
-  {
-    label: "Security",
-    icon: IconShieldLock,
-    description: "Manage your security settings",
-    uuid: 2
-  },
-  {
-    label: "Notifications",
-    icon: IconBellRinging,
-    description: "Set up your notifications",
-    uuid: 3
-  },
-  {
-    label: "Data & Personalization",
-    icon: IconDatabase,
-    description: "Manage your data",
-    uuid: 4
-  },
-  {
-    label: "Help",
-    icon: IconHelp,
-    description: "Get help with your account",
-    uuid: 5
-  }
-];
+export const UserSettingsMenu: () => NestedMenuSettingsType[] = () => {
+  const {t} = useTranslation('settings');
+
+  return ([
+    {
+      label: t('user.account.label'),
+      icon: IconUser,
+      description: t('user.account.description'),
+      uuid: 0
+    },
+    {
+      label: t('user.privacy.label'),
+      icon: IconSpy,
+      description: t('user.privacy.description'),
+      uuid: 1
+    },
+    {
+      label: t('user.security.label'),
+      icon: IconShieldLock,
+      description: t('user.security.description'),
+      uuid: 2
+    },
+    {
+      label: t('user.notifications.label'),
+      icon: IconBellRinging,
+      description: t('user.notifications.description'),
+      uuid: 3
+    },
+    {
+      label: t('user.personalization.label'),
+      icon: IconDatabase,
+      description: t('user.personalization.description'),
+      uuid: 4
+    },
+    {
+      label: t('user.help.label'),
+      icon: IconHelp,
+      description: t('user.help.description'),
+      uuid: 5
+    }
+  ] as NestedMenuSettingsType[]);
+}
 
 // Contains menu items for privacy settings
-export const AppSettingsMenu: NestedMenuSettingsType[] = [
-  {
-    label: "General",
-    icon: IconHomeCog,
-    description: "Change your general settings",
-    uuid: 6
-  },
-  {
-    label: "Appearance",
-    icon: IconWand,
-    description: "Change your appearance settings",
-    uuid: 7
-  },
-  {
-    label: "Accessibility",
-    icon: IconBlocks,
-    description: "Change your accessibility settings",
-    uuid: 8
-  },
-  {
-    label: "Language",
-    icon: IconLanguage,
-    description: "Change your language settings",
-    uuid: 9
-  },
-  {
-    label: "About",
-    icon: IconMessageChatbot,
-    description: "About this application",
-    uuid: 10
-  }
-];
+export const AppSettingsMenu: () => NestedMenuSettingsType[] = () => {
+  const {t} = useTranslation('settings');
+
+  return ([
+    {
+      label: t('app.general.label'),
+      icon: IconHomeCog,
+      description: t('app.general.description'),
+      uuid: 6
+    },
+    {
+      label: t('app.appearance.label'),
+      icon: IconWand,
+      description: t('app.appearance.description'),
+      uuid: 7
+    },
+    {
+      label: t('app.accessibility.label'),
+      icon: IconBlocks,
+      description: t('app.accessibility.description'),
+      uuid: 8
+    },
+    {
+      label: t('app.language.label'),
+      icon: IconLanguage,
+      description: t('app.language.description'),
+      uuid: 9
+    },
+    {
+      label: t('app.about.label'),
+      icon: IconMessageChatbot,
+      description: t('app.about.description'),
+      uuid: 10
+    }
+  ] as NestedMenuSettingsType[]);
+}
 
 type MenuContentType = {
   uuid: number;

@@ -1,0 +1,33 @@
+{
+  "relations": {
+    "card": {
+      "title": "Relations",
+      "tabs": {
+        "sent": "Sent",
+        "received": "Received",
+        "rejected": "Rejected"
+      },
+      "empty": {
+        "sent": "You haven't sent any friend requests yet.",
+        "received": "You haven't received any friend requests yet.",
+        "rejected": "You haven't rejected any friend requests yet."
+      }
+    },
+    "alerts": {
+      "accept": {
+        "title": "Friend request sent",
+        "message": "Friend request has been sent successfully."
+      },
+      "reject": {
+        "title": "Friend request rejected",
+        "message": "Friend request has been rejected successfully."
+      }
+    }
+  },
+  "userGrid": {
+    "tooltip": {
+      "cancel": "Cancel request",
+      "accept": "Accept request"
+    }
+  }
+}

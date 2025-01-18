@@ -1,0 +1,33 @@
+{
+  "pendingSent": {
+    "tooltip": "Zaproszenie wysłane, oczekiwanie na akceptację użytkownika"
+  },
+  "friendsMenu": {
+    "label": "Zarządzaj przyjacielem",
+    "modal": {
+      "title": "Usuń przyjaciela",
+      "buttonConfirm": "Usuń",
+      "buttonCancel": "Anuluj",
+      "content": "Czy na pewno chcesz usunąć swojego przyjaciela {{name}}?"
+    },
+    "item": "Usuń przyjaciela"
+  },
+  "alert": {
+    "cancel": {
+      "title": "Anulowano",
+      "message": "Zaproszenie od {{login}} zostało anulowane"
+    },
+    "accept": {
+      "title": "Zaakceptowano",
+      "message": "Zaproszenie od {{login}} zostało zaakceptowane"
+    },
+    "send": {
+      "title": "Wysłano",
+      "message": "Zaproszenie do {{login}} zostało wysłane"
+    },
+    "remove": {
+      "title": "Usunięto",
+      "message": "Ty i {{login}} nie jesteście już przyjaciółmi"
+    }
+  }
+}

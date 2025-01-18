@@ -16,12 +16,14 @@ import {useNavigate} from "react-router-dom";
 import {BasicUserInfo} from "../shared/types";
 import {SearchResults} from "./components/SearchResults";
 import api from "../shared/services/api.ts";
+import {useTranslation} from "react-i18next";
 
 export const Search = () => {
   const [query, setQuery] = useState('');
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const [userOptions, setUserOptions] = useState<ComboboxItem[]>([]);
   const [usersData, setUsersData] = useState<Record<string, { profilePicture: string | null; tag: string }>>({});
+  const {t} = useTranslation('search');
   const navigate = useNavigate();
   const itemsNumber = 5;
 
@@ -33,7 +35,7 @@ export const Search = () => {
       const searchText = option.value.replace("search:", "");
       return (
         <Text size="sm" opacity={0.7}>
-          Wyszukaj "{searchText}"
+          {t('search.render.label', {searchText})}
         </Text>
       );
     }
@@ -108,7 +110,7 @@ export const Search = () => {
     return [
       {
         value: `search:${search}`,
-        label: `Wyszukaj "${search}"`,
+        label: t('search.render.label', {searchText: search}),
       },
       ...filteredOptions,
     ].slice(0, itemsNumber);
@@ -134,7 +136,7 @@ export const Search = () => {
           rightSection={query ? <IconX onClick={handleClear} style={{cursor: "pointer"}}/> : null}
           renderOption={renderAutocompleteOption}
           maxDropdownHeight={300}
-          placeholder="Wyszukaj"
+          placeholder={t('search.autocomplete.placeholder')}
           filter={optionsFilter}
           w={"100%"}
           size="xl"

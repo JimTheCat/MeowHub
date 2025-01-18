@@ -8,6 +8,7 @@ import {ModalRichContent} from "../../../shared/consts";
 import {useRef, useState} from "react";
 import api from "../../../shared/services/api.ts";
 import {useAlert} from "../../../../Providers/AlertProvider.tsx";
+import {useTranslation} from "react-i18next";
 
 export const ProfileAboutMe = (props: { htmlContent: string }) => {
   const auth = useAuthStore();
@@ -16,12 +17,13 @@ export const ProfileAboutMe = (props: { htmlContent: string }) => {
   const isProfileOfLoggedUser = userTag === auth.user?.tag;
   const [content, setContent] = useState("");
   const contentRef = useRef(content);
+  const {t} = useTranslation('profile');
 
   const handleUpdateSection = () => {
     api.post('/api/profiles', null, {params: {content: contentRef.current}}).then(() => {
       alert.showError({
-        title: "Success",
-        message: "About me updated successfully!",
+        title: t('aboutMe.alert.title'),
+        message: t('aboutMe.alert.message'),
         level: "INFO",
         timestamp: new Date().toISOString(),
       });
@@ -34,11 +36,11 @@ export const ProfileAboutMe = (props: { htmlContent: string }) => {
   }
 
   const UpdateSection = () => modals.openConfirmModal({
-    title: 'Update about me',
+    title: t('aboutMe.modal.title'),
     children: (
       <ModalRichContent content={props.htmlContent} handleContentChange={handleContentChange}/>
     ),
-    labels: {confirm: 'Update', cancel: "Cancel"},
+    labels: {confirm: t('aboutMe.modal.labels.confirm'), cancel: t('aboutMe.modal.labels.cancel')},
     confirmProps: {color: 'blue'},
     size: "auto",
     centered: true,
@@ -49,7 +51,7 @@ export const ProfileAboutMe = (props: { htmlContent: string }) => {
   return (
     <Card shadow="sm" padding="lg" radius="md" w={500} withBorder>
       <Group justify={'space-between'}>
-        <Text size={"lg"}>O mnie</Text>
+        <Text size={"lg"}>{t('aboutMe.card.title')}</Text>
         {isProfileOfLoggedUser &&
             <ActionIcon variant={'subtle'} radius={'xl'} color={"gray"} onClick={UpdateSection}>
                 <IconPencil stroke={1.2}/>
@@ -58,7 +60,7 @@ export const ProfileAboutMe = (props: { htmlContent: string }) => {
       </Group>
 
       <Divider my={"sm"}/>
-      {props.htmlContent === "" && <Text c={"dimmed"}>Brak opisu</Text>}
+      {props.htmlContent === "" && <Text c={"dimmed"}>{t('aboutMe.card.empty')}</Text>}
       <InnerHtmlHandler innerHtml={props.htmlContent}/>
     </Card>
   );

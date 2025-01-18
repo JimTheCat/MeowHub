@@ -1,0 +1,33 @@
+{
+  "friends": {
+    "card": {
+      "title": "List of Friends",
+      "total": "Total friends: ",
+      "contentWithoutFriends": {
+        "text": "You don’t have any friends yet. \uD83D\uDC3E",
+        "imageAlt": "No friends yet",
+        "subtext": "Start connecting with people and build your social circle!"
+      }
+    }
+  },
+  "friendDetailed": {
+    "menu": {
+      "label": "Manage Friend",
+      "removeItem": {
+        "modal": {
+          "title": "Remove friend",
+          "buttonConfirmText": "Remove",
+          "buttonCancelText": "Cancel",
+          "childrenContent": "Are you sure that you want to remove your friend"
+        },
+        "childrenContent": "Remove friend"
+      }
+    },
+    "alert": {
+      "success": {
+        "title": "Success",
+        "content": "Friend removed successfully"
+      }
+    }
+  }
+}

@@ -2,9 +2,11 @@ import {Button} from "@mantine/core";
 import {IconLogout} from "@tabler/icons-react";
 import {useAuthStore} from "../../../../shared/services/authStore.ts";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export const LogOut = () => {
 
+  const {t} = useTranslation('root');
   const auth = useAuthStore();
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ export const LogOut = () => {
         navigate('/login');
       }}
     >
-      Wyloguj się
+      {t('logOut.label')}
     </Button>
   );
 }

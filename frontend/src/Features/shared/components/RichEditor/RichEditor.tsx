@@ -14,6 +14,9 @@ type RichEditorProps = {
 }
 
 export const RichEditor = (props: RichEditorProps) => {
+  let language = localStorage.getItem('language');
+  if (language === null) language = 'en';
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -23,7 +26,7 @@ export const RichEditor = (props: RichEditorProps) => {
       SubScript,
       Highlight,
       TextAlign.configure({types: ['heading', 'paragraph']}),
-      Placeholder.configure({placeholder: 'What\'s on your mind?'}),
+      Placeholder.configure({placeholder: language === 'en' ? 'What\'s on your mind?' : 'Co u Ciebie słychać?'}),
     ],
     content: props.content,
     onUpdate({editor}) {

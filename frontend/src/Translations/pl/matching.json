@@ -1,0 +1,100 @@
+{
+  "aside": {
+    "title": "Dopasowania",
+    "menu": {
+      "base": "Meowknij",
+      "profile": "Profil",
+      "filters": "Filtry",
+      "tests": "Moje testy (wkrótce)",
+      "settings": "Ustawienia"
+    }
+  },
+  "filters": {
+    "card": {
+      "title": "Filtry",
+      "options": {
+        "showMe": "Pokaż mi",
+        "sexuality": "Orientacja",
+        "age": "Preferowany wiek",
+        "distance": "Odległość",
+        "hereFor": "Szukam"
+      }
+    },
+    "button": {
+      "cancel": {
+        "label": "Anuluj"
+      },
+      "submit": {
+        "label": "Zastosuj filtry"
+      }
+    }
+  },
+  "profile": {
+    "card": {
+      "imageSection": {
+        "title": "Twoje zdjęcia",
+        "imageAlt": "zdjęcie"
+      },
+      "infoSection": {
+        "title": "Ustawienia",
+        "name": {
+          "label": "Imię",
+          "placeholder": "Imię"
+        },
+        "location": {
+          "label": "Lokalizacja",
+          "placeholder": "Zacznij wpisywać miasto"
+        },
+        "bio": {
+          "label": "O mnie",
+          "placeholder": "O mnie"
+        },
+        "sexuality": {
+          "label": "Orientacja"
+        }
+      }
+    },
+    "button": {
+      "cancel": {
+        "label": "Anuluj"
+      },
+      "submit": {
+        "label": "Zapisz"
+      }
+    }
+  },
+  "settings": {
+    "card": {
+      "title": "Ustawienia dopasowań",
+      "account": {
+        "fieldset": "Konto",
+        "button": {
+          "delete": {
+            "label": "Usuń konto"
+          }
+        }
+      },
+      "privacy": {
+        "fieldset": "Prywatność",
+        "switch": {
+          "search": "Pokaż mnie w wynikach wyszukiwania",
+          "recommendation": "Pokaż mnie w rekomendacjach",
+          "online": "Pokaż mój status online"
+        }
+      }
+    }
+  },
+  "tests": {
+    "button": {
+      "start": {
+        "label": "Rozpocznij test"
+      },
+      "retake": {
+        "label": "Powtórz test"
+      },
+      "view": {
+        "label": "Zobacz wyniki"
+      }
+    }
+  }
+}

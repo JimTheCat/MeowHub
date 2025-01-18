@@ -1,0 +1,35 @@
+{
+  "createPost": {
+    "modal": {
+      "title": "Dodaj post",
+      "buttonConfirmText": "Dodaj post",
+      "buttonCancelText": "Anuluj"
+    },
+    "children": "Napisz post",
+    "alertSuccess": {
+      "title": "Sukces",
+      "message": "Post został dodany pomyślnie!"
+    },
+    "alertError": {
+      "title": "Błąd",
+      "message": "Wystąpił błąd podczas dodawania posta!"
+    }
+  },
+  "createPostForm": {
+    "dropzone": {
+      "text": "Przeciągnij zdjęcie lub kliknij, aby wybrać plik",
+      "textDimmed": "Dołącz maksymalnie 5 plików, każdy plik nie powinien przekraczać 10MB"
+    },
+    "image": {
+      "button": {
+        "label": "Usuń zdjęcie"
+      }
+    },
+    "alert": {
+      "tooManyFiles": {
+        "title": "Zbyt wiele plików",
+        "message": "Możesz dodać maksymalnie 5 plików!"
+      }
+    }
+  }
+}

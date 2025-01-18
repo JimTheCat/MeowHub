@@ -5,6 +5,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {Chat} from "./components/Chat";
 import {UnselectedChat} from "./components/UnselectedChat";
 import {DateFormatter} from "../shared/utils/DateFormatter.tsx";
+import {useTranslation} from "react-i18next";
 
 type DummyUserType = {
   conversationId: number;
@@ -146,10 +147,9 @@ const dummyUsers: DummyUserType[] = [
 export const Messenger = () => {
 
   const navigate = useNavigate();
-
   const {conversationId} = useParams();
-
   const [users, setUsers] = useState(dummyUsers);
+  const {t} = useTranslation('messenger');
 
   const updateUserStatusInApp = (updatedUser: DummyUserType) => {
     setUsers((prevUsers) =>
@@ -210,14 +210,14 @@ export const Messenger = () => {
       <Stack p={"lg"} maw={"22vw"} mah="100vh">
         <Group justify={"space-between"}>
           <Title>
-            Chat
+            {t('messenger.title')}
           </Title>
           <ActionIcon variant={"subtle"} color={"gray"} aria-label={"New chat"}>
             <IconEdit stroke={1.5}/>
           </ActionIcon>
         </Group>
         <TextInput
-          placeholder={"Search"}
+          placeholder={t('messenger.searchPlaceholder')}
           leftSection={<IconSearch/>}
           radius={"md"}
           size={"lg"}

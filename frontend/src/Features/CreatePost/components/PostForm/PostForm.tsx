@@ -4,23 +4,27 @@ import {Button, Group, Image, Paper, rem, SimpleGrid, Text} from "@mantine/core"
 import {ModalRichContent} from "../../../shared/consts";
 import {useAlert} from "../../../../Providers/AlertProvider.tsx";
 import {IconPhoto, IconUpload, IconX} from "@tabler/icons-react";
+import {useTranslation} from "react-i18next";
 
 type PostFormProps = {
   handleContentChange: (html: string) => void;
   setImages: (files: File[]) => void;
+  dropzoneText: string;
+  dropzoneDimmedText: string;
 };
 
-export const PostForm = ({handleContentChange, setImages}: PostFormProps) => {
+export const PostForm = (props: PostFormProps) => {
   const [localImages, setLocalImages] = useState<File[]>([]);
   const [previews, setPreviews] = useState<{ src: string; name: string }[]>([]);
   const alert = useAlert();
+  const {t} = useTranslation('createPost');
 
   // Function to handle dropping images
   const handleDrop = (files: File[]) => {
     if (localImages.length + files.length > 5) {
       alert.showError({
-        title: "Too many images",
-        message: "You can upload up to 5 images",
+        title: t('createPostForm.alert.tooManyFiles.title'),
+        message: t('createPostForm.alert.tooManyFiles.message'),
         level: "WARNING",
         timestamp: new Date().toISOString(),
       });
@@ -30,7 +34,7 @@ export const PostForm = ({handleContentChange, setImages}: PostFormProps) => {
     // Add new images to the existing ones
     const updatedImages = [...localImages, ...files];
     setLocalImages(updatedImages);
-    setImages(updatedImages); // Passing to CreatePost
+    props.setImages(updatedImages); // Passing to CreatePost
 
     setPreviews((prevPreviews) => [
       ...prevPreviews,
@@ -42,7 +46,7 @@ export const PostForm = ({handleContentChange, setImages}: PostFormProps) => {
   const handleRemoveImage = (index: number) => {
     const updatedImages = localImages.filter((_, i) => i !== index);
     setLocalImages(updatedImages);
-    setImages(updatedImages); // Passing to CreatePost
+    props.setImages(updatedImages); // Passing to CreatePost
 
     URL.revokeObjectURL(previews[index].src);
     setPreviews((prevPreviews) => prevPreviews.filter((_, i) => i !== index));
@@ -50,7 +54,7 @@ export const PostForm = ({handleContentChange, setImages}: PostFormProps) => {
 
   return (
     <>
-      <ModalRichContent handleContentChange={handleContentChange}/>
+      <ModalRichContent handleContentChange={props.handleContentChange}/>
 
       <Dropzone
         onDrop={handleDrop}
@@ -80,10 +84,10 @@ export const PostForm = ({handleContentChange, setImages}: PostFormProps) => {
 
           <div>
             <Text size="xl" inline>
-              Drag images here or click to select files
+              {props.dropzoneText}
             </Text>
             <Text size="sm" c="dimmed" inline mt={7}>
-              Attach up to 5 files, each file should not exceed 3MB
+              {props.dropzoneDimmedText}
             </Text>
           </div>
         </Group>
@@ -99,7 +103,7 @@ export const PostForm = ({handleContentChange, setImages}: PostFormProps) => {
                 {preview.name}
               </Text>
               <Button fullWidth color="red" size="xs" onClick={() => handleRemoveImage(index)}>
-                Remove
+                {t('createPostForm.image.button.label')}
               </Button>
             </Paper>
           ))}

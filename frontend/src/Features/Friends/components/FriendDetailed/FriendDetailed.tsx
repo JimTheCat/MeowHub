@@ -5,6 +5,7 @@ import {IconDots, IconUsersMinus} from "@tabler/icons-react";
 import {ModificationModal} from "../../../shared/components/ModificationModal";
 import api from "../../../shared/services/api.ts";
 import {useAlert} from "../../../../Providers/AlertProvider.tsx";
+import {useTranslation} from "react-i18next";
 
 export const FriendDetailed = ({
                                  friend,
@@ -15,13 +16,14 @@ export const FriendDetailed = ({
 }) => {
   const navigate = useNavigate();
   const alert = useAlert();
+  const {t} = useTranslation('friends')
 
   const handleRemoval = () => {
     api.post(`/api/relations/${friend.login}/delete-friend`).then((response) => {
       if (response.status === 200) {
         alert.showError({
-          title: "Success",
-          message: "Friend removed",
+          title: t('friendDetailed.alert.success.title'),
+          message: t('friendDetailed.alert.success.message'),
           level: "INFO",
           timestamp: new Date().toISOString(),
         });
@@ -48,25 +50,26 @@ export const FriendDetailed = ({
             </ActionIcon>
           </Menu.Target>
           <Menu.Dropdown>
-            <Menu.Label>Manage</Menu.Label>
+            <Menu.Label>{t('friendDetailed.menu.removeItem.label')}</Menu.Label>
             <Menu.Item
               color="red"
               leftSection={<IconUsersMinus style={{width: rem(14), height: rem(14)}}/>}
               onClick={() =>
                 ModificationModal({
                   handleAction: handleRemoval,
-                  title: "Remove friend",
-                  buttonConfirmText: "Remove",
+                  title: t('friendDetailed.menu.removeItem.modal.title'),
+                  buttonConfirmText: t('friendDetailed.menu.removeItem.modal.buttonConfirmText'),
                   buttonConfirmColor: "red",
+                  buttonCancelText: t('friendDetailed.menu.removeItem.modal.buttonCancelText'),
                   childrenContent: (
                     <Text>
-                      Are you sure that you want to remove your friend {friend.login}?
+                      {t('friendDetailed.menu.removeItem.modal.childrenContent')} {friend.login}?
                     </Text>
                   ),
                 })
               }
             >
-              Remove friend
+              {t('friendDetailed.menu.removeItem.childrenContent')}
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>

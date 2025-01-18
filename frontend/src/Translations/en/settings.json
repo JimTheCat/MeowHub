@@ -1,0 +1,146 @@
+{
+  "settings": {
+    "user": {
+      "label": "User settings"
+    },
+    "app": {
+      "label": "App settings"
+    },
+    "footer": {
+      "greetings": {
+        "label": "Made with ❤\uFE0F by MeowHub crew~"
+      },
+      "version": {
+        "label": "App Version {{version}}"
+      }
+    }
+  },
+  "user": {
+    "account": {
+      "label": "My Account",
+      "description": "Change your personal information",
+      "content": {
+        "personal": {
+          "legend": "Personal Information",
+          "name": {
+            "label": "Name",
+            "placeholder": "Your name"
+          },
+          "surname": {
+            "label": "Surname",
+            "placeholder": "Your surname"
+          },
+          "tag": {
+            "label": "Tag",
+            "placeholder": "@your_tag"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Your email"
+          },
+          "birthdate": {
+            "label": "Date of Birth",
+            "placeholder": "Your date of birth"
+          }
+        },
+        "password": {
+          "legend": "Change Password",
+          "current": {
+            "label": "Current Password",
+            "placeholder": "Your current password"
+          },
+          "new": {
+            "label": "New Password",
+            "placeholder": "Your new password"
+          },
+          "repeat": {
+            "label": "Repeat Password",
+            "placeholder": "Repeat your new password"
+          }
+        }
+      }
+    },
+    "privacy": {
+      "label": "Privacy",
+      "description": "Control your privacy settings",
+      "content": {
+        "legend": "Overall",
+        "profile": {
+          "label": "Who can see your profile?"
+        },
+        "posts": {
+          "label": "Who can see your posts?"
+        },
+        "friends": {
+          "label": "Who can see your friends?"
+        },
+        "data": {
+          "everyone": "Everyone",
+          "friends": "Only friends",
+          "nobody": "Nobody"
+        }
+      }
+    },
+    "security": {
+      "label": "Security",
+      "description": "Manage your security settings",
+      "content": {
+        "legend": "2FA",
+        "2fa": {
+          "label": "Two-factor authentication",
+          "description": "Enable two-factor authentication for your account"
+        }
+      }
+    },
+    "notifications": {
+      "label": "Notifications",
+      "description": "Set up your notifications",
+      "content": {
+        "legend": "Notifications",
+        "email": {
+          "label": "Email Notifications"
+        },
+        "push": {
+          "label": "Push Notifications"
+        }
+      }
+    },
+    "personalization": {
+      "label": "Data & Personalization",
+      "description": "Manage your data",
+      "content": {
+        "legend": "Data",
+        "data": {
+          "tooltip": "Manage your data",
+          "children": "Download data"
+        }
+      }
+    },
+    "help": {
+      "label": "Help",
+      "description": "Get help with your account"
+    }
+  },
+  "app": {
+    "general": {
+      "label": "General",
+      "description": "Change your general settings"
+    },
+    "appearance": {
+      "label": "Appearance",
+      "description": "Change your appearance settings"
+    },
+    "accessibility": {
+      "label": "Accessibility",
+      "description": "Change your accessibility settings"
+    },
+    "language": {
+      "label": "Language",
+      "description": "Change your language settings"
+    },
+    "about": {
+      "label": "About",
+      "description": "About this application"
+    }
+  }
+}

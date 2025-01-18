@@ -1,0 +1,35 @@
+{
+  "buttons": {
+    "reaction": {
+      "label": "Reakcja",
+      "like": "Lubię to",
+      "love": "Kocham",
+      "haha": "Haha",
+      "wow": "Wow",
+      "sad": "Smutny",
+      "angry": "Zły"
+    },
+    "comment": {
+      "label": "Komentarz"
+    },
+    "share": {
+      "label": "Udostępnij"
+    }
+  },
+  "menuPost": {
+    "label": "Zarządzaj"
+  },
+  "editPost": {
+    "title": "Edytuj post",
+    "buttonConfirm": "Zapisz",
+    "buttonCancel": "Anuluj",
+    "children": "Edytuj post"
+  },
+  "removePost": {
+    "title": "Usuń post",
+    "message": "Czy na pewno chcesz usunąć ten post?",
+    "buttonConfirm": "Tak",
+    "buttonCancel": "Nie",
+    "children": "Usuń post"
+  }
+}

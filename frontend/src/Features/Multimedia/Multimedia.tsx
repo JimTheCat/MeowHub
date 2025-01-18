@@ -7,6 +7,7 @@ import {EmblaCarouselType} from 'embla-carousel-react';
 import {IconArrowLeft} from '@tabler/icons-react';
 import {BasicUserInfo} from "../shared/types";
 import classes from './carousel.module.css';
+import {useTranslation} from "react-i18next";
 
 export const Multimedia = () => {
   const {userTag} = useParams();
@@ -19,6 +20,7 @@ export const Multimedia = () => {
   const emblaApiRef = useRef<EmblaCarouselType | null>(null);
   const thumbnailScrollRef = useRef<HTMLDivElement | null>(null);
   const login = userTag?.split('@')[1];
+  const {t} = useTranslation('multimedia');
 
   const fetchMedia = async (page: number) => {
     try {
@@ -112,7 +114,7 @@ export const Multimedia = () => {
 
         {/* Owner Info */}
         <Text size="lg" fw={600}>
-          {owner ? `${owner}'s Media` : 'Media'}
+          {t('owner', {owner: owner})}
         </Text>
       </Flex>
       <Center px={"xl"} py={"xs"} style={{flexGrow: 1}}>

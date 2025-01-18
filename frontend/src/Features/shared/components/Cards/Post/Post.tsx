@@ -19,6 +19,7 @@ import {useNavigate} from "react-router-dom";
 import {ImageWithSkeleton} from "../../ImageWithSkeleton";
 import {MenuPost} from "./components/MenuPost";
 import {PictureDTO, PostDTO} from "../../../types";
+import {useTranslation} from "react-i18next";
 
 type PostProps = PostDTO & {
   cardWidth?: number | string;
@@ -28,6 +29,7 @@ type PostProps = PostDTO & {
 export const Post = (props: PostProps) => {
 
   const auth = useAuthStore();
+  const {t} = useTranslation('postComponent')
   const isOwner = auth.user?.login === props.author.login;
   const navigate = useNavigate();
 
@@ -168,7 +170,7 @@ export const Post = (props: PostProps) => {
 
         <Group grow preventGrowOverflow={false}>
           <Button variant={"subtle"} color={"gray"} leftSection={<IconPaw stroke={1.5}/>}>
-            Reaction
+            {t('buttons.reaction.label')}
           </Button>
           <Button
             variant={"subtle"}
@@ -176,10 +178,10 @@ export const Post = (props: PostProps) => {
             leftSection={<IconMessage stroke={1.5}/>}
             rightSection={<Badge color={"gray"} circle>{props.numberOfComments}</Badge>}
           >
-            Comment
+            {t('buttons.comment.label')}
           </Button>
           <Button variant={"subtle"} color={"gray"} leftSection={<IconShare3 stroke={1.5}/>}>
-            Share
+            {t('buttons.share.label')}
           </Button>
         </Group>
       </Stack>

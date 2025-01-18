@@ -1,0 +1,146 @@
+{
+  "settings": {
+    "user": {
+      "label": "Ustawienia użytkownika"
+    },
+    "app": {
+      "label": "Ustawienia aplikacji"
+    },
+    "footer": {
+      "greetings": {
+        "label": "Stworzone z ❤\uFE0F przez ekipę MeowHub~"
+      },
+      "version": {
+        "label": "Wersja aplikacji {{version}}"
+      }
+    }
+  },
+  "user": {
+    "account": {
+      "label": "Moje konto",
+      "description": "Zaktualizuj swoje dane",
+      "content": {
+        "personal": {
+          "legend": "Dane osobowe",
+          "name": {
+            "label": "Imię",
+            "placeholder": "Twoje imię"
+          },
+          "surname": {
+            "label": "Nazwisko",
+            "placeholder": "Twoje nazwisko"
+          },
+          "tag": {
+            "label": "Tag",
+            "placeholder": "@twoj_tag"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Twój email"
+          },
+          "birthdate": {
+            "label": "Data urodzenia",
+            "placeholder": "Twoja data urodzenia"
+          }
+        },
+        "password": {
+          "legend": "Zmień hasło",
+          "current": {
+            "label": "Aktualne hasło",
+            "placeholder": "Twoje aktualne hasło"
+          },
+          "new": {
+            "label": "Nowe hasło",
+            "placeholder": "Twoje nowe hasło"
+          },
+          "repeat": {
+            "label": "Powtórz hasło",
+            "placeholder": "Powtórz swoje nowe hasło"
+          }
+        }
+      }
+    },
+    "privacy": {
+      "label": "Prywatność",
+      "description": "Zarządzaj swoimi ustawieniami prywatności",
+      "content": {
+        "legend": "Prywatność",
+        "profile": {
+          "label": "Kto może zobaczyć Twój profil?"
+        },
+        "posts": {
+          "label": "Kto może zobaczyć Twoje posty?"
+        },
+        "friends": {
+          "label": "Kto może zobaczyć Twoich znajomych?"
+        },
+        "data": {
+          "everyone": "Wszyscy",
+          "friends": "Tylko znajomi",
+          "nobody": "Nikt"
+        }
+      }
+    },
+    "security": {
+      "label": "Bezpieczeństwo",
+      "description": "Zarządzaj swoimi ustawieniami bezpieczeństwa",
+      "content": {
+        "legend": "2FA",
+        "2fa": {
+          "label": "Dwuetapowe uwierzytelnienie",
+          "description": "Włącz dwuetapowe uwierzytelnienie"
+        }
+      }
+    },
+    "notifications": {
+      "label": "Powiadomienia",
+      "description": "Zarządzaj swoimi ustawieniami powiadomień",
+      "content": {
+        "legend": "Powiadomienia",
+        "email": {
+          "label": "Powiadomienia email"
+        },
+        "push": {
+          "label": "Powiadomienia push"
+        }
+      }
+    },
+    "personalization": {
+      "label": "Dane i personalizacja",
+      "description": "Zarządzaj swoimi danymi",
+      "content": {
+        "legend": "Dane",
+        "data": {
+          "tooltip": "Zarządzaj swoimi danymi",
+          "children": "Pobierz dane"
+        }
+      }
+    },
+    "help": {
+      "label": "Pomoc",
+      "description": "Potrzebujesz pomocy? Skontaktuj się z nami!"
+    }
+  },
+  "app": {
+    "general": {
+      "label": "Ogólne",
+      "description": "Zmień ustawienia ogólne"
+    },
+    "appearance": {
+      "label": "Wygląd",
+      "description": "Zmień ustawienia wyglądu"
+    },
+    "accessibility": {
+      "label": "Dostępność",
+      "description": "Zmień ustawienia dostępności"
+    },
+    "language": {
+      "label": "Język",
+      "description": "Zmień używany język"
+    },
+    "about": {
+      "label": "O aplikacji",
+      "description": "Dowiedz się więcej o aplikacji"
+    }
+  }
+}

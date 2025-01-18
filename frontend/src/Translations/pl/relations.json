@@ -1,0 +1,33 @@
+{
+  "relations": {
+    "card": {
+      "title": "Relacje",
+      "tabs": {
+        "sent": "Wysłane",
+        "received": "Otrzymane",
+        "rejected": "Odrzucone"
+      },
+      "empty": {
+        "sent": "Nie wysłałeś jeszcze żadnych zaproszeń.",
+        "received": "Nie otrzymałeś jeszcze żadnych zaproszeń.",
+        "rejected": "Nie odrzuciłeś jeszcze żadnych zaproszeń."
+      }
+    },
+    "alerts": {
+      "accept": {
+        "title": "Zaproszenie do znajomych wysłane",
+        "message": "Zaproszenie do znajomych wysłano pomyślnie."
+      },
+      "reject": {
+        "title": "Zaproszenie do znajomych odrzucone",
+        "message": "Zaproszenie do znajomych odrzucono pomyślnie."
+      }
+    }
+  },
+  "userGrid": {
+    "tooltip": {
+      "cancel": "Anuluj zaproszenie",
+      "accept": "Akceptuj zaproszenie"
+    }
+  }
+}

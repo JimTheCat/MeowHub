@@ -5,6 +5,9 @@ import {useState} from "react";
 
 type UploadProfilePictureProps = {
   setImage: (file: File | null) => void;
+  dropzoneTitle: string;
+  dropzoneMessage: string;
+  previewButton: string;
 };
 
 export const UploadProfilePicture = (props: UploadProfilePictureProps) => {
@@ -54,10 +57,10 @@ export const UploadProfilePicture = (props: UploadProfilePictureProps) => {
 
                   <div>
                       <Text size="xl" inline>
-                          Drag images here or click to select file
+                        {props.dropzoneTitle}
                       </Text>
                       <Text size="sm" c="dimmed" inline mt={7}>
-                          Attach up to 1 file. File should not exceed 10MB
+                        {props.dropzoneMessage}
                       </Text>
                   </div>
               </Group>
@@ -71,7 +74,7 @@ export const UploadProfilePicture = (props: UploadProfilePictureProps) => {
                 {preview.name}
               </Text>
               <Button fullWidth color="red" size="xs" onClick={() => handleRemoveImage()}>
-                  Remove
+                {props.previewButton}
               </Button>
           </Paper>
       }

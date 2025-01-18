@@ -1,0 +1,33 @@
+{
+  "relations": {
+    "card": {
+      "title": "Relations",
+      "tabs": {
+        "sent": "Sent",
+        "received": "Received",
+        "rejected": "Rejected"
+      },
+      "empty": {
+        "sent": "You haven't sent any relation requests yet.",
+        "received": "You haven't received any relation requests yet.",
+        "rejected": "You haven't rejected any relation requests yet."
+      }
+    },
+    "alerts": {
+      "accept": {
+        "title": "Relation request sent",
+        "message": "Relation request sent successfully."
+      },
+      "reject": {
+        "title": "Relation request rejected",
+        "message": "Relation request rejected successfully."
+      }
+    }
+  },
+  "userGrid": {
+    "tooltip": {
+      "cancel": "Cancel request",
+      "accept": "Accept request"
+    }
+  }
+}

@@ -1,8 +1,10 @@
 import {Button, Card, Divider, Grid, ScrollArea, Stack, Text, Title} from "@mantine/core";
 import {useNavigate} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 export const MatchTests = () => {
   const navigate = useNavigate();
+  const {t} = useTranslation('matching');
   const dummyTestsData = [
     {
       testId: 1,
@@ -45,13 +47,16 @@ export const MatchTests = () => {
                   <Stack gap={5} justify={'center'} align={'center'}>
                     {test.isCompleted &&
                         <>
-                            <Button color={'green'}>Retake test</Button>
-                            <Text style={{cursor: "pointer"}} size={'xs'} onClick={() => navigate('')}>View
-                                results</Text>
+                            <Button color={'green'}>{t('tests.button.retake.label')}</Button>
+                            <Text style={{cursor: "pointer"}} size={'xs'} onClick={() => navigate('')}>
+                              {t('tests.button.view.label')}
+                            </Text>
                         </>
                     }
                     {!test.isCompleted &&
-                        <Button color={'blue'}>Start test</Button>
+                        <Button color={'blue'}>
+                          {t('tests.button.start.label')}
+                        </Button>
                     }
                   </Stack>
 

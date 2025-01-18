@@ -4,13 +4,15 @@ import {IconAdjustments, IconUserCog} from "@tabler/icons-react";
 import {Escape} from "./components/Escape";
 import {useState} from "react";
 import {AppSettingsMenu, MenuContent, UserSettingsMenu} from "./consts/NestedMenuSettings.tsx";
+import {useTranslation} from "react-i18next";
 
 export const Settings = () => {
 
   const [activePage, setActivePage] = useState(0);
+  const {t} = useTranslation('settings');
   useHotkeys([['escape', () => window.history.back()]]);
 
-  const userSettingsItems = UserSettingsMenu.map((item) => (
+  const userSettingsItems = UserSettingsMenu().map((item) => (
     <NavLink
       key={item.uuid}
       active={item.uuid === activePage}
@@ -21,7 +23,7 @@ export const Settings = () => {
     />
   ));
 
-  const AppSettingsItems = AppSettingsMenu.map((item) => (
+  const AppSettingsItems = AppSettingsMenu().map((item) => (
     <NavLink
 
       key={item.uuid}
@@ -43,8 +45,7 @@ export const Settings = () => {
         <AppShell.Section grow my="md" component={ScrollArea}>
 
           <NavLink
-
-            label="User settings"
+            label={t('settings.user.label')}
             leftSection={<IconUserCog size="1rem" stroke={1.5}/>}
             childrenOffset={28}
             defaultOpened
@@ -53,8 +54,7 @@ export const Settings = () => {
           </NavLink>
 
           <NavLink
-
-            label="App settings"
+            label={t('settings.app.label')}
             leftSection={<IconAdjustments size="1rem" stroke={1.5}/>}
             childrenOffset={28}
           >
@@ -63,8 +63,8 @@ export const Settings = () => {
 
         </AppShell.Section>
         <AppShell.Section>
-          <Text>Made with ❤️ by MeowHub crew~</Text>
-          <Text size={"xs"}>Version 0.1.0</Text>
+          <Text>{t('settings.footer.greetings.label')}</Text>
+          <Text size={"xs"}>{t('settings.footer.version.label', {version: '0.1.0'})}</Text>
         </AppShell.Section>
       </AppShell.Navbar>
       <AppShell.Main>

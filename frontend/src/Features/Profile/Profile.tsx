@@ -30,7 +30,7 @@ export const Profile = () => {
 
     setLoading(true);
     try {
-      const response = await api.get(`/api/posts/${login}`, {
+      const response = await api.get(`/api/posts/user/${login}`, {
         params: {pageNo: page, pageSize: 10},
       });
 
@@ -83,7 +83,6 @@ export const Profile = () => {
 
     fetchData();
   }, [userTag]);
-
 
   return (
     <Box px={"xl"} py={"xs"}>

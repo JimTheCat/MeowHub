@@ -1,21 +1,32 @@
 import {Box, Fieldset, TextInput} from "@mantine/core";
 import {DatePickerInput} from "@mantine/dates";
+import {useTranslation} from "react-i18next";
 
 export const MyAccount = () => {
+  const {t} = useTranslation('settings');
+
   return (
     <Box>
-      <Fieldset legend="Personal information">
-        <TextInput label="Name" placeholder="Your name"/>
-        <TextInput label="Surname" placeholder="Your surname" mt="md"/>
-        <TextInput label="Tag" placeholder="@your_tag" mt="md"/>
-        <TextInput label="Email" placeholder="Email" mt="md"/>
-        <DatePickerInput label="Date of birth" placeholder="Date of birth" mt="md"/>
+      <Fieldset legend={t('user.account.content.personal.legend')}>
+        <TextInput label={t('user.account.content.personal.name.label')}
+                   placeholder={t('user.account.content.personal.name.placeholder')}/>
+        <TextInput label={t('user.account.content.personal.surname.label')}
+                   placeholder={t('user.account.content.personal.surname.placeholder')} mt="md"/>
+        <TextInput label={t('user.account.content.personal.tag.label')}
+                   placeholder={t('user.account.content.personal.tag.placeholder')} mt="md"/>
+        <TextInput label={t('user.account.content.personal.email.label')}
+                   placeholder={t('user.account.content.personal.email.placeholder')} mt="md"/>
+        <DatePickerInput label={t('user.account.content.personal.birthdate.label')}
+                         placeholder={t('user.account.content.personal.birthdate.placeholder')} mt="md"/>
       </Fieldset>
 
-      <Fieldset legend="Change password" mt="lg">
-        <TextInput label="Old password" type="password" placeholder="Old password"/>
-        <TextInput label="New password" type="password" placeholder="New password" mt="md"/>
-        <TextInput label="Repeat new password" type="password" placeholder="Repeat new password" mt="md"/>
+      <Fieldset legend={t('user.account.content.password.legend')} mt="lg">
+        <TextInput label={t('user.account.content.password.current.label')} type="password"
+                   placeholder={t('user.account.content.password.current.placeholder')}/>
+        <TextInput label={t('user.account.content.password.new.label')} type="password"
+                   placeholder={t('user.account.content.password.new.placeholder')} mt="md"/>
+        <TextInput label={t('user.account.content.password.repeat.label')} type="password"
+                   placeholder={t('user.account.content.password.repeat.placeholder')} mt="md"/>
       </Fieldset>
 
     </Box>

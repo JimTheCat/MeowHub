@@ -2,6 +2,7 @@ import {ActionIcon, Card, Group, Loader, SimpleGrid, Stack, Tooltip} from "@mant
 import {BasicUser} from "../../../shared/components/Cards/BasicUser";
 import {BasicUserInfo} from "../../../shared/types";
 import {IconCircleCheck, IconXboxX} from "@tabler/icons-react";
+import {useTranslation} from "react-i18next";
 
 type UserGridProps = {
   sentRequests: BasicUserInfo[];
@@ -13,6 +14,7 @@ type UserGridProps = {
 };
 
 export const UserGrid = (props: UserGridProps) => {
+  const {t} = useTranslation('relations');
 
   return (
     <>
@@ -34,14 +36,14 @@ export const UserGrid = (props: UserGridProps) => {
                   <BasicUser user={person} tagVisible avatarSize={'lg'}/>
                   {props.isReceived &&
                       <Group>
-                          <Tooltip label={'Cancel request'}>
+                          <Tooltip label={t('userGrid.tooltip.cancel')}>
                               <ActionIcon variant={'subtle'} color={'gray'} size="lg" radius={'lg'} onClick={() => {
                                 props.handleCancelRequest && props.handleCancelRequest(person.login);
                               }}>
                                   <IconXboxX stroke={0.8}/>
                               </ActionIcon>
                           </Tooltip>
-                          <Tooltip label={'Accept request'}>
+                          <Tooltip label={t('userGrid.tooltip.accept')}>
                               <ActionIcon variant={'subtle'} color={'gray'} size="lg" radius={'lg'} onClick={() => {
                                 props.handleAcceptRequest && props.handleAcceptRequest(person.login);
                               }}>

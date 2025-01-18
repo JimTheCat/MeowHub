@@ -1,0 +1,100 @@
+{
+  "aside": {
+    "title": "Matching",
+    "menu": {
+      "base": "Match",
+      "profile": "Profile",
+      "filters": "Filters",
+      "tests": "My tests (coming soon)",
+      "settings": "Settings"
+    }
+  },
+  "filters": {
+    "card": {
+      "title": "Filters",
+      "options": {
+        "showMe": "Show me",
+        "sex": "Sexuality",
+        "age": "Preferred age",
+        "distance": "Distance",
+        "hereFor": "Here for"
+      }
+    },
+    "button": {
+      "cancel": {
+        "label": "Cancel"
+      },
+      "submit": {
+        "label": "Apply filters"
+      }
+    }
+  },
+  "profile": {
+    "card": {
+      "imageSection": {
+        "title": "Your images",
+        "imageAlt": "image"
+      },
+      "infoSection": {
+        "title": "Settings",
+        "name": {
+          "label": "Name",
+          "placeholder": "Name"
+        },
+        "location": {
+          "label": "Location",
+          "placeholder": "Start typing a city"
+        },
+        "bio": {
+          "label": "Bio",
+          "placeholder": "Bio"
+        },
+        "sex": {
+          "label": "Sexuality"
+        }
+      }
+    },
+    "button": {
+      "cancel": {
+        "label": "Cancel"
+      },
+      "submit": {
+        "label": "Save"
+      }
+    }
+  },
+  "settings": {
+    "card": {
+      "title": "Matching Settings",
+      "account": {
+        "fieldset": "Account",
+        "button": {
+          "delete": {
+            "label": "Delete account"
+          }
+        }
+      },
+      "privacy": {
+        "fieldset": "Privacy",
+        "switch": {
+          "search": "Show me in search results",
+          "recommendation": "Show me in recommendations",
+          "online": "Show me online status"
+        }
+      }
+    }
+  },
+  "tests": {
+    "button": {
+      "start": {
+        "label": "Start test"
+      },
+      "retake": {
+        "label": "Retake test"
+      },
+      "view": {
+        "label": "View results"
+      }
+    }
+  }
+}

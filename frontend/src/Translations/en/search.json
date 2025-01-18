@@ -1,0 +1,23 @@
+{
+  "search": {
+    "autocomplete": {
+      "placeholder": "Search"
+    },
+    "render": {
+      "label": "Search: {{searchText}}"
+    }
+  },
+  "results": {
+    "card": {
+      "title": "Search Results",
+      "count": "{{count}} results found",
+      "noResults": "No results found for \"{{query}}\""
+    }
+  },
+  "suggestedUsers": {
+    "title": "Suggested Users",
+    "button": {
+      "label": "Follow"
+    }
+  }
+}

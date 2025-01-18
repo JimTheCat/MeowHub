@@ -5,17 +5,19 @@ import {ModificationModal} from "../ModificationModal";
 import {useRelationsStore} from "../../services/relationStatus.ts";
 import {useAlert} from "../../../../Providers/AlertProvider.tsx";
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
   const [status, setStatus] = useState('none');
   const relationsStore = useRelationsStore();
   const alert = useAlert();
+  const {t} = useTranslation('invitationComponent');
 
   const handleSendFriendRequest = (login: string) => {
     relationsStore.sendFriendRequest(login).then(() => {
       alert.showError({
-        title: 'Success',
-        message: 'Friend request sent',
+        title: t('alert.send.title'),
+        message: t('alert.send.message'),
         level: 'INFO',
         timestamp: new Date().toISOString(),
       });
@@ -25,8 +27,8 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
   const handleCancelFriendRequest = (login: string) => {
     relationsStore.cancelFriendRequest(login).then(() => {
       alert.showError({
-        title: 'Cancelled',
-        message: 'Friend request cancelled',
+        title: t('alert.cancel.title'),
+        message: t('alert.cancel.message'),
         level: 'INFO',
         timestamp: new Date().toISOString(),
       });
@@ -36,8 +38,8 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
   const handleAcceptFriendRequest = (login: string) => {
     relationsStore.acceptFriendRequest(login).then(() => {
       alert.showError({
-        title: 'Accepted',
-        message: 'Friend request accepted',
+        title: t('alert.accept.title'),
+        message: t('alert.accept.message'),
         level: 'INFO',
         timestamp: new Date().toISOString(),
       });
@@ -47,8 +49,8 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
   const handleRemoveFriend = (login: string) => {
     relationsStore.removeFriend(login).then(() => {
       alert.showError({
-        title: 'Removed',
-        message: 'Friend removed',
+        title: t('alert.remove.title'),
+        message: t('alert.remove.message'),
         level: 'INFO',
         timestamp: new Date().toISOString(),
       });
@@ -75,7 +77,7 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
       );
     case 'pendingSent':
       return (
-        <Tooltip label={'Twoje zaproszenie zostało już wysłane'}>
+        <Tooltip label={t('pendingSent.tooltip')}>
           <ActionIcon variant="subtle" color="gray" size="lg" radius="lg">
             <IconSend stroke={0.8}/>
           </ActionIcon>
@@ -103,19 +105,20 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
             </ActionIcon>
           </Menu.Target>
           <Menu.Dropdown>
-            <Menu.Label>Manage</Menu.Label>
+            <Menu.Label>{t('friendsMenu.label')}</Menu.Label>
             <Menu.Item
               color="red"
               leftSection={<IconUsersMinus style={{width: rem(14), height: rem(14)}}/>}
               onClick={() => ModificationModal({
                 handleAction: handleRemove,
-                title: 'Remove friend',
-                buttonConfirmText: 'Remove',
+                title: t('friendsMenu.modal.title'),
+                buttonConfirmText: t('friendsMenu.modal.buttonConfirm'),
+                buttonCancelText: t('friendsMenu.modal.buttonCancel'),
                 buttonConfirmColor: 'red',
-                childrenContent: <Text>Are you sure that you want to remove your friend {user.login}?</Text>
+                childrenContent: <Text>{t('friendsMenu.modal.content', {name: user.login})}</Text>
               })}
             >
-              Remove friend
+              {t('friendsMenu.item')}
             </Menu.Item>
           </Menu.Dropdown>
         </Menu>

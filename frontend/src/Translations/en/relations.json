@@ -8,9 +8,9 @@
         "rejected": "Rejected"
       },
       "empty": {
-        "sent": "You haven't sent any friend request yet.",
-        "received": "You haven't received any friend request yet.",
-        "rejected": "You haven't rejected any friend request yet."
+        "sent": "You haven't sent any friend requests yet.",
+        "received": "You haven't received any friend requests yet.",
+        "rejected": "You haven't rejected any friend requests yet."
       }
     },
     "alerts": {

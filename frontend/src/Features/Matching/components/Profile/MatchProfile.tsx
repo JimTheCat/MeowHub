@@ -137,7 +137,7 @@ export const MatchProfile = () => {
               {...form.getInputProps("bio")}
             />
             <NativeSelect
-              label={t('profile.card.infoSection.sex.label')}
+              label={t('profile.card.infoSection.sexuality.label')}
               data={sexualityProfile}
               leftSection={<IconGenderBigender/>}
               {...form.getInputProps("sexuality")}

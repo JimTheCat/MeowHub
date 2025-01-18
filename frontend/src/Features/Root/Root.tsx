@@ -21,6 +21,7 @@ import {MatchFilters} from "../Matching/components/Filters";
 import {MatchTests} from "../Matching/components/Tests";
 import {MatchSettings} from "../Matching/components/Settings";
 import {Multimedia} from "../Multimedia";
+import {Privacy} from "../Privacy";
 
 export const Root = () => {
 
@@ -33,7 +34,7 @@ export const Root = () => {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/passwordrecovery" element={<Recovery/>}/>
-        <Route path="/privacy" element={<div>Privacy</div>}/>
+        <Route path="/privacy" element={<Privacy/>}/>
       </Route>
 
       {/*Protected routes*/}

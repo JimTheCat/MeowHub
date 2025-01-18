@@ -1,0 +1,51 @@
+{
+  "navbar": {
+    "title": "Privacy Policy",
+    "description": "This privacy policy outlines how we process your data.",
+    "lastUpdated": "Last Updated on: {{date}}"
+  },
+  "table": {
+    "title": "Table of Contents",
+    "sections": {
+      "section1": "Personal Data",
+      "section2": "Cookies",
+      "section3": "Data Sharing",
+      "section4": "Your Rights",
+      "section5": "Data Security",
+      "section6": "Data Retention",
+      "section7": "Contact"
+    }
+  },
+  "section1": {
+    "title": "Personal Data",
+    "description": "We collect and process personal data to provide our services, including information such as name, email address, and user activity on our platform."
+  },
+  "section2": {
+    "title": "Cookies",
+    "description": "Our website uses cookies for traffic analysis, content personalization, and enhanced functionality. You can adjust cookie settings in your browser."
+  },
+  "section3": {
+    "title": "Data Sharing",
+    "description": "We share personal data only with trusted partners and service providers in accordance with applicable laws and privacy policies."
+  },
+  "section4": {
+    "title": "Your Rights",
+    "description": "You have the right to access, correct, delete, or restrict the processing of your data. You can also withdraw your consent to data processing at any time."
+  },
+  "section5": {
+    "title": "Data Security",
+    "description": "We protect your data using advanced security technologies, including encryption and strict access control."
+  },
+  "section6": {
+    "title": "Data Retention",
+    "description": "Your data is retained for as long as necessary to provide our services or as required by law."
+  },
+  "section7": {
+    "title": "Contact",
+    "description": "If you have any questions about data protection, please contact us at: contact@meowhub.com."
+  },
+  "footer": {
+    "description": "\u00A9 MeowHub. All rights reserved."
+  },
+  "affix": "Scroll to top"
+}

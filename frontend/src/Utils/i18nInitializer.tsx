@@ -17,6 +17,7 @@ import enNotFound from "../Translations/en/notfound.json";
 import enRegister from "../Translations/en/register.json";
 import enGender from "../Translations/en/gender.json";
 import enRecovery from "../Translations/en/recovery.json";
+import enPrivacy from "../Translations/en/privacy.json";
 import enPostComponent from "../Translations/en/components/post.json";
 import enCookiesComponent from "../Translations/en/components/cookies.json";
 import enInvitationComponent from "../Translations/en/components/invitation.json";
@@ -38,6 +39,7 @@ import plNotFound from "../Translations/pl/notfound.json";
 import plRegister from "../Translations/pl/register.json";
 import plGender from "../Translations/pl/gender.json";
 import plRecovery from "../Translations/pl/recovery.json";
+import plPrivacy from "../Translations/pl/privacy.json";
 import plPostComponent from "../Translations/pl/components/post.json";
 import plCookiesComponent from "../Translations/pl/components/cookies.json";
 import plInvitationComponent from "../Translations/pl/components/invitation.json";
@@ -69,6 +71,7 @@ export const i18nInitializer = () => {
         register: enRegister,
         gender: enGender,
         recovery: enRecovery,
+        privacy: enPrivacy,
         // =-=-=FEATURE TRANSLATIONS END=-=-=
         // =-=-=COMPONENTS TRANSLATIONS START=-=-=
         postComponent: enPostComponent,
@@ -95,6 +98,7 @@ export const i18nInitializer = () => {
         register: plRegister,
         gender: plGender,
         recovery: plRecovery,
+        privacy: plPrivacy,
         // =-=-=FEATURE TRANSLATIONS END=-=-=
         // =-=-=COMPONENTS TRANSLATIONS START=-=-=
         postComponent: plPostComponent,

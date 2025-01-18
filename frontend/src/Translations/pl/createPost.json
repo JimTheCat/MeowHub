@@ -12,13 +12,13 @@
     },
     "alertError": {
       "title": "Błąd",
-      "message": "Wystąpił błąd podczas dodawania postu!"
+      "message": "Wystąpił błąd podczas dodawania posta!"
     }
   },
   "createPostForm": {
     "dropzone": {
       "text": "Przeciągnij zdjęcie lub kliknij, aby wybrać plik",
-      "textDimmed": "Dołącz maksymalnie 5 plików, każdy plik nie powinien przekraczać 3MB"
+      "textDimmed": "Dołącz maksymalnie 5 plików, każdy plik nie powinien przekraczać 10MB"
     },
     "image": {
       "button": {

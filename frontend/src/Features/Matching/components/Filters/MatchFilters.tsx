@@ -69,7 +69,7 @@ export const MatchFilters = () => {
             </Grid.Col>
             <Grid.Col pl={'xs'} span={6}>
               <NativeSelect
-                label={t('filters.card.options.sex')}
+                label={t('filters.card.options.sexuality')}
                 data={sexualityOptions}
                 leftSection={<IconGenderBigender/>}
                 {...form.getInputProps("prefferedSexuality")}
@@ -90,7 +90,7 @@ export const MatchFilters = () => {
             </Grid.Col>
             <Grid.Col span={12} mt={"lg"}>
               <NativeSelect
-                label={t('filters.card.options.age')}
+                label={t('filters.card.options.distance')}
                 data={distanceOptions}
                 leftSection={<IconRulerMeasure/>}
                 {...form.getInputProps("prefferedDistance")}

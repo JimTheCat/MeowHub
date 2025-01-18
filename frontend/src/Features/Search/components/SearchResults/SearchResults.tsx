@@ -14,6 +14,17 @@ export const SearchResults = () => {
   const loggedInUser = useAuthStore();
   const navigate = useNavigate();
   const {t} = useTranslation('search');
+  const personPolish = (count: number) => {
+    const mod = count % 10;
+    const mod2 = count % 100;
+    if (mod === 1 && mod2 !== 11) {
+      return 'osobę';
+    } else if (mod >= 2 && mod <= 4 && (mod2 < 10 || mod2 >= 20)) {
+      return 'osoby';
+    } else {
+      return 'osób';
+    }
+  }
 
   useEffect(() => {
     if (query) {
@@ -39,7 +50,7 @@ export const SearchResults = () => {
         </Text>
         {filteredUsers.length > 0 &&
             <Text size="sm" c="dimmed">
-              {t('results.card.count', {count: filteredUsers.length})}
+              {t('results.card.count', {count: filteredUsers.length, person: personPolish(filteredUsers.length)})}
             </Text>
         }
       </Group>

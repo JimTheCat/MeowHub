@@ -5,7 +5,7 @@
       "empty": "No description"
     },
     "modal": {
-      "title": "Update About Me",
+      "title": "Update 'About Me'",
       "labels": {
         "confirm": "Confirm",
         "cancel": "Cancel"
@@ -13,7 +13,7 @@
     },
     "alert": {
       "title": "Success",
-      "message": "About me updated successfully"
+      "message": "'About me' section has been updated successfully"
     }
   },
   "friends": {

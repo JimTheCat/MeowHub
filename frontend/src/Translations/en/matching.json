@@ -14,7 +14,7 @@
       "title": "Filters",
       "options": {
         "showMe": "Show me",
-        "sex": "Sexuality",
+        "sexuality": "Sexuality",
         "age": "Preferred age",
         "distance": "Distance",
         "hereFor": "Here for"
@@ -49,7 +49,7 @@
           "label": "Bio",
           "placeholder": "Bio"
         },
-        "sex": {
+        "sexuality": {
           "label": "Sexuality"
         }
       }

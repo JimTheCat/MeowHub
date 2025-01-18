@@ -18,7 +18,7 @@
   "createPostForm": {
     "dropzone": {
       "text": "Drag an image or click to select a file",
-      "textDimmed": "Attach up to 5 files, each file should not exceed 3MB"
+      "textDimmed": "Attach up to 5 files, each file should not exceed 10MB"
     },
     "image": {
       "button": {

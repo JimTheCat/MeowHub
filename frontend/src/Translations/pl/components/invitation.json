@@ -15,19 +15,19 @@
   "alert": {
     "cancel": {
       "title": "Anulowano",
-      "message": "Zaproszenie do przyjaciela zostało anulowane"
+      "message": "Zaproszenie od {{login}} zostało anulowane"
     },
     "accept": {
       "title": "Zaakceptowano",
-      "message": "Zaproszenie do przyjaciela zostało zaakceptowane"
+      "message": "Zaproszenie od {{login}} zostało zaakceptowane"
     },
     "send": {
       "title": "Wysłano",
-      "message": "Zaproszenie do przyjaciela zostało wysłane"
+      "message": "Zaproszenie do {{login}} zostało wysłane"
     },
     "remove": {
       "title": "Usunięto",
-      "message": "Przyjaciel został usunięty"
+      "message": "Ty i {{login}} nie jesteście już przyjaciółmi"
     }
   }
 }

@@ -8,19 +8,19 @@
         "rejected": "Rejected"
       },
       "empty": {
-        "sent": "You haven't sent any relation requests yet.",
-        "received": "You haven't received any relation requests yet.",
-        "rejected": "You haven't rejected any relation requests yet."
+        "sent": "You haven't sent any friends requests yet.",
+        "received": "You haven't received any friends requests yet.",
+        "rejected": "You haven't rejected any friends requests yet."
       }
     },
     "alerts": {
       "accept": {
-        "title": "Relation request sent",
-        "message": "Relation request sent successfully."
+        "title": "Friend request sent",
+        "message": "Friend request has been sent successfully."
       },
       "reject": {
-        "title": "Relation request rejected",
-        "message": "Relation request rejected successfully."
+        "title": "Friend request rejected",
+        "message": "Friend request has been rejected successfully."
       }
     }
   },

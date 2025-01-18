@@ -15,19 +15,19 @@
   "alert": {
     "cancel": {
       "title": "Cancelled",
-      "message": "Friend request has been cancelled"
+      "message": "Friend request from {{login}} has been cancelled"
     },
     "accept": {
       "title": "Accepted",
-      "message": "Friend request has been accepted"
+      "message": "Friend request from {{login}} has been accepted"
     },
     "send": {
       "title": "Sent",
-      "message": "Friend request has been sent"
+      "message": "Friend request to {{login}} has been sent"
     },
     "remove": {
       "title": "Removed",
-      "message": "Friend has been removed"
+      "message": "You and {{login}} are no longer friends"
     }
   }
 }

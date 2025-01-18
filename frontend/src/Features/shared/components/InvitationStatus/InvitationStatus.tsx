@@ -17,7 +17,7 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
     relationsStore.sendFriendRequest(login).then(() => {
       alert.showError({
         title: t('alert.send.title'),
-        message: t('alert.send.message'),
+        message: t('alert.send.message', {login: login}),
         level: 'INFO',
         timestamp: new Date().toISOString(),
       });
@@ -28,7 +28,7 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
     relationsStore.cancelFriendRequest(login).then(() => {
       alert.showError({
         title: t('alert.cancel.title'),
-        message: t('alert.cancel.message'),
+        message: t('alert.cancel.message', {login: login}),
         level: 'INFO',
         timestamp: new Date().toISOString(),
       });
@@ -39,7 +39,7 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
     relationsStore.acceptFriendRequest(login).then(() => {
       alert.showError({
         title: t('alert.accept.title'),
-        message: t('alert.accept.message'),
+        message: t('alert.accept.message', {login: login}),
         level: 'INFO',
         timestamp: new Date().toISOString(),
       });
@@ -50,7 +50,7 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
     relationsStore.removeFriend(login).then(() => {
       alert.showError({
         title: t('alert.remove.title'),
-        message: t('alert.remove.message'),
+        message: t('alert.remove.message', {login: login}),
         level: 'INFO',
         timestamp: new Date().toISOString(),
       });

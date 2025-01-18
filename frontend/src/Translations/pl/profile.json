@@ -5,7 +5,7 @@
       "empty": "Brak opisu"
     },
     "modal": {
-      "title": "Aktualizuj o mnie",
+      "title": "Aktualizuj 'o mnie'",
       "labels": {
         "confirm": "Potwierdź",
         "cancel": "Anuluj"
@@ -13,7 +13,7 @@
     },
     "alert": {
       "title": "Sukces",
-      "message": "O mnie zaktualizowano pomyślnie"
+      "message": "Sekcja 'o mnie' zaktualizowano pomyślnie"
     }
   },
   "friends": {

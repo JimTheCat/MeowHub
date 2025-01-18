@@ -59,7 +59,7 @@ export const PostForm = (props: PostFormProps) => {
       <Dropzone
         onDrop={handleDrop}
         accept={[MIME_TYPES.jpeg, MIME_TYPES.png, MIME_TYPES.gif]}
-        maxSize={3 * 1024 ** 2}
+        maxSize={10 * 1024 ** 2}
         multiple
       >
         <Group justify="center" gap="xl" mih={120} style={{pointerEvents: "none"}}>

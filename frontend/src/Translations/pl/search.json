@@ -10,7 +10,7 @@
   "results": {
     "card": {
       "title": "Wyniki wyszukiwania",
-      "count": "{{count}} osoby znaleziono",
+      "count": "Znaleziono: {{count}} {{person}}",
       "noResults": "Brak wyników dla \"{{query}}\""
     }
   },

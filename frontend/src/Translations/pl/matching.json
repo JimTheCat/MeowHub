@@ -14,7 +14,7 @@
       "title": "Filtry",
       "options": {
         "showMe": "Pokaż mi",
-        "sex": "Orientacja",
+        "sexuality": "Orientacja",
         "age": "Preferowany wiek",
         "distance": "Odległość",
         "hereFor": "Szukam"
@@ -49,7 +49,7 @@
           "label": "O mnie",
           "placeholder": "O mnie"
         },
-        "sex": {
+        "sexuality": {
           "label": "Orientacja"
         }
       }

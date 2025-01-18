@@ -31,7 +31,7 @@ export const Privacy = () => {
 
   return (
     <Container>
-      {/* Nagłówek strony */}
+      {/* Header */}
       <Title order={1} ta="center" mt={'xl'}>{t('navbar.title')}</Title>
       <Text ta="center" mt="md">
         {t('navbar.description')}
@@ -42,7 +42,7 @@ export const Privacy = () => {
 
       <Space h="xl"/>
 
-      {/* Spis treści */}
+      {/* Table of Contents */}
       <TableOfContents
         variant="light"
         color="pink"
@@ -60,7 +60,7 @@ export const Privacy = () => {
       <Space h="xl"/>
       <Divider my="lg"/>
 
-      {/* Sekcje */}
+      {/* Sections */}
       {sections.map((section) => (
         <Box id={section.id} key={section.id}>
           <Title order={3}>{section.label}</Title>

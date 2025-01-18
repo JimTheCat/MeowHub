@@ -13,7 +13,7 @@
     },
     "alert": {
       "title": "Sukces",
-      "message": "Sekcja 'o mnie' zaktualizowano pomyślnie"
+      "message": "Sekcja 'o mnie' została zaktualizowana pomyślnie"
     }
   },
   "friends": {

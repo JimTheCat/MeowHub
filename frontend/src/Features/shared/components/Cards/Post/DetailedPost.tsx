@@ -79,7 +79,7 @@ export const DetailedPost = (props: PostProps) => {
   }, []);
 
   return (
-    <Stack>
+    <Stack gap={'xs'}>
       <Group justify="space-between">
         <Group style={{cursor: "pointer"}}>
           <Avatar src={props.author.profilePictureUrl} size={"lg"} radius={180}/>
@@ -133,7 +133,6 @@ export const DetailedPost = (props: PostProps) => {
           {props.t('detailedPost.textArea.children')}
         </Button>
       </Group>
-      <Divider my={"xs"}/>
       <CommentsSection
         comments={comments}
         onCommentDelete={handleCommentDelete}

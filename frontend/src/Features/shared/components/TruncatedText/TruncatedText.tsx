@@ -2,7 +2,11 @@ import {useEffect, useRef, useState} from "react";
 import {Box, Button, Group} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 
-export const TruncatedText = ({text, lines = 3}: { text: string, lines?: number }) => {
+export const TruncatedText = ({text, lines = 3, textSize = 13}: {
+  text: string,
+  lines?: number,
+  textSize?: number
+}) => {
   const textRef = useRef<HTMLDivElement>(null);
   const [isTruncated, setIsTruncated] = useState(false);
   const [showFullText, setShowFullText] = useState(false);
@@ -27,6 +31,7 @@ export const TruncatedText = ({text, lines = 3}: { text: string, lines?: number 
           WebkitBoxOrient: "vertical" as const,
           overflow: "hidden",
           textOverflow: "ellipsis",
+          fontSize: `${textSize}px`,
         }}
       >
         {text}

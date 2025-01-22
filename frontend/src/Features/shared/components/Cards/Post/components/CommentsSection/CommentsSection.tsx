@@ -23,19 +23,19 @@ export const CommentsSection = ({
       .filter((comment) => comment.parentId === parentId)
       .map((comment) => (
         <div key={comment.id} style={{position: "relative"}}>
+          <Divider my={'sm'}/>
           <Comment
             comment={comment}
             onEdit={onCommentEdit}
             onDelete={onCommentDelete}
             modal={modal}
           />
-          <Divider mt={'xl'}/>
           {renderComments(comments, comment.id)} {/* Render replies */}
         </div>
       ));
 
   return (
-    <Stack gap={"sm"}>
+    <Stack gap={"0"}>
       {comments.length === 0 ? (
         <Text c={"dimmed"} size="md" ta={"center"}>
           {t("commentsSection.noComments")}

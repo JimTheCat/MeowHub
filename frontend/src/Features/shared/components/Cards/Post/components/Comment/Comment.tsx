@@ -1,5 +1,5 @@
-import {Avatar, Box, Button, Card, Group, Modal, Stack, Text, Textarea} from "@mantine/core";
-import {IconEdit, IconTrash} from "@tabler/icons-react";
+import {ActionIcon, Avatar, Box, Button, Card, Group, Modal, Stack, Text, Textarea} from "@mantine/core";
+import {IconArrowBackUp, IconEdit, IconTrash} from "@tabler/icons-react";
 import {useEffect, useState} from "react";
 import api from "../../../../../services/api.ts";
 import {useAlert} from "../../../../../../../Providers/AlertProvider.tsx";
@@ -15,7 +15,6 @@ type CommentProps = {
   comment: CommentDTO;
   onEdit: (id: string, content: string) => void;
   onDelete: (id: string) => void;
-  isReply?: boolean;
   depth?: number;
   modal?: string;
 };
@@ -24,7 +23,6 @@ export const Comment = ({
                           comment,
                           onEdit,
                           onDelete,
-                          isReply = false,
                           depth = 0,
                           modal,
                         }: CommentProps) => {
@@ -126,8 +124,9 @@ export const Comment = ({
   if (comment.isDeleted) {
     return (
       <>
-        <Card w={"fit-content"} withBorder shadow="sm" radius={"lg"}>
-          <Text c="dimmed">{t('comment.card.deleted')}</Text>
+        <Card w={"fit-content"} withBorder shadow="sm" radius={"lg"} mb={replies.length > 0 ? '8' : ''}
+              style={{'--card-padding': '10px'}}>
+          <Text c="dimmed" size={'xs'}>{t('comment.card.deleted')}</Text>
         </Card>
         {isLoadingReplies && <Text c="dimmed">{t('comment.card.loadingReplies')}</Text>}
         {replies.map((reply) => (
@@ -136,8 +135,7 @@ export const Comment = ({
             comment={reply}
             onEdit={onEdit}
             onDelete={onDelete}
-            isReply={true}
-            depth={depth + 2}
+            depth={depth + 1}
             modal={modal}
           />
         ))}
@@ -145,26 +143,24 @@ export const Comment = ({
     );
   }
   return (
-    <Box
-      style={{
-        marginLeft: depth * 20,
-        marginTop: isReply ? 12 : 16,
-      }}
+    <Stack
+      ml={depth * 15}
       pos={"relative"}
+      gap={"8"}
     >
-      <Card withBorder shadow="sm" radius={"lg"}>
-        <Stack gap="sm">
+      <Card withBorder shadow="sm" radius={"lg"} style={{'--card-padding': '10px'}}>
+        <Stack gap={'sm'}>
           <Group justify="space-between">
             <Group gap={'xs'}>
               <Avatar
-                size={32}
+                size={'sm'}
                 radius="xl"
                 src={comment.author.profilePictureUrl}
                 alt="User avatar"
                 onClick={handleProfileRedirect}
                 style={{cursor: "pointer"}}
               />
-              <Text fw="bold" size="sm">
+              <Text fw="bold" size="xs">
                 {comment.author.name} {comment.author.surname}
               </Text>
               {comment.modifiedAt && (
@@ -172,10 +168,57 @@ export const Comment = ({
                   {t('comment.card.edited')}
                 </Text>
               )}
+              <Text c="dimmed" size="xs">
+                {DateFormatter(comment.createdAt)}
+              </Text>
             </Group>
-            <Text c="dimmed" size="xs">
-              {DateFormatter(comment.createdAt)}
-            </Text>
+            <Group gap="xs">
+              {isEditing ? (
+                <>
+                  <Button variant="light" size="xs" onClick={handleEdit}>
+                    {t('comment.card.editing.buttonConfirm')}
+                  </Button>
+                  <Button
+                    variant="subtle"
+                    size="xs"
+                    color="red"
+                    onClick={() => setIsEditing(false)}
+                  >
+                    {t('comment.card.editing.buttonCancel')}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  {auth.user?.login === comment.author.login && (
+                    <>
+                      <ActionIcon
+                        variant="subtle"
+                        size="sm"
+                        onClick={() => setIsEditing(true)}
+                      >
+                        <IconEdit size={16}/>
+                      </ActionIcon>
+                      <ActionIcon
+                        variant="subtle"
+                        size="sm"
+                        color="red"
+                        onClick={() => setIsDeleteModalOpen(true)}
+                      >
+                        <IconTrash size={16}/>
+                      </ActionIcon>
+                    </>
+                  )}
+                </>
+              )}
+              <ActionIcon
+                variant="subtle"
+                size="sm"
+
+                onClick={() => setIsReplying((prev) => !prev)}
+              >
+                <IconArrowBackUp/>
+              </ActionIcon>
+            </Group>
           </Group>
           {isEditing ? (
             <Textarea
@@ -187,52 +230,6 @@ export const Comment = ({
           ) : (
             <TruncatedText text={comment.content} lines={2}/>
           )}
-          <Group justify="flex-end" gap="xs">
-            {isEditing ? (
-              <>
-                <Button variant="light" size="xs" onClick={handleEdit}>
-                  {t('comment.card.editing.buttonConfirm')}
-                </Button>
-                <Button
-                  variant="subtle"
-                  size="xs"
-                  color="red"
-                  onClick={() => setIsEditing(false)}
-                >
-                  {t('comment.card.editing.buttonCancel')}
-                </Button>
-              </>
-            ) : (
-              <>
-                {auth.user?.login === comment.author.login && (
-                  <>
-                    <Button
-                      variant="subtle"
-                      size="xs"
-                      onClick={() => setIsEditing(true)}
-                    >
-                      <IconEdit size={16}/>
-                    </Button>
-                    <Button
-                      variant="subtle"
-                      size="xs"
-                      color="red"
-                      onClick={() => setIsDeleteModalOpen(true)}
-                    >
-                      <IconTrash size={16}/>
-                    </Button>
-                  </>
-                )}
-                <Button
-                  variant="light"
-                  size="xs"
-                  onClick={() => setIsReplying((prev) => !prev)}
-                >
-                  {t('comment.card.reply.label')}
-                </Button>
-              </>
-            )}
-          </Group>
         </Stack>
       </Card>
 
@@ -260,8 +257,7 @@ export const Comment = ({
           comment={reply}
           onEdit={onEdit}
           onDelete={onDelete}
-          isReply={true}
-          depth={depth + 2}
+          depth={depth + 1}
           modal={modal}
         />
       ))}
@@ -283,6 +279,6 @@ export const Comment = ({
           </Button>
         </Group>
       </Modal>
-    </Box>
+    </Stack>
   );
 };

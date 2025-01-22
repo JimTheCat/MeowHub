@@ -16,6 +16,14 @@
       "label": "Udostępnij"
     }
   },
+  "modals": {
+    "initial": {
+      "title": "Post"
+    },
+    "updated": {
+      "title": "Post użytkownika {{name}} {{surname}}"
+    }
+  },
   "menuPost": {
     "label": "Zarządzaj"
   },
@@ -31,5 +39,55 @@
     "buttonConfirm": "Tak",
     "buttonCancel": "Nie",
     "children": "Usuń post"
+  },
+  "comment": {
+    "card": {
+      "deleted": "Komentarz został usunięty.",
+      "loadingReplies": "Ładowanie odpowiedzi...",
+      "edited": "zmodyfikowany",
+      "editing": {
+        "buttonConfirm": "Zapisz",
+        "buttonCancel": "Anuluj"
+      },
+      "reply": {
+        "label": "Odpowiedz",
+        "placeholder": "Napisz odpowiedź...",
+        "buttonConfirm": "Wyślij odpowiedź"
+      }
+    },
+    "modal": {
+      "title": "Potwierdź usunięcie",
+      "message": "Czy na pewno chcesz usunąć ten komentarz?",
+      "buttonConfirm": "Usuń",
+      "buttonCancel": "Anuluj"
+    },
+    "alerts": {
+      "reply": {
+        "title": "Sukces",
+        "message": "Odpowiedź została wysłana pomyślnie."
+      },
+      "edit": {
+        "title": "Sukces",
+        "message": "Komentarz został zmodyfikowany pomyślnie."
+      },
+      "delete": {
+        "title": "Sukces",
+        "message": "Komentarz został usunięty pomyślnie."
+      }
+    }
+  },
+  "detailedPost": {
+    "textArea": {
+      "label": "Komentarz",
+      "placeholder": "Twój komentarz...",
+      "children": "Komentarz"
+    },
+    "alert": {
+      "title": "Sukces",
+      "message": "Komentarz został wysłany pomyślnie."
+    }
+  },
+  "commentsSection": {
+    "noComments": "Ten post nie posiada jeszcze żadnych komentarzy... Bądź pierwszy!"
   }
 }

@@ -28,17 +28,17 @@ const theme = createTheme({
 
 createRoot(document.getElementById('root')!).render(
   <MantineProvider theme={theme} defaultColorScheme={'dark'}>
-    <AlertProvider>
-      <ModalsProvider>
-        <ThemeProvider>
-          <BrowserRouter>
-            <I18nextProvider i18n={i18next}>
+    <I18nextProvider i18n={i18next}>
+      <AlertProvider>
+        <BrowserRouter>
+          <ModalsProvider>
+            <ThemeProvider>
               <CookiesPopup/>
               <App/>
-            </I18nextProvider>
-          </BrowserRouter>
-        </ThemeProvider>
-      </ModalsProvider>
-    </AlertProvider>
+            </ThemeProvider>
+          </ModalsProvider>
+        </BrowserRouter>
+      </AlertProvider>
+    </I18nextProvider>
   </MantineProvider>
 )

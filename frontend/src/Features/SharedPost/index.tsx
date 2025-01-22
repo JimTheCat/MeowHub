@@ -1,0 +1,1 @@
+export {SharedPost} from './SharedPost';

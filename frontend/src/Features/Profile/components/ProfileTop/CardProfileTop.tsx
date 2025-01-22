@@ -88,7 +88,6 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
     );
   }
 
-  const {login, name, surname, profilePicture, createdAt, friends} = props.userDetails;
 
   return (
     <Card shadow="sm" padding="lg" radius="md" w={"fit-content"} withBorder>
@@ -115,7 +114,7 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
             >
               <AspectRatio ratio={1}>
                 <Avatar
-                  src={profilePicture}
+                  src={props.userDetails.profilePictureUrl}
                   w={"auto"}
                   size={100}
                   color="dark"
@@ -149,10 +148,10 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
             <Stack justify="flex-end" gap={0} mt={"lg"}>
               <Group justify={"center"} gap={"xs"} align={"baseline"}>
                 <Text size={"xl"}>
-                  {name} {surname}
+                  {props.userDetails.name} {props.userDetails.surname}
                 </Text>
               </Group>
-              <Text size={"md"} c="dimmed">@{login}</Text>
+              <Text size={"md"} c="dimmed">@{props.userDetails.login}</Text>
             </Stack>
           </Group>
           {!isProfileOfLoggedUser &&
@@ -163,8 +162,8 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
         </Group>
 
         <Stack justify={"flex-start"} gap={0} mt={'md'}>
-          <Text>{t('profileTop.joined', {date: new Date(createdAt).toLocaleDateString()})}</Text>
-          <Text>{t('profileTop.friends', {length: friends.length})}</Text>
+          <Text>{t('profileTop.joined', {date: new Date(props.userDetails.createdAt).toLocaleDateString()})}</Text>
+          <Text>{t('profileTop.friends', {length: props.userDetails.friends.length})}</Text>
         </Stack>
       </Box>
     </Card>

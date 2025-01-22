@@ -1,1 +1,1 @@
-export * from './Post.tsx';
+export {Post} from './Post.tsx';

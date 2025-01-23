@@ -13,6 +13,7 @@ public interface PostPictureRepository extends JpaRepository<PostPicture, String
                     pp.id,
                     pp.ociUrl,
                     pp.index,
+                    null,
                     pp.createdAt
                 )
                 FROM PostPicture pp

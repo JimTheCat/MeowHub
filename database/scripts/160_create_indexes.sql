@@ -93,9 +93,9 @@ CREATE INDEX Matching_Profiles_smoker_id_idx
         (smoker_id ASC)
 ;
 
-CREATE INDEX Matching_Profiles_excersizes_id_idx
+CREATE INDEX Matching_Profiles_exercises_id_idx
     on mh_matching.Matching_Profiles
-        (excersizes_id ASC)
+        (exercises_id ASC)
 ;
 
 CREATE INDEX Matching_Profiles_drinker_id_idx
@@ -103,6 +103,16 @@ CREATE INDEX Matching_Profiles_drinker_id_idx
         (drinker_id ASC)
 ;
 
+-- Table: mh_matching.Matching_Profiles_Pictures
+CREATE INDEX Matching_Profiles_Pictures_is_current_pp_idx
+    on mh_matching.MATCHING_PROFILE_PICTURES
+        (is_current_pp ASC)
+;
+
+CREATE INDEX Matching_Profiles_Pictures_matching_profile_id_idx
+    on mh_matching.MATCHING_PROFILE_PICTURES
+        (matching_profile_id ASC)
+;
 ---------------------------------------- || MH_PROFILES SCHEMA || ----------------------------------------
 
 -- Table: mh_profiles.Profiles

@@ -1,6 +1,7 @@
 package meowhub.backend.matching.models;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -11,10 +12,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import meowhub.backend.profiles.services.BooleanConverter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -47,8 +48,9 @@ public class MatchingProfilePicture {
     private String ociUrl;
 
     @NotNull
-    @Column(name = "PICTURE_INDEX", nullable = false)
-    private Long index;
+    @Column(name = "IS_CURRENT_PP", nullable = false)
+    @Convert(converter = BooleanConverter.class)
+    private Boolean isCurrentProfilePicture;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
@@ -64,10 +66,10 @@ public class MatchingProfilePicture {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    public MatchingProfilePicture(MatchingProfile matchingProfile, String ociName, String ociUrl, Long index) {
+    public MatchingProfilePicture(MatchingProfile matchingProfile, String ociName, String ociUrl, boolean isCurrentProfilePicture) {
         this.matchingProfile = matchingProfile;
         this.ociName = ociName;
         this.ociUrl = ociUrl;
-        this.index = index;
+        this.isCurrentProfilePicture = isCurrentProfilePicture;
     }
 }

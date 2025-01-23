@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import {Box, Loader, Text} from "@mantine/core";
+import {useTranslation} from "react-i18next";
 
 interface InfiniteScrollProps {
   loadMore: () => Promise<void>;
@@ -16,6 +17,7 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
                                                               }) => {
   const sentinelRef = useRef<HTMLDivElement | null>(null);
   const observer = useRef<IntersectionObserver | null>(null);
+  const {t} = useTranslation('mainPage');
 
   useEffect(() => {
     // IntersectionObserver callback
@@ -57,7 +59,7 @@ export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       {/* End of data */}
       {!hasMore && !loading && (
         <Text ta="center" c="dimmed" mt="lg">
-          No more posts ಥ_ಥ
+          {t('infiniteScroll.noMore')}
         </Text>
       )}
     </Box>

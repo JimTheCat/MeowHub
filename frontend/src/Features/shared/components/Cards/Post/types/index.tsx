@@ -1,0 +1,1 @@
+export type {CommentDTO} from './CommentDTO.tsx';

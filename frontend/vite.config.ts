@@ -15,6 +15,8 @@ export default defineConfig(({mode}) => {
           changeOrigin: true,
         },
       },
+      hmr: true,
+      historyApiFallback: true,
     },
     resolve: {
       alias: {

@@ -1,4 +1,4 @@
-import {fireEvent} from '@testing-library/react';
+import {fireEvent} from "@testing-library/dom";
 import '@testing-library/jest-dom';
 import {Footer} from '../Features/Login/components/Footer';
 import {render} from "../test-utils/render";

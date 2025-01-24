@@ -8,4 +8,6 @@ public interface UserRelationService {
     void rejectFriendRequestFrom(String login, String rejecterLogin);
 
     void deleteFriend(String login, String requesterLogin);
+
+    void deleteInvite(String login, String requesterLogin);
 }

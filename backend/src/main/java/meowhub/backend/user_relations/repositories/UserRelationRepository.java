@@ -112,6 +112,8 @@ public interface UserRelationRepository extends JpaRepository<UserRelation, Stri
                 """)
         void deleteFriend(@Param("login") String login, @Param("requesterLogin") String requesterLogin);
 
+    void deleteBySenderLoginAndReceiverLogin(String senderLogin, String receiverLogin);
+
     @Query("""
             SELECT
                 CASE WHEN EXISTS (

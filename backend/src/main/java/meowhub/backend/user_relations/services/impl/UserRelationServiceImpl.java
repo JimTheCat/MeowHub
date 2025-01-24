@@ -82,6 +82,18 @@ public class UserRelationServiceImpl implements UserRelationService {
         userRelationRepository.deleteFriend(login, requesterLogin);
     }
 
+    @Override
+    public void deleteInvite(String login, String requesterLogin) {
+        validateSenderAndReceiverExist(requesterLogin, login);
+
+        //validate if relation sent invitation exists
+        if(!oneWayRelationExists(requesterLogin, login, RelationType.SENT_INVITATION)) {
+            throw new RelationException(String.format(AlertConstants.RELATION_FOR_USERS_NOT_FOUND, RelationType.SENT_INVITATION, login, requesterLogin));
+        }
+
+        userRelationRepository.deleteBySenderLoginAndReceiverLogin(requesterLogin, login);
+    }
+
     private void validateSenderAndReceiverExist(String senderLogin, String receiverLogin) {
         userRelationFacade.validateIfUserExists(senderLogin);
         userRelationFacade.validateIfUserExists(receiverLogin);

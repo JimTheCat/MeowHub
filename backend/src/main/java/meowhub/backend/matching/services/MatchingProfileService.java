@@ -18,6 +18,13 @@ public interface MatchingProfileService {
 
     MatchingProfileDto updateMatchingProfile(UpdateMatchingProfileRequestDto matchingProfileDto, String login);
 
+    /***
+     * Adds pictures to the matching profile.
+     * @param files
+     * @param profilePictureName - name of the picture in files list, that is to be set as new profile picture
+     * @param login
+     * @return
+     */
     List<PictureDto> addMatchingProfilePictures(List<MultipartFile> files, String profilePictureName, String login);
 
     void deleteMatchingProfile(String login);

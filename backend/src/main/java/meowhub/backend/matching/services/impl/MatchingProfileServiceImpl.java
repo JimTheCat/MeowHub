@@ -91,11 +91,11 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         int currentlyPictures = matchingProfilePictureRepository.countAllByMatchingProfileId(matchingProfile.getId());
 
         if(profilePictureName!= null && !profilePictureName.isEmpty()){
-            //najpierw sprawdzenie, czy nazwa foty zgadza się
+            //checking if given profile picture name (that is to be set as a new profile picture) exists in the list of pictures
             pictures.stream().filter(picture -> Objects.equals(picture.getOriginalFilename(), profilePictureName)).findFirst()
                     .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Matching profile picture", "name", profilePictureName)));
 
-            //znalezienie obecnego profilowego o ile istnieje
+            //find current profile picture and set it to false if exists
             Optional<MatchingProfilePicture> currentProfilePicture = matchingProfilePictureRepository.findByMatchingProfileUserLoginAndIsCurrentProfilePictureTrue(login);
             if(currentProfilePicture.isPresent()){
                 MatchingProfilePicture current = currentProfilePicture.get();

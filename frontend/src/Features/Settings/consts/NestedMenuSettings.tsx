@@ -21,7 +21,7 @@ import {Notifications} from "../components/Menu/Notifications";
 import {Data} from "../components/Menu/Data";
 import {Help} from "../components/Menu/Help";
 import {General} from "../components/Menu/General";
-import {Apperance} from "../components/Menu/Apperance";
+import {Appearance} from "../components/Menu/Apperance";
 import {Accessibility} from "../components/Menu/Accessibility";
 import {Language} from "../components/Menu/Language";
 import {About} from "../components/Menu/About";
@@ -153,7 +153,7 @@ export const MenuContent: MenuContentType[] = [
   },
   {
     uuid: 7,
-    component: <Apperance/>
+    component: <Appearance/>
   },
   {
     uuid: 8,

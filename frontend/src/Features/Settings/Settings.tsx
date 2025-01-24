@@ -39,6 +39,7 @@ export const Settings = () => {
   return (
     <AppShell
       navbar={{width: 300, breakpoint: 'sm'}}
+      aside={{width: 100, breakpoint: 'sm'}}
       padding="md"
     >
       <AppShell.Navbar p="md">
@@ -57,6 +58,7 @@ export const Settings = () => {
             label={t('settings.app.label')}
             leftSection={<IconAdjustments size="1rem" stroke={1.5}/>}
             childrenOffset={28}
+            defaultOpened
           >
             {AppSettingsItems}
           </NavLink>
@@ -71,7 +73,9 @@ export const Settings = () => {
         {/*Display component dependent on active state*/}
         {MenuContent.find((item) => item.uuid === activePage)?.component}
       </AppShell.Main>
-      <Escape/>
+      <AppShell.Aside withBorder={false}>
+        <Escape/>
+      </AppShell.Aside>
     </AppShell>
   );
 }

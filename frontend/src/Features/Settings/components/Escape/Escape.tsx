@@ -3,7 +3,7 @@ import {IconX} from "@tabler/icons-react";
 
 export const Escape = () => {
   return (
-    <Box pos={"absolute"} top={20} right={30}>
+    <Box py={'md'} px={'xl'}>
       <Stack align={"center"} justify={"center"} gap={2}>
         <ActionIcon
           p={"xs"}

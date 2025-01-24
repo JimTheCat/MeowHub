@@ -128,7 +128,32 @@
     },
     "appearance": {
       "label": "Appearance",
-      "description": "Change your appearance settings"
+      "description": "Change your appearance settings",
+      "content": {
+        "title": "Appearance Settings",
+        "activeSettings": "Current mode: <1>{{theme}}</1>, Primary color: <1>{{color}}</1>",
+        "theme": {
+          "label": "Toogle {{theme}} Mode",
+          "light": "Light",
+          "dark": "Dark"
+        },
+        "primary": {
+          "label": "Primary color",
+          "gray": "Gray",
+          "red": "Red",
+          "pink": "Pink",
+          "grape": "Grape",
+          "violet": "Violet",
+          "indigo": "Indigo",
+          "blue": "Blue",
+          "cyan": "Cyan",
+          "green": "Green",
+          "lime": "Lime",
+          "yellow": "Yellow",
+          "orange": "Orange",
+          "teal": "Teal"
+        }
+      }
     },
     "accessibility": {
       "label": "Accessibility",
@@ -136,7 +161,10 @@
     },
     "language": {
       "label": "Language",
-      "description": "Change your language settings"
+      "description": "Change your language settings",
+      "content": {
+        "title": "Select your language"
+      }
     },
     "about": {
       "label": "About",

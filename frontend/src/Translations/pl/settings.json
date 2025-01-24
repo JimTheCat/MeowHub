@@ -128,7 +128,32 @@
     },
     "appearance": {
       "label": "Wygląd",
-      "description": "Zmień ustawienia wyglądu"
+      "description": "Zmień ustawienia wyglądu aplikacji",
+      "content": {
+        "title": "Ustawienia wyglądu",
+        "activeSettings": "Aktualny motyw: <1>{{theme}}</1>, Główny kolor: <1>{{color}}</1>",
+        "theme": {
+          "label": "Przełącz na tryb {{theme}}",
+          "light": "Jasny",
+          "dark": "Ciemny"
+        },
+        "primary": {
+          "label": "Główny kolor",
+          "gray": "Szary",
+          "red": "Czerwony",
+          "pink": "Różowy",
+          "grape": "Winny",
+          "violet": "Fioletowy",
+          "indigo": "Indygo",
+          "blue": "Niebieski",
+          "cyan": "Cyjan",
+          "green": "Zielony",
+          "lime": "Limonkowy",
+          "yellow": "Żółty",
+          "orange": "Pomarańczowy",
+          "teal": "Turkusowy"
+        }
+      }
     },
     "accessibility": {
       "label": "Dostępność",
@@ -136,7 +161,10 @@
     },
     "language": {
       "label": "Język",
-      "description": "Zmień używany język"
+      "description": "Zmień używany język",
+      "content": {
+        "title": "Wybierz język"
+      }
     },
     "about": {
       "label": "O aplikacji",

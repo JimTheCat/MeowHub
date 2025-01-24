@@ -44,7 +44,9 @@ export const Login = () => {
   return (
     <>
       <CenterContainer>
-        <ParticleBg/>
+        <Box style={{zIndex: -1}}>
+          <ParticleBg/>
+        </Box>
         <Group justify={"center"} align={"center"} gap={'300'}>
           <Stack gap="xs">
             <Text size={'92'} fw={400} variant={"gradient"} ff={'Cabin Sketch'} style={{lineHeight: 1}}

@@ -1,0 +1,8 @@
+redirects:
+  - source: /api/*
+    destination: https://your-api.example.com
+    status: 200
+
+rewrites:
+  - source: /*
+    destination: /index.html

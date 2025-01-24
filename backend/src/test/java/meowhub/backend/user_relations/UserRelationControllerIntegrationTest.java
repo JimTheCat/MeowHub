@@ -86,7 +86,7 @@ class UserRelationControllerIntegrationTest {
 
         Mockito.doNothing().when(userRelationService).deleteFriend(Mockito.eq(login), Mockito.anyString());
 
-        mockMvc.perform(post("/api/relations/{login}/delete-friend", login).with(csrf()))
+        mockMvc.perform(delete("/api/relations/{login}/delete-friend", login).with(csrf()))
                 .andExpect(status().isOk());
     }
 }

@@ -1,1 +1,1 @@
-export * from './Apperance';
+export * from './Appearance';

@@ -8,7 +8,7 @@ import '@mantine/notifications/styles.css';
 import '@mantine/carousel/styles.css';
 import '@mantine/dropzone/styles.css';
 import i18next from "i18next";
-import {createTheme, MantineProvider} from "@mantine/core";
+import {CustomMantineProvider} from "./Providers/CustomMantineProvider.tsx";
 import {BrowserRouter} from "react-router-dom";
 import {I18nextProvider} from "react-i18next";
 import {i18nInitializer} from "./Utils";
@@ -19,15 +19,8 @@ import {ModalsProvider} from "@mantine/modals";
 
 i18nInitializer();
 
-const theme = createTheme({
-  colors: {
-    // TODO: Migrate colors
-  },
-  fontFamily: 'Lato, sans-serif',
-});
-
 createRoot(document.getElementById('root')!).render(
-  <MantineProvider theme={theme} defaultColorScheme={'dark'}>
+  <CustomMantineProvider>
     <I18nextProvider i18n={i18next}>
       <AlertProvider>
         <BrowserRouter>
@@ -40,5 +33,5 @@ createRoot(document.getElementById('root')!).render(
         </BrowserRouter>
       </AlertProvider>
     </I18nextProvider>
-  </MantineProvider>
+  </CustomMantineProvider>
 )

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import meowhub.backend.matching.dtos.UpdateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.MatchingProfileDto;
 import meowhub.backend.matching.services.MatchingProfileService;
+import meowhub.backend.shared.dtos.PictureDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +38,8 @@ public class MatchingProfileController {
     }
 
     @PostMapping("/pictures")
-    public ResponseEntity<MatchingProfileDto> addMatchingProfilePictures(@RequestPart List<MultipartFile> files, @AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(matchingProfileService.addMatchingProfilePictures(files, userDetails.getUsername()));
+    public ResponseEntity<List<PictureDto>> addMatchingProfilePictures(@RequestPart List<MultipartFile> files, @RequestPart(required = false) String profilePictureName, @AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(matchingProfileService.addMatchingProfilePictures(files, profilePictureName, userDetails.getUsername()));
     }
 
     @PostMapping("/create")

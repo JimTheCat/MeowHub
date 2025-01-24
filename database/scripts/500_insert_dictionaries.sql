@@ -60,6 +60,13 @@ INSERT INTO mh_matching.education (code) VALUES ('COLLEGE');
 INSERT INTO mh_matching.education (code) VALUES ('UNIVERSITY');
 INSERT INTO mh_matching.education (code) VALUES ('POSTGRADUATE');
 
+-- table: mh_matching.like_types
+INSERT INTO mh_matching.like_types (code) VALUES ('LIKE');
+INSERT INTO mh_matching.like_types (code) VALUES ('DISLIKE');
+INSERT INTO mh_matching.like_types (code) VALUES ('BLOCK');
+INSERT INTO mh_matching.like_types (code) VALUES ('MATCH');
+
+
 COMMIT;
 
 

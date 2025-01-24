@@ -2,6 +2,7 @@ package meowhub.backend.matching.services;
 
 import meowhub.backend.matching.dtos.UpdateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.MatchingProfileDto;
+import meowhub.backend.shared.dtos.PictureDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,14 @@ public interface MatchingProfileService {
 
     MatchingProfileDto updateMatchingProfile(UpdateMatchingProfileRequestDto matchingProfileDto, String login);
 
-    MatchingProfileDto addMatchingProfilePictures(List<MultipartFile> files, String login);
+    /***
+     * Adds pictures to the matching profile.
+     * @param files
+     * @param profilePictureName - name of the picture in files list, that is to be set as new profile picture
+     * @param login
+     * @return
+     */
+    List<PictureDto> addMatchingProfilePictures(List<MultipartFile> files, String profilePictureName, String login);
 
     void deleteMatchingProfile(String login);
 

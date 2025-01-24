@@ -325,12 +325,14 @@ CREATE TABLE mh_matching.Matching_Profile_Pictures
     matching_profile_id varchar2(36)                    NOT NULL,
     oci_name            varchar2(100)                   NOT NULL,
     oci_url             varchar2(2000)                  NOT NULL,
-    picture_index       number                          NOT NULL,
+    is_current_pp       number(1)                       NOT NULL,
     created_at          date                            NOT NULL,
     created_by          varchar2(36)                    NOT NULL,
     modified_at         date                            NULL,
     modified_by         varchar2(36)                    NULL,
-    CONSTRAINT Matching_Profile_Pictures_pk PRIMARY KEY (id)
+    CONSTRAINT Matching_Profile_Pictures_pk PRIMARY KEY (id),
+    CONSTRAINT Matching_Profile_Pictures_is_current_pp_ch CHECK (is_current_pp IN (0, 1))
+
 );
 
 -- Table: Matching_Profiles
@@ -348,7 +350,7 @@ CREATE TABLE mh_matching.Matching_Profiles
     Education_id         varchar2(36)   NULL,
     smoker_id            varchar2(36)   NULL,
     drinker_id           varchar2(36)   NULL,
-    excersizes_id        varchar2(36)   NULL,
+    exercises_id        varchar2(36)   NULL,
     looking_for_id       varchar2(36)   NULL,
     geolocalization      sdo_geometry   NULL,
     created_at           date           NOT NULL,

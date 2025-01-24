@@ -60,6 +60,6 @@ public class MatchingProfileDto {
     }
 
     private static PictureDto createFromPicture(MatchingProfilePicture picture) {
-        return new PictureDto(picture.getId(), picture.getOciUrl(), picture.getIndex(), picture.getCreatedAt());
+        return new PictureDto(picture.getId(), picture.getOciUrl(), picture.getIsCurrentProfilePicture(), picture.getCreatedAt());
     }
 }

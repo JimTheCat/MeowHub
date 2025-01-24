@@ -30,6 +30,8 @@ public class AlertConstants {
     public static final String ALREADY_EXISTS = "%s already exists for %s";
     public static final String HEIGHT_TOO_LOW = "Height is too low. Required at least 140";
     public static final String TOO_MANY_PICTURES = "Too many pictures. Maximum is %d. With added pictures will be %d";
+    public static final String VALUE_REQUIRED = "Value %s required";
+
 
     public static final String POST_CONTENT_OR_PICTURE_REQUIRED = "Post content or picture is required";
 }

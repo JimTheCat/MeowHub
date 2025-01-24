@@ -16,6 +16,7 @@ import meowhub.backend.matching.repositories.SexualityRepository;
 import meowhub.backend.matching.services.MatchingProfileService;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.shared.constants.Modules;
+import meowhub.backend.shared.dtos.PictureDto;
 import meowhub.backend.shared.utils.PictureUtils;
 import meowhub.backend.users.facades.UserMatchingServiceFacade;
 import meowhub.backend.users.models.User;
@@ -27,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -77,30 +80,50 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
     }
 
     @Override
-    public MatchingProfileDto addMatchingProfilePictures(List<MultipartFile> pictures, String login) {
+    @Transactional
+    public List<PictureDto> addMatchingProfilePictures(List<MultipartFile> pictures, String profilePictureName, String login) {
         if (pictures == null || pictures.isEmpty() || pictures.getFirst().getContentType() == null) {
             throw new IllegalArgumentException(AlertConstants.VALUE_REQUIRED_TITLE);
         }
 
         MatchingProfile matchingProfile = matchingProfileRepository.findByUserLogin(login)
                 .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Matching profile", "login", login)));
-
         int currentlyPictures = matchingProfilePictureRepository.countAllByMatchingProfileId(matchingProfile.getId());
-        if (currentlyPictures + pictures.size() >= 5) {
+
+        if(profilePictureName!= null && !profilePictureName.isEmpty()){
+            //checking if given profile picture name (that is to be set as a new profile picture) exists in the list of pictures
+            pictures.stream().filter(picture -> Objects.equals(picture.getOriginalFilename(), profilePictureName)).findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Matching profile picture", "name", profilePictureName)));
+
+            //find current profile picture and set it to false if exists
+            Optional<MatchingProfilePicture> currentProfilePicture = matchingProfilePictureRepository.findByMatchingProfileUserLoginAndIsCurrentProfilePictureTrue(login);
+            if(currentProfilePicture.isPresent()){
+                MatchingProfilePicture current = currentProfilePicture.get();
+                current.setIsCurrentProfilePicture(false);
+                matchingProfilePictureRepository.save(current);
+            }
+        } else {
+            if(currentlyPictures == 0){
+                throw new NullPointerException(String.format(AlertConstants.VALUE_REQUIRED, "profilePictureName, when there is no profile picture"));
+            }
+        }
+
+
+        if (currentlyPictures + pictures.size() > 5) {
             throw new IllegalArgumentException(String.format(AlertConstants.TOO_MANY_PICTURES, 5, currentlyPictures + pictures.size()));
         }
 
         List<MatchingProfilePicture> profilePictures = new ArrayList<>();
-        for (int i = 0; i < pictures.size(); i++) {
-            MultipartFile picture = pictures.get(i);
+        for (MultipartFile picture : pictures) {
+            boolean isCurrentProfilePicture = profilePictureName != null && !profilePictureName.isEmpty() && Objects.equals(picture.getOriginalFilename(), profilePictureName);
             Pair<String, String> pictureInfo = pictureUtils.uploadPictureToOCIAndGetAuthorizedUrlToAccessIt(picture, login, Modules.MATCHING_PROFILE);
-            Long pictureIndex = (long) i;
-            profilePictures.add(new MatchingProfilePicture(matchingProfile, pictureInfo.getFirst(), pictureInfo.getSecond(), pictureIndex));
+            profilePictures.add(new MatchingProfilePicture(matchingProfile, pictureInfo.getFirst(), pictureInfo.getSecond(), isCurrentProfilePicture));
         }
         matchingProfilePictureRepository.saveAll(profilePictures);
 
-        matchingProfile = matchingProfileRepository.findByUserLogin(login).orElseThrow();
-        return MatchingProfileDto.createFromMatchingProfile(matchingProfile);
+        return matchingProfilePictureRepository.findByMatchingProfileUserLogin(login).stream()
+                .map(picture -> new PictureDto(picture.getId(), picture.getOciUrl(), picture.getIsCurrentProfilePicture(), picture.getCreatedAt()))
+                .toList();
     }
 
     @Override

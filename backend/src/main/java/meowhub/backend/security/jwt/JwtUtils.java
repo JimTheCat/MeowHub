@@ -20,6 +20,7 @@ import java.util.Date;
 @Component
 public class JwtUtils {
     private static final Logger jwtUtilsLogger = LoggerFactory.getLogger(JwtUtils.class);
+    private static final long EXPIRATION_TIME_FOR_PASSWORD_RESET = 15 * 60 * 1000; // 15 minutes;
 
     @Value("${spring.app.jwtSecret}")
     private String jwtSecret;
@@ -74,6 +75,21 @@ public class JwtUtils {
             jwtUtilsLogger.error("JWT claims string is empty: {}", e.getMessage());
         }
         return false;
+    }
+
+    public String generateResetToken(String email) {
+        return Jwts.builder()
+                .subject(email)
+                .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME_FOR_PASSWORD_RESET))
+                .signWith(key())
+                .compact();
+    }
+
+    public String validateTokenFromLinkToResetPassword(String token) {
+        return Jwts.parser()
+                .verifyWith((SecretKey) key())
+                .build().parseSignedClaims(token).getPayload()
+                .getSubject();
     }
 
 }

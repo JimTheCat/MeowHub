@@ -99,4 +99,14 @@ public class AlertUtils {
 
         return alertDto;
     }
+
+    public static AlertDto mailSendException(String msg) {
+        AlertDto alertDto = new AlertDto();
+        alertDto.setTitle(AlertConstants.MAIL_SEND_ERROR);
+        alertDto.setMessage(msg);
+        alertDto.setLevel(AlertLevel.ERROR);
+        alertDto.setTimestamp(LocalDateTime.now());
+
+        return alertDto;
+    }
 }

@@ -12,4 +12,10 @@ public interface UserAuthServiceFacade {
     boolean existsByLogin(String login);
 
     boolean existsByEmail(String email);
+
+    void validateIfUserExists(String login);
+
+    User getUserByLogin(String login);
+
+    void changePassword(String newPassword, String login);
 }

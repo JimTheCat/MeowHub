@@ -28,4 +28,16 @@ public class AuthController {
         authService.signUpUser(request);
         return ResponseEntity.ok("User registration complete");
     }
+
+    @PostMapping("/public/reset-password-send-mail")
+    public ResponseEntity<Object> resetPasswordSendMail(String login) {
+        authService.resetPasswordSendEmail(login);
+        return ResponseEntity.ok("Sent an email to an address assigned to your account");
+    }
+
+    @PostMapping("/public/reset-password")
+    public ResponseEntity<Object> resetPasswordFromLink(String token, String newPassword) {
+        authService.validateTokenAndResetPassword(token, newPassword);
+        return ResponseEntity.ok("Password reset completed");
+    }
 }

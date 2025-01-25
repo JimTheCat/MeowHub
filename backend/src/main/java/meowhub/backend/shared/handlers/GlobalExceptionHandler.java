@@ -6,6 +6,7 @@ import meowhub.backend.shared.exceptions.RelationException;
 import meowhub.backend.shared.utils.AlertUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -59,5 +60,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<AlertDto> handleIllegalStateException(NullPointerException ex) {
         return new ResponseEntity<>(AlertUtils.valueRequired(ex.getMessage()), HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(MailSendException.class)
+    public ResponseEntity<AlertDto> handleMailSendException(MailSendException ex) {
+        return new ResponseEntity<>(AlertUtils.mailSendException(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

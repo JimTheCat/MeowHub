@@ -32,7 +32,7 @@ public interface PostRepository extends JpaRepository<Post, String> {
                 FROM User u
                 JOIN u.posts p
                 LEFT JOIN Profile profile ON profile.user.id = u.id
-                LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id
+                LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id AND pp.isCurrentProfilePicture = true
                 WHERE u.postsPrivacy.code = 'PUBLIC'
                        OR (u.postsPrivacy.code = 'FRIENDS_ONLY' AND u.id IN (u.id,
                             (SELECT r.receiver.id
@@ -69,7 +69,7 @@ public interface PostRepository extends JpaRepository<Post, String> {
                 FROM User u
                 JOIN u.posts p
                 LEFT JOIN Profile profile ON profile.user.id = u.id
-                LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id
+                LEFT JOIN ProfilePicture pp ON pp.profile.id = profile.id AND pp.isCurrentProfilePicture = true
                 LEFT JOIN u.postsPrivacy postsPrivacy
                 WHERE u.login = :login
                   AND (postsPrivacy.code = 'PUBLIC'

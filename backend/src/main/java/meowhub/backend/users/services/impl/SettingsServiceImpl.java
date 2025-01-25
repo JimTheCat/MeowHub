@@ -50,6 +50,12 @@ public class SettingsServiceImpl implements SettingsService {
         userRepository.save(user);
     }
 
+    @Override
+    public void deleteUser(String login) {
+        User user = userRepository.findByLogin(login).orElseThrow();
+        userRepository.delete(user);
+    }
+
     private PrivacySetting getPrivacySetting(PrivacySettings privacySettings) {
         return privacySettingRepository.findByCode(privacySettings.name()).orElseThrow();
     }

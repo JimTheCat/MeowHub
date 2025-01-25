@@ -10,4 +10,6 @@ public interface SettingsService {
     void changeFriendsPrivacySettings(PrivacySettings privacySettings, String login);
 
     void changePassword(String newPassword, String login);
+
+    void deleteUser(String login);
 }

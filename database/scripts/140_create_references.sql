@@ -73,13 +73,16 @@ ALTER TABLE mh_matching.Liked
 ALTER TABLE mh_matching.Liked
     ADD CONSTRAINT Liked_Matching_Profile_R
         FOREIGN KEY (receiver_id)
-            REFERENCES mh_matching.Matching_Profiles (id);
+            REFERENCES mh_matching.Matching_Profiles (id)
+    ON DELETE CASCADE;
 
 -- Reference: Liked_Matching_Profile_S (table: Liked)
 ALTER TABLE mh_matching.Liked
     ADD CONSTRAINT Liked_Matching_Profile_S
         FOREIGN KEY (sender_id)
-            REFERENCES mh_matching.Matching_Profiles (id);
+            REFERENCES mh_matching.Matching_Profiles (id)
+    ON DELETE CASCADE;
+
 
 -- Reference: Match_Chat_Messages_Answered (table: Matching_Chat_Messages)
 ALTER TABLE mh_matching.Matching_Chat_Messages
@@ -109,13 +112,15 @@ ALTER TABLE mh_matching.Matching_Chats
 ALTER TABLE mh_matching.Matching_Profile_Pictures
     ADD CONSTRAINT Matching_Profile_Pictures_MP
         FOREIGN KEY (matching_profile_id)
-            REFERENCES mh_matching.Matching_Profiles (id);
+            REFERENCES mh_matching.Matching_Profiles (id)
+                ON DELETE CASCADE;
 
 -- Reference: Matching_Profile_Users (table: Matching_Profiles)
 ALTER TABLE mh_matching.Matching_Profiles
     ADD CONSTRAINT Matching_Profile_Users
         FOREIGN KEY (user_id)
-            REFERENCES mh_users.Users (id);
+            REFERENCES mh_users.Users (id)
+                ON DELETE CASCADE;
 
 -- Reference: sexuality_matching_profiles (table: sexuality)
 ALTER TABLE mh_matching.matching_profiles
@@ -197,13 +202,15 @@ ALTER TABLE mh_users.Users
 ALTER TABLE mh_posts.Post_Pictures
     ADD CONSTRAINT Posts_Pictures_Posts
         FOREIGN KEY (post_id)
-            REFERENCES mh_posts.Posts (id);
+            REFERENCES mh_posts.Posts (id)
+                ON DELETE CASCADE;
 
 -- Reference: Posts_Users (table: Posts)
 ALTER TABLE mh_posts.Posts
     ADD CONSTRAINT Posts_Users
         FOREIGN KEY (user_id)
-            REFERENCES mh_users.Users (id);
+            REFERENCES mh_users.Users (id)
+                ON DELETE CASCADE;
 
 -- Reference: Comments_Comments (table: Comments)
 ALTER TABLE mh_posts.Comments
@@ -215,13 +222,15 @@ ALTER TABLE mh_posts.Comments
 ALTER TABLE mh_posts.Comments
     ADD CONSTRAINT Comments_Posts
         FOREIGN KEY (post_id)
-            REFERENCES mh_posts.Posts (id);
+            REFERENCES mh_posts.Posts (id)
+                ON DELETE CASCADE;
 
 -- Reference: Comments_Users (table: Comments)
 ALTER TABLE mh_posts.Comments
     ADD CONSTRAINT Comments_Users
         FOREIGN KEY (user_id)
-            REFERENCES mh_users.Users (id);
+            REFERENCES mh_users.Users (id)
+                ON DELETE CASCADE;
 
 
 ---------------------------------------- || MH_PROFILES SCHEMA || ----------------------------------------
@@ -230,26 +239,30 @@ ALTER TABLE mh_posts.Comments
 ALTER TABLE mh_profiles.Profile_Pictures
     ADD CONSTRAINT Profile_Pictures_Profiles
         FOREIGN KEY (profile_id)
-            REFERENCES mh_profiles.Profiles (id);
+            REFERENCES mh_profiles.Profiles (id)
+                ON DELETE CASCADE;
 
 -- Reference: Profiles_Users (table: Profiles)
 ALTER TABLE mh_profiles.Profiles
     ADD CONSTRAINT Profiles_Users
         FOREIGN KEY (user_id)
-            REFERENCES mh_users.Users (id);
+            REFERENCES mh_users.Users (id)
+                ON DELETE CASCADE;
 
 ---------------------------------------- || MH_USER_RELATIONS SCHEMA || ----------------------------------------
 -- Reference: Users_Relations_Users_Receiver (table: User_Relations)
 ALTER TABLE mh_user_relations.User_Relations
     ADD CONSTRAINT Users_Relations_Users_Receiver
         FOREIGN KEY (receiver_id)
-            REFERENCES mh_users.Users (id);
+            REFERENCES mh_users.Users (id)
+                ON DELETE CASCADE;
 
 -- Reference: Users_Relations_Users_Sender (table: User_Relations)
 ALTER TABLE mh_user_relations.User_Relations
     ADD CONSTRAINT Users_Relations_Users_Sender
         FOREIGN KEY (sender_id)
-            REFERENCES mh_users.Users (id);
+            REFERENCES mh_users.Users (id)
+                ON DELETE CASCADE;
 
 -- Reference: Users_Relations_Relation_Type (table: User_Relations)
 ALTER TABLE mh_user_relations.User_Relations

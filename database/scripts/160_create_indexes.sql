@@ -62,12 +62,6 @@ CREATE INDEX mh_matching.Matching_Chats_receiver_id_idx
         (receiver_id ASC)
 ;
 
--- Table: mh_matching.Matching_Profiles
-CREATE INDEX mh_matching.Matching_Profiles_user_id_idx
-    on mh_matching.Matching_Profiles
-        (user_id ASC)
-;
-
 CREATE INDEX Matching_Profiles_sexuality_id_idx
     on mh_matching.Matching_Profiles
         (Sexuality_id ASC)

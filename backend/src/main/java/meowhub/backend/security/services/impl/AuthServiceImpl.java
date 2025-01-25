@@ -13,6 +13,7 @@ import meowhub.backend.security.requests.LoginRequest;
 import meowhub.backend.security.requests.SignUpRequest;
 import meowhub.backend.security.responses.LoginResponse;
 import meowhub.backend.security.services.AuthService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -34,6 +35,9 @@ public class AuthServiceImpl implements AuthService {
     private final UserAuthServiceFacade userAuthServiceFacade;
     private final ProfileAuthServiceFacade profileAuthServiceFacade;
     private final MailService mailService;
+
+    @Value("${custom.reset-password.url}")
+    private String resetMailUrl;
 
     @Override
     public LoginResponse authenticateUser(LoginRequest request) {
@@ -67,10 +71,10 @@ public class AuthServiceImpl implements AuthService {
         String email = userAuthServiceFacade.getUserByLogin(login).getEmail();
         String resetToken = jwtUtils.generateResetToken(login);
 
-        String resetLink = "http://localhost:8080/api/auth/public/reset-password?token=" + resetToken;
+        String resetLink = resetMailUrl + resetToken;
 
         try{
-            mailService.sendPasswordResetEmail(email, resetLink);
+            mailService.sendPasswordResetEmail(email, login, resetLink);
         } catch (MessagingException e) {
             throw new MailSendException("Error while sending the email");
         }

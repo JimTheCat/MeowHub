@@ -14,7 +14,7 @@ public class MockMailService extends MailService {
     }
 
     @Override
-    public void sendPasswordResetEmail(String to, String resetLink) {
+    public void sendPasswordResetEmail(String to, String login, String resetLink) {
         log.info("Email sent to: {}\n\n<p>Hi,</p><p>You requested to reset your password. Click the link below to reset it:</p><p><a href='{}'>Reset Password</a></p><p>This link will expire in 15 minutes.</p>", to, resetLink);
     }
 }

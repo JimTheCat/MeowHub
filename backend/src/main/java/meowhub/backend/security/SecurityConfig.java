@@ -41,8 +41,7 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/swagger-ui.html"
                 ).permitAll()
-                .anyRequest().permitAll()
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
         );
 
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
@@ -56,11 +55,11 @@ public class SecurityConfig {
     public CommandLineRunner initData(UserAuthServiceFacade userAuthServiceFacade) {
         return args -> {
             if (!userAuthServiceFacade.existsByLogin("user1")) {
-                userAuthServiceFacade.createUser("user1", "Gustaw", "Jeleń", "user1@gmail.com", "userPass", LocalDate.of(1970, 10, 14), Roles.ROLE_USER, Genders.MALE);
+                userAuthServiceFacade.createUser("user1", "Gustaw", "Jeleń", "user1@gmail.com", "userPass123!", LocalDate.of(1970, 10, 14), Roles.ROLE_USER, Genders.MALE);
             }
 
             if (!userAuthServiceFacade.existsByLogin("admin")) {
-                userAuthServiceFacade.createUser("admin", "Jan", "Kos", "admin@gmail.com", "adminPass", LocalDate.of(1979, 12, 11), Roles.ROLE_ADMIN, Genders.MALE);
+                userAuthServiceFacade.createUser("admin", "Jan", "Kos", "admin@gmail.com", "adminPass123!", LocalDate.of(1979, 12, 11), Roles.ROLE_ADMIN, Genders.MALE);
 
             }
         };

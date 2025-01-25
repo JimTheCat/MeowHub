@@ -8,4 +8,6 @@ public interface SettingsService {
     void changeProfilePrivacySettings(PrivacySettings privacySettings, String login);
 
     void changeFriendsPrivacySettings(PrivacySettings privacySettings, String login);
+
+    void changePassword(String newPassword, String login);
 }

@@ -33,4 +33,10 @@ public class SettingsController {
         settingsService.changeFriendsPrivacySettings(privacySettings, userDetails.getUsername());
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<Void> changePassword(String newPassword, @AuthenticationPrincipal UserDetails userDetails) {
+        settingsService.changePassword(newPassword, userDetails.getUsername());
+        return ResponseEntity.ok().build();
+    }
 }

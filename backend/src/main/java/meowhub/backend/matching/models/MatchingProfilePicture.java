@@ -35,7 +35,7 @@ public class MatchingProfilePicture {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "MATCHING_PROFILE_ID", nullable = false)
     private MatchingProfile matchingProfile;
 

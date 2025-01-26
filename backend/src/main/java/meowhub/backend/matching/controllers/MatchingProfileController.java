@@ -1,6 +1,7 @@
 package meowhub.backend.matching.controllers;
 
 import lombok.AllArgsConstructor;
+import meowhub.backend.matching.dtos.CreateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.UpdateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.MatchingProfileDto;
 import meowhub.backend.matching.services.MatchingProfileService;
@@ -43,8 +44,13 @@ public class MatchingProfileController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<MatchingProfileDto> createMatchingProfileFromScratch(@AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(matchingProfileService.createMatchingProfile(userDetails.getUsername()));
+    public ResponseEntity<MatchingProfileDto> createMatchingProfileBasedOnAccount(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(matchingProfileService.createMatchingProfileBasedOnAccount(userDetails.getUsername()));
+    }
+
+    @PostMapping("/create-from-scratch")
+    public ResponseEntity<MatchingProfileDto> createMatchingProfileFromScratch(@RequestBody CreateMatchingProfileRequestDto request, @AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(matchingProfileService.createMatchingProfileFromScratch(request, userDetails.getUsername()));
     }
 
     @GetMapping("/all")

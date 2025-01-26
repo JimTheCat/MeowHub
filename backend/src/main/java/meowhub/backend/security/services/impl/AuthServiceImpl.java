@@ -1,16 +1,20 @@
 package meowhub.backend.security.services.impl;
 
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import meowhub.backend.constants.Roles;
 import meowhub.backend.profiles.services.facades.ProfileAuthServiceFacade;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.shared.exceptions.NotUniqueObjectException;
+import meowhub.backend.shared.mail.MailService;
 import meowhub.backend.users.facades.UserAuthServiceFacade;
 import meowhub.backend.security.jwt.JwtUtils;
 import meowhub.backend.security.requests.LoginRequest;
 import meowhub.backend.security.requests.SignUpRequest;
 import meowhub.backend.security.responses.LoginResponse;
 import meowhub.backend.security.services.AuthService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +34,10 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final UserAuthServiceFacade userAuthServiceFacade;
     private final ProfileAuthServiceFacade profileAuthServiceFacade;
+    private final MailService mailService;
+
+    @Value("${custom.reset-password.url}")
+    private String resetMailUrl;
 
     @Override
     public LoginResponse authenticateUser(LoginRequest request) {
@@ -55,6 +63,28 @@ public class AuthServiceImpl implements AuthService {
         validateSignUpRequest(request);
         userAuthServiceFacade.createUser(request.getLogin(), request.getName(), request.getSurname(), request.getEmail(), request.getPassword(), request.getBirthdate(), Roles.ROLE_USER, request.getGender());
         profileAuthServiceFacade.createProfile(request);
+    }
+
+    @Override
+    public void resetPasswordSendEmail(String login) {
+        userAuthServiceFacade.validateIfUserExists(login);
+        String email = userAuthServiceFacade.getUserByLogin(login).getEmail();
+        String resetToken = jwtUtils.generateResetToken(login);
+
+        String resetLink = resetMailUrl + resetToken;
+
+        try{
+            mailService.sendPasswordResetEmail(email, login, resetLink);
+        } catch (MessagingException e) {
+            throw new MailSendException("Error while sending the email");
+        }
+    }
+
+    @Override
+    public void validateTokenAndResetPassword(String token, String newPassword) {
+        String login = jwtUtils.validateTokenFromLinkToResetPassword(token);
+        userAuthServiceFacade.validateIfUserExists(login);
+        userAuthServiceFacade.changePassword(newPassword, login);
     }
 
     private void validateSignUpRequest(SignUpRequest request) {

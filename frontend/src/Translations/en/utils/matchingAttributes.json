@@ -1,0 +1,67 @@
+{
+  "gender": {
+    "gender": "Gender",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "OTHER": "Other"
+  },
+  "education": {
+    "education": "Education",
+    "PRIMARY_SCHOOL": "Primary school",
+    "SECONDARY_SCHOOL": "Secondary school",
+    "HIGH_SCHOOL": "High school",
+    "COLLEGE": "College",
+    "UNIVERSITY": "University",
+    "POSTGRADUATE": "Postgraduate studies"
+  },
+  "lookingFor": {
+    "lookingFor": "Looking for",
+    "ANYTHING": "Anything",
+    "FRIENDSHIP": "Friendship",
+    "RELATIONSHIP": "Relationship",
+    "CHAT": "Chat"
+  },
+  "pets": {
+    "pets": "Pets",
+    "DOG": "Dog",
+    "CAT": "Cat",
+    "BIRD": "Bird",
+    "FISH": "Fish",
+    "RODENT": "Rodent",
+    "REPTILE": "Reptile",
+    "OTHER": "Other"
+  },
+  "sexuality": {
+    "sexuality": "Sexuality",
+    "HETEROSEXUAL": "Heterosexual",
+    "HOMOSEXUAL": "Homosexual",
+    "BISEXUAL": "Bisexual",
+    "QUESTIONING": "Questioning",
+    "ASEXUAL": "Asexual",
+    "OTHER": "Other"
+  },
+  "drinker": {
+    "drinker": "Drinker",
+    "EVERYDAY": "Every day",
+    "OFTEN": "Often",
+    "FROM_TIME_TO_TIME": "From time to time",
+    "RARELY": "Rarely",
+    "NEVER": "Never"
+  },
+  "smoker": {
+    "smoker": "Smoker",
+    "EVERYDAY": "Every day",
+    "OFTEN": "Often",
+    "FROM_TIME_TO_TIME": "From time to time",
+    "RARELY": "Rarely",
+    "NEVER": "Never"
+  },
+  "exercises": {
+    "exercises": "Exercise",
+    "EVERYDAY": "Every day",
+    "OFTEN": "Often",
+    "FROM_TIME_TO_TIME": "From time to time",
+    "RARELY": "Rarely",
+    "NEVER": "Never"
+  }
+}

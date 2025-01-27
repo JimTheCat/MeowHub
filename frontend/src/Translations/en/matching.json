@@ -1,4 +1,26 @@
 {
+  "main": {
+    "noProfile": {
+      "title": "No profile found",
+      "description": "You don’t have a matching profile yet. Create one to start matching!",
+      "button": {
+        "label": "Create profile"
+      },
+      "switch": {
+        "label": "Use data from your MeowHub account"
+      }
+    },
+    "noMatch": {
+      "title": "No matches found :-(",
+      "description": "No matches found. Try to change your filters or come back later."
+    },
+    "card": {
+      "about": "About {{name}}",
+      "lookingFor": "{{name}} is looking for",
+      "info": "{{name}}'s info",
+      "location": "Current location"
+    }
+  },
   "aside": {
     "title": "Matching",
     "menu": {
@@ -41,16 +63,37 @@
           "label": "Name",
           "placeholder": "Name"
         },
-        "location": {
-          "label": "Location",
-          "placeholder": "Start typing a city"
-        },
         "bio": {
-          "label": "Bio",
-          "placeholder": "Bio"
+          "label": "About me",
+          "placeholder": "Write something about yourself"
+        },
+        "lookingFor": {
+          "label": "Looking for"
+        },
+        "gender": {
+          "label": "Gender"
         },
         "sexuality": {
           "label": "Sexuality"
+        },
+        "education": {
+          "label": "Education"
+        },
+        "drinker": {
+          "label": "Drinker"
+        },
+        "smoker": {
+          "label": "Smoker"
+        },
+        "exercises": {
+          "label": "Exercises"
+        },
+        "pet": {
+          "label": "Pet"
+        },
+        "location": {
+          "label": "Location",
+          "placeholder": "Start typing a city"
         }
       }
     },
@@ -70,8 +113,14 @@
         "fieldset": "Account",
         "button": {
           "delete": {
-            "label": "Delete account"
+            "label": "Delete account",
+            "confirm": "Remove account",
+            "cancel": "Cancel"
           }
+        },
+        "modal": {
+          "title": "Remove account",
+          "description": "Are you sure you want to delete your account? This action cannot be undone."
         }
       },
       "privacy": {

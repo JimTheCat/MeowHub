@@ -1,10 +1,38 @@
 import {Button, Card, Divider, Fieldset, Group, Stack, Switch, Title} from "@mantine/core";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
+import {ModificationModal} from "../../../shared/components/ModificationModal";
+import api from "../../../shared/services/api.ts";
 
 export const MatchSettings = () => {
   const [privacyValues, setPrivacyValues] = useState<string[]>();
   const {t} = useTranslation('matching');
+
+  const handleDeleteAccount = async () => {
+    try {
+      await api.delete("/api/matching-profile");
+
+      console.log("Account deleted successfully");
+      window.location.href = "/matching"; // Redirect to matching page
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
+  };
+
+  const openDeleteAccountModal = () => {
+    ModificationModal({
+      handleAction: () => {
+        handleDeleteAccount().catch();
+      },
+      buttonConfirmText: t("settings.card.account.button.delete.confirm"),
+      buttonConfirmColor: "red",
+      buttonCancelText: t("settings.card.account.button.delete.cancel"),
+      title: t("settings.card.account.modal.title"),
+      childrenContent: (
+        <p>{t("settings.card.account.modal.description")}</p>
+      ),
+    });
+  };
 
   return (
     <Stack gap={"md"} h={'100%'} align={'center'} justify={"center"} py={"lg"} px={"xl"}>
@@ -16,7 +44,9 @@ export const MatchSettings = () => {
         <Stack gap={"md"}>
           {/* Account settings */}
           <Fieldset legend={t('settings.card.account.fieldset')}>
-            <Button color={'red'}>{t('settings.card.account.button.delete.label')}</Button>
+            <Button color={'red'} onClick={openDeleteAccountModal}>
+              {t('settings.card.account.button.delete.label')}
+            </Button>
           </Fieldset>
 
           {/* Privacy settings */}

@@ -1,5 +1,5 @@
 import {Card, Group, Text, Tooltip} from "@mantine/core";
-import {DateFormatter} from "../../../shared/utils/DateFormatter.tsx";
+import {DateFormatter} from "../../../shared/utils";
 
 type SingleMessageProps = {
   message: MessageType;

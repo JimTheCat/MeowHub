@@ -1,4 +1,26 @@
 {
+  "main": {
+    "noProfile": {
+      "title": "Nie znaleziono profilu",
+      "description": "Nie masz jeszcze dopasowanego profilu. Utwórz go, aby zacząć!",
+      "button": {
+        "label": "Utwórz profil"
+      },
+      "switch": {
+        "label": "Użyj danych z konta MeowHub"
+      }
+    },
+    "noMatch": {
+      "title": "Nie znaleziono dopasowań :-(",
+      "description": "Nie znaleziono dopasowań. Spróbuj zmienić filtry lub wróć później."
+    },
+    "card": {
+      "about": "O mnie",
+      "lookingFor": "{{name}} szuka",
+      "info": "Informacje o {{name}}",
+      "location": "Aktualna lokalizacja"
+    }
+  },
   "aside": {
     "title": "Dopasowania",
     "menu": {
@@ -41,16 +63,37 @@
           "label": "Imię",
           "placeholder": "Imię"
         },
-        "location": {
-          "label": "Lokalizacja",
-          "placeholder": "Zacznij wpisywać miasto"
-        },
         "bio": {
-          "label": "O mnie",
-          "placeholder": "O mnie"
+          "label": "O sobie",
+          "placeholder": "Napisz coś o sobie"
+        },
+        "lookingFor": {
+          "label": "Szukam"
+        },
+        "gender": {
+          "label": "Płeć"
         },
         "sexuality": {
           "label": "Orientacja"
+        },
+        "education": {
+          "label": "Wykształcenie"
+        },
+        "drinker": {
+          "label": "Piję"
+        },
+        "smoker": {
+          "label": "Palę"
+        },
+        "exercises": {
+          "label": "Ćwiczę"
+        },
+        "pet": {
+          "label": "Zwierzęta"
+        },
+        "location": {
+          "label": "Lokalizacja",
+          "placeholder": "Zacznij wpisywać miasto"
         }
       }
     },
@@ -70,8 +113,14 @@
         "fieldset": "Konto",
         "button": {
           "delete": {
-            "label": "Usuń konto"
+            "label": "Usuń konto",
+            "confirm": "Usuń konto",
+            "cancel": "Anuluj"
           }
+        },
+        "modal": {
+          "title": "Usuń konto",
+          "description": "Czy na pewno chcesz usunąć swoje konto? Ta akcja nie może zostać cofnięta."
         }
       },
       "privacy": {

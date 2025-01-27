@@ -1,97 +1,47 @@
-import {Grid} from "@mantine/core";
+import {Center, Grid, Loader, Stack, Text} from "@mantine/core";
 import {ProfileCard} from "./components";
 import {useEffect, useState} from "react";
-
-type ProfileDummy = {
-  id: number;
-  name: string;
-  age: number;
-  location: string;
-  bio: string;
-  photos: { index: string; url: string }[];
-};
+import {MatchingProfile} from "../../types";
+import api from "../../../shared/services/api.ts";
+import {useTranslation} from "react-i18next";
 
 export const Main = () => {
-  const [profiles, setProfiles] = useState<ProfileDummy[]>([]);
+  const [profiles, setProfiles] = useState<MatchingProfile[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [swipeDirection, setSwipeDirection] = useState("");
   const [isAnimating, setIsAnimating] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const {t} = useTranslation('matching');
+
+  const fetchProfiles = async (page: number) => {
+    setIsLoading(true);
+    try {
+      const response = await api.get(`/api/matching-profile/all?page=${page}`);
+      const data = response.data;
+
+      // Append new profiles to the list
+      setProfiles((prev) => [...prev, ...data.content]);
+
+      // Update total pages and hasMore state
+      if (page >= data.totalPages) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error("Failed to fetch profiles:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Dummy data
-    const newProfiles = [
-      {
-        id: 1,
-        name: "Iza",
-        age: 23,
-        location: "London",
-        bio: "Lorem ipsum dolor sit amet.",
-        photos: [
-          {index: "1", url: "https://picsum.photos/seed/1/800/600"},
-          {index: "2", url: "https://picsum.photos/seed/2/800/600"},
-        ],
-      },
-      {
-        id: 2,
-        name: "John",
-        age: 29,
-        location: "New York",
-        bio: "Lorem ipsum dolor sit amet.",
-        photos: [
-          {index: "1", url: "https://picsum.photos/seed/3/800/600"},
-          {index: "2", url: "https://picsum.photos/seed/4/800/600"},
-        ],
-      },
-      {
-        id: 3,
-        name: "Alice",
-        age: 25,
-        location: "Berlin",
-        bio: "Lorem ipsum dolor sit amet.",
-        photos: [
-          {index: "1", url: "https://picsum.photos/seed/5/800/600"},
-          {index: "2", url: "https://picsum.photos/seed/6/800/600"},
-        ],
-      },
-      {
-        id: 4,
-        name: "Iza",
-        age: 23,
-        location: "London",
-        bio: "Lorem ipsum dolor sit amet.",
-        photos: [
-          {index: "1", url: "https://picsum.photos/seed/1/800/600"},
-          {index: "2", url: "https://picsum.photos/seed/2/800/600"},
-        ],
-      },
-      {
-        id: 5,
-        name: "John",
-        age: 29,
-        location: "New York",
-        bio: "Lorem ipsum dolor sit amet.",
-        photos: [
-          {index: "1", url: "https://picsum.photos/seed/3/800/600"},
-          {index: "2", url: "https://picsum.photos/seed/4/800/600"},
-        ],
-      },
-      {
-        id: 6,
-        name: "Alice",
-        age: 25,
-        location: "Berlin",
-        bio: "Lorem ipsum dolor sit amet.",
-        photos: [
-          {index: "1", url: "https://picsum.photos/seed/5/800/600"},
-          {index: "2", url: "https://picsum.photos/seed/6/800/600"},
-        ],
-      },
-    ] as ProfileDummy[];
-    setProfiles(newProfiles);
-  }, []);
+    fetchProfiles(currentPage);
+  }, [currentPage]);
 
   const handleSwipe = (direction: string) => {
     if (isAnimating) return;
+
     setSwipeDirection(direction);
     setIsAnimating(true);
 
@@ -99,6 +49,11 @@ export const Main = () => {
       setCurrentIndex((prev) => prev + 1);
       setSwipeDirection("");
       setIsAnimating(false);
+
+      // Check if we need to load the next page
+      if (currentIndex + 1 >= profiles.length - 1 && hasMore) {
+        setCurrentPage((prev) => prev + 1);
+      }
     }, 500); // Time of animation
   };
 
@@ -111,20 +66,53 @@ export const Main = () => {
         overflow: "hidden",
       }}
     >
-      {profiles
-        .slice(currentIndex, currentIndex + 2) // Only two profiles at a time
-        .map((profile, index) => {
-          return (
-            <ProfileCard
-              key={profile.id}
-              profile={profile}
-              isActive={index === 0}
-              isNext={index === 1}
-              swipeDirection={index === 0 ? swipeDirection : ""}
-              handleSwipe={handleSwipe}
-            />
-          );
-        })}
+      {isLoading && (
+        <Center
+          pos="absolute"
+          top={0}
+          left={0}
+          w="100%"
+          h="100%"
+        >
+          <Loader size="lg"/>
+        </Center>
+      )}
+
+      {!isLoading &&
+        profiles
+          .slice(currentIndex, currentIndex + 2) // Only two profiles at a time
+          .map((profile, index) => {
+            return (
+              <ProfileCard
+                key={profile.id}
+                profile={profile}
+                isActive={index === 0}
+                isNext={index === 1}
+                swipeDirection={index === 0 ? swipeDirection : ""}
+                handleSwipe={handleSwipe}
+              />
+            );
+          })}
+
+      {/* Show a message when there are no more profiles */}
+      {!hasMore && currentIndex >= profiles.length && !isLoading && (
+        <Center
+          pos="absolute"
+          top={0}
+          left={0}
+          w="100%"
+          h="100%"
+        >
+          <Stack justify={'center'} align={'center'} gap={0}>
+            <Text size="xl" fw={700} mb="md">
+              {t('main.noMatch.title')}
+            </Text>
+            <Text mb="lg">
+              {t('main.noMatch.description')}
+            </Text>
+          </Stack>
+        </Center>
+      )}
     </Grid>
   );
 };

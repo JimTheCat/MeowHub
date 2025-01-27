@@ -1,0 +1,67 @@
+{
+  "gender": {
+    "gender": "Płeć",
+    "MALE": "Mężczyzna",
+    "FEMALE": "Kobieta",
+    "OTHER": "Inny/a"
+  },
+  "education": {
+    "education": "Wykształcenie",
+    "PRIMARY_SCHOOL": "Szkoła podstawowa",
+    "SECONDARY_SCHOOL": "Szkoła średnia",
+    "HIGH_SCHOOL": "Liceum",
+    "COLLEGE": "Studia licencjackie",
+    "UNIVERSITY": "Uniwersytet",
+    "POSTGRADUATE": "Studia podyplomowe"
+  },
+  "lookingFor": {
+    "lookingFor": "Szukam",
+    "ANYTHING": "Cokolwiek",
+    "FRIENDSHIP": "Przyjaźń",
+    "RELATIONSHIP": "Związek",
+    "CHAT": "Czat"
+  },
+  "pets": {
+    "pets": "Zwierzęta",
+    "DOG": "Pies",
+    "CAT": "Kot",
+    "BIRD": "Ptak",
+    "FISH": "Ryba",
+    "RODENT": "Gryzoń",
+    "REPTILE": "Gad",
+    "OTHER": "Inne"
+  },
+  "sexuality": {
+    "sexuality": "Orientacja seksualna",
+    "HETEROSEXUAL": "Heteroseksualny/a",
+    "HOMOSEXUAL": "Homoseksualny/a",
+    "BISEXUAL": "Biseksualny/a",
+    "QUESTIONING": "Niepewny/a",
+    "ASEXUAL": "Aseksualny/a",
+    "OTHER": "Inny/a"
+  },
+  "drinker": {
+    "drinker": "Pijący/a alkohol",
+    "EVERYDAY": "Codziennie",
+    "OFTEN": "Często",
+    "FROM_TIME_TO_TIME": "Od czasu do czasu",
+    "RARELY": "Rzadko",
+    "NEVER": "Nigdy"
+  },
+  "smoker": {
+    "smoker": "Palący/a papierosy",
+    "EVERYDAY": "Codziennie",
+    "OFTEN": "Często",
+    "FROM_TIME_TO_TIME": "Od czasu do czasu",
+    "RARELY": "Rzadko",
+    "NEVER": "Nigdy"
+  },
+  "exercises": {
+    "exercises": "Ćwiczenia",
+    "EVERYDAY": "Codziennie",
+    "OFTEN": "Często",
+    "FROM_TIME_TO_TIME": "Od czasu do czasu",
+    "RARELY": "Rzadko",
+    "NEVER": "Nigdy"
+  }
+}

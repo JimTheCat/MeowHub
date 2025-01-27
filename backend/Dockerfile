@@ -31,7 +31,7 @@ COPY --from=build /app/target/*.jar /app
 #app.jar
 
 # Set entry point for the application
-ENTRYPOINT ["java", "-jar", "backend-0.0.1-SNAPSHOT.jar"]
-
+#ENTRYPOINT ["java", "-jar", "backend-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["sh", "-c", "env && java -jar backend-0.0.1-SNAPSHOT.jar"]
 # Expose the application port
 EXPOSE 8080

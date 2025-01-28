@@ -25,10 +25,10 @@ export const CardProfileTop = (props: { userDetails: ProfileUser | null }) => {
   const {t} = useTranslation('profile');
 
   useEffect(() => {
-    if (!props.userDetails?.profilePicture) {
+    if (!props.userDetails?.profilePictureUrl) {
       setIsProfilePictureLoaded(true);
     }
-  }, [props.userDetails?.profilePicture]);
+  }, [props.userDetails?.profilePictureUrl]);
 
   const handleSetProfilePicture = (file: File | null) => {
     setChangedProfilePicture(file);

@@ -77,7 +77,7 @@ export const Navbar = () => {
           <MenuButton disabled mainMenu icon={<IconUsersGroup/>} text={t('navbar.menu.groups')} href={"/groups"}/>
           <MenuButton mainMenu icon={<IconTopologyFull/>} text={t('navbar.menu.relations')} href={"/relations"}/>
           <MenuButton mainMenu icon={<IconUserHeart/>} text={t('navbar.menu.matching')} href={"/matching"}/>
-          <MenuButton mainMenu icon={<IconMail/>} text={t('navbar.menu.messages')} href={"/messages"}/>
+          <MenuButton disabled mainMenu icon={<IconMail/>} text={t('navbar.menu.messages')} href={"/messages"}/>
         </AppShell.Section>
         <AppShell.Section>
           <MenuButton mainMenu icon={<IconSettings/>} text={t('navbar.menu.settings')} href={"/settings"}/>

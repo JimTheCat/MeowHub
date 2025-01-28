@@ -36,6 +36,12 @@
         "submit": "Wyślij",
         "cancel": "Anuluj"
       }
+    },
+    "resetSuccess": {
+      "alert": {
+        "title": "Hasło zostało zresetowane",
+        "message": "Możesz teraz zalogować się za pomocą nowego hasła."
+      }
     }
   }
 }

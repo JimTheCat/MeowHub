@@ -3,14 +3,14 @@ Engineering Thesis
 
 ## Database
 For production environment, you need to have an oracle database.
-If you didn't create oracle database yet, run script `database/install.sql`.
+If you didn't create oracle database yet, run script `database/install.sql`.  
 (run the application to instantiate mock users via SecurityConfig)
 
 ## Profiles
 `swagger` - to run application with Swagger  
-`dev`     - to run application with H2 database (for offline development)
-`mock-oci`- to run application with mock  connection to oci object storage (for offline development)
-`mock-mail`- to run application with mock mail service (mail won't be sent but will be printed in console)
+`dev`     - to run application with H2 database (for offline development)  
+`mock-oci`- to run application with mock  connection to oci object storage (for offline development)  
+`mock-mail`- to run application with mock mail service (mail won't be sent, instead it will be printed in the console)
 
 ## Swagger
 To run swagger use `swagger` profile.  
@@ -30,15 +30,15 @@ Of course, it will not save the file to OCI object storage and the mock url will
 `DB_URL` - database url    
 `DB_USERNAME` - database username  
 `DB_PASSWORD` - database password  
-`JWT_SECRET` - secret key for JWT token    
-`JWT_EXPIRATION_MS` - expiration time for JWT token in milliseconds
-`MAIL_ADDRESS` - mail address
-`MAIL_PASSWORD` - mail password
-`MAIL_HOST` - mail host
-`MAIL_PORT` - mail port
-`MAIL_PROTOCOL` - mail protocol
-`MAIL_SMTP_AUTH` - mail auth flag (true/false)
-`MAIL_SMTP_AUTH_STARTTLS` - mail starttls enable flag (true/false)
+`JWT_SECRET` - secret key for JWT token     
+`JWT_EXPIRATION_MS` - expiration time for JWT token in milliseconds  
+`MAIL_ADDRESS` - mail address  
+`MAIL_PASSWORD` - mail password  
+`MAIL_HOST` - mail host  
+`MAIL_PORT` - mail port  
+`MAIL_PROTOCOL` - mail protocol  
+`MAIL_SMTP_AUTH` - mail auth flag (true/false)  
+`MAIL_SMTP_AUTH_STARTTLS` - mail starttls enable flag (true/false  
 
 With production environment, you need to set all of these variables.
 

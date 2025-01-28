@@ -2,6 +2,7 @@ package meowhub.backend.users.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import meowhub.backend.constants.PrivacySettings;
+import meowhub.backend.users.dtos.PrivacySettingsDto;
 import meowhub.backend.users.models.PrivacySetting;
 import meowhub.backend.users.models.User;
 import meowhub.backend.users.repositories.PrivacySettingRepository;
@@ -20,6 +21,12 @@ public class SettingsServiceImpl implements SettingsService {
     private final PasswordValidator passwordValidator;
 
     @Override
+    public PrivacySettingsDto getPrivacySettings(String login) {
+        User user = userRepository.findByLogin(login).orElseThrow();
+        return new PrivacySettingsDto(PrivacySettings.valueOf(user.getPostsPrivacy().getCode()), PrivacySettings.valueOf(user.getProfilePrivacy().getCode()), PrivacySettings.valueOf(user.getFriendsPrivacy().getCode()));
+    }
+
+    @Override
     public void changePostPrivacySettings(PrivacySettings privacySettings, String login) {
         User user = userRepository.findByLogin(login).orElseThrow();
         PrivacySetting privacySetting = getPrivacySetting(privacySettings);
@@ -32,7 +39,8 @@ public class SettingsServiceImpl implements SettingsService {
         User user = userRepository.findByLogin(login).orElseThrow();
         PrivacySetting privacySetting = getPrivacySetting(privacySettings);
         user.setProfilePrivacy(privacySetting);
-        userRepository.save(user);    }
+        userRepository.save(user);
+    }
 
     @Override
     public void changeFriendsPrivacySettings(PrivacySettings privacySettings, String login) {

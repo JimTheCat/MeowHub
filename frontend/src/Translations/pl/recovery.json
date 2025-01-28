@@ -18,7 +18,7 @@
       "subtext": "Sprawdź swoją pocztę, aby uzyskać dalsze instrukcje",
       "title": "Email został wysłany!",
       "alert": {
-        "title": "Mail został wysłany",
+		  "title": "Email został wysłany",
         "message": "Sprawdź swoją skrzynkę odbiorczą, aby uzyskać dalsze instrukcje."
       }
     },

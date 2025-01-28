@@ -38,6 +38,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MatchingProfileServiceImpl implements MatchingProfileService {
+    private static final int MINIMUM_AGE = 16;
+
     private final MatchingProfileRepository matchingProfileRepository;
     private final MatchingProfilePictureRepository matchingProfilePictureRepository;
     private final UserMatchingServiceFacade userMatchingServiceFacade;
@@ -76,9 +78,9 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
     public MatchingProfileDto createMatchingProfileFromScratch(CreateMatchingProfileRequestDto request, String login) {
         validateIfMatchingProfileAlreadyExists(login);
 
-        if(request.getBirthdate() == null || request.getBirthdate().isAfter(LocalDate.now().minusYears(18))){
-            throw new IllegalArgumentException(String.format(AlertConstants.ILLEGAL_ARGUMENT, "birthdate", " null and must be at least 18 years old"));
-        } else if(request.getName() == null || request.getName().isEmpty()){
+        if (request.getBirthdate() == null || request.getBirthdate().isAfter(LocalDate.now().minusYears(MINIMUM_AGE))) {
+            throw new IllegalArgumentException(String.format(AlertConstants.ILLEGAL_ARGUMENT, "birthdate", " null and must be at least " + MINIMUM_AGE + " years old"));
+        } else if (request.getName() == null || request.getName().isEmpty()) {
             throw new IllegalArgumentException(String.format(AlertConstants.VALUE_REQUIRED, "name"));
         }
 
@@ -114,20 +116,20 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         MatchingProfile matchingProfile = findMatchingProfileByLoginOrThrow(login);
         int currentlyPictures = matchingProfilePictureRepository.countAllByMatchingProfileId(matchingProfile.getId());
 
-        if(profilePictureName!= null && !profilePictureName.isEmpty()){
+        if (profilePictureName != null && !profilePictureName.isEmpty()) {
             //checking if given profile picture name (that is to be set as a new profile picture) exists in the list of pictures
             pictures.stream().filter(picture -> Objects.equals(picture.getOriginalFilename(), profilePictureName)).findFirst()
                     .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Matching profile picture", "name", profilePictureName)));
 
             //find current profile picture and set it to false if exists
             Optional<MatchingProfilePicture> currentProfilePicture = matchingProfilePictureRepository.findByMatchingProfileUserLoginAndIsCurrentProfilePictureTrue(login);
-            if(currentProfilePicture.isPresent()){
+            if (currentProfilePicture.isPresent()) {
                 MatchingProfilePicture current = currentProfilePicture.get();
                 current.setIsCurrentProfilePicture(false);
                 matchingProfilePictureRepository.save(current);
             }
         } else {
-            if(currentlyPictures == 0){
+            if (currentlyPictures == 0) {
                 throw new NullPointerException(String.format(AlertConstants.VALUE_REQUIRED, "profilePictureName, when there is no profile picture"));
             }
         }
@@ -228,7 +230,7 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
     @Override
     @Transactional
     public void deleteMatchingProfilePicturesForUser(List<String> profilePictureIds, String login) {
-        if(profilePictureIds.isEmpty()) {
+        if (profilePictureIds.isEmpty()) {
             throw new IllegalArgumentException(AlertConstants.VALUE_REQUIRED_TITLE);
         }
 
@@ -247,12 +249,12 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         matchingProfilePictureRepository.deleteById(pictureId); //delete from db
     }
 
-    private MatchingProfile findMatchingProfileByLoginOrThrow(String login){
+    private MatchingProfile findMatchingProfileByLoginOrThrow(String login) {
         return matchingProfileRepository.findByUserLogin(login)
                 .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Matching profile", "login", login)));
     }
 
-    private void validateIfMatchingProfileAlreadyExists(String login){
+    private void validateIfMatchingProfileAlreadyExists(String login) {
         if (matchingProfileRepository.existsByUserLogin(login)) {
             throw new IllegalArgumentException(String.format(AlertConstants.ALREADY_EXISTS, "Matching profile", login));
         }

@@ -54,35 +54,74 @@ export const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [profileResponse, userInfoResponse, friendsResponse, mediaResponse] = await Promise.all([
+        const results = await Promise.allSettled([
           api.get<ProfileDetails>(`/api/profiles/${login}`),
           api.get<BasicUserInfo>('/api/users/basic-user-info', {params: {login}}),
           api.get(`/api/relations/${login}/friends`, {params: {page: 0, size: 6}}),
           api.get(`/api/profiles/${login}/media`, {params: {page: 0, size: 6}}),
         ]);
 
-        const profileDetails = profileResponse.data;
-        const basicUserInfo = userInfoResponse.data;
-        const friendsList = friendsResponse.data.content;
-        const media = mediaResponse.data.content;
+        const profileResponse = results[0];
+        const userInfoResponse = results[1];
+        const friendsResponse = results[2];
+        const mediaResponse = results[3];
 
-        setProfileInfo(profileDetails);
-        setFriends(friendsList);
-        setMediaList(media);
+        if (profileResponse.status === 'fulfilled' && userInfoResponse.status === 'fulfilled') {
+          setProfileInfo(profileResponse.value.data);
 
-        setProfile({
-          ...basicUserInfo,
-          ...profileDetails,
-          profilePicture: profileDetails.profilePicture,
-          friends: friendsList,
-        });
+          const profileDetails = profileResponse.value.data;
+          const basicUserInfo = userInfoResponse.value.data;
+
+          setProfile((prevProfile) => ({
+            ...prevProfile,
+            id: basicUserInfo.id,
+            name: basicUserInfo.name,
+            surname: basicUserInfo.surname,
+            login: basicUserInfo.login,
+            profilePictureUrl: basicUserInfo.profilePictureUrl ?? profileDetails.profilePictureUrl,
+            content: profileDetails.content ?? "",
+            createdAt: profileDetails.createdAt,
+            friends: friendsResponse.status === 'fulfilled' ? friendsResponse.value.data.content : [],
+          }));
+        }
+
+        if (friendsResponse.status === 'fulfilled') {
+          setFriends(friendsResponse.value.data.content);
+        } else if (friendsResponse.reason?.response?.status === 403) {
+          console.warn("Friends list is private or restricted.");
+          setFriends([]);
+        } else {
+          console.error('Error fetching friends:', friendsResponse.reason);
+        }
+
+        if (mediaResponse.status === 'fulfilled') {
+          setMediaList(mediaResponse.value.data.content);
+        } else if (mediaResponse.reason?.response?.status === 403) {
+          console.warn("Media list is private or restricted.");
+          setMediaList([]);
+        } else {
+          console.error('Error fetching media:', mediaResponse.reason);
+        }
+
+        if (profileResponse.status === 'fulfilled' && userInfoResponse.status === 'fulfilled') {
+          const profileDetails = profileResponse.value.data;
+          const basicUserInfo = userInfoResponse.value.data;
+
+          setProfile({
+            ...basicUserInfo,
+            ...profileDetails,
+            profilePictureUrl: profileDetails.profilePictureUrl,
+            friends: friendsResponse.status === 'fulfilled' ? friendsResponse.value.data.content : [],
+          });
+        }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Unexpected error fetching data:', error);
       }
     };
 
     fetchData();
   }, [userTag]);
+
 
   return (
     <Box px={"xl"} py={"xs"}>

@@ -1,5 +1,5 @@
 export type ProfileDetails = {
-  content: string;
-  profilePicture: string;
+  content?: string;
+  profilePictureUrl: string;
   createdAt: string;
 }

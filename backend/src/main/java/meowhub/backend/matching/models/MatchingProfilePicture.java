@@ -48,6 +48,10 @@ public class MatchingProfilePicture {
     private String ociUrl;
 
     @NotNull
+    @Column(name = "PICTURE_INDEX", nullable = false)
+    private Long index;
+
+    @NotNull
     @Column(name = "IS_CURRENT_PP", nullable = false)
     @Convert(converter = BooleanConverter.class)
     private Boolean isCurrentProfilePicture;
@@ -66,10 +70,11 @@ public class MatchingProfilePicture {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    public MatchingProfilePicture(MatchingProfile matchingProfile, String ociName, String ociUrl, boolean isCurrentProfilePicture) {
+    public MatchingProfilePicture(MatchingProfile matchingProfile, String ociName, String ociUrl, boolean isCurrentProfilePicture, Long index) {
         this.matchingProfile = matchingProfile;
         this.ociName = ociName;
         this.ociUrl = ociUrl;
         this.isCurrentProfilePicture = isCurrentProfilePicture;
+        this.index = index;
     }
 }

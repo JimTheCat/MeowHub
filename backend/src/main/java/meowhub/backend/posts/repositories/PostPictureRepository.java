@@ -12,7 +12,6 @@ public interface PostPictureRepository extends JpaRepository<PostPicture, String
                 SELECT new meowhub.backend.shared.dtos.PictureDto (
                     pp.id,
                     pp.ociUrl,
-                    null,
                     pp.createdAt
                 )
                 FROM PostPicture pp

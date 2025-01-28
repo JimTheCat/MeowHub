@@ -23,7 +23,7 @@ public interface MatchingProfileService {
 
     /***
      * Adds pictures to the matching profile.
-     * @param files
+     * @param files, max 5 pictures
      * @param profilePictureName - name of the picture in files list, that is to be set as new profile picture
      * @param login
      * @return

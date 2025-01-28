@@ -39,6 +39,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MatchingProfileServiceImpl implements MatchingProfileService {
     private static final int MINIMUM_AGE = 16;
+    private static final String MATCHING_PROFILE = "Matching profile";
+    private static final String HOW_OFTEN = "HowOften";
 
     private final MatchingProfileRepository matchingProfileRepository;
     private final MatchingProfilePictureRepository matchingProfilePictureRepository;
@@ -148,7 +150,7 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         matchingProfilePictureRepository.saveAll(profilePictures);
 
         return matchingProfilePictureRepository.findByMatchingProfileUserLogin(login).stream()
-                .map(picture -> new PictureDto(picture.getId(), picture.getOciUrl(), picture.getIsCurrentProfilePicture(), picture.getCreatedAt()))
+                .map(picture -> new PictureDto(picture.getId(), picture.getOciUrl(), picture.getCreatedAt()))
                 .toList();
     }
 
@@ -181,21 +183,21 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
 
         if (request.getDrinker() != null) {
             matchingProfile.setDrinker(howOftenRepository.findByCode(request.getDrinker().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "HowOften", "id", request.getDrinker()))));
+                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, HOW_OFTEN, "id", request.getDrinker()))));
         } else {
             matchingProfile.setDrinker(null);
         }
 
         if (request.getSmoker() != null) {
             matchingProfile.setSmoker(howOftenRepository.findByCode(request.getSmoker().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "HowOften", "id", request.getSmoker()))));
+                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, HOW_OFTEN, "id", request.getSmoker()))));
         } else {
             matchingProfile.setSmoker(null);
         }
 
         if (request.getExercises() != null) {
             matchingProfile.setExercises(howOftenRepository.findByCode(request.getExercises().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "HowOften", "id", request.getExercises()))));
+                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, HOW_OFTEN, "id", request.getExercises()))));
         } else {
             matchingProfile.setExercises(null);
         }
@@ -221,7 +223,7 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
     @Transactional
     public void deleteMatchingProfile(String login) {
         MatchingProfile matchingProfile = matchingProfileRepository.findByUserLogin(login)
-                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Matching profile", "login", login)));
+                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, MATCHING_PROFILE, "login", login)));
 
         matchingProfile.getMatchingProfilePictures().forEach(picture -> deleteMatchingProfilePicture(picture.getId()));
         matchingProfileRepository.delete(matchingProfile);
@@ -251,12 +253,12 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
 
     private MatchingProfile findMatchingProfileByLoginOrThrow(String login) {
         return matchingProfileRepository.findByUserLogin(login)
-                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Matching profile", "login", login)));
+                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, MATCHING_PROFILE, "login", login)));
     }
 
     private void validateIfMatchingProfileAlreadyExists(String login) {
         if (matchingProfileRepository.existsByUserLogin(login)) {
-            throw new IllegalArgumentException(String.format(AlertConstants.ALREADY_EXISTS, "Matching profile", login));
+            throw new IllegalArgumentException(String.format(AlertConstants.ALREADY_EXISTS, MATCHING_PROFILE, login));
         }
     }
 }

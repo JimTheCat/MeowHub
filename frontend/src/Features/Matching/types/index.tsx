@@ -1,0 +1,1 @@
+export type {MatchingProfile} from './MatchingProfile';

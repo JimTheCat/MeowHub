@@ -1,17 +1,15 @@
-import {Badge, Box, Button, Card, Group, Image, ScrollArea, Stack, Text} from "@mantine/core";
+import {Box, Button, Card, Divider, Group, Image, ScrollArea, Stack, Text} from "@mantine/core";
 import {Carousel, Embla, useAnimationOffsetEffect} from "@mantine/carousel";
 import {IconCheck, IconX} from "@tabler/icons-react";
 import {useEffect, useState} from "react";
 import classes from "./carousel.module.css";
+import {MatchingProfile} from "../../../types";
+import {MatchingBadge} from "../../../../shared/components/MatchingBadge";
+import {useProfileAttributes} from "../../../../shared/utils/profileAttributesUtils.tsx";
+import {useTranslation} from "react-i18next";
 
 type ProfileProps = {
-  profile: {
-    name: string;
-    age: number;
-    location: string;
-    bio: string;
-    photos: { index: string; url: string }[];
-  };
+  profile: MatchingProfile;
   isActive: boolean;
   isNext: boolean;
   swipeDirection: string;
@@ -32,6 +30,8 @@ export const ProfileCard = ({
   });
   const [embla, setEmbla] = useState<Embla | null>(null);
   const DURATION = 500;
+  const {processProfileAttributes} = useProfileAttributes();
+  const {t} = useTranslation('matching');
 
   useAnimationOffsetEffect(embla, DURATION);
 
@@ -91,13 +91,16 @@ export const ProfileCard = ({
     return isNext ? 50 : 1;
   }
 
+  const infoSectionAttributes = [
+    "gender", "sexuality", "education", "drinker", "smoker", "exercises", "pet"
+  ];
+
   return (
     <Card
       pos={'absolute'}
       top={'50%'}
       left={'50%'}
-      w={'80vw'}
-      maw={'400px'}
+      w={'30vw'}
       mih={'90vh'}
       style={{
         ...styles,
@@ -115,28 +118,74 @@ export const ProfileCard = ({
         {/* Carousel section */}
         <Card.Section h="70vh">
           <Carousel classNames={classes} getEmblaApi={setEmbla} withIndicators>
-            {profile.photos.map((photo) => (
-              <Carousel.Slide key={photo.index} pos={'relative'} h="70vh">
-                <Image src={photo.url} alt="Profile photo" h={'100%'}/>
-              </Carousel.Slide>
-            ))}
+            {/*Sort by creation date*/}
+            {profile.pictures
+              .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+              .map((photo) => (
+                <Carousel.Slide key={photo.id} pos={'relative'} h="70vh">
+                  <Image src={photo.url} alt="Profile photo" h={'100%'}/>
+                </Carousel.Slide>
+              ))}
           </Carousel>
         </Card.Section>
 
         {/* Profile information */}
         <Stack gap="xs" p="md">
-          <Group justify="apart">
-            <Text size="xl" fw={700}>
-              {profile.name}
-            </Text>
-            <Badge color="orange" size="lg" radius="xl">
-              {profile.age}
-            </Badge>
-          </Group>
-          <Text size="sm" c="gray">
-            {profile.location}
+          <Text size="xl" fw={700}>
+            {profile.name}, {profile.age}
           </Text>
-          <Text size="sm">{profile.bio}</Text>
+          {profile.aboutMe &&
+              <>
+                  <Stack gap={'xs'}>
+                      <Text c={'dimmed'}>
+                        {t('main.card.about', {name: profile.name})}
+                      </Text>
+                      <Text>
+                        {profile.aboutMe}
+                      </Text>
+                  </Stack>
+                  <Divider/>
+              </>
+          }
+          {profile.lookingFor && profile.lookingFor.length > 0 &&
+              <>
+                  <MatchingBadge
+                      title={t('main.card.lookingFor', {name: profile.name})}
+                      data={
+                        processProfileAttributes(
+                          profile,
+                          ["lookingFor"],
+                          true
+                        )
+                      }
+                      gap={'xs'}
+                  />
+                  <Divider/>
+              </>
+          }
+          <MatchingBadge
+            title={t('main.card.info', {name: profile.name})}
+            data={
+              processProfileAttributes(
+                profile,
+                infoSectionAttributes,
+              )
+            }
+          />
+          {/* Location */}
+          {profile.location && (
+            <>
+              <Stack gap={'xs'}>
+                <Text c={'dimmed'}>
+                  {t('main.card.location', {name: profile.name})}
+                </Text>
+                <Text size="sm" c="gray">
+                  {profile.location}
+                </Text>
+              </Stack>
+              <Divider/>
+            </>
+          )}
         </Stack>
       </Box>
 

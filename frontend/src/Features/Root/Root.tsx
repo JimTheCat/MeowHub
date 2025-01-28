@@ -23,6 +23,7 @@ import {MatchSettings} from "../Matching/components/Settings";
 import {Multimedia} from "../Multimedia";
 import {Privacy} from "../Privacy";
 import {SharedPost} from "../SharedPost";
+import {MatchRegister} from "../Matching/components/Register";
 
 export const Root = () => {
 
@@ -50,6 +51,7 @@ export const Root = () => {
           <Route path="/groups" element={<Groups/>}/>
           <Route path="/friends" element={<Friends/>}/>
           <Route path="/matching" element={<Matching/>}/>
+          <Route path="/matching/create-profile" element={<MatchRegister/>}/>
           <Route path="/matching/profile" element={<Matching component={<MatchProfile/>}/>}/>
           <Route path="/matching/filters" element={<Matching component={<MatchFilters/>}/>}/>
           <Route path="/matching/tests" element={<Matching component={<MatchTests/>}/>}/>

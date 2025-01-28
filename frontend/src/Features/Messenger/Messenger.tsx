@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {Chat} from "./components/Chat";
 import {UnselectedChat} from "./components/UnselectedChat";
-import {DateFormatter} from "../shared/utils/DateFormatter.tsx";
+import {DateFormatter} from "../shared/utils";
 import {useTranslation} from "react-i18next";
 
 type DummyUserType = {

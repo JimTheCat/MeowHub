@@ -1,5 +1,6 @@
 package meowhub.backend.matching.services;
 
+import meowhub.backend.matching.dtos.CreateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.UpdateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.MatchingProfileDto;
 import meowhub.backend.shared.dtos.PictureDto;
@@ -14,7 +15,9 @@ public interface MatchingProfileService {
 
     MatchingProfileDto getMyProfile(String login);
 
-    MatchingProfileDto createMatchingProfile(String login);
+    MatchingProfileDto createMatchingProfileBasedOnAccount(String login);
+
+    MatchingProfileDto createMatchingProfileFromScratch(CreateMatchingProfileRequestDto request, String login);
 
     MatchingProfileDto updateMatchingProfile(UpdateMatchingProfileRequestDto matchingProfileDto, String login);
 

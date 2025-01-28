@@ -113,6 +113,20 @@
         "data": {
           "tooltip": "Zarządzaj swoimi danymi",
           "children": "Pobierz dane"
+        },
+        "account": {
+          "tooltip": "Zarządzaj swoim kontem",
+          "children": "Usuń konto",
+          "modal": {
+            "title": "Usuń konto",
+            "message": "Czy na pewno chcesz usunąć swoje konto? Ta operacja jest nieodwracalna.",
+            "cancelButton": "Anuluj",
+            "confirmButton": "Usuń"
+          },
+          "alert": {
+            "title": "Konto usunięte",
+            "message": "Twoje konto zostało usunięte. Dziękujemy za korzystanie z naszej aplikacji."
+          }
         }
       }
     },

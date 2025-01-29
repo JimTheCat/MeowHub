@@ -23,12 +23,6 @@ public class UserRelationController {
     private final UserRelationService service;
     private final UserRelationQueryService queryService;
 
-    @GetMapping("friends")
-    public ResponseEntity<Page<BasicUserInfoDto>> getFriends(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<BasicUserInfoDto> friends = queryService.getFriends(userDetails.getUsername(), page, size);
-        return ResponseEntity.ok(friends);
-    }
-
     @GetMapping("{login}/friends")
     public ResponseEntity<Page<BasicUserInfoDto>> getFriendsForUser(@PathVariable String login, @AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Page<BasicUserInfoDto> friends = queryService.getFriendsForUser(login, userDetails.getUsername(), page, size);

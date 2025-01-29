@@ -325,6 +325,7 @@ CREATE TABLE mh_matching.Matching_Profile_Pictures
     matching_profile_id varchar2(36)                    NOT NULL,
     oci_name            varchar2(100)                   NOT NULL,
     oci_url             varchar2(2000)                  NOT NULL,
+    picture_index       number(1)                       NOT NULL,
     is_current_pp       number(1)                       NOT NULL,
     created_at          date                            NOT NULL,
     created_by          varchar2(36)                    NOT NULL,

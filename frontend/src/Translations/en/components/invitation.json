@@ -1,0 +1,33 @@
+{
+  "pendingSent": {
+    "tooltip": "Invitation sent, waiting for the user to accept it"
+  },
+  "friendsMenu": {
+    "label": "Manage friends",
+    "modal": {
+      "title": "Remove friend",
+      "buttonConfirm": "Remove",
+      "buttonCancel": "Cancel",
+      "content": "Are you sure that you want to remove your friend {{name}}?"
+    },
+    "item": "Remove friend"
+  },
+  "alert": {
+    "cancel": {
+      "title": "Cancelled",
+      "message": "Friend request from {{login}} has been cancelled"
+    },
+    "accept": {
+      "title": "Accepted",
+      "message": "Friend request from {{login}} has been accepted"
+    },
+    "send": {
+      "title": "Sent",
+      "message": "Friend request to {{login}} has been sent"
+    },
+    "remove": {
+      "title": "Removed",
+      "message": "You and {{login}} are no longer friends"
+    }
+  }
+}

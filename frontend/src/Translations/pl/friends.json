@@ -1,0 +1,33 @@
+{
+  "friends": {
+    "card": {
+      "title": "Lista znajomych",
+      "total": "Łącznie znajomych: ",
+      "contentWithoutFriends": {
+        "text": "Nie masz jeszcze żadnych znajomych. \uD83D\uDC3E",
+        "imageAlt": "Nie masz jeszcze znajomych",
+        "subtext": "Zacznij nawiązywać kontakty z ludźmi i rozbuduj swoje znajomości!"
+      }
+    }
+  },
+  "friendDetailed": {
+    "menu": {
+      "label": "Zarządzaj znajomym",
+      "removeItem": {
+        "modal": {
+          "title": "Usuń znajomego",
+          "buttonConfirmText": "Usuń",
+          "buttonCancelText": "Anuluj",
+          "childrenContent": "Czy na pewno chcesz usunąć znajomego"
+        },
+        "childrenContent": "Usuń znajomego"
+      }
+    },
+    "alert": {
+      "success": {
+        "title": "Sukces",
+        "content": "Znajomy został usunięty pomyślnie"
+      }
+    }
+  }
+}

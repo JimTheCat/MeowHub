@@ -1,0 +1,149 @@
+{
+  "main": {
+    "noProfile": {
+      "title": "No profile found",
+      "description": "You don’t have a matching profile yet. Create one to start matching!",
+      "button": {
+        "label": "Create profile"
+      },
+      "switch": {
+        "label": "Use data from your MeowHub account"
+      }
+    },
+    "noMatch": {
+      "title": "No matches found :-(",
+      "description": "No matches found. Try to change your filters or come back later."
+    },
+    "card": {
+      "about": "About {{name}}",
+      "lookingFor": "{{name}} is looking for",
+      "info": "{{name}}'s info",
+      "location": "Current location"
+    }
+  },
+  "aside": {
+    "title": "Matching",
+    "menu": {
+      "base": "Match",
+      "profile": "Profile",
+      "filters": "Filters (coming soon)",
+      "tests": "My tests (coming soon)",
+      "settings": "Settings"
+    }
+  },
+  "filters": {
+    "card": {
+      "title": "Filters",
+      "options": {
+        "showMe": "Show me",
+        "sexuality": "Sexuality",
+        "age": "Preferred age",
+        "distance": "Distance",
+        "hereFor": "Here for"
+      }
+    },
+    "button": {
+      "cancel": {
+        "label": "Cancel"
+      },
+      "submit": {
+        "label": "Apply filters"
+      }
+    }
+  },
+  "profile": {
+    "card": {
+      "imageSection": {
+        "title": "Your images",
+        "imageAlt": "image"
+      },
+      "infoSection": {
+        "title": "Settings",
+        "name": {
+          "label": "Name",
+          "placeholder": "Name"
+        },
+        "bio": {
+          "label": "About me",
+          "placeholder": "Write something about yourself"
+        },
+        "lookingFor": {
+          "label": "Looking for"
+        },
+        "gender": {
+          "label": "Gender"
+        },
+        "sexuality": {
+          "label": "Sexuality"
+        },
+        "education": {
+          "label": "Education"
+        },
+        "drinker": {
+          "label": "Drinker"
+        },
+        "smoker": {
+          "label": "Smoker"
+        },
+        "exercises": {
+          "label": "Exercises"
+        },
+        "pet": {
+          "label": "Pet"
+        },
+        "location": {
+          "label": "Location",
+          "placeholder": "Start typing a city"
+        }
+      }
+    },
+    "button": {
+      "cancel": {
+        "label": "Cancel"
+      },
+      "submit": {
+        "label": "Save"
+      }
+    }
+  },
+  "settings": {
+    "card": {
+      "title": "Matching Settings",
+      "account": {
+        "fieldset": "Account",
+        "button": {
+          "delete": {
+            "label": "Delete account",
+            "confirm": "Remove account",
+            "cancel": "Cancel"
+          }
+        },
+        "modal": {
+          "title": "Remove account",
+          "description": "Are you sure you want to delete your account? This action cannot be undone."
+        }
+      },
+      "privacy": {
+        "fieldset": "Privacy",
+        "switch": {
+          "search": "Show me in search results",
+          "recommendation": "Show me in recommendations",
+          "online": "Show me online status"
+        }
+      }
+    }
+  },
+  "tests": {
+    "button": {
+      "start": {
+        "label": "Start test"
+      },
+      "retake": {
+        "label": "Retake test"
+      },
+      "view": {
+        "label": "View results"
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+DROP PROFILE mh_profile;

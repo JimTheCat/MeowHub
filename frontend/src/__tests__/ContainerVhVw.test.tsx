@@ -1,8 +1,6 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect'; // Dla dodatkowych matcherów
-
-import { ContainerVhVw } from '../Components/ContainerVhVw'; // Import komponentu
+import {render} from '@testing-library/react';
+import '@testing-library/jest-dom'; // Dla dodatkowych matcherów
+import {ContainerVhVw} from '../Features/shared/components/ContainerVhVw'; // Import komponentu
 
 test('renders ContainerVhVw with given vw and vh values', () => {
     // Ustaw wartości vw i vh

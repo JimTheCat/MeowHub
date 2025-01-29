@@ -1,0 +1,7 @@
+{
+  "messenger": {
+    "title": "Chat",
+    "searchPlaceholder": "Search for a chat"
+  },
+  "unselectedChat": "Please select a chat to start"
+}

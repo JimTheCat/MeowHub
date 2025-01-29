@@ -1,0 +1,23 @@
+{
+  "navbar": {
+    "logo": {
+      "alt": "Logo MeowHub"
+    },
+    "profile": {
+      "greeting": "Witaj"
+    },
+    "menu": {
+      "home": "Strona główna",
+      "search": "Szukaj",
+      "friends": "Znajomi",
+      "groups": "Grupy (wkrótce)",
+      "relations": "Relacje",
+      "matching": "Dopasowania",
+      "messages": "Wiadomości (wkrótce)",
+      "settings": "Ustawienia"
+    }
+  },
+  "logOut": {
+    "label": "Wyloguj się"
+  }
+}

@@ -1,0 +1,1 @@
+export {MenuPost} from './MenuPost';

@@ -1,0 +1,93 @@
+{
+  "buttons": {
+    "reaction": {
+      "label": "Reaction",
+      "like": "Like",
+      "love": "Love",
+      "haha": "Haha",
+      "wow": "Wow",
+      "sad": "Sad",
+      "angry": "Angry"
+    },
+    "comment": {
+      "label": "Comment"
+    },
+    "share": {
+      "label": "Share"
+    }
+  },
+  "modals": {
+    "initial": {
+      "title": "Post"
+    },
+    "updated": {
+      "title": "{{name}} {{surname}}'s post"
+    }
+  },
+  "menuPost": {
+    "label": "Manage"
+  },
+  "editPost": {
+    "title": "Edit Post",
+    "buttonConfirm": "Save",
+    "buttonCancel": "Cancel",
+    "children": "Edit post"
+  },
+  "removePost": {
+    "title": "Remove Post",
+    "message": "Are you sure you want to remove this post?",
+    "buttonConfirm": "Yes",
+    "buttonCancel": "No",
+    "children": "Remove post"
+  },
+  "comment": {
+    "card": {
+      "deleted": "Comment has been removed.",
+      "loadingReplies": "Loading replies...",
+      "edited": "edited",
+      "editing": {
+        "buttonConfirm": "Save",
+        "buttonCancel": "Cancel"
+      },
+      "reply": {
+        "label": "Reply",
+        "placeholder": "Write a reply...",
+        "buttonConfirm": "Submit reply"
+      }
+    },
+    "modal": {
+      "title": "Confirm Deletion",
+      "message": "Are you sure you want to remove this comment?",
+      "buttonConfirm": "Delete",
+      "buttonCancel": "Cancel"
+    },
+    "alerts": {
+      "reply": {
+        "title": "Success",
+        "message": "Reply has been sent."
+      },
+      "edit": {
+        "title": "Success",
+        "message": "Comment has been edited."
+      },
+      "delete": {
+        "title": "Success",
+        "message": "Comment has been removed."
+      }
+    }
+  },
+  "detailedPost": {
+    "textArea": {
+      "label": "Comment",
+      "placeholder": "Your comment...",
+      "children": "Comment"
+    },
+    "alert": {
+      "title": "Success",
+      "message": "Comment has been sent."
+    }
+  },
+  "commentsSection": {
+    "noComments": "This post has no comments... Write one!"
+  }
+}

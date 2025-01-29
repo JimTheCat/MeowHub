@@ -1,7 +1,7 @@
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import { Footer } from '../Components/Footer';
+import {fireEvent} from "@testing-library/dom";
+import '@testing-library/jest-dom';
+import {Footer} from '../Features/Login/components/Footer';
+import {render} from "../test-utils/render";
 
 const mockChangeLanguage = jest.fn();
 

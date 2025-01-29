@@ -1,0 +1,194 @@
+{
+  "settings": {
+    "user": {
+      "label": "User settings"
+    },
+    "app": {
+      "label": "App settings"
+    },
+    "footer": {
+      "greetings": {
+        "label": "Made with ❤\uFE0F by MeowHub crew~"
+      },
+      "version": {
+        "label": "App Version {{version}}"
+      }
+    }
+  },
+  "user": {
+    "account": {
+      "label": "My Account",
+      "description": "Change your personal information",
+      "content": {
+        "personal": {
+          "legend": "Personal Information",
+          "name": {
+            "label": "Name",
+            "placeholder": "Your name"
+          },
+          "surname": {
+            "label": "Surname",
+            "placeholder": "Your surname"
+          },
+          "tag": {
+            "label": "Tag",
+            "placeholder": "@your_tag"
+          },
+          "email": {
+            "label": "Email",
+            "placeholder": "Your email"
+          },
+          "birthdate": {
+            "label": "Date of Birth",
+            "placeholder": "Your date of birth"
+          }
+        },
+        "password": {
+          "legend": "Change Password",
+          "current": {
+            "label": "Current Password",
+            "placeholder": "Your current password"
+          },
+          "new": {
+            "label": "New Password",
+            "placeholder": "Your new password"
+          },
+          "repeat": {
+            "label": "Repeat Password",
+            "placeholder": "Repeat your new password"
+          }
+        }
+      }
+    },
+    "privacy": {
+      "label": "Privacy",
+      "description": "Control your privacy settings",
+      "content": {
+        "legend": "Overall",
+        "profile": {
+          "label": "Who can see your profile?"
+        },
+        "posts": {
+          "label": "Who can see your posts?"
+        },
+        "friends": {
+          "label": "Who can see your friends?"
+        },
+        "data": {
+          "everyone": "Everyone",
+          "friends": "Only friends",
+          "nobody": "Nobody"
+        },
+        "save": "Save Changes",
+        "cancel": "Cancel",
+        "alert": {
+          "title": "Changes Saved",
+          "message": "Your privacy settings have been successfully saved."
+        }
+      }
+    },
+    "security": {
+      "label": "Security",
+      "description": "Manage your security settings",
+      "content": {
+        "legend": "2FA",
+        "2fa": {
+          "label": "Two-factor authentication",
+          "description": "Enable two-factor authentication for your account"
+        }
+      }
+    },
+    "notifications": {
+      "label": "Notifications",
+      "description": "Set up your notifications",
+      "content": {
+        "legend": "Notifications",
+        "email": {
+          "label": "Email Notifications"
+        },
+        "push": {
+          "label": "Push Notifications"
+        }
+      }
+    },
+    "personalization": {
+      "label": "Data & Personalization",
+      "description": "Manage your data",
+      "content": {
+        "legend": "Data",
+        "data": {
+          "tooltip": "Manage your data",
+          "children": "Download data"
+        },
+        "account": {
+          "tooltip": "Manage your account",
+          "children": "Delete account",
+          "modal": {
+            "title": "Delete Account",
+            "message": "Are you sure you want to delete your account? This action cannot be undone.",
+            "cancelButton": "Cancel",
+            "confirmButton": "Delete"
+          },
+          "alert": {
+            "title": "Account Deleted",
+            "message": "Your account has been successfully deleted. We're sad to see you go."
+          }
+        }
+      }
+    },
+    "help": {
+      "label": "Help",
+      "description": "Get help with your account"
+    }
+  },
+  "app": {
+    "general": {
+      "label": "General",
+      "description": "Change your general settings"
+    },
+    "appearance": {
+      "label": "Appearance",
+      "description": "Change your appearance settings",
+      "content": {
+        "title": "Appearance Settings",
+        "activeSettings": "Current mode: <1>{{theme}}</1>, Primary color: <1>{{color}}</1>",
+        "theme": {
+          "label": "Toogle {{theme}} Mode",
+          "light": "Light",
+          "dark": "Dark"
+        },
+        "primary": {
+          "label": "Primary color",
+          "gray": "Gray",
+          "red": "Red",
+          "pink": "Pink",
+          "grape": "Grape",
+          "violet": "Violet",
+          "indigo": "Indigo",
+          "blue": "Blue",
+          "cyan": "Cyan",
+          "green": "Green",
+          "lime": "Lime",
+          "yellow": "Yellow",
+          "orange": "Orange",
+          "teal": "Teal"
+        }
+      }
+    },
+    "accessibility": {
+      "label": "Accessibility",
+      "description": "Change your accessibility settings"
+    },
+    "language": {
+      "label": "Language",
+      "description": "Change your language settings",
+      "content": {
+        "title": "Select your language"
+      }
+    },
+    "about": {
+      "label": "About",
+      "description": "About this application"
+    }
+  }
+}

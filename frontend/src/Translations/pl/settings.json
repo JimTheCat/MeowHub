@@ -78,6 +78,12 @@
           "everyone": "Wszyscy",
           "friends": "Tylko znajomi",
           "nobody": "Nikt"
+        },
+        "save": "Zapisz zmiany",
+        "cancel": "Anuluj",
+        "alert": {
+          "title": "Zmiany zapisane",
+          "message": "Twoje ustawienia prywatności zostały zapisane."
         }
       }
     },

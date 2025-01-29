@@ -17,7 +17,7 @@ export const Aside = () => {
         <MenuButton icon={<IconHeartHandshake stroke={iconStroke}/>} text={t('aside.menu.base')} href={base}/>
         <MenuButton icon={<IconUserHeart stroke={iconStroke}/>} text={t('aside.menu.profile')}
                     href={base + '/profile'}/>
-        <MenuButton icon={<IconFilterHeart stroke={iconStroke}/>} text={t('aside.menu.filters')}
+        <MenuButton disabled icon={<IconFilterHeart stroke={iconStroke}/>} text={t('aside.menu.filters')}
                     href={base + '/filters'}/>
         <MenuButton disabled icon={<IconNotes stroke={iconStroke}/>} text={t('aside.menu.tests')}
                     href={base + '/tests'}/>

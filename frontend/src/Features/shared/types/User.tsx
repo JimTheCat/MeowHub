@@ -10,11 +10,11 @@ export type User = {
 }
 
 export type BasicUserInfo = {
-  "id": string,
-  "name": string,
-  "surname": string,
-  "login": string,
-  "profilePictureUrl": string | null
+  id: string,
+  name: string,
+  surname: string,
+  login: string,
+  profilePictureUrl: string | null
 }
 
 export type ProfileUser = BasicUserInfo & ProfileDetails & {

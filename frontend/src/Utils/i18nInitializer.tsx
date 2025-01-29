@@ -22,6 +22,7 @@ import enPostComponent from "../Translations/en/components/post.json";
 import enCookiesComponent from "../Translations/en/components/cookies.json";
 import enInvitationComponent from "../Translations/en/components/invitation.json";
 import enTruncatedTextComponent from "../Translations/en/components/truncatedText.json";
+import enMatchingAttributesUtils from "../Translations/en/utils/matchingAttributes.json";
 // polish translations
 import plCreatePost from "../Translations/pl/createPost.json";
 import plFriends from "../Translations/pl/friends.json";
@@ -45,6 +46,7 @@ import plPostComponent from "../Translations/pl/components/post.json";
 import plCookiesComponent from "../Translations/pl/components/cookies.json";
 import plInvitationComponent from "../Translations/pl/components/invitation.json";
 import plTruncatedTextComponent from "../Translations/pl/components/truncatedText.json";
+import plMatchingAttributesUtils from "../Translations/pl/utils/matchingAttributes.json";
 
 export const i18nInitializer = () => {
   let language = localStorage.getItem('language');
@@ -81,6 +83,9 @@ export const i18nInitializer = () => {
         invitationComponent: enInvitationComponent,
         truncatedTextComponent: enTruncatedTextComponent,
         // =-=-=COMPONENTS TRANSLATIONS END=-=-=
+        // =-=-=UTILS TRANSLATIONS START=-=-=
+        matchingAttributesUtils: enMatchingAttributesUtils,
+        // =-=-=UTILS TRANSLATIONS END
       },
       pl: {
         // =-=-=FEATURE TRANSLATIONS START=-=-=
@@ -109,6 +114,9 @@ export const i18nInitializer = () => {
         invitationComponent: plInvitationComponent,
         truncatedTextComponent: plTruncatedTextComponent,
         // =-=-=COMPONENTS TRANSLATIONS END=-=-=
+        // =-=-=UTILS TRANSLATIONS START=-=-=
+        matchingAttributesUtils: plMatchingAttributesUtils,
+        // =-=-=UTILS TRANSLATIONS END
       }
     }
   });

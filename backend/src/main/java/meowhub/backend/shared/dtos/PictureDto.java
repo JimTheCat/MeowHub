@@ -14,6 +14,13 @@ import java.time.LocalDateTime;
 public class PictureDto {
     private String id;
     private String url;
-    private Boolean isCurrentProfilePicture;
+    private Long index;
     private LocalDateTime createdAt;
+
+    //for any other than matching profile picture
+    public PictureDto(String id, String url, LocalDateTime createdAt) {
+        this.id = id;
+        this.url = url;
+        this.createdAt = createdAt;
+    }
 }

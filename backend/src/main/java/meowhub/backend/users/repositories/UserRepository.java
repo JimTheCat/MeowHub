@@ -32,7 +32,6 @@ public interface UserRepository extends JpaRepository<User, String> {
         LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
         WHERE u.login = :login
         ORDER BY pp.id
-        FETCH FIRST 1 ROWS ONLY
     """)
     Optional<BasicUserInfoDto> findBasicUserInfoByLogin(@Param("login") String login);
 

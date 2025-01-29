@@ -1,5 +1,5 @@
 import {BasicUserInfo} from "../../types";
-import {ActionIcon, Group, Menu, rem, Text, Tooltip} from "@mantine/core";
+import {ActionIcon, Group, Loader, Menu, rem, Text, Tooltip} from "@mantine/core";
 import {IconDots, IconSend, IconUserCheck, IconUserPlus, IconUsersMinus, IconUserX} from "@tabler/icons-react";
 import {ModificationModal} from "../ModificationModal";
 import {useRelationsStore} from "../../services/relationStatus.ts";
@@ -62,10 +62,36 @@ export const InvitationStatus = ({user}: { user: BasicUserInfo }) => {
   }
 
   useEffect(() => {
-    relationsStore.initializeRelations().then(() => {
-      setStatus(relationsStore.relations[user.login]);
-    });
-  }, []);
+    let isCancelled = false;
+
+    const fetchRelations = async () => {
+      try {
+        await relationsStore.initializeRelations();
+
+        if (!isCancelled) {
+          const relationStatus = relationsStore.relations[user.login];
+          setStatus(relationStatus || 'none');
+        }
+      } catch (error) {
+        console.error("Error initializing relations:", error);
+      }
+    };
+
+    if (!relationsStore.relations[user.login]) {
+      fetchRelations();
+    } else {
+      setStatus(relationsStore.relations[user.login] || 'none');
+    }
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [user.login, relationsStore.relations]);
+
+
+  if (relationsStore.isLoading) {
+    return <Loader size="xs"/>;
+  }
 
   switch (status) {
     case 'none':

@@ -82,7 +82,8 @@ export const Login = () => {
                     {...form.getInputProps('password')}
                   />
                   <Button mt={5} type="submit">{t('card.login')}</Button>
-                  <Text component={'a'} href={'/passwordrecovery'} size={"xs"}>{t('card.recovery')}</Text>
+                  <Text onClick={() => navigate('/passwordrecovery')} style={{cursor: 'pointer'}}
+                        size={"xs"}>{t('card.recovery')}</Text>
                   <Divider my={"xs"}/>
                 </Stack>
                 <Group justify={"center"}>

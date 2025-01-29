@@ -1,22 +1,47 @@
 {
-	"card": {
-		"isNotSent": {
-			"button": {
-				"cancel": "Cancel",
-				"submit": "Submit"
-			},
-			"email": {
-				"invalid": "Invalid email",
-				"label": "Email",
-				"placeholder": "Enter your email address"
-			},
-			"subtext": "Enter your email address and we will send you a link to reset your password.",
-			"title": "Recover your password"
-		},
-		"isSent": {
-			"button": "Go to login",
-			"subtext": "Please check your email for further instructions",
-			"title": "Email has been sent!"
-		}
-	}
+  "card": {
+    "isNotSent": {
+      "button": {
+        "cancel": "Cancel",
+        "submit": "Submit"
+      },
+      "login": {
+        "invalid": "Login does not exist",
+        "label": "Login",
+        "placeholder": "Enter your unique login"
+      },
+      "subtext": "Enter your link and we will send you a link to reset your password.",
+      "title": "Recover your password"
+    },
+    "isSent": {
+      "button": "Go to login",
+      "subtext": "Please check the linked email for further instructions",
+      "title": "Email has been sent!",
+      "alert": {
+        "title": "Email has been sent",
+        "message": "Please check your inbox for further instructions."
+      }
+    },
+    "resetPassword": {
+      "title": "Reset your password",
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your new password"
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Confirm your new password"
+      },
+      "button": {
+        "submit": "Submit",
+        "cancel": "Cancel"
+      }
+    },
+    "resetSuccess": {
+      "alert": {
+        "title": "Password has been reset",
+        "message": "You can now log in with your new password."
+      }
+    }
+  }
 }

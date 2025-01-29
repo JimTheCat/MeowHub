@@ -1,0 +1,1 @@
+export {MatchingBadge} from './MatchingBadge';

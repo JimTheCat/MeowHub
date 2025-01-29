@@ -37,7 +37,9 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDto getPostById(String requestedBy, String postId) {
-        return postRepository.getPostByIdIfPublicOrFriends(requestedBy, postId);
+        PostDto postDto = postRepository.getPostByIdIfPublicOrFriends(requestedBy, postId);
+        addPictures(postDto);
+        return postDto;
     }
 
     @Override
@@ -82,6 +84,7 @@ public class PostServiceImpl implements PostService {
             return convertToPostDto(post);
         }
 
+        if(pictures.size() > 5) throw new IllegalArgumentException(String.format(AlertConstants.TOO_MANY_PICTURES, 5, pictures.size()));
         List<PostPicture> postPictures = new ArrayList<>();
         for (int i = 0; i < pictures.size(); i++) {
             MultipartFile picture = pictures.get(i);
@@ -113,9 +116,8 @@ public class PostServiceImpl implements PostService {
                 .orElseThrow(() -> new NotFoundException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "post", "id", postId)));
     }
 
-    private Page<PostDto> addPicturesToPage (Page<PostDto> postsDto){
+    private void addPicturesToPage (Page<PostDto> postsDto){
         postsDto.forEach(this::addPictures);
-        return null;
     }
 
     private void addPictures (PostDto postsDto){

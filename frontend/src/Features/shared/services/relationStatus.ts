@@ -58,7 +58,10 @@ export const useRelationsStore = create<RelationsState>((set) => ({
         allRelations[login] = 'pendingReceived';
       });
 
-      set({relations: allRelations, isLoading: false});
+      set((state) => ({
+        relations: {...state.relations, ...allRelations},
+        isLoading: false,
+      }));
     } catch (error) {
       console.error('Error initializing relations:', error);
       set({isLoading: false, error: 'Failed to load relations'});

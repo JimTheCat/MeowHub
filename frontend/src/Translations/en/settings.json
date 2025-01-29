@@ -78,6 +78,12 @@
           "everyone": "Everyone",
           "friends": "Only friends",
           "nobody": "Nobody"
+        },
+        "save": "Save Changes",
+        "cancel": "Cancel",
+        "alert": {
+          "title": "Changes Saved",
+          "message": "Your privacy settings have been successfully saved."
         }
       }
     },
@@ -113,6 +119,20 @@
         "data": {
           "tooltip": "Manage your data",
           "children": "Download data"
+        },
+        "account": {
+          "tooltip": "Manage your account",
+          "children": "Delete account",
+          "modal": {
+            "title": "Delete Account",
+            "message": "Are you sure you want to delete your account? This action cannot be undone.",
+            "cancelButton": "Cancel",
+            "confirmButton": "Delete"
+          },
+          "alert": {
+            "title": "Account Deleted",
+            "message": "Your account has been successfully deleted. We're sad to see you go."
+          }
         }
       }
     },

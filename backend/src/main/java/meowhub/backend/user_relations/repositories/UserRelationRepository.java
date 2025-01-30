@@ -21,12 +21,11 @@ public interface UserRelationRepository extends JpaRepository<UserRelation, Stri
                 )
                  FROM UserRelation relation
                  JOIN User sender ON relation.sender.id = sender.id
-                 JOIN RelationType relationType ON relation.relationType.id = relationType.id
                  JOIN User receiver ON relation.receiver.id = receiver.id
                  LEFT JOIN Profile p ON p.user.id = receiver.id
                  LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
                 WHERE sender.login = :login
-                  AND relationType.code = :relationTypeCode
+                  AND relation.relationType.code = :relationTypeCode
             """)
     Page<BasicUserInfoDto> findRelationsFor(@Param("login") String login, @Param("relationTypeCode") String relationTypeCode, Pageable pageable);
 
@@ -40,12 +39,11 @@ public interface UserRelationRepository extends JpaRepository<UserRelation, Stri
                 )
                  FROM UserRelation relation
                  JOIN User sender ON relation.sender.id = sender.id
-                 JOIN RelationType relationType ON relation.relationType.id = relationType.id
                  JOIN User receiver ON relation.receiver.id = receiver.id
                  LEFT JOIN Profile p ON p.user.id = sender.id
                  LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
                 WHERE receiver.login = :login
-                  AND relationType.code = :relationTypeCode
+                  AND relation.relationType.code = :relationTypeCode
             """)
     Page<BasicUserInfoDto> findRelationsWhereReceiverIs(@Param("login") String receiverLogin, @Param("relationTypeCode") String relationTypeCode, Pageable pageable);
 
@@ -60,25 +58,25 @@ public interface UserRelationRepository extends JpaRepository<UserRelation, Stri
                  FROM UserRelation relation
                  JOIN User sender ON relation.sender.id = sender.id
                  JOIN User receiver ON relation.receiver.id = receiver.id
-                 JOIN RelationType relationType ON relation.relationType.id = relationType.id
                  LEFT JOIN Profile p ON p.user.id = sender.id
                  LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
                 WHERE receiver.login = :login
-                  AND relationType.code = 'FRIENDS'
+                  AND relation.relationType.code = 'FRIENDS'
                 UNION
                 SELECT new meowhub.backend.users.dtos.BasicUserInfoDto (
                     receiver.id,
                     receiver.name,
                     receiver.surname,
                     receiver.login,
-                    null
+                    pp.ociUrl
                 )
                  FROM UserRelation relation
                  JOIN User sender ON relation.sender.id = sender.id
                  JOIN User receiver ON relation.receiver.id = receiver.id
-                 JOIN RelationType relationType ON relation.relationType.id = relationType.id
+                 LEFT JOIN Profile p ON p.user.id = sender.id
+                 LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
                 WHERE sender.login = :login
-                  AND relationType.code = 'FRIENDS'
+                  AND relation.relationType.code = 'FRIENDS'
             """)
     Page<BasicUserInfoDto> findFriendsFor (@Param("login") String login, Pageable pageable);
 

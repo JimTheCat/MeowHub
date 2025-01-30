@@ -10,6 +10,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -129,6 +131,36 @@ public class MatchingProfile {
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "LOOKING_FOR_ID")
     private LookingFor lookingFor;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "P_SEXUALITY_ID")
+    private Sexuality pSexuality;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "P_LOOKING_FOR_ID")
+    private LookingFor pLookingFor;
+
+    @Min(16)
+    @Max(100)
+    @Column(name = "P_AGE_FROM")
+    private Short pAgeFrom;
+
+    @Min(16)
+    @Max(100)
+    @Column(name = "P_AGE_TO")
+    private Short pAgeTo;
+
+    @Min(120)
+    @Max(300)
+    @Column(name = "P_HEIGHT_FROM")
+    private Short pHeightFrom;
+
+    @Min(120)
+    @Max(300)
+    @Column(name = "P_HEIGHT_TO")
+    private Short pHeightTo;
 
 /*
  TODO [Reverse Engineering] create field to map the 'GEOLOCALIZATION' column

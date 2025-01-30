@@ -2,6 +2,7 @@ package meowhub.backend.matching.services;
 
 
 import meowhub.backend.matching.dtos.MatchingProfileDto;
+import meowhub.backend.matching.dtos.MatchingProfilePreferencesDto;
 import meowhub.backend.matching.models.MatchingProfile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,4 +17,6 @@ public interface MatchingProfileQueryService {
     MatchingProfile findMatchingProfileByLoginOrThrow(String login);
 
     Optional<MatchingProfile> findMatchingProfileByLogin(String login);
+
+    MatchingProfilePreferencesDto getPreferences(String login);
 }

@@ -48,7 +48,7 @@ public interface PostRepository extends JpaRepository<Post, String> {
                             JOIN r.relationType relType
                             WHERE relType.code = 'FRIENDS'
                               AND receiver.login = :requestedBy
-                       )))
+                       ))) ORDER BY p.createdAt DESC
             """)
     Page<PostDto> findIfPublicOrFriends(@Param("requestedBy") String requestedBy, Pageable pageable);
 

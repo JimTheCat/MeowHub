@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 import api from "./api.ts";
+import {useAuthStore} from "./authStore.ts";
 
 type RelationStatus = 'none' | 'friends' | 'pendingSent' | 'pendingReceived';
 
@@ -37,11 +38,12 @@ export const useRelationsStore = create<RelationsState>((set) => ({
   error: null,
 
   initializeRelations: async () => {
+    const auth = useAuthStore.getState();
     set({isLoading: true, error: null});
 
     try {
       const [friends, pendingSent, pendingReceived] = await Promise.all([
-        fetchPaginatedResults('/api/relations/friends'),
+        fetchPaginatedResults(`/api/relations/${auth.user?.login}/friends`),
         fetchPaginatedResults('/api/relations/pending'),
         fetchPaginatedResults('/api/relations/received'),
       ]);

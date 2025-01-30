@@ -109,4 +109,14 @@ public class AlertUtils {
 
         return alertDto;
     }
+
+    public static AlertDto methodArgumentNotValidException(String msg) {
+        AlertDto alertDto = new AlertDto();
+        alertDto.setTitle(AlertConstants.METHOD_ARGUMENT_NOT_VALID);
+        alertDto.setMessage(msg);
+        alertDto.setLevel(AlertLevel.ERROR);
+        alertDto.setTimestamp(LocalDateTime.now());
+
+        return alertDto;
+    }
 }

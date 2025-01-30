@@ -3,6 +3,7 @@ package meowhub.backend.matching.services.impl;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import meowhub.backend.matching.dtos.CreateMatchingProfileRequestDto;
+import meowhub.backend.matching.dtos.MatchingProfilePreferencesDto;
 import meowhub.backend.matching.dtos.UpdateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.MatchingProfileDto;
 import meowhub.backend.matching.models.MatchingProfile;
@@ -151,6 +152,20 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
             throw new IllegalArgumentException(AlertConstants.HEIGHT_TOO_LOW);
         }
         matchingProfile.setProfileDetailsHtml(request.getAboutMe());
+    }
+
+    @Override
+    public void updateMatchingProfilePreferences(MatchingProfilePreferencesDto preferences, String login) {
+        MatchingProfile matchingProfile = matchingProfileQueryService.findMatchingProfileByLoginOrThrow(login);
+        matchingProfile.setPHeightFrom(preferences.getHeightFrom());
+        matchingProfile.setPHeightTo(preferences.getHeightTo());
+        matchingProfile.setPAgeFrom(preferences.getAgeFrom());
+        matchingProfile.setPAgeTo(preferences.getAgeTo());
+        matchingProfile.setPSexuality(sexualityRepository.findByCode(preferences.getSexuality().name())
+                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Sexuality", "code", preferences.getSexuality().name()))));
+        matchingProfile.setPLookingFor(lookingForRepository.findByCode(preferences.getLookingFor().name())
+                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Looking for", "code", preferences.getLookingFor().name()))));
+        matchingProfileRepository.save(matchingProfile);
     }
 
     @Override

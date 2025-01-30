@@ -122,6 +122,12 @@ ALTER TABLE mh_matching.Matching_Profiles
             REFERENCES mh_users.Users (id)
                 ON DELETE CASCADE;
 
+-- Reference: p_sexuality_Profile_Users (table: Matching_Profiles)
+ALTER TABLE mh_matching.Matching_Profiles
+    ADD CONSTRAINT p_sexuality_matching_profiles
+        FOREIGN KEY (p_sexuality_id)
+            REFERENCES mh_matching.sexuality (id);
+
 -- Reference: sexuality_matching_profiles (table: sexuality)
 ALTER TABLE mh_matching.matching_profiles
     ADD CONSTRAINT sexuality_matching_profiles
@@ -138,6 +144,12 @@ ALTER TABLE mh_matching.matching_profiles
 ALTER TABLE mh_matching.matching_profiles
     ADD CONSTRAINT looking_for_matching_profiles
         FOREIGN KEY (looking_for_id)
+            REFERENCES mh_matching.looking_for (id);
+
+-- Reference: p_looking_for_matching_profiles (table: looking_for)
+ALTER TABLE mh_matching.matching_profiles
+    ADD CONSTRAINT p_looking_for_matching_profiles
+        FOREIGN KEY (p_looking_for_id)
             REFERENCES mh_matching.looking_for (id);
 
 -- Reference: pets_matching_profiles (table: pets)

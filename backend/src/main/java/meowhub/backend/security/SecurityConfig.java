@@ -5,6 +5,7 @@ import meowhub.backend.constants.Roles;
 import meowhub.backend.users.facades.UserAuthServiceFacade;
 import meowhub.backend.security.jwt.AuthEntryPointJwt;
 import meowhub.backend.security.jwt.AuthTokenFilter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,18 +19,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.LocalDate;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Value("${custom.frontend.url}")
+    private String frontendUrl;
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, AuthEntryPointJwt unauthorizedHandler, AuthTokenFilter authenticationJwtTokenFilter) throws Exception {
+        http.cors(Customizer.withDefaults());
+
         http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/api/auth/public/**", "/api/ext/**")
-        );
+                .ignoringRequestMatchers("/api/auth/public/**", "/api/ext/**"));
 
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers("/api/csrf-token/**").permitAll()
@@ -74,4 +80,21 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                        .allowedOrigins(frontendUrl)
+                        .allowedMethods("GET", "POST", "DELETE")
+                        .allowedHeaders("Content-Type", "Authorization", "X-XSRF-TOKEN")
+                        .exposedHeaders("X-XSRF-TOKEN")
+                        .allowCredentials(true);
+            }
+        };
+    }
+
+
 }

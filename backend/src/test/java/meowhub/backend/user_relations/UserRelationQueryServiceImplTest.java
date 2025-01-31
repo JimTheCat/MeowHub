@@ -48,26 +48,6 @@ class UserRelationQueryServiceImplTest {
     }
 
     @Test
-    void testGetFriends() {
-        // Arrange
-        String login = "testUser";
-        int page = 0;
-        int size = 10;
-        Pageable pageable = PageRequest.of(page, size);
-
-        Page<BasicUserInfoDto> friendsPage = new PageImpl<>(Collections.singletonList(testUserInfo));
-        when(userRelationRepository.findFriendsFor(login, pageable)).thenReturn(friendsPage);
-
-        // Act
-        Page<BasicUserInfoDto> result = userRelationQueryService.getFriends(login, page, size);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals(1, result.getTotalElements());
-        verify(userRelationRepository, times(1)).findFriendsFor(login, pageable);
-    }
-
-    @Test
     void testGetFriendsForUser_Success() {
         // Arrange
         String login = "targetUser";

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.MailSendException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.webjars.NotFoundException;
@@ -65,5 +66,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MailSendException.class)
     public ResponseEntity<AlertDto> handleMailSendException(MailSendException ex) {
         return new ResponseEntity<>(AlertUtils.mailSendException(ex.getMessage()), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<AlertDto> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        return new ResponseEntity<>(AlertUtils.methodArgumentNotValidException(ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }

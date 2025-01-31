@@ -2,7 +2,11 @@ import axios from 'axios';
 import {Alert} from "../types/Alert.tsx";
 
 const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true, // Cookie handling
+  headers: {
+    'Content-Type': 'application/json'
+  }
 });
 
 let showError: ((alert: Alert) => void) | null = null;

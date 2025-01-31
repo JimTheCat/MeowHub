@@ -351,15 +351,24 @@ CREATE TABLE mh_matching.Matching_Profiles
     Education_id         varchar2(36)   NULL,
     smoker_id            varchar2(36)   NULL,
     drinker_id           varchar2(36)   NULL,
-    exercises_id        varchar2(36)   NULL,
+    exercises_id        varchar2(36)    NULL,
     looking_for_id       varchar2(36)   NULL,
     geolocalization      sdo_geometry   NULL,
+    p_height_from        number(3)      NULL,
+    p_height_to          number(3)      NULL,
+    p_age_from           number(3)      NULL,
+    p_age_to             number(3)      NULL,
+    p_looking_for_id     varchar2(36)   NULL,
+    p_sexuality_id       varchar2(36)   NULL,
     created_at           date           NOT NULL,
     created_by           varchar2(36)   NOT NULL,
     modified_at          date           NULL,
     modified_by          varchar2(36)   NULL,
     CONSTRAINT Matching_Profiles_pk PRIMARY KEY (id),
-    CONSTRAINT Matching_Profile_user_id_idx UNIQUE (user_id)
+    CONSTRAINT Matching_Profile_user_id_idx UNIQUE (user_id),
+    CONSTRAINT Matching_Profile_p_age_order_ch CHECK (p_age_from <= p_age_to),
+    CONSTRAINT Matching_Profile_p_age_range_ch CHECK (p_age_from BETWEEN 16 AND 100 AND p_age_to BETWEEN 16 AND 100),
+    CONSTRAINT Matching_Profile_p_height_range_ch CHECK (p_height_from BETWEEN 120 AND 300 AND p_height_to BETWEEN 120 AND 300)
 );
 
 ---------------------------------------- || MH_PROFILES SCHEMA || ----------------------------------------

@@ -2,6 +2,7 @@ package meowhub.backend.matching.services.impl;
 
 import lombok.RequiredArgsConstructor;
 import meowhub.backend.matching.dtos.MatchingProfileDto;
+import meowhub.backend.matching.dtos.MatchingProfilePreferencesDto;
 import meowhub.backend.matching.models.MatchingProfile;
 import meowhub.backend.matching.repositories.MatchingProfileRepository;
 import meowhub.backend.matching.services.MatchingProfileQueryService;
@@ -41,5 +42,12 @@ public class MatchingProfileQueryServiceImpl implements MatchingProfileQueryServ
     @Override
     public Optional<MatchingProfile> findMatchingProfileByLogin(String login) {
         return matchingProfileRepository.findByUserLogin(login);
+    }
+
+    @Override
+    public MatchingProfilePreferencesDto getPreferences(String login) {
+        return matchingProfileRepository.findByUserLogin(login)
+                .map(MatchingProfilePreferencesDto::createFromMatchingProfilePreferencesFromMatchingProfile)
+                .orElseThrow();
     }
 }

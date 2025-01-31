@@ -19,16 +19,10 @@ public class UserRelationQueryServiceImpl implements UserRelationQueryService {
     private final UserRelationServiceFacade userRelationServiceFacade;
 
     @Override
-    public Page<BasicUserInfoDto> getFriends(String login, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return userRelationRepository.findFriendsFor(login, pageable);
-    }
-
-    @Override
     public Page<BasicUserInfoDto> getFriendsForUser(String login, String requestedBy, int page, int size) {
         userRelationServiceFacade.validateIfUserExists(login);
 
-        if(userRelationRepository.canViewUserPosts(login, requestedBy)) {
+        if(login.equals(requestedBy) || userRelationRepository.canViewUserPosts(login, requestedBy)) {
             Pageable pageable = PageRequest.of(page, size);
             return userRelationRepository.findFriendsFor(login, pageable);
         } else {

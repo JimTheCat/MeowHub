@@ -1,7 +1,9 @@
 package meowhub.backend.matching.controllers;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import meowhub.backend.matching.dtos.CreateMatchingProfileRequestDto;
+import meowhub.backend.matching.dtos.MatchingProfilePreferencesDto;
 import meowhub.backend.matching.dtos.UpdateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.MatchingProfileDto;
 import meowhub.backend.matching.services.MatchingProfileQueryService;
@@ -48,6 +50,17 @@ public class MatchingProfileController {
     @GetMapping("/all")
     public ResponseEntity<Page<MatchingProfileDto>> getAllMatchingProfiles(Pageable pageable) {
         return ResponseEntity.ok(matchingProfileQueryService.getAllMatchingProfiles(pageable));
+    }
+
+    @GetMapping("/preferences")
+    public ResponseEntity<MatchingProfilePreferencesDto> getMatchingProfilePreferences(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(matchingProfileQueryService.getPreferences(userDetails.getUsername()));
+    }
+
+    @PostMapping("/preferences")
+    public ResponseEntity<Void> updateMatchingProfilePreferences(@RequestBody @Valid MatchingProfilePreferencesDto preferences, @AuthenticationPrincipal UserDetails userDetails) {
+        matchingProfileService.updateMatchingProfilePreferences(preferences, userDetails.getUsername());
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping()

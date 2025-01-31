@@ -5,13 +5,15 @@ import {useEffect, useState} from "react";
 import api from "../shared/services/api.ts";
 import cat_no_friends from "./assets/cat_no_friends.png";
 import {useTranslation} from "react-i18next";
+import {useAuthStore} from "../shared/services/authStore.ts";
 
 export const Friends = () => {
   const [friends, setFriends] = useState<BasicUserInfo[]>([]);
   const {t} = useTranslation('friends');
+  const auth = useAuthStore();
 
   const fetchFriends = () => {
-    api.get('/api/relations/friends').then((response) => {
+    api.get(`/api/relations/${auth.user?.login}/friends`).then((response) => {
       setFriends(response.data.content);
     });
   };

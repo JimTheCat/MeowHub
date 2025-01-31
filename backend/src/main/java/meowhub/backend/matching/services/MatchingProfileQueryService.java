@@ -19,4 +19,6 @@ public interface MatchingProfileQueryService {
     Optional<MatchingProfile> findMatchingProfileByLogin(String login);
 
     MatchingProfilePreferencesDto getPreferences(String login);
+
+    Page<MatchingProfileDto> search(int page, int size, String login);
 }

@@ -47,38 +47,6 @@ public class MatchingProfile {
     @Column(name = "PROFILE_DETAILS_HTML", length = 2000)
     private String profileDetailsHtml;
 
-    @Column(name = "CREATED_AT")
-    private LocalDateTime createdAt;
-
-    @Size(max = 36)
-    @Column(name = "CREATED_BY", length = 36)
-    private String createdBy;
-
-    @Column(name = "MODIFIED_AT")
-    private LocalDateTime modifiedAt;
-
-    @Size(max = 36)
-    @Column(name = "MODIFIED_BY", length = 36)
-    private String modifiedBy;
-
-    @OneToMany(mappedBy = "receiver")
-    private Set<Liked> likedReceiver = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "sender")
-    private Set<Liked> likedSender = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "sender")
-    private Set<MatchingChat> matchingChatsSender = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "receiver")
-    private Set<MatchingChat> matchingChatsReceiver = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "matchingProfile")
-    private Set<MatchingChatMessage> matchingChatMessages = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "matchingProfile")
-    private Set<MatchingProfilePicture> matchingProfilePictures = new LinkedHashSet<>();
-
     @Size(max = 40)
     @NotNull
     @Column(name = "NAME", nullable = false, length = 40)
@@ -87,6 +55,10 @@ public class MatchingProfile {
     @NotNull
     @Column(name = "BIRTHDATE", nullable = false)
     private LocalDate birthdate;
+
+    @NotNull
+    @Column(name = "AGE", nullable = false)
+    private Short age;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -134,8 +106,8 @@ public class MatchingProfile {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "P_SEXUALITY_ID")
-    private Sexuality pSexuality;
+    @JoinColumn(name = "P_GENDER_ID")
+    private Gender pGender;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.RESTRICT)
@@ -161,6 +133,38 @@ public class MatchingProfile {
     @Max(300)
     @Column(name = "P_HEIGHT_TO")
     private Short pHeightTo;
+
+    @Column(name = "CREATED_AT")
+    private LocalDateTime createdAt;
+
+    @Size(max = 36)
+    @Column(name = "CREATED_BY", length = 36)
+    private String createdBy;
+
+    @Column(name = "MODIFIED_AT")
+    private LocalDateTime modifiedAt;
+
+    @Size(max = 36)
+    @Column(name = "MODIFIED_BY", length = 36)
+    private String modifiedBy;
+
+    @OneToMany(mappedBy = "receiver")
+    private Set<Liked> likedReceiver = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "sender")
+    private Set<Liked> likedSender = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "sender")
+    private Set<MatchingChat> matchingChatsSender = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "receiver")
+    private Set<MatchingChat> matchingChatsReceiver = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "matchingProfile")
+    private Set<MatchingChatMessage> matchingChatMessages = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "matchingProfile")
+    private Set<MatchingProfilePicture> matchingProfilePictures = new LinkedHashSet<>();
 
 /*
  TODO [Reverse Engineering] create field to map the 'GEOLOCALIZATION' column

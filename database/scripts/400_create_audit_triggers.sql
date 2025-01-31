@@ -252,6 +252,7 @@ CREATE OR REPLACE TRIGGER mh_matching.matching_profiles_audit_trg
     FOR EACH ROW
 BEGIN
     IF INSERTING THEN
+        :NEW.age        := TRUNC(MONTHS_BETWEEN(SYSDATE, :NEW.birthdate) / 12);
         :NEW.created_at := CURRENT_TIMESTAMP;
         :NEW.created_by := mh_meowhub.get_user_id;
     ELSIF UPDATING THEN

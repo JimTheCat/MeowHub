@@ -161,8 +161,8 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         matchingProfile.setPHeightTo(preferences.getHeightTo());
         matchingProfile.setPAgeFrom(preferences.getAgeFrom());
         matchingProfile.setPAgeTo(preferences.getAgeTo());
-        matchingProfile.setPSexuality(sexualityRepository.findByCode(preferences.getSexuality().name())
-                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Sexuality", "code", preferences.getSexuality().name()))));
+        matchingProfile.setPGender(genderRepository.findByCode(preferences.getGender().name())
+                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Gender", "code", preferences.getGender().name()))));
         matchingProfile.setPLookingFor(lookingForRepository.findByCode(preferences.getLookingFor().name())
                 .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Looking for", "code", preferences.getLookingFor().name()))));
         matchingProfileRepository.save(matchingProfile);

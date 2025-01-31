@@ -344,6 +344,7 @@ CREATE TABLE mh_matching.Matching_Profiles
     profile_details_html varchar2(2000) NULL,
     name                 varchar2(40)   NOT NULL,
     birthdate            date           NOT NULL,
+    age                  number(3)      NOT NULL, --updated by UPDATE_AGE_JOB everyday at midnight
     Gender_id            varchar2(36)   NOT NULL,
     height               number(3)      NULL,
     Sexuality_id         varchar2(36)   NULL,
@@ -359,7 +360,7 @@ CREATE TABLE mh_matching.Matching_Profiles
     p_age_from           number(3)      NULL,
     p_age_to             number(3)      NULL,
     p_looking_for_id     varchar2(36)   NULL,
-    p_sexuality_id       varchar2(36)   NULL,
+    p_gender_id          varchar2(36)   NULL,
     created_at           date           NOT NULL,
     created_by           varchar2(36)   NOT NULL,
     modified_at          date           NULL,

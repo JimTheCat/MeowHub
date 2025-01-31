@@ -50,4 +50,10 @@ public class MatchingProfileQueryServiceImpl implements MatchingProfileQueryServ
                 .map(MatchingProfilePreferencesDto::createFromMatchingProfilePreferencesFromMatchingProfile)
                 .orElseThrow();
     }
+
+    @Override
+    public Page<MatchingProfileDto> search(int page, int size, String login) {
+        Pageable pageable = Pageable.ofSize(size).withPage(page);
+        return matchingProfileRepository.search(login, pageable).map(MatchingProfileDto::createFromMatchingProfile);
+    }
 }

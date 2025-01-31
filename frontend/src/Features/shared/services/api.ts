@@ -21,7 +21,8 @@ let csrfTokenPromise: Promise<string | null> | null = null;
 // Fetch CSRF token from server
 const fetchCsrfToken = async (): Promise<string | null> => {
   try {
-    const response = await axios.get('/api/csrf-token', {withCredentials: true});
+    // get /api/csrf-token and use VITE_API_URL
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/csrf-token`, {withCredentials: true});
     if (response.data.token && response.data.headerName) {
       // Set up cookie with CSRF token
       localStorage.setItem('X-XSRF-TOKEN', response.data.token);

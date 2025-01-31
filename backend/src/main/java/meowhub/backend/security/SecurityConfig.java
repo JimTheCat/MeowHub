@@ -10,6 +10,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,8 +29,12 @@ public class SecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http, AuthEntryPointJwt unauthorizedHandler, AuthTokenFilter authenticationJwtTokenFilter) throws Exception {
         http.cors(Customizer.withDefaults());
 
+        http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)); //
+//        http.sessionManagement(session -> session
+//                .sessionFixation().newSession()
+//        );
         http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/api/auth/public/**", "/api/ext/**"));
+                .ignoringRequestMatchers("/api/auth/public/**", "/api/ext/**", "/api/**"));
 
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers("/api/csrf-token/**").permitAll()
@@ -69,9 +74,10 @@ public class SecurityConfig {
                 registry.addMapping("/api/**")
                         .allowedOrigins(frontendUrl)
                         .allowedMethods("GET", "POST", "DELETE")
-                        .allowedHeaders("Content-Type", "Authorization", "X-XSRF-TOKEN")
+                        .allowedHeaders("Content-Type", "Authorization", "X-XSRF-TOKEN","Access-Control-Allow-Origin")
                         .exposedHeaders("X-XSRF-TOKEN")
                         .allowCredentials(true);
+
             }
         };
     }

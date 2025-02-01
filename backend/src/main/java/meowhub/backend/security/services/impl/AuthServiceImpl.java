@@ -2,7 +2,6 @@ package meowhub.backend.security.services.impl;
 
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.constants.Roles;
 import meowhub.backend.profiles.services.facades.ProfileAuthServiceFacade;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.shared.exceptions.NotUniqueObjectException;
@@ -61,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void signUpUser(SignUpRequest request) {
         validateSignUpRequest(request);
-        userAuthServiceFacade.createUser(request.getLogin(), request.getName(), request.getSurname(), request.getEmail(), request.getPassword(), request.getBirthdate(), Roles.ROLE_USER, request.getGender());
+        userAuthServiceFacade.createUser(request.getLogin(), request.getName(), request.getSurname(), request.getEmail(), request.getPassword(), request.getBirthdate(), request.getGender());
         profileAuthServiceFacade.createProfile(request);
     }
 
@@ -83,7 +82,6 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void validateTokenAndResetPassword(String token, String newPassword) {
         String login = jwtUtils.validateTokenFromLinkToResetPassword(token);
-        userAuthServiceFacade.validateIfUserExists(login);
         userAuthServiceFacade.changePassword(newPassword, login);
     }
 

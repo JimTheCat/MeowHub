@@ -31,37 +31,6 @@ ALTER TABLE mh_chats.Chatrooms
         FOREIGN KEY (receiver_id)
             REFERENCES mh_users.Users (id);
 
----------------------------------------- || MH_GROUPS SCHEMA || ----------------------------------------
--- Reference: Groupchat_messages_Groups (table: Groupchat_messages)
-ALTER TABLE mh_groups.Groupchat_messages
-    ADD CONSTRAINT Groupchat_messages_Groups
-        FOREIGN KEY (group_id)
-            REFERENCES mh_groups.Groups (id);
-
--- Reference: Groupchat_messages_Users (table: Groupchat_messages)
-ALTER TABLE mh_groups.Groupchat_messages
-    ADD CONSTRAINT Groupchat_messages_Users
-        FOREIGN KEY (user_id)
-            REFERENCES mh_users.Users (id);
-
--- Reference: Groupchat_messages_answer (table: Groupchat_messages)
-ALTER TABLE mh_groups.Groupchat_messages
-    ADD CONSTRAINT Groupchat_messages_answer
-        FOREIGN KEY (answered_message_id)
-            REFERENCES mh_groups.Groupchat_messages (id);
-
--- Reference: User_Groups_Groups (table: User_Groups)
-ALTER TABLE mh_groups.User_Groups
-    ADD CONSTRAINT User_Groups_Groups
-        FOREIGN KEY (group_Id)
-            REFERENCES mh_groups.Groups (id);
-
--- Reference: User_Groups_Users (table: User_Groups)
-ALTER TABLE mh_groups.User_Groups
-    ADD CONSTRAINT User_Groups_Users
-        FOREIGN KEY (user_id)
-            REFERENCES mh_users.Users (id);
-
 ---------------------------------------- || MH_MATCHING SCHEMA || ----------------------------------------
 -- Reference: Liked_Like_Types (table: Liked)
 ALTER TABLE mh_matching.Liked

@@ -2,9 +2,9 @@ package meowhub.backend.users.services.impl;
 
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.constants.Genders;
-import meowhub.backend.constants.Roles;
-import meowhub.backend.dtos.UserDto;
+import meowhub.backend.users.constants.Genders;
+import meowhub.backend.users.constants.Roles;
+import meowhub.backend.users.dtos.UserDto;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.users.dtos.BasicUserInfoDto;
 import meowhub.backend.users.models.User;

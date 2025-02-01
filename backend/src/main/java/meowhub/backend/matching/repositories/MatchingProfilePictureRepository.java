@@ -8,7 +8,10 @@ import java.util.Optional;
 
 public interface MatchingProfilePictureRepository extends JpaRepository<MatchingProfilePicture, String> {
     boolean existsByIdAndMatchingProfileUserLogin(String id, String login);
+
     int countAllByMatchingProfileId(String id);
+
     Optional<MatchingProfilePicture> findByMatchingProfileUserLoginAndIsCurrentProfilePictureTrue(String id);
+
     List<MatchingProfilePicture> findByMatchingProfileUserLogin(String login);
 }

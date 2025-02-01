@@ -1,9 +1,9 @@
 package meowhub.backend;
 
 import jakarta.annotation.PostConstruct;
-import meowhub.backend.constants.Genders;
-import meowhub.backend.constants.PrivacySettings;
-import meowhub.backend.constants.Roles;
+import meowhub.backend.users.constants.Genders;
+import meowhub.backend.users.constants.PrivacySettings;
+import meowhub.backend.users.constants.Roles;
 import meowhub.backend.posts.models.Comment;
 import meowhub.backend.posts.models.Post;
 import meowhub.backend.posts.models.PostPicture;

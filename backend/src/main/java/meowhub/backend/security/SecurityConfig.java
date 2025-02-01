@@ -1,12 +1,8 @@
 package meowhub.backend.security;
 
-import meowhub.backend.constants.Genders;
-import meowhub.backend.constants.Roles;
-import meowhub.backend.users.facades.UserAuthServiceFacade;
 import meowhub.backend.security.jwt.AuthEntryPointJwt;
 import meowhub.backend.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,8 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.time.LocalDate;
 
 @Configuration
 @EnableWebSecurity
@@ -58,20 +52,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CommandLineRunner initData(UserAuthServiceFacade userAuthServiceFacade) {
-        return args -> {
-            if (!userAuthServiceFacade.existsByLogin("user1")) {
-                userAuthServiceFacade.createUser("user1", "Gustaw", "Jeleń", "user1@gmail.com", "userPass123!", LocalDate.of(1970, 10, 14), Roles.ROLE_USER, Genders.MALE);
-            }
-
-            if (!userAuthServiceFacade.existsByLogin("admin")) {
-                userAuthServiceFacade.createUser("admin", "Jan", "Kos", "admin@gmail.com", "adminPass123!", LocalDate.of(1979, 12, 11), Roles.ROLE_ADMIN, Genders.MALE);
-
-            }
-        };
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -95,6 +75,4 @@ public class SecurityConfig {
             }
         };
     }
-
-
 }

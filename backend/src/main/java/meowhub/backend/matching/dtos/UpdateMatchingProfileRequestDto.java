@@ -1,5 +1,8 @@
 package meowhub.backend.matching.dtos;
 
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
 import meowhub.backend.matching.constants.Education;
@@ -12,7 +15,12 @@ import meowhub.backend.matching.constants.Sexuality;
 @Setter
 public class UpdateMatchingProfileRequestDto {
     private String aboutMe;
-    private short height;
+
+    @Min(120)
+    @Max(300)
+    @Nullable
+    private Short height;
+
     private Sexuality sexuality;
     private Education education;
     private HowOften drinker;

@@ -1,17 +1,13 @@
 package meowhub.backend.users.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.constants.Genders;
-import meowhub.backend.constants.PrivacySettings;
-import meowhub.backend.constants.Roles;
-import meowhub.backend.users.models.Gender;
+import meowhub.backend.users.constants.Genders;
+import meowhub.backend.users.constants.PrivacySettings;
+import meowhub.backend.users.constants.Roles;
 import meowhub.backend.users.models.PrivacySetting;
-import meowhub.backend.users.models.Role;
 import meowhub.backend.users.models.User;
-import meowhub.backend.users.repositories.GenderRepository;
-import meowhub.backend.users.repositories.PrivacySettingRepository;
-import meowhub.backend.users.repositories.RoleRepository;
 import meowhub.backend.users.repositories.UserRepository;
+import meowhub.backend.users.services.UserDictionaryQueryService;
 import meowhub.backend.users.services.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,29 +19,21 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
-    private final PrivacySettingRepository privacySettingRepository;
-    private final GenderRepository genderRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserDictionaryQueryService userDictionaryQueryService;
 
     @Override
     public void changeUserRole(String login, String roleCode) {
         User user = userRepository.findByLogin(login)
                 .orElseThrow();
-        Role role = roleRepository.findByCode(roleCode)
-                .orElseThrow();
 
-        user.setRole(role);
+        user.setRole(userDictionaryQueryService.getRoleByEnumOrThrow(Roles.valueOf(roleCode)));
         userRepository.save(user);
     }
 
-    public User createUser(String login, String name, String surname, String email, String password, LocalDate birthdate, Roles role, Genders gender) {
-        Role userRole = roleRepository.findByCode(role.name())
-                .orElseGet(() -> roleRepository.save(new Role(role)));
-        PrivacySetting publicSetting = privacySettingRepository.findByCode(PrivacySettings.PUBLIC.name())
-                .orElseGet(() -> privacySettingRepository.save(new PrivacySetting(PrivacySettings.PUBLIC)));
-        Gender userGender = genderRepository.findByCode(gender.name())
-                .orElseGet(() -> genderRepository.save(new Gender(gender)));
+    public User createUser(String login, String name, String surname, String email, String password, LocalDate birthdate, Genders gender) {
+        PrivacySetting publicSetting = userDictionaryQueryService.getPrivacySettingByEnumOrThrow(PrivacySettings.PUBLIC);
+
         User user = new User();
         user.setLogin(login);
         user.setPassword(passwordEncoder.encode(password));
@@ -56,11 +44,11 @@ public class UserServiceImpl implements UserService {
         user.setBirthdate(birthdate);
         user.setCredentialsNonExpired(true);
         user.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
-        user.setRole(userRole);
+        user.setRole(userDictionaryQueryService.getRoleByEnumOrThrow(Roles.ROLE_USER));
         user.setPostsPrivacy(publicSetting);
         user.setFriendsPrivacy(publicSetting);
         user.setProfilePrivacy(publicSetting);
-        user.setGender(userGender);
+        user.setGender(userDictionaryQueryService.getGenderByEnumOrThrow(gender));
         userRepository.save(user);
         return user;
     }

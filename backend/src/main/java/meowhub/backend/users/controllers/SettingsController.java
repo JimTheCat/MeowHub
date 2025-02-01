@@ -1,7 +1,7 @@
 package meowhub.backend.users.controllers;
 
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.constants.PrivacySettings;
+import meowhub.backend.users.constants.PrivacySettings;
 import meowhub.backend.users.dtos.PrivacySettingsDto;
 import meowhub.backend.users.services.SettingsService;
 import org.springframework.http.ResponseEntity;

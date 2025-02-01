@@ -1,9 +1,9 @@
-package meowhub.backend.dtos;
+package meowhub.backend.users.dtos;
 
 import lombok.Builder;
 import lombok.Data;
-import meowhub.backend.constants.Genders;
-import meowhub.backend.constants.Roles;
+import meowhub.backend.users.constants.Genders;
+import meowhub.backend.users.constants.Roles;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

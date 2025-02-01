@@ -68,5 +68,3 @@ INSERT INTO mh_matching.like_types (code) VALUES ('MATCH');
 
 
 COMMIT;
-
-

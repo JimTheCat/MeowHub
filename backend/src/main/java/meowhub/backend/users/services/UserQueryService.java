@@ -1,6 +1,6 @@
 package meowhub.backend.users.services;
 
-import meowhub.backend.dtos.UserDto;
+import meowhub.backend.users.dtos.UserDto;
 import meowhub.backend.users.dtos.BasicUserInfoDto;
 import meowhub.backend.users.models.User;
 import org.springframework.data.domain.Page;

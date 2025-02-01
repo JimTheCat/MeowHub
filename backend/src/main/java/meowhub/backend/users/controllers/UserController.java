@@ -23,7 +23,6 @@ public class UserController {
 
     @GetMapping("/search")
     public ResponseEntity<Page<BasicUserInfoDto>> searchUsers(@RequestParam(required = false) String query, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<BasicUserInfoDto> users = userQueryService.searchUsers(query, page, size);
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(userQueryService.searchUsers(query, page, size));
     }
 }

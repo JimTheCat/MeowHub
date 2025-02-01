@@ -27,7 +27,7 @@ public class ProfileController {
         return ResponseEntity.ok(profileService.getProfile(login, userDetails.getUsername()));
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<ProfileDto> updateProfile(@RequestParam String content, @AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(profileService.updateProfile(content, userDetails.getUsername()));
     }

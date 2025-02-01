@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import meowhub.backend.posts.dtos.PostDto;
 import meowhub.backend.posts.services.PostService;
 import org.springframework.data.domain.Page;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,8 +26,7 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
-
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<Page<PostDto>> getPosts(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int pageNo, @RequestParam(defaultValue = "10") int pageSize) {
         Page<PostDto> posts = postService.getPosts(userDetails.getUsername(), pageNo, pageSize);
         return ResponseEntity.ok(posts);
@@ -46,7 +44,7 @@ public class PostController {
         return ResponseEntity.ok(postDto);
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestPart(value = "content", required = false) String content, @RequestPart(value = "pictures", required = false) List<MultipartFile> pictures, @AuthenticationPrincipal UserDetails userDetails) {
         PostDto postDto = postService.createPost(userDetails.getUsername(), content, pictures);
         return ResponseEntity.ok(postDto);

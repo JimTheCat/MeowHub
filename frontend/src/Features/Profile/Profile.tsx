@@ -10,6 +10,7 @@ import api from "../shared/services/api.ts";
 import {BasicUserInfo, PostDTO, ProfileUser} from "../shared/types";
 import {InfiniteScroll} from "../shared/components/InfiniteScroll";
 import {Post} from "../shared/components/Cards/Post";
+import {useAuthStore} from "../shared/services/authStore.ts";
 
 export const Profile = () => {
 
@@ -19,6 +20,7 @@ export const Profile = () => {
   const [profile, setProfile] = useState<ProfileUser | null>(null);
   const [mediaList, setMediaList] = useState<string[]>([]);
   const login = userTag?.split('@')[1];
+  const auth = useAuthStore((state) => state.user);
 
   const [userPosts, setUserPosts] = useState<PostDTO[]>([]);
   const [page, setPage] = useState(0);
@@ -152,7 +154,7 @@ export const Profile = () => {
         </Stack>
         <Stack>
           <ProfileMultimedia multimedia={mediaList}/>
-          <ProfileFriends friends={friends}/>
+          <ProfileFriends isTheSameUser={userTag === auth?.tag} friends={friends}/>
         </Stack>
       </Group>
     </Box>

@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {Layout} from "./components/Layout";
 import {MainPage} from "../MainPage";
 import {Login} from "../Login";
@@ -42,6 +42,7 @@ export const Root = () => {
       {/*Protected routes*/}
       <Route path="/" element={<ProtectedRoute/>}>
         <Route element={<Layout/>}>
+          <Route index element={<Navigate to="/mainpage" replace/>}/>
           <Route path="/mainpage" element={<MainPage/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path="/profile/:userTag" element={<Profile/>}/>

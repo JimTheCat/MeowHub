@@ -17,6 +17,7 @@ import {ShareButton} from "./components/ShareButton";
 type PostProps = PostDTO & {
   t: TFunction<string, undefined>
   modal: string
+  onCommentAdded?: () => void
 }
 
 export const DetailedPost = (props: PostProps) => {
@@ -54,8 +55,12 @@ export const DetailedPost = (props: PostProps) => {
             timestamp: new Date().toISOString(),
           });
 
-          setComments([...comments, response.data.content]);
+          setComments([...comments, response.data]);
           setCommentValue("");
+
+          if (props.onCommentAdded) {
+            props.onCommentAdded();
+          }
         }
       } catch (error) {
         console.error("Failed to send comment", error);
@@ -110,7 +115,7 @@ export const DetailedPost = (props: PostProps) => {
           variant={"subtle"}
           color={"gray"}
           leftSection={<IconMessage stroke={1.5}/>}
-          rightSection={<Badge color={"gray"} circle>{props.numberOfComments}</Badge>}
+          rightSection={<Badge color={"gray"} circle>{comments.length}</Badge>}
         >
           {props.t('buttons.comment.label')}
         </Button>

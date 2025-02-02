@@ -5,6 +5,7 @@ import {useTranslation} from "react-i18next";
 
 type ProfileFriendsProps = {
   friends: BasicUserInfo[];
+  isTheSameUser: boolean;
 }
 
 export const ProfileFriends = (props: ProfileFriendsProps) => {
@@ -27,9 +28,11 @@ export const ProfileFriends = (props: ProfileFriendsProps) => {
       {isNoFriends &&
           <Stack align={"center"} gap={0} justify={"center"} style={{height: 200}}>
               <Text size={"xl"} c={"dimmed"}>{t('friends.empty.title')}</Text>
+            {props.isTheSameUser &&
               <UnstyledButton onClick={() => navigate('/search')}>
                   <Text size={"sm"} c={"blue"}>{t('friends.empty.message')}</Text>
               </UnstyledButton>
+            }
           </Stack>
       }
       <Grid gutter={"xs"} align={"center"}>

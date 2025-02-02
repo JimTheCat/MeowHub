@@ -12,6 +12,7 @@ import api from "../../../services/api.ts";
 import {DetailedPost} from "./DetailedPost.tsx";
 import {ReactionButton} from "./components/ReactionButton";
 import {ShareButton} from "./components/ShareButton";
+import {useState} from "react";
 
 type PostProps = PostDTO & {
   cardWidth?: number | string;
@@ -21,9 +22,15 @@ type PostProps = PostDTO & {
 export const Post = (props: PostProps) => {
 
   const auth = useAuthStore();
-  const {t} = useTranslation('postComponent')
+  const {t} = useTranslation('postComponent');
   const isOwner = auth.user?.login === props.author.login;
   const navigate = useNavigate();
+
+  const [numberOfComments, setNumberOfComments] = useState(props.numberOfComments);
+
+  const handleIncrementComments = () => {
+    setNumberOfComments(prev => prev + 1);
+  };
 
   const fetchModal = (modal: string, postId: string) => {
     api.get(`/api/posts/${postId}`).then(r => {
@@ -33,8 +40,7 @@ export const Post = (props: PostProps) => {
           modalId: modal,
           title: t('modals.updated.title', {name: post.author.name, surname: post.author.surname}),
           children: (
-            <DetailedPost id={post.id} content={post.content} createdAt={post.createdAt}
-                          numberOfComments={post.numberOfComments} author={post.author} t={t} modal={modal}/>
+            <DetailedPost {...post} t={t} modal={modal} onCommentAdded={handleIncrementComments}/>
           )
         })
       }
@@ -96,7 +102,7 @@ export const Post = (props: PostProps) => {
             variant={"subtle"}
             color={"gray"}
             leftSection={<IconMessage stroke={1.5}/>}
-            rightSection={<Badge color={"gray"} circle>{props.numberOfComments}</Badge>}
+            rightSection={<Badge color={"gray"} circle>{numberOfComments}</Badge>}
             onClick={() => handleModalExposure(props.id)}
           >
             {t('buttons.comment.label')}
@@ -108,4 +114,4 @@ export const Post = (props: PostProps) => {
       </Stack>
     </Card>
   );
-}
+};

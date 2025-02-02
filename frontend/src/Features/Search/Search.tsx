@@ -22,15 +22,16 @@ export const Search = () => {
   const [query, setQuery] = useState('');
   const [dropdownOpened, setDropdownOpened] = useState(false);
   const [userOptions, setUserOptions] = useState<ComboboxItem[]>([]);
-  const [usersData, setUsersData] = useState<Record<string, { profilePicture: string | null; tag: string }>>({});
+  const [usersData, setUsersData] = useState<Record<string, {
+    profilePicture: string | null;
+    tag: string;
+    label: string
+  }>>({});
   const {t} = useTranslation('search');
   const navigate = useNavigate();
   const itemsNumber = 5;
 
   const renderAutocompleteOption: AutocompleteProps['renderOption'] = ({option}) => {
-
-    console.log('option', option);
-
     if (option.value.startsWith("search:")) {
       const searchText = option.value.replace("search:", "");
       return (
@@ -42,11 +43,11 @@ export const Search = () => {
 
     return (
       <Group gap="sm">
-        <Avatar src={usersData[option.value].profilePicture} size={36} radius="xl"/>
+        <Avatar src={usersData[option.value]?.profilePicture} size={36} radius="xl"/>
         <div>
-          <Text size="sm">{option.value}</Text>
+          <Text size="sm">{usersData[option.value].label}</Text>
           <Text size="xs" opacity={0.5}>
-            {usersData[option.value].tag}
+            {usersData[option.value]?.tag}
           </Text>
         </div>
       </Group>
@@ -60,23 +61,25 @@ export const Search = () => {
           query: searchQuery,
           size: itemsNumber,
         },
-
       });
 
       const content = response.data.content as BasicUserInfo[];
 
       const users = content.map((user: BasicUserInfo) => ({
-        value: `${user.name} ${user.surname}`,
+        value: user.login,
         label: `${user.name} ${user.surname}`,
         tag: `@${user.login}`,
         profilePicture: user.profilePictureUrl,
       }));
 
-      // Map user data
       const userDataMap = content.reduce((acc, user) => {
-        acc[`${user.name} ${user.surname}`] = {profilePicture: user.profilePictureUrl, tag: `@${user.login}`};
+        acc[user.login] = {
+          profilePicture: user.profilePictureUrl,
+          tag: `@${user.login}`,
+          label: `${user.name} ${user.surname}`,
+        };
         return acc;
-      }, {} as Record<string, { profilePicture: string | null; tag: string }>);
+      }, {} as Record<string, { profilePicture: string | null; tag: string; label: string }>);
 
       setUserOptions(users);
       setUsersData(userDataMap);
@@ -104,7 +107,8 @@ export const Search = () => {
 
     const filteredOptions = (options as ComboboxItem[]).filter((option) => {
       const searchLower = search.toLowerCase();
-      return option.label.toLowerCase().includes(searchLower) || usersData[option.value].tag.toLowerCase().includes(searchLower);
+      return option.label.toLowerCase().includes(searchLower) ||
+        usersData[option.value]?.tag.toLowerCase().includes(searchLower);
     });
 
     return [

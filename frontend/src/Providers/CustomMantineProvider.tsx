@@ -6,9 +6,6 @@ export const CustomMantineProvider = ({children}: { children: ReactNode }) => {
   const primaryColor = useThemeStore((state) => state.primaryColor);
 
   const theme = createTheme({
-    colors: {
-      // TODO: Migrate colors
-    },
     fontFamily: 'Lato, sans-serif',
     primaryColor,
   });

@@ -1,6 +1,6 @@
 package meowhub.backend.user_relations;
 
-import meowhub.backend.dtos.RelationType;
+import meowhub.backend.user_relations.constants.RelationType;
 import meowhub.backend.shared.exceptions.RelationException;
 import meowhub.backend.user_relations.repositories.UserRelationRepository;
 import meowhub.backend.user_relations.services.impl.UserRelationQueryServiceImpl;
@@ -57,7 +57,7 @@ class UserRelationQueryServiceImplTest {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<BasicUserInfoDto> friendsPage = new PageImpl<>(Collections.singletonList(testUserInfo));
-        when(userRelationRepository.canViewUserPosts(login, requestedBy)).thenReturn(true);
+        when(userRelationRepository.canViewUserFriends(login, requestedBy)).thenReturn(true);
         when(userRelationRepository.findFriendsFor(login, pageable)).thenReturn(friendsPage);
 
         // Act
@@ -67,7 +67,7 @@ class UserRelationQueryServiceImplTest {
         assertNotNull(result);
         assertEquals(1, result.getTotalElements());
         verify(userRelationServiceFacade, times(1)).validateIfUserExists(login);
-        verify(userRelationRepository, times(1)).canViewUserPosts(login, requestedBy);
+        verify(userRelationRepository, times(1)).canViewUserFriends(login, requestedBy);
         verify(userRelationRepository, times(1)).findFriendsFor(login, pageable);
     }
 
@@ -79,7 +79,7 @@ class UserRelationQueryServiceImplTest {
         int page = 0;
         int size = 10;
 
-        when(userRelationRepository.canViewUserPosts(login, requestedBy)).thenReturn(false);
+        when(userRelationRepository.canViewUserFriends(login, requestedBy)).thenReturn(false);
 
         // Act & Assert
         assertThrows(RelationException.class, () ->
@@ -87,7 +87,7 @@ class UserRelationQueryServiceImplTest {
         );
 
         verify(userRelationServiceFacade, times(1)).validateIfUserExists(login);
-        verify(userRelationRepository, times(1)).canViewUserPosts(login, requestedBy);
+        verify(userRelationRepository, times(1)).canViewUserFriends(login, requestedBy);
         verify(userRelationRepository, never()).findFriendsFor(anyString(), any(Pageable.class));
     }
 

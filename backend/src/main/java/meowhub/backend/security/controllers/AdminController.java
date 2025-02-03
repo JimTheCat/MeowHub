@@ -1,7 +1,7 @@
 package meowhub.backend.security.controllers;
 
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.dtos.UserDto;
+import meowhub.backend.users.dtos.UserDto;
 import meowhub.backend.users.facades.UserAdminServiceFacade;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

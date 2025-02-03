@@ -2,7 +2,7 @@ package meowhub.backend.security.requests;
 
 import lombok.Getter;
 import lombok.Setter;
-import meowhub.backend.constants.Genders;
+import meowhub.backend.users.constants.Genders;
 
 import java.time.LocalDate;
 

@@ -1,13 +1,12 @@
 package meowhub.backend.users.facades;
 
-import meowhub.backend.constants.Genders;
-import meowhub.backend.constants.Roles;
+import meowhub.backend.users.constants.Genders;
 import meowhub.backend.users.models.User;
 
 import java.time.LocalDate;
 
 public interface UserAuthServiceFacade {
-    User createUser(String login, String name, String surname, String email, String password, LocalDate birthdate, Roles role, Genders gender);
+    User createUser(String login, String name, String surname, String email, String password, LocalDate birthdate, Genders gender);
 
     boolean existsByLogin(String login);
 

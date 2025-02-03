@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import meowhub.backend.constants.Genders;
+import meowhub.backend.users.constants.Genders;
 import meowhub.backend.matching.constants.Education;
 import meowhub.backend.matching.constants.HowOften;
 import meowhub.backend.matching.constants.LookingFor;
@@ -30,8 +30,6 @@ public class MatchingProfileDto {
     private String aboutMe;
     private LookingFor lookingFor;
     private Genders gender;
-
-    //preferences - TODO: in the future
 
     //personal information
     private Sexuality sexuality;

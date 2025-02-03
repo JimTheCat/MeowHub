@@ -5,4 +5,3 @@ GRANT EXECUTE ON mh_meowhub.get_user_id TO mh_matching;
 GRANT EXECUTE ON mh_meowhub.get_user_id TO mh_posts;
 GRANT EXECUTE ON mh_meowhub.get_user_id TO mh_profiles;
 GRANT EXECUTE ON mh_meowhub.get_user_id TO mh_user_relations;
-GRANT EXECUTE ON mh_meowhub.get_user_id TO mh_groups;

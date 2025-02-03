@@ -3,7 +3,7 @@ package meowhub.backend.users.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import meowhub.backend.constants.PrivacySettings;
+import meowhub.backend.users.constants.PrivacySettings;
 
 @Getter
 @Setter

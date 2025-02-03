@@ -1,7 +1,7 @@
 package meowhub.backend.user_relations.services.impl;
 
 import lombok.AllArgsConstructor;
-import meowhub.backend.dtos.RelationType;
+import meowhub.backend.user_relations.constants.RelationType;
 import meowhub.backend.shared.exceptions.RelationException;
 import meowhub.backend.user_relations.repositories.UserRelationRepository;
 import meowhub.backend.user_relations.services.UserRelationQueryService;
@@ -22,7 +22,7 @@ public class UserRelationQueryServiceImpl implements UserRelationQueryService {
     public Page<BasicUserInfoDto> getFriendsForUser(String login, String requestedBy, int page, int size) {
         userRelationServiceFacade.validateIfUserExists(login);
 
-        if(login.equals(requestedBy) || userRelationRepository.canViewUserPosts(login, requestedBy)) {
+        if(login.equals(requestedBy) || userRelationRepository.canViewUserFriends(login, requestedBy)) {
             Pageable pageable = PageRequest.of(page, size);
             return userRelationRepository.findFriendsFor(login, pageable);
         } else {

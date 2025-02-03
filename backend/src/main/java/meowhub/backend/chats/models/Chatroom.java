@@ -1,4 +1,4 @@
-package meowhub.backend.jpa_buddy;
+package meowhub.backend.chats.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,8 +25,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "CHATROOM_MESSAGES", schema = "mh_chats")
-public class ChatroomMessage {
+@Table(name = "CHATROOMS", schema = "mh_chats")
+public class Chatroom {
     @Id
     @Size(max = 36)
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -36,24 +36,22 @@ public class ChatroomMessage {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "CHATROOM_ID", nullable = false)
-    private Chatroom chatroom;
+    @JoinColumn(name = "SENDER_ID", nullable = false)
+    private User sender;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "AUTHOR_ID", nullable = false)
-    private User author;
+    @JoinColumn(name = "RECEIVER_ID", nullable = false)
+    private User receiver;
 
-    @Size(max = 2000)
-    @NotNull
-    @Column(name = "MESSAGE", nullable = false, length = 2000)
-    private String message;
+    @Size(max = 20)
+    @Column(name = "SENDER_NICK", length = 20)
+    private String senderNick;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "ANSWERED_MESSAGE_ID")
-    private ChatroomMessage answeredMessage;
+    @Size(max = 20)
+    @Column(name = "RECEIVER_NICK", length = 20)
+    private String receiverNick;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
@@ -69,7 +67,7 @@ public class ChatroomMessage {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
-    @OneToMany(mappedBy = "answeredMessage")
+    @OneToMany(mappedBy = "chatroom")
     private Set<ChatroomMessage> chatroomMessages = new LinkedHashSet<>();
 
 }

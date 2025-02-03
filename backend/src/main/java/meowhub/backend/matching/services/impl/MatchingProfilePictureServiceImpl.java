@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -96,62 +95,6 @@ public class MatchingProfilePictureServiceImpl implements MatchingProfilePicture
         MatchingProfilePicture picture = matchingProfilePictureRepository.findById(pictureId).orElseThrow();
         pictureUtils.deletePictureFromOCI(picture.getOciName()); //delete from OCI
         matchingProfilePictureRepository.deleteById(pictureId); //delete from db
-    }
-
-    @Override
-    public List<PictureDto> addMatchingProfilePictures(List<MultipartFile> pictures, String profilePictureName, String login) {
-        if (pictures == null || pictures.isEmpty() || pictures.getFirst().getContentType() == null) {
-            throw new IllegalArgumentException(AlertConstants.VALUE_REQUIRED_TITLE);
-        }
-
-        MatchingProfile matchingProfile = matchingProfileQueryService.findMatchingProfileByLoginOrThrow(login);
-        int currentlyPictures = matchingProfilePictureRepository.countAllByMatchingProfileId(matchingProfile.getId());
-
-        if (profilePictureName != null && !profilePictureName.isEmpty()) {
-            //checking if given profile picture name (that is to be set as a new profile picture) exists in the list of pictures
-            pictures.stream().filter(picture -> Objects.equals(picture.getOriginalFilename(), profilePictureName)).findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, MATCHING_PROFILE_PICTURE, "name", profilePictureName)));
-
-            //find current profile picture and set it to false if exists
-            Optional<MatchingProfilePicture> currentProfilePicture = matchingProfilePictureRepository.findByMatchingProfileUserLoginAndIsCurrentProfilePictureTrue(login);
-            if (currentProfilePicture.isPresent()) {
-                MatchingProfilePicture current = currentProfilePicture.get();
-                current.setIsCurrentProfilePicture(false);
-                matchingProfilePictureRepository.save(current);
-            }
-        } else {
-            if (currentlyPictures == 0) {
-                throw new NullPointerException(String.format(AlertConstants.VALUE_REQUIRED, "profilePictureName, when there is no profile picture"));
-            }
-        }
-
-        if (currentlyPictures + pictures.size() > 5) {
-            throw new IllegalArgumentException(String.format(AlertConstants.TOO_MANY_PICTURES, 5, currentlyPictures + pictures.size()));
-        }
-
-        List<MatchingProfilePicture> profilePictures = new ArrayList<>();
-        for (MultipartFile picture : pictures) {
-            boolean isCurrentProfilePicture = profilePictureName != null && !profilePictureName.isEmpty() && Objects.equals(picture.getOriginalFilename(), profilePictureName);
-            Pair<String, String> pictureInfo = pictureUtils.uploadPictureToOCIAndGetAuthorizedUrlToAccessIt(picture, login, Modules.MATCHING_PROFILE);
-            profilePictures.add(new MatchingProfilePicture(matchingProfile, pictureInfo.getFirst(), pictureInfo.getSecond(), isCurrentProfilePicture, 0L));
-        }
-        matchingProfilePictureRepository.saveAll(profilePictures);
-
-        return matchingProfilePictureRepository.findByMatchingProfileUserLogin(login).stream()
-                .map(picture -> new PictureDto(picture.getId(), picture.getOciUrl(), picture.getCreatedAt()))
-                .toList();
-    }
-
-    @Override
-    public void deleteMatchingProfilePicturesForUser(List<String> profilePictureIds, String login) {
-        if (profilePictureIds.isEmpty()) {
-            throw new IllegalArgumentException(AlertConstants.VALUE_REQUIRED_TITLE);
-        }
-
-        //validate ids
-        profilePictureIds.forEach(pictureId -> validateIfExists(pictureId, login));
-
-        profilePictureIds.forEach(this::intDeleteMatchingProfilePicture);
     }
 
     private void validateIfExists(String pictureId, String login) {

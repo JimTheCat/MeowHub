@@ -18,14 +18,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import meowhub.backend.jpa_buddy.Chatroom;
-import meowhub.backend.jpa_buddy.ChatroomMessage;
+import meowhub.backend.chats.models.Chatroom;
+import meowhub.backend.chats.models.ChatroomMessage;
 import meowhub.backend.posts.models.Comment;
-import meowhub.backend.jpa_buddy.GroupchatMessage;
 import meowhub.backend.matching.models.MatchingProfile;
 import meowhub.backend.posts.models.Post;
 import meowhub.backend.profiles.models.Profile;
-import meowhub.backend.jpa_buddy.UserGroup;
 import meowhub.backend.user_relations.models.UserRelation;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -151,9 +149,6 @@ public class User {
     private final Set<Comment> comments = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
-    private final Set<GroupchatMessage> groupchatMessages = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user")
     private final Set<MatchingProfile> matchingProfiles = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
@@ -161,9 +156,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private final Set<Profile> profiles = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "user")
-    private final Set<UserGroup> userGroups = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "sender")
     private final Set<UserRelation> userRelationsSender = new LinkedHashSet<>();
@@ -173,7 +165,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private final Set<UserToken> userTokens = new LinkedHashSet<>();
-
 
     @Override
     public boolean equals(Object o) {

@@ -52,20 +52,20 @@ class UserRelationRepositoryIntegrationTest {
     }
 
     @Test
-    void testCanViewUserPosts_PublicPrivacy() {
-        boolean canView = userRelationRepository.canViewUserPosts(USER_LOGIN, NON_FRIEND_LOGIN);
+    void testCanViewUserFriends_PublicPrivacy() {
+        boolean canView = userRelationRepository.canViewUserFriends(USER_LOGIN, NON_FRIEND_LOGIN);
         assertEquals(true, canView); // User with public privacy settings is viewable by others.
     }
 
     @Test
-    void testCanViewUserPosts_FriendsOnlyPrivacy_NoFriendship() {
-        boolean canView = userRelationRepository.canViewUserPosts("admin", USER_LOGIN);
+    void testCanViewUserFriends_FriendsOnlyPrivacy_NoFriendship() {
+        boolean canView = userRelationRepository.canViewUserFriends("admin", USER_LOGIN);
         assertEquals(false, canView); // User with friends-only privacy should not be viewable by non-friends.
     }
 
     @Test
-    void testCanViewUserPosts_FriendsOnlyPrivacy_WithFriendship() {
-        boolean canView = userRelationRepository.canViewUserPosts(USER_LOGIN, FRIEND_LOGIN);
+    void testCanViewUserFriends_FriendsOnlyPrivacy_WithFriendship() {
+        boolean canView = userRelationRepository.canViewUserFriends(USER_LOGIN, FRIEND_LOGIN);
         assertEquals(true, canView); // Friends should be able to view each other's posts.
     }
 

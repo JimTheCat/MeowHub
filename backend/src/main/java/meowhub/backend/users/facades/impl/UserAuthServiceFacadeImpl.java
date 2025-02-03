@@ -1,8 +1,7 @@
 package meowhub.backend.users.facades.impl;
 
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.constants.Genders;
-import meowhub.backend.constants.Roles;
+import meowhub.backend.users.constants.Genders;
 import meowhub.backend.users.facades.UserAuthServiceFacade;
 import meowhub.backend.users.models.User;
 import meowhub.backend.users.services.SettingsService;
@@ -24,9 +23,9 @@ public class UserAuthServiceFacadeImpl implements UserAuthServiceFacade {
     private final SettingsService settingsService;
 
     @Override
-    public User createUser(String login, String name, String surname, String email, String password, LocalDate birthdate, Roles role, Genders gender) {
+    public User createUser(String login, String name, String surname, String email, String password, LocalDate birthdate, Genders gender) {
         passwordValidator.validatePassword(password);
-        return userService.createUser(login, name, surname, email, password, birthdate, role, gender);
+        return userService.createUser(login, name, surname, email, password, birthdate, gender);
     }
 
     @Override

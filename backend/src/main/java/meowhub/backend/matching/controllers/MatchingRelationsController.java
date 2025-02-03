@@ -23,20 +23,17 @@ public class MatchingRelationsController {
 
     @GetMapping("liked")
     public ResponseEntity<Page<BasicMatchingProfileInfoDto>> getLikedUsers(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<BasicMatchingProfileInfoDto> likedUsers = matchingRelationService.getLikedUsers(userDetails.getUsername(), page, size);
-        return ResponseEntity.ok(likedUsers);
+        return ResponseEntity.ok(matchingRelationService.getLikedUsers(userDetails.getUsername(), page, size));
     }
 
     @GetMapping("matched")
     public ResponseEntity<Page<BasicMatchingProfileInfoDto>> getMatchedUsers(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<BasicMatchingProfileInfoDto> likedUsers = matchingRelationService.getMatchedUsers(userDetails.getUsername(), page, size);
-        return ResponseEntity.ok(likedUsers);
+        return ResponseEntity.ok(matchingRelationService.getMatchedUsers(userDetails.getUsername(), page, size));
     }
 
     @GetMapping("disliked")
     public ResponseEntity<Page<BasicMatchingProfileInfoDto>> getDislikedUsers(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<BasicMatchingProfileInfoDto> likedUsers = matchingRelationService.getDislikedUsers(userDetails.getUsername(), page, size);
-        return ResponseEntity.ok(likedUsers);
+        return ResponseEntity.ok(matchingRelationService.getDislikedUsers(userDetails.getUsername(), page, size));
     }
 
     @PostMapping("/like/{matchingProfileId}")

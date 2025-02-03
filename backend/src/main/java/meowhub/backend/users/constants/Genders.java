@@ -1,4 +1,4 @@
-package meowhub.backend.constants;
+package meowhub.backend.users.constants;
 
 public enum Genders {
     FEMALE, MALE, OTHER

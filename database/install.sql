@@ -19,6 +19,7 @@ WHENEVER SQLERROR EXIT SQL.SQLCODE;
 @scripts/310_clear_session_attributes.pls
 @scripts/320_get_user_id.pls
 @scripts/321_grant_execute_on_get_user_id.sql
+@scripts/330_mh_matching_set_age_job.sql
 
 --triggers
 @scripts/400_create_audit_triggers.sql

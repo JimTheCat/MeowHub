@@ -132,5 +132,5 @@ public interface UserRelationRepository extends JpaRepository<UserRelation, Stri
                 )
                 ) THEN true ELSE false END
         """)
-    boolean canViewUserPosts(@Param("requestedLogin") String requestedLogin, @Param("requestedBy") String requestedBy);
+    boolean canViewUserFriends(@Param("requestedLogin") String requestedLogin, @Param("requestedBy") String requestedBy);
 }

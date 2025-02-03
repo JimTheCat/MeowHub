@@ -47,7 +47,15 @@ public class MatchingProfileController {
         return ResponseEntity.ok(matchingProfileService.createMatchingProfileFromScratch(request, userDetails.getUsername()));
     }
 
+    /***
+     * Gets all matching profiles including own profile. For developments purposes only.
+     * This method is deprecated and will be removed in the future.
+     * @deprecated
+     * @param pageable
+     * @return
+     */
     @GetMapping("/all")
+    @Deprecated(forRemoval = true)
     public ResponseEntity<Page<MatchingProfileDto>> getAllMatchingProfiles(Pageable pageable) {
         return ResponseEntity.ok(matchingProfileQueryService.getAllMatchingProfiles(pageable));
     }

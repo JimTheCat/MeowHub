@@ -50,7 +50,7 @@ export const FriendDetailed = ({
             </ActionIcon>
           </Menu.Target>
           <Menu.Dropdown>
-            <Menu.Label>{t('friendDetailed.menu.removeItem.label')}</Menu.Label>
+            <Menu.Label>{t('friendDetailed.menu.label')}</Menu.Label>
             <Menu.Item
               color="red"
               leftSection={<IconUsersMinus style={{width: rem(14), height: rem(14)}}/>}

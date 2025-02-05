@@ -53,12 +53,28 @@
   },
   "profile": {
     "card": {
+      "photos": {
+        "success": "Photo added",
+        "successMessage": "Your photo has been added successfully",
+        "successIndex": "Changed photos position",
+        "successIndexMessage": "Changed photos position successfully",
+        "error": {
+          "maxPhotos": "Maximum number of photos is 5",
+          "maxPhotosMessage": "You have reached the maximum number of photos",
+          "maxSize": "Maximum photo size is 5MB",
+          "maxSizeMessage": "Your photo is too large"
+        }
+      },
       "imageSection": {
         "title": "Your images",
         "imageAlt": "image"
       },
       "infoSection": {
         "title": "Settings",
+        "alert": {
+          "success": "Changes saved",
+          "successMessage": "Your settings have been saved successfully"
+        },
         "name": {
           "label": "Name",
           "placeholder": "Name"
@@ -66,6 +82,12 @@
         "bio": {
           "label": "About me",
           "placeholder": "Write something about yourself"
+        },
+        "age": {
+          "label": "Age"
+        },
+        "height": {
+          "label": "Height"
         },
         "lookingFor": {
           "label": "Looking for"

@@ -21,8 +21,8 @@
     "RELATIONSHIP": "Relationship",
     "CHAT": "Chat"
   },
-  "pets": {
-    "pets": "Pets",
+  "pet": {
+    "pet": "Favourite pet",
     "DOG": "Dog",
     "CAT": "Cat",
     "BIRD": "Bird",

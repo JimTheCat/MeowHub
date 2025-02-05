@@ -9,6 +9,7 @@ export const LookingFor = (value?: string) => {
     {value: "FRIENDSHIP", label: t('lookingFor.FRIENDSHIP')},
     {value: "RELATIONSHIP", label: t('lookingFor.RELATIONSHIP')},
     {value: "CHAT", label: t('lookingFor.CHAT')},
+    {value: null, label: ""}
   ]
 
   if (!value) return data;
@@ -39,7 +40,8 @@ export const Sexuality = (value?: string) => {
     {value: "BISEXUAL", label: t('sexuality.BISEXUAL')},
     {value: "QUESTIONING", label: t('sexuality.QUESTIONING')},
     {value: "ASEXUAL", label: t('sexuality.ASEXUAL')},
-    {value: "OTHER", label: t('sexuality.OTHER')}
+    {value: "OTHER", label: t('sexuality.OTHER')},
+    {value: null, label: ""}
   ]
 
   if (!value) return data;
@@ -56,7 +58,8 @@ export const Education = (value?: string) => {
     {value: "HIGH_SCHOOL", label: t('education.HIGH_SCHOOL')},
     {value: "COLLEGE", label: t('education.COLLEGE')},
     {value: "UNIVERSITY", label: t('education.UNIVERSITY')},
-    {value: "POSTGRADUATE", label: t('education.POSTGRADUATE')}
+    {value: "POSTGRADUATE", label: t('education.POSTGRADUATE')},
+    {value: null, label: ""}
   ]
   if (!value) return data;
   return data.find((item) => item.value === value)?.label ?? value;
@@ -71,7 +74,8 @@ export const Drinker = (value?: string) => {
     {value: "OFTEN", label: t('drinker.OFTEN')},
     {value: "FROM_TIME_TO_TIME", label: t('drinker.FROM_TIME_TO_TIME')},
     {value: "RARELY", label: t('drinker.RARELY')},
-    {value: "NEVER", label: t('drinker.NEVER')}
+    {value: "NEVER", label: t('drinker.NEVER')},
+    {value: null, label: ""}
   ]
 
   if (!value) return data;
@@ -87,7 +91,8 @@ export const Smoker = (value?: string) => {
     {value: "OFTEN", label: t('smoker.OFTEN')},
     {value: "FROM_TIME_TO_TIME", label: t('smoker.FROM_TIME_TO_TIME')},
     {value: "RARELY", label: t('smoker.RARELY')},
-    {value: "NEVER", label: t('smoker.NEVER')}
+    {value: "NEVER", label: t('smoker.NEVER')},
+    {value: null, label: ""}
   ]
 
   if (!value) return data;
@@ -103,7 +108,8 @@ export const Exercises = (value?: string) => {
     {value: "OFTEN", label: t('exercises.OFTEN')},
     {value: "FROM_TIME_TO_TIME", label: t('exercises.FROM_TIME_TO_TIME')},
     {value: "RARELY", label: t('exercises.RARELY')},
-    {value: "NEVER", label: t('exercises.NEVER')}
+    {value: "NEVER", label: t('exercises.NEVER')},
+    {value: null, label: ""}
   ]
 
   if (!value) return data;
@@ -115,13 +121,14 @@ export const Pet = (value?: string) => {
   const {t} = useTranslation("matchingAttributesUtils");
 
   const data = [
-    {value: "DOG", label: t('pets.DOG')},
-    {value: "CAT", label: t('pets.CAT')},
-    {value: "BIRD", label: t('pets.BIRD')},
-    {value: "FISH", label: t('pets.FISH')},
-    {value: "RODENT", label: t('pets.RODENT')},
-    {value: "REPTILE", label: t('pets.REPTILE')},
-    {value: "OTHER", label: t('pets.OTHER')}
+    {value: "DOG", label: t('pet.DOG')},
+    {value: "CAT", label: t('pet.CAT')},
+    {value: "BIRD", label: t('pet.BIRD')},
+    {value: "FISH", label: t('pet.FISH')},
+    {value: "RODENT", label: t('pet.RODENT')},
+    {value: "REPTILE", label: t('pet.REPTILE')},
+    {value: "OTHER", label: t('pet.OTHER')},
+    {value: null, label: ""}
   ]
 
   if (!value) return data;

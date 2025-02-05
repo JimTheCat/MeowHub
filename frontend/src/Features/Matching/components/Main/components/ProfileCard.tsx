@@ -119,8 +119,8 @@ export const ProfileCard = ({
         <Card.Section h="70vh">
           <Carousel classNames={classes} getEmblaApi={setEmbla} withIndicators>
             {/*Sort by creation date*/}
-            {profile.pictures
-              .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+            {[...profile.pictures]
+              .sort((a, b) => a.index - b.index)
               .map((photo) => (
                 <Carousel.Slide key={photo.id} pos={'relative'} h="70vh">
                   <Image src={photo.url} alt="Profile photo" h={'100%'}/>
@@ -172,20 +172,6 @@ export const ProfileCard = ({
               )
             }
           />
-          {/* Location */}
-          {profile.location && (
-            <>
-              <Stack gap={'xs'}>
-                <Text c={'dimmed'}>
-                  {t('main.card.location', {name: profile.name})}
-                </Text>
-                <Text size="sm" c="gray">
-                  {profile.location}
-                </Text>
-              </Stack>
-              <Divider/>
-            </>
-          )}
         </Stack>
       </Box>
 

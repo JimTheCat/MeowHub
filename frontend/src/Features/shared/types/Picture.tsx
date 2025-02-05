@@ -1,6 +1,6 @@
 export type PictureDTO = {
   id: string;
   url: string;
-  isCurrentProfilePicture: boolean;
+  index: number;
   createdAt: string;
 }

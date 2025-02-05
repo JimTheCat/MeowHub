@@ -26,6 +26,7 @@ public class MatchingProfileDto {
     private String id;
     private String name;
     private Long age;
+    private Short height;
     private List<PictureDto> pictures;
     private String aboutMe;
     private LookingFor lookingFor;
@@ -44,6 +45,7 @@ public class MatchingProfileDto {
         profile.id = matchingProfile.getId();
         profile.name = matchingProfile.getName();
         profile.age = ChronoUnit.YEARS.between(matchingProfile.getBirthdate(), LocalDate.now());
+        profile.height = matchingProfile.getHeight();
         profile.gender = matchingProfile.getGender() == null ? null : Genders.valueOf(matchingProfile.getGender().getCode());
         profile.pictures = matchingProfile.getMatchingProfilePictures().stream().map(MatchingProfileDto::createFromPicture).toList();
         profile.aboutMe = matchingProfile.getProfileDetailsHtml();

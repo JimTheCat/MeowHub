@@ -17,7 +17,7 @@ export const useMatchingStore = create<MatchingState>((set) => ({
     set({isLoading: true, error: null});
 
     try {
-      const response = await api.get("/api/matching-profile");
+      const response = await api.get("/api/matching-profile/own");
       set({profile: response.data, isLoading: false});
     } catch (error) {
       set({profile: null, isLoading: false, error: "Failed to fetch profile"});

@@ -21,8 +21,8 @@
     "RELATIONSHIP": "Związek",
     "CHAT": "Czat"
   },
-  "pets": {
-    "pets": "Zwierzęta",
+  "pet": {
+    "pet": "Ulubione zwierzę",
     "DOG": "Pies",
     "CAT": "Kot",
     "BIRD": "Ptak",

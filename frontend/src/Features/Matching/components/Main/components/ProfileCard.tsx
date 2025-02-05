@@ -7,6 +7,7 @@ import {MatchingProfile} from "../../../types";
 import {MatchingBadge} from "../../../../shared/components/MatchingBadge";
 import {useProfileAttributes} from "../../../../shared/utils/profileAttributesUtils.tsx";
 import {useTranslation} from "react-i18next";
+import api from "../../../../shared/services/api.ts";
 
 type ProfileProps = {
   profile: MatchingProfile;
@@ -94,6 +95,16 @@ export const ProfileCard = ({
   const infoSectionAttributes = [
     "gender", "sexuality", "education", "drinker", "smoker", "exercises", "pet"
   ];
+
+  const handleApiSubmit = async (matchingProfileId: number, swipeDirection: 'right' | 'left') => {
+    if (swipeDirection === 'right') {
+      await api.post(`/api/matching-relations/like/${matchingProfileId}`);
+    }
+    if (swipeDirection === 'left') {
+      await api.post(`/api/matching-relations/dislike/${matchingProfileId}`);
+    }
+    handleSwipe(swipeDirection);
+  }
 
   return (
     <Card
@@ -207,7 +218,7 @@ export const ProfileCard = ({
           style={{
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
           }}
-          onClick={() => handleSwipe("left")}
+          onClick={() => handleApiSubmit(profile.id, "left")}
         >
           <IconX/>
         </Button>
@@ -218,7 +229,7 @@ export const ProfileCard = ({
           style={{
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
           }}
-          onClick={() => handleSwipe("right")}
+          onClick={() => handleApiSubmit(profile.id, "right")}
         >
           <IconCheck/>
         </Button>

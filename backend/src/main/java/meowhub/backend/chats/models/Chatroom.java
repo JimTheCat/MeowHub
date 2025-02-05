@@ -15,6 +15,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import meowhub.backend.users.models.User;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -54,6 +55,7 @@ public class Chatroom {
     private String receiverNick;
 
     @Column(name = "CREATED_AT")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     @Size(max = 36)
@@ -68,6 +70,6 @@ public class Chatroom {
     private String modifiedBy;
 
     @OneToMany(mappedBy = "chatroom")
-    private Set<ChatroomMessage> chatroomMessages = new LinkedHashSet<>();
+    private Set<ChatMessage> chatMessages = new LinkedHashSet<>();
 
 }

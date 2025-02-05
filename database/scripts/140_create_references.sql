@@ -165,6 +165,12 @@ ALTER TABLE mh_users.Users
         FOREIGN KEY (gender_id)
             REFERENCES mh_users.Genders (id);
 
+-- Reference: Users_Online_status (table: Users)
+ALTER TABLE mh_users.Users
+    ADD CONSTRAINT Users_Online_status
+        FOREIGN KEY (online_status_id)
+            REFERENCES mh_users.Online_status (id);
+
 -- Reference: Users_Posts_Privacy_Settings (table: Users)
 ALTER TABLE mh_users.Users
     ADD CONSTRAINT Users_Posts_Privacy_Settings

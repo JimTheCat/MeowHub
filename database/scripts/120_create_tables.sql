@@ -89,6 +89,18 @@ CREATE TABLE mh_users.Genders
     CONSTRAINT Genders_pk PRIMARY KEY (id)
 );
 
+-- Table: Genders
+CREATE TABLE mh_users.Online_status
+(
+    id          varchar2(36) DEFAULT sys_guid() NOT NULL,
+    code        varchar2(20)                    NOT NULL,
+    created_at  date                            NOT NULL,
+    created_by  varchar2(36)                    NOT NULL,
+    modified_at date                            NULL,
+    modified_by varchar2(36)                    NULL,
+    CONSTRAINT Online_status_pk PRIMARY KEY (id)
+);
+
 -- Table: Privacy_Settings
 CREATE TABLE mh_users.Privacy_Settings
 (

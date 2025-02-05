@@ -56,8 +56,8 @@
       "photos": {
         "success": "Photo added",
         "successMessage": "Your photo has been added successfully",
-        "successIndex": "Changed photos position",
-        "successIndexMessage": "Changed photos position successfully",
+        "successIndex": "Changed photos positions",
+        "successIndexMessage": "Changed photos positions successfully",
         "error": {
           "maxPhotos": "Maximum number of photos is 5",
           "maxPhotosMessage": "You have reached the maximum number of photos",

@@ -16,6 +16,8 @@ public interface MatchingProfileQueryService {
 
     MatchingProfile findMatchingProfileByLoginOrThrow(String login);
 
+    MatchingProfile findMatchingProfileByIdOrThrow(String id);
+
     Optional<MatchingProfile> findMatchingProfileByLogin(String login);
 
     MatchingProfilePreferencesDto getPreferences(String login);

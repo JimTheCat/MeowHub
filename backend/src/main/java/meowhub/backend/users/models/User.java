@@ -18,8 +18,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import meowhub.backend.chats.constants.OnlineStatus;
 import meowhub.backend.chats.models.Chatroom;
-import meowhub.backend.chats.models.ChatroomMessage;
+import meowhub.backend.chats.models.ChatMessage;
 import meowhub.backend.posts.models.Comment;
 import meowhub.backend.matching.models.MatchingProfile;
 import meowhub.backend.posts.models.Post;
@@ -110,6 +111,12 @@ public class User {
     private Role role;
 
     @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "ONLINE_STATUS_ID", nullable = false)
+    private OnlineStatusDictionary status;
+
+    @NotNull
     @Builder.Default
     @Column(name = "ACCOUNT_NON_LOCKED", nullable = false)
     private Boolean accountNonLocked = false;
@@ -143,7 +150,7 @@ public class User {
     private final Set<Chatroom> chatroomsReceiver = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "author")
-    private final Set<ChatroomMessage> chatroomMessages = new LinkedHashSet<>();
+    private final Set<ChatMessage> chatMessages = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "user")
     private final Set<Comment> comments = new LinkedHashSet<>();

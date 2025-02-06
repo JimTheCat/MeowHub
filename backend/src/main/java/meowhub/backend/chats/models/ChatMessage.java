@@ -26,7 +26,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "CHATROOM_MESSAGES", schema = "mh_chats")
-public class ChatroomMessage {
+public class ChatMessage {
     @Id
     @Size(max = 36)
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -53,7 +53,7 @@ public class ChatroomMessage {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "ANSWERED_MESSAGE_ID")
-    private ChatroomMessage answeredMessage;
+    private ChatMessage answeredMessage;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
@@ -70,6 +70,5 @@ public class ChatroomMessage {
     private String modifiedBy;
 
     @OneToMany(mappedBy = "answeredMessage")
-    private Set<ChatroomMessage> chatroomMessages = new LinkedHashSet<>();
-
+    private Set<ChatMessage> chatMessages = new LinkedHashSet<>();
 }

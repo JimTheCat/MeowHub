@@ -1,50 +1,40 @@
-package meowhub.backend.matching.models;
+package meowhub.backend.users.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import meowhub.backend.chats.constants.OnlineStatus;
+import meowhub.backend.matching.models.MatchingProfile;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "MATCHING_CHAT_MESSAGES", schema = "mh_matching")
-public class MatchingChatMessage {
+@NoArgsConstructor
+@Table(name = "ONLINE_STATUS", schema = "mh_users")
+public class OnlineStatusDictionary {
     @Id
     @Size(max = 36)
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ID", nullable = false, length = 36)
     private String id;
 
+    @Size(max = 20)
     @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "MATCH_CHAT_ID", nullable = false)
-    private MatchingChat matchChat;
-
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @OnDelete(action = OnDeleteAction.RESTRICT)
-    @JoinColumn(name = "MATCHING_PROFILE_ID", nullable = false)
-    private MatchingProfile author;
-
-    @Size(max = 2000)
-    @NotNull
-    @Column(name = "MESSAGE", nullable = false, length = 2000)
-    private String message;
+    @Column(name = "CODE", nullable = false, length = 20)
+    private String code;
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
@@ -60,4 +50,13 @@ public class MatchingChatMessage {
     @Column(name = "MODIFIED_BY", length = 36)
     private String modifiedBy;
 
+    @OneToMany(mappedBy = "status")
+    private Set<User> users = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "status")
+    private Set<MatchingProfile> matchingProfiles = new LinkedHashSet<>();
+
+    public OnlineStatusDictionary(OnlineStatus onlineStatus) {
+        this.code = onlineStatus.name();
+    }
 }

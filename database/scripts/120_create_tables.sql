@@ -89,6 +89,18 @@ CREATE TABLE mh_users.Genders
     CONSTRAINT Genders_pk PRIMARY KEY (id)
 );
 
+-- Table: Online_status
+CREATE TABLE mh_users.Online_status
+(
+    id          varchar2(36) DEFAULT sys_guid() NOT NULL,
+    code        varchar2(20)                    NOT NULL,
+    created_at  date                            NOT NULL,
+    created_by  varchar2(36)                    NOT NULL,
+    modified_at date                            NULL,
+    modified_by varchar2(36)                    NULL,
+    CONSTRAINT Online_status_pk PRIMARY KEY (id)
+);
+
 -- Table: Privacy_Settings
 CREATE TABLE mh_users.Privacy_Settings
 (
@@ -295,6 +307,7 @@ CREATE TABLE mh_matching.Matching_Profiles
 (
     id                   varchar2(36)   NOT NULL,
     user_id              varchar2(36)   NOT NULL,
+    online_status_id     varchar2(36)   NOT NULL,
     profile_details_html varchar2(2000) NULL,
     name                 varchar2(40)   NOT NULL,
     birthdate            date           NOT NULL,
@@ -306,9 +319,8 @@ CREATE TABLE mh_matching.Matching_Profiles
     Education_id         varchar2(36)   NULL,
     smoker_id            varchar2(36)   NULL,
     drinker_id           varchar2(36)   NULL,
-    exercises_id        varchar2(36)    NULL,
+    exercises_id         varchar2(36)   NULL,
     looking_for_id       varchar2(36)   NULL,
-    geolocalization      sdo_geometry   NULL,
     p_height_from        number(3)      NULL,
     p_height_to          number(3)      NULL,
     p_age_from           number(3)      NULL,

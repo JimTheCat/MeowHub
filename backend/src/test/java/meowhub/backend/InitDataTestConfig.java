@@ -1,6 +1,7 @@
 package meowhub.backend;
 
 import jakarta.annotation.PostConstruct;
+import meowhub.backend.chats.constants.OnlineStatus;
 import meowhub.backend.users.constants.Genders;
 import meowhub.backend.users.constants.PrivacySettings;
 import meowhub.backend.users.constants.Roles;
@@ -18,11 +19,13 @@ import meowhub.backend.profiles.repositories.ProfileRepository;
 import meowhub.backend.user_relations.repositories.RelationTypeRepository;
 import meowhub.backend.user_relations.repositories.UserRelationRepository;
 import meowhub.backend.users.models.Gender;
+import meowhub.backend.users.models.OnlineStatusDictionary;
 import meowhub.backend.users.models.PrivacySetting;
 import meowhub.backend.users.models.Role;
 import meowhub.backend.users.models.User;
 import meowhub.backend.users.repositories.GenderRepository;
 import meowhub.backend.posts.repositories.PostPictureRepository;
+import meowhub.backend.users.repositories.OnlineStatusDictionaryRepository;
 import meowhub.backend.users.repositories.PrivacySettingRepository;
 import meowhub.backend.users.repositories.RoleRepository;
 import meowhub.backend.users.repositories.UserRepository;
@@ -40,6 +43,8 @@ public class InitDataTestConfig {
     private PrivacySettingRepository privacySettingRepository;
     @Autowired
     private GenderRepository genderRepository;
+    @Autowired
+    private OnlineStatusDictionaryRepository onlineStatusDictionaryRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -74,6 +79,7 @@ public class InitDataTestConfig {
         PrivacySetting publicSetting = privacySettingRepository.save(new PrivacySetting(PrivacySettings.PUBLIC));
         PrivacySetting friendsOnlySetting = privacySettingRepository.save(new PrivacySetting(PrivacySettings.FRIENDS_ONLY));
         Gender gender = genderRepository.save(new Gender(Genders.FEMALE));
+        OnlineStatusDictionary onlineStatusDictionary = onlineStatusDictionaryRepository.save(new OnlineStatusDictionary(OnlineStatus.OFFLINE));
 
         user1 = new User();
         user1.setLogin("admin");
@@ -83,6 +89,7 @@ public class InitDataTestConfig {
         user1.setSurname("Kos");
         user1.setAccountNonLocked(false);
         user1.setBirthdate(LocalDate.of(1990, 1, 1));
+        user1.setStatus(onlineStatusDictionary);
         user1.setCredentialsNonExpired(true);
         user1.setCredentialsExpiryDate(LocalDateTime.now().plusYears(1));
         user1.setRole(role);
@@ -98,6 +105,7 @@ public class InitDataTestConfig {
         user2.setEmail("user1@example.com");
         user2.setName("Gustaw");
         user2.setSurname("Jeleń");
+        user2.setStatus(onlineStatusDictionary);
         user2.setAccountNonLocked(false);
         user2.setBirthdate(LocalDate.of(1991, 11, 11));
         user2.setCredentialsNonExpired(true);
@@ -115,6 +123,7 @@ public class InitDataTestConfig {
         user3.setEmail("grzegorz@example.com");
         user3.setName("Grzegorz");
         user3.setSurname("Saakaszwili");
+        user3.setStatus(onlineStatusDictionary);
         user3.setAccountNonLocked(false);
         user3.setBirthdate(LocalDate.of(1991, 11, 11));
         user3.setCredentialsNonExpired(true);

@@ -34,10 +34,10 @@ function connect(event) {
 
 
 function onConnected() {
-    stompClient.subscribe(`/user/${login}/queue/messages`, onMessageReceived);
-    stompClient.subscribe(`/topic/public`, onMessageReceived2); //subscribe to public topic to know when a user is connected or disconnected
+    stompClient.subscribe(`/user/${login}/matching/queue/messages`, onMessageReceived);
+    stompClient.subscribe(`/topic/matching/public`, onMessageReceived2); //subscribe to public topic to know when a user is connected or disconnected
     // update connected user status
-    stompClient.send("/app/user.addUser",
+    stompClient.send("/app/user.addMatchingUser",
         {},
         login
     );
@@ -46,9 +46,9 @@ function onConnected() {
 }
 
 async function findAndDisplayConnectedUsers() {
-    const connectedUsersResponse = await fetch(`/api/chat/users2/${login}`);
+    const connectedUsersResponse = await fetch(`/api/matching-chat/users2/${login}`);
     let connectedUsers = await connectedUsersResponse.json();
-    connectedUsers = connectedUsers.filter(user => user.login !== login);
+    connectedUsers = connectedUsers.filter(user => user.id !== login);
     const connectedUsersList = document.getElementById('connectedUsers');
     connectedUsersList.innerHTML = '';
 
@@ -66,14 +66,14 @@ async function findAndDisplayConnectedUsers() {
 function appendUserElement(user, connectedUsersList) {
     const listItem = document.createElement('li');
     listItem.classList.add('user-item');
-    listItem.id = user.login;
+    listItem.id = user.id;
 
     const userImage = document.createElement('img');
     userImage.src = '../img/user_icon.png';
-    userImage.alt = user.name;
+    userImage.alt = user.id;
 
     const usernameSpan = document.createElement('span');
-    usernameSpan.textContent = user.name;
+    usernameSpan.textContent = user.id;
 
     const receivedMsgs = document.createElement('span');
     receivedMsgs.textContent = '0';
@@ -100,8 +100,10 @@ async function userItemClick(event) {
     selectedUserId = clickedUser.getAttribute('id');
 
     //ktr -> pobranie czatu id, jeśli obecnie go nie posiadamy - trzeba dodać odpowiednie if, na razie strzelam żeby zawsze pobierało
-    const userChatResponse = await fetch(`/api/chat/messages/${login}/${selectedUserId}`);
+    const userChatResponse = await fetch(`/api/matching-chat/messages/${login}/${selectedUserId}`);
     chatroomId = await userChatResponse.text();
+    console.log('chatroomId', chatroomId);
+    console.log('selectedUserId', selectedUserId);
     fetchAndDisplayUserChat().then();
 
     const nbrMsg = clickedUser.querySelector('.nbr-msg');
@@ -125,11 +127,11 @@ function displayMessage(senderId, content) {
 }
 
 async function fetchAndDisplayUserChat() {
-    const userChatResponse = await fetch(`/api/chat/messages/${chatroomId}`);
+    const userChatResponse = await fetch(`/api/matching-chat/messages/${chatroomId}`);
     const userChat = await userChatResponse.json();
     chatArea.innerHTML = '';
     userChat.forEach(chat => {
-        displayMessage(chat.senderLogin, chat.content);
+        displayMessage(chat.senderId, chat.content);
     });
     chatArea.scrollTop = chatArea.scrollHeight;
 }
@@ -145,14 +147,14 @@ function sendMessage(event) {
     const messageContent = messageInput.value.trim();
     if (messageContent && stompClient) {
         const chatMessageDto = {
-            chatroomId: chatroomId,
-            senderLogin: login,
-            receiverLogin: selectedUserId,
+            matchingChatId: chatroomId,
+            senderId: login,
+            receiverId: selectedUserId,
             content: messageInput.value.trim(),
             timestamp: new Date()
         };
         console.log('Sending message', chatMessageDto);
-        stompClient.send("/app/chat", {}, JSON.stringify(chatMessageDto));
+        stompClient.send("/app/matching-chat", {}, JSON.stringify(chatMessageDto));
         displayMessage(login, messageInput.value.trim());
         messageInput.value = '';
     }
@@ -165,18 +167,20 @@ async function onMessageReceived(payload) {
     await findAndDisplayConnectedUsers();
     console.log('Message received', payload);
     const message = JSON.parse(payload.body);
-    if (selectedUserId && selectedUserId === message.senderLogin) {
-        displayMessage(message.senderLogin, message.content);
+    console.log('message', message);
+    console.log(selectedUserId && selectedUserId === message.senderId)
+    if (selectedUserId && selectedUserId === message.senderId) {
+        displayMessage(message.senderId, message.content);
         chatArea.scrollTop = chatArea.scrollHeight;
     }
 
     if (selectedUserId) {
-        document.querySelector(`#${selectedUserId}`).classList.add('active');
+        document.querySelector(`#${CSS.escape(selectedUserId)}`).classList.add('active'); //trzeba poprawić query selectory, jeśli chcesz to sobie potestować
     } else {
         messageForm.classList.add('hidden');
     }
 
-    const notifiedUser = document.querySelector(`#${message.senderLogin}`);
+    const notifiedUser = document.querySelector(`#${CSS.escape(message.senderId)}`);
     if (notifiedUser && !notifiedUser.classList.contains('active')) {
         const nbrMsg = notifiedUser.querySelector('.nbr-msg');
         nbrMsg.classList.remove('hidden');
@@ -194,12 +198,12 @@ async function onMessageReceived2(payload) {
     }
 
     if (selectedUserId) {
-        document.querySelector(`#${selectedUserId}`).classList.add('active');
+        document.querySelector(`#${CSS.escape(selectedUserId)}`).classList.add('active');
     } else {
         messageForm.classList.add('hidden');
     }
 
-    const notifiedUser = document.querySelector(`#${message.login}`);
+    const notifiedUser = document.querySelector(`#${CSS.escape(message.login)}`);
     if (notifiedUser && !notifiedUser.classList.contains('active')) {
         const nbrMsg = notifiedUser.querySelector('.nbr-msg');
         nbrMsg.classList.remove('hidden');
@@ -208,7 +212,7 @@ async function onMessageReceived2(payload) {
 }
 
 function onLogout() {
-    stompClient.send("/app/user.disconnectUser",
+    stompClient.send("/app/user.disconnecMatchingUser",
         {},
         login
     );

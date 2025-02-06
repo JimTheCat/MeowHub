@@ -16,6 +16,7 @@ public interface LikedRepository extends JpaRepository<Liked, String> {
             SELECT new meowhub.backend.matching.dtos.BasicMatchingProfileInfoDto (
                 liked.receiver.id,
                 liked.receiver.name,
+                null,
                 pp.ociUrl
             )
              FROM MatchingProfile mp

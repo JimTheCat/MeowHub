@@ -160,7 +160,7 @@ public class MatchingProfile {
     @OneToMany(mappedBy = "receiver")
     private Set<MatchingChat> matchingChatsReceiver = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "matchingProfile")
+    @OneToMany(mappedBy = "author")
     private Set<MatchingChatMessage> matchingChatMessages = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "matchingProfile")

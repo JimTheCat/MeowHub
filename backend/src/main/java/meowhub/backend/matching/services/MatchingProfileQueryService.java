@@ -10,11 +10,15 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface MatchingProfileQueryService {
+    String getLoginById(String id);
+
     Page<MatchingProfileDto> getAllMatchingProfiles(Pageable pageable);
 
     MatchingProfileDto getMyProfile(String login);
 
     MatchingProfile findMatchingProfileByLoginOrThrow(String login);
+
+    MatchingProfile findMatchingProfileByIdOrThrow(String id);
 
     Optional<MatchingProfile> findMatchingProfileByLogin(String login);
 

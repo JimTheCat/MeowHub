@@ -27,4 +27,13 @@ public interface MatchingProfileRepository extends JpaRepository<MatchingProfile
                       AND mp.gender.id = COALESCE(filters.pGender.id, mp.gender.id)
             """)
     Page<MatchingProfile> search(@Param("login") String login, Pageable pageable);
+
+    //TODO: to delete
+    @Query("""
+                     SELECT u.login
+                        FROM User u
+                        JOIN MatchingProfile mp ON u.id = mp.user.id
+                          WHERE mp.id = :id
+""")
+    String getUserLoginById(String id);
 }

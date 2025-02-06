@@ -7,18 +7,22 @@ import meowhub.backend.matching.models.MatchingProfile;
 import meowhub.backend.matching.repositories.MatchingProfileRepository;
 import meowhub.backend.matching.services.MatchingProfileQueryService;
 import meowhub.backend.shared.constants.AlertConstants;
+import meowhub.backend.users.models.User;
+import meowhub.backend.users.repositories.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static io.jsonwebtoken.impl.security.EdwardsCurve.findById;
 import static meowhub.backend.shared.constants.Modules.MATCHING_PROFILE;
 
 @Service
 @RequiredArgsConstructor
 public class MatchingProfileQueryServiceImpl implements MatchingProfileQueryService {
     private final MatchingProfileRepository matchingProfileRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Page<MatchingProfileDto> getAllMatchingProfiles(Pageable pageable) {
@@ -45,6 +49,12 @@ public class MatchingProfileQueryServiceImpl implements MatchingProfileQueryServ
     }
 
     @Override
+    public MatchingProfile findMatchingProfileByIdOrThrow(String id) {
+        return matchingProfileRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, MATCHING_PROFILE, "id", id)));
+    }
+
+    @Override
     public MatchingProfilePreferencesDto getPreferences(String login) {
         return matchingProfileRepository.findByUserLogin(login)
                 .map(MatchingProfilePreferencesDto::createFromMatchingProfilePreferencesFromMatchingProfile)
@@ -55,5 +65,12 @@ public class MatchingProfileQueryServiceImpl implements MatchingProfileQueryServ
     public Page<MatchingProfileDto> search(int page, int size, String login) {
         Pageable pageable = Pageable.ofSize(size).withPage(page);
         return matchingProfileRepository.search(login, pageable).map(MatchingProfileDto::createFromMatchingProfile);
+    }
+
+    //TODO: delete
+
+    @Override
+    public String getLoginById(String id) {
+        return  matchingProfileRepository.getUserLoginById( id);
     }
 }

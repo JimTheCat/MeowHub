@@ -1,9 +1,11 @@
 package meowhub.backend.users.facades.impl;
 
 import lombok.RequiredArgsConstructor;
+import meowhub.backend.chats.constants.OnlineStatus;
 import meowhub.backend.users.constants.Genders;
 import meowhub.backend.users.facades.UserMatchingServiceFacade;
 import meowhub.backend.users.models.Gender;
+import meowhub.backend.users.models.OnlineStatusDictionary;
 import meowhub.backend.users.models.User;
 import meowhub.backend.users.services.UserDictionaryQueryService;
 import meowhub.backend.users.services.UserQueryService;
@@ -30,5 +32,10 @@ public class UserMatchingServiceFacadeImpl implements UserMatchingServiceFacade 
     @Override
     public Gender getGenderByEnumOrThrow(Genders gender) {
         return userDictionaryQueryService.getGenderByEnumOrThrow(gender);
+    }
+
+    @Override
+    public OnlineStatusDictionary getOnlineStatusDictionaryByEnumOrThrow(OnlineStatus onlineStatus) {
+        return userDictionaryQueryService.getOnlineStatusDictionaryByEnumOrThrow(onlineStatus);
     }
 }

@@ -307,6 +307,7 @@ CREATE TABLE mh_matching.Matching_Profiles
 (
     id                   varchar2(36)   NOT NULL,
     user_id              varchar2(36)   NOT NULL,
+    online_status_id     varchar2(36)   NOT NULL,
     profile_details_html varchar2(2000) NULL,
     name                 varchar2(40)   NOT NULL,
     birthdate            date           NOT NULL,
@@ -318,9 +319,8 @@ CREATE TABLE mh_matching.Matching_Profiles
     Education_id         varchar2(36)   NULL,
     smoker_id            varchar2(36)   NULL,
     drinker_id           varchar2(36)   NULL,
-    exercises_id        varchar2(36)    NULL,
+    exercises_id         varchar2(36)   NULL,
     looking_for_id       varchar2(36)   NULL,
-    geolocalization      sdo_geometry   NULL,
     p_height_from        number(3)      NULL,
     p_height_to          number(3)      NULL,
     p_age_from           number(3)      NULL,

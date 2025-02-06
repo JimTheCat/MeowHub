@@ -45,6 +45,12 @@ public class MatchingProfileQueryServiceImpl implements MatchingProfileQueryServ
     }
 
     @Override
+    public MatchingProfile findMatchingProfileByIdOrThrow(String id) {
+        return matchingProfileRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, MATCHING_PROFILE, "id", id)));
+    }
+
+    @Override
     public MatchingProfilePreferencesDto getPreferences(String login) {
         return matchingProfileRepository.findByUserLogin(login)
                 .map(MatchingProfilePreferencesDto::createFromMatchingProfilePreferencesFromMatchingProfile)

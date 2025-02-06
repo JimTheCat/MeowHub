@@ -17,6 +17,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import meowhub.backend.users.models.Gender;
+import meowhub.backend.users.models.OnlineStatusDictionary;
 import meowhub.backend.users.models.User;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -42,6 +43,12 @@ public class MatchingProfile {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @OnDelete(action = OnDeleteAction.RESTRICT)
+    @JoinColumn(name = "ONLINE_STATUS_ID", nullable = false)
+    private OnlineStatusDictionary status;
 
     @Size(max = 2000)
     @Column(name = "PROFILE_DETAILS_HTML", length = 2000)
@@ -160,16 +167,9 @@ public class MatchingProfile {
     @OneToMany(mappedBy = "receiver")
     private Set<MatchingChat> matchingChatsReceiver = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "matchingProfile")
+    @OneToMany(mappedBy = "author")
     private Set<MatchingChatMessage> matchingChatMessages = new LinkedHashSet<>();
 
     @OneToMany(mappedBy = "matchingProfile")
     private Set<MatchingProfilePicture> matchingProfilePictures = new LinkedHashSet<>();
-
-/*
- TODO [Reverse Engineering] create field to map the 'GEOLOCALIZATION' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "GEOLOCALIZATION", columnDefinition = "SDO_GEOMETRY")
-    private java.lang.Object geolocalization;
-*/
 }

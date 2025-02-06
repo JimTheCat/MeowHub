@@ -145,6 +145,12 @@ ALTER TABLE mh_matching.matching_profiles
         FOREIGN KEY (smoker_id)
             REFERENCES mh_matching.how_often (id);
 
+-- Reference: Matching_profiles_Online_status (table: matching_profiles)
+ALTER TABLE mh_matching.matching_profiles
+    ADD CONSTRAINT Matching_profiles_Online_status
+        FOREIGN KEY (online_status_id)
+            REFERENCES mh_users.Online_status (id);
+
 ---------------------------------------- || MH_USERS SCHEMA || ----------------------------------------
 
 -- Reference: User_tokens_Users (table: User_tokens)

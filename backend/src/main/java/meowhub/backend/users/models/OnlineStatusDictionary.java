@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import meowhub.backend.chats.constants.OnlineStatus;
 import meowhub.backend.matching.models.MatchingProfile;
-import meowhub.backend.users.constants.Genders;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -53,6 +52,9 @@ public class OnlineStatusDictionary {
 
     @OneToMany(mappedBy = "status")
     private Set<User> users = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "status")
+    private Set<MatchingProfile> matchingProfiles = new LinkedHashSet<>();
 
     public OnlineStatusDictionary(OnlineStatus onlineStatus) {
         this.code = onlineStatus.name();

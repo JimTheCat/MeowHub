@@ -39,7 +39,7 @@ public class MatchingChatMessage {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @OnDelete(action = OnDeleteAction.RESTRICT)
     @JoinColumn(name = "MATCHING_PROFILE_ID", nullable = false)
-    private MatchingProfile matchingProfile;
+    private MatchingProfile author;
 
     @Size(max = 2000)
     @NotNull

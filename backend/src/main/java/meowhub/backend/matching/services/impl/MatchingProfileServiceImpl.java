@@ -108,4 +108,9 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         matchingProfile.getMatchingProfilePictures().forEach(picture -> matchingProfilePictureService.intDeleteMatchingProfilePicture(picture.getId()));
         matchingProfileRepository.delete(matchingProfile);
     }
+
+    @Override
+    public void saveProfile(MatchingProfile profile) {
+        matchingProfileRepository.save(profile);
+    }
 }

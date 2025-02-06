@@ -56,7 +56,6 @@ public class MatchingProfile {
     @Column(name = "BIRTHDATE", nullable = false)
     private LocalDate birthdate;
 
-    @NotNull
     @Column(name = "AGE", nullable = false)
     private Short age;
 
@@ -165,11 +164,4 @@ public class MatchingProfile {
 
     @OneToMany(mappedBy = "matchingProfile")
     private Set<MatchingProfilePicture> matchingProfilePictures = new LinkedHashSet<>();
-
-/*
- TODO [Reverse Engineering] create field to map the 'GEOLOCALIZATION' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "GEOLOCALIZATION", columnDefinition = "SDO_GEOMETRY")
-    private java.lang.Object geolocalization;
-*/
 }

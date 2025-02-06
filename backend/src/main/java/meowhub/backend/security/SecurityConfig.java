@@ -29,7 +29,7 @@ public class SecurityConfig {
         http.cors(Customizer.withDefaults());
 
         http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/api/auth/public/**", "/api/ext/**", "/**"));
+                .ignoringRequestMatchers("/api/auth/public/**", "/api/ext/**"));
 
         http.authorizeHttpRequests(requests -> requests
                 .requestMatchers("/api/csrf-token/**").permitAll()
@@ -41,8 +41,7 @@ public class SecurityConfig {
                         "/swagger-ui/**",
                         "/swagger-ui.html"
                 ).permitAll()
-                .anyRequest().permitAll()
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
         );
 
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

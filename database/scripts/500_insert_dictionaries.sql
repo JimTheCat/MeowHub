@@ -13,6 +13,7 @@ INSERT INTO mh_users.genders (code) VALUES ('OTHER');
 -- table: mh_users.online_status
 INSERT INTO mh_users.online_status (code) VALUES ('ONLINE');
 INSERT INTO mh_users.online_status (code) VALUES ('OFFLINE');
+INSERT INTO mh_users.online_status (code) VALUES ('IDLE');
 
 -- table: mh_users.privacy_settings
 INSERT INTO mh_users.privacy_settings (code) VALUES ('PUBLIC');

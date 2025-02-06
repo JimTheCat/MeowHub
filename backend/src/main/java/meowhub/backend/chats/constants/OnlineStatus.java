@@ -1,5 +1,5 @@
 package meowhub.backend.chats.constants;
 
 public enum OnlineStatus {
-    ONLINE, OFFLINE
+    ONLINE, OFFLINE, IDLE
 }

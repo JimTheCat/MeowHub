@@ -25,6 +25,12 @@ public interface MatchingProfileRepository extends JpaRepository<MatchingProfile
                       AND mp.age BETWEEN COALESCE(filters.pAgeFrom, mp.age) AND COALESCE(filters.pAgeTo, mp.age)
                       AND mp.lookingFor.id = COALESCE(filters.pLookingFor.id, mp.lookingFor.id)
                       AND mp.gender.id = COALESCE(filters.pGender.id, mp.gender.id)
+                      AND mp.user.id NOT IN (
+                          SELECT liked.receiver.id
+                            FROM Liked liked
+                           WHERE liked.sender.id = filters.id
+                             AND liked.likeType.code IN  ('LIKE', 'MATCH')
+                              )
             """)
     Page<MatchingProfile> search(@Param("login") String login, Pageable pageable);
 }

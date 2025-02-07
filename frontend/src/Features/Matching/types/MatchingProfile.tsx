@@ -16,3 +16,12 @@ export type MatchingProfile = {
   exercises: string | null;
   pet: string | null;
 };
+
+export type MatchingProfilePreferences = {
+  gender?: string;
+  ageFrom?: number;
+  ageTo?: number;
+  heightFrom?: number;
+  heightTo?: number;
+  lookingFor?: string;
+}

@@ -18,7 +18,7 @@ export const Main = () => {
   const fetchProfiles = async (page: number) => {
     setIsLoading(true);
     try {
-      const response = await api.get(`/api/matching-profile/all?page=${page}`);
+      const response = await api.get(`/api/matching-profile?page=${page}`);
       const data = response.data;
 
       // Append new profiles to the list

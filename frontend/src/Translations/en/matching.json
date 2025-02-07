@@ -26,7 +26,7 @@
     "menu": {
       "base": "Match",
       "profile": "Profile",
-      "filters": "Filters (coming soon)",
+      "filters": "Filters",
       "tests": "My tests (coming soon)",
       "settings": "Settings"
     }
@@ -35,11 +35,16 @@
     "card": {
       "title": "Filters",
       "options": {
-        "showMe": "Show me",
-        "sexuality": "Sexuality",
-        "age": "Preferred age",
-        "distance": "Distance",
-        "hereFor": "Here for"
+        "gender": "Gender",
+        "lookingFor": "Looking for",
+        "ageRange": "Age",
+        "heightRange": "Height"
+      }
+    },
+    "alerts": {
+      "success": {
+        "title": "Filters applied",
+        "message": "Your filters have been applied successfully"
       }
     },
     "button": {

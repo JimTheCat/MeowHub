@@ -8,8 +8,7 @@ export const LookingFor = (value?: string) => {
     {value: "ANYTHING", label: t('lookingFor.ANYTHING')},
     {value: "FRIENDSHIP", label: t('lookingFor.FRIENDSHIP')},
     {value: "RELATIONSHIP", label: t('lookingFor.RELATIONSHIP')},
-    {value: "CHAT", label: t('lookingFor.CHAT')},
-    {value: null, label: ""}
+    {value: "CHAT", label: t('lookingFor.CHAT')}
   ]
 
   if (!value) return data;

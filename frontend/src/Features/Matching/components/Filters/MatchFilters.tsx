@@ -180,7 +180,7 @@ export const MatchFilters = () => {
               onClick={handleReset}
               loading={isPreferencesLoading}
             >
-              {t('filters.card.button.cancel.label')}
+              {t('filters.button.cancel.label')}
             </Button>
             <Button
               type="submit"
@@ -188,7 +188,7 @@ export const MatchFilters = () => {
               radius="lg"
               loading={isPreferencesLoading}
             >
-              {t('filters.card.button.submit.label')}
+              {t('filters.button.submit.label')}
             </Button>
           </Group>
         )}

@@ -9,8 +9,7 @@ import SockJS from 'sockjs-client';
  * @returns A STOMP Client instance.
  */
 export const createStompClient = (token: string): Client => {
-  // Replace with your actual backend WebSocket endpoint (e.g., '/ws' or '/websocket')
-  const socketUrl = 'http://localhost:8080/ws';
+  const socketUrl = `${import.meta.env.VITE_API_URL}/ws`;
 
   // Create a new STOMP client using SockJS as the underlying WebSocket provider.
   const stompClient = new Client({

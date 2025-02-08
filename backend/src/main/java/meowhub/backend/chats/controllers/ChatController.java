@@ -5,6 +5,7 @@ import meowhub.backend.chats.dtos.ChatMessageDto;
 import meowhub.backend.chats.dtos.ChatNotification;
 import meowhub.backend.chats.services.ChatMessageService;
 import meowhub.backend.chats.services.ChatService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +30,7 @@ public class ChatController {
     }
 
     @GetMapping("/messages/{chatroomId}")
-    public ResponseEntity<List<ChatMessageDto>> findChatMessages(@PathVariable("chatroomId") String chatroomId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity<Page<ChatMessageDto>> findChatMessages(@PathVariable("chatroomId") String chatroomId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         return ResponseEntity.ok(service.findChatMessages(chatroomId, page, size));
     }
 

@@ -43,7 +43,7 @@ public interface ChatUserRepository extends JpaRepository<User, String> {
                  FROM UserRelation relation
                  JOIN User sender ON relation.sender.id = sender.id
                  JOIN User receiver ON relation.receiver.id = receiver.id
-                 LEFT JOIN Profile p ON p.user.id = sender.id
+                 LEFT JOIN Profile p ON p.user.id = receiver.id
                  LEFT JOIN ProfilePicture pp ON pp.profile.id = p.id AND pp.isCurrentProfilePicture = true
                  LEFT JOIN Chatroom chat ON chat.sender.id = sender.id AND chat.receiver.id = receiver.id
                 WHERE sender.login = :login

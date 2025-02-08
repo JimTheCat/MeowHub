@@ -3,5 +3,13 @@
     "title": "Chat",
     "searchPlaceholder": "Search for a chat"
   },
-  "unselectedChat": "Please select a chat to start"
+  "unselectedChat": "Please select a chat to start",
+  "status": {
+    "online": "Online",
+    "idle": "Idle",
+    "offline": "Offline"
+  },
+  "messageSender": {
+    "placeholder": "Type a message..."
+  }
 }

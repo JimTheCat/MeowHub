@@ -1,4 +1,4 @@
-import {AppShell, Avatar, Card, Group, Image, ScrollArea, Stack, Text} from "@mantine/core";
+import {AppShell, Avatar, Card, Group, Image, Indicator, ScrollArea, Stack, Text} from "@mantine/core";
 import MeowHubLogo from "../../../../Assets/mh_logo.svg";
 import {MenuButton} from "../../../shared/components/MenuButton";
 import {
@@ -19,6 +19,7 @@ import {BasicUserInfo} from "../../../shared/types";
 import {useEffect, useState} from "react";
 import api from "../../../shared/services/api.ts";
 import {useTranslation} from "react-i18next";
+import {useWebsocketStore} from "../../../shared/services/websocketStore.ts";
 
 export const Navbar = () => {
 
@@ -26,6 +27,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const [basicUserInfo, setBasicUserInfo] = useState<BasicUserInfo | null>(null);
   const {t} = useTranslation('root');
+  const {client} = useWebsocketStore();
 
   const handleProfileClick = () => {
     navigate(`/profile/${auth.user?.tag}`);
@@ -58,7 +60,15 @@ export const Navbar = () => {
       <AppShell.Section>
         <Card p={"xs"} withBorder style={{cursor: "pointer"}} onClick={handleProfileClick}>
           <Group>
-            <Avatar src={basicUserInfo?.profilePictureUrl} radius={180} size={"xl"}/>
+            {client?.connected ? (
+              <Indicator color="green" inline size={18} offset={10} position="bottom-end" withBorder>
+                <Avatar src={basicUserInfo?.profilePictureUrl} radius={180} size={"xl"}/>
+              </Indicator>
+            ) : (
+              <Indicator color="red" size={18} offset={10} position="bottom-end" withBorder>
+                <Avatar src={basicUserInfo?.profilePictureUrl} radius={180} size={"xl"}/>
+              </Indicator>
+            )}
             <Stack justify={"center"} gap={0}>
               <Text>{t('navbar.profile.greeting')}</Text>
               <Text>{basicUserInfo?.name} {basicUserInfo?.surname}</Text>
@@ -77,7 +87,7 @@ export const Navbar = () => {
           <MenuButton disabled mainMenu icon={<IconUsersGroup/>} text={t('navbar.menu.groups')} href={"/groups"}/>
           <MenuButton mainMenu icon={<IconTopologyFull/>} text={t('navbar.menu.relations')} href={"/relations"}/>
           <MenuButton mainMenu icon={<IconUserHeart/>} text={t('navbar.menu.matching')} href={"/matching"}/>
-          <MenuButton disabled mainMenu icon={<IconMail/>} text={t('navbar.menu.messages')} href={"/messages"}/>
+          <MenuButton mainMenu icon={<IconMail/>} text={t('navbar.menu.messages')} href={"/messages"}/>
         </AppShell.Section>
         <AppShell.Section>
           <MenuButton mainMenu icon={<IconSettings/>} text={t('navbar.menu.settings')} href={"/settings"}/>

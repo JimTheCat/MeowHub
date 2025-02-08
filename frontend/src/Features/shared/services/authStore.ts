@@ -31,7 +31,7 @@ export const useAuthStore = create<AuthState>((set) => {
       };
 
       const {connect} = useWebsocketStore.getState();
-      connect(storedToken);
+      connect(storedToken).then(r => console.log(r));
 
     } catch (error) {
       console.error("Invalid token:", error);
@@ -51,7 +51,7 @@ export const useAuthStore = create<AuthState>((set) => {
       localStorage.setItem("token", user.jwtToken);
 
       const {connect} = useWebsocketStore.getState();
-      connect(user.jwtToken);
+      await connect(user.jwtToken);
 
       const {client} = useWebsocketStore.getState();
       if (client?.connected) {

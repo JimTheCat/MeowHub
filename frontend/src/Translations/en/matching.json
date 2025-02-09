@@ -27,6 +27,7 @@
       "base": "Match",
       "profile": "Profile",
       "filters": "Filters",
+      "messages": "Messages",
       "tests": "My tests (coming soon)",
       "settings": "Settings"
     }

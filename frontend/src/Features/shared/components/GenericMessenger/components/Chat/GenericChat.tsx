@@ -1,14 +1,13 @@
 import {useEffect, useRef, useState} from 'react';
 import {Avatar, Card, Flex, Group, Indicator, ScrollArea, Stack, Text, Title, Tooltip,} from '@mantine/core';
-import {ChatBasicUserInfo, ChatMessageDto} from '../../types';
-import {useWebsocketStore} from '../../../shared/services/websocketStore.ts';
-import {useAuthStore} from '../../../shared/services/authStore.ts';
-import api from '../../../shared/services/api.ts';
-import {DateFormatter} from '../../../shared/utils';
 import {MessageSender} from '../MessageSender';
+import {ChatBasicUserInfo, ChatMessageDto} from '../../types';
+import {useWebsocketStore} from '../../../../services/websocketStore';
+import api from '../../../../services/api';
+import {InfiniteScroll} from '../../../InfiniteScroll';
+import {DateFormatter} from '../../../../utils';
+import {ChatConfig, Status} from '../../consts';
 import {v4 as uuidv4} from 'uuid';
-import {InfiniteScroll} from '../../../shared/components/InfiniteScroll';
-import {Status} from "../../consts";
 
 export type ChatMessage = {
   id: string | number;
@@ -18,39 +17,53 @@ export type ChatMessage = {
   timestamp: string;
 };
 
-type ChatProps = {
+type GenericChatProps = {
   conversationId: string;
   partner?: ChatBasicUserInfo;
+  config: ChatConfig;
 };
 
-export const Chat = ({conversationId, partner}: ChatProps) => {
+export const GenericChat = ({conversationId, partner, config}: GenericChatProps) => {
   const [messagePage, setMessagePage] = useState(0);
   const [hasMoreMessages, setHasMoreMessages] = useState(true);
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const stompClient = useWebsocketStore((state) => state.client);
-  const loggedUser = useAuthStore((state) => state.user);
-  const loggedUserLogin = loggedUser?.login;
+
+  // Helper: sorts an array of messages by ascending timestamp.
+  const sortMessages = (msgs: ChatMessage[]): ChatMessage[] => {
+    return msgs.slice().sort(
+      (a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+    );
+  };
+
+  // Retrieve current user via config for both regular and matching chats.
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  useEffect(() => {
+    config.getCurrentUser().then(setCurrentUser);
+  }, [config]);
+  const loggedUserLogin = currentUser?.login;
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
+  // Scroll to the bottom when new messages arrive.
   useEffect(() => {
     const scrollArea = scrollAreaRef.current;
     if (!scrollArea) return;
     scrollArea.scrollTop = scrollArea.scrollHeight;
   }, [messages.length]);
 
+  // Load chat history.
   useEffect(() => {
     const fetchChatHistory = async () => {
       try {
-        const response = await api.get<{
-          content: ChatMessage[];
-          totalPages: number;
-        }>(`/api/chat/messages/${conversationId}`, {
-          params: {page: 0, size: 50},
-        });
-
-        setMessages(response.data.content);
+        const response = await api.get<{ content: any[]; totalPages: number }>(
+          config.endpoints.messages(conversationId),
+          {params: {page: 0, size: 50}}
+        );
+        const mappedMessages = response.data.content.map(config.messageMapper);
+        // Ensure messages are sorted ascending (oldest first)
+        setMessages(sortMessages(mappedMessages));
         setHasMoreMessages(0 < response.data.totalPages);
       } catch (error) {
         console.error('Failed to fetch chat history:', error);
@@ -60,64 +73,69 @@ export const Chat = ({conversationId, partner}: ChatProps) => {
     if (conversationId) {
       fetchChatHistory();
     }
-  }, [conversationId]);
+  }, [conversationId, config]);
 
   useEffect(() => {
     if (stompClient && stompClient.connected && loggedUserLogin) {
-      const subscription = stompClient.subscribe(
-        `/user/${loggedUserLogin}/queue/messages`,
-        (message) => {
-          const data = JSON.parse(message.body);
-          console.log('New message received:', data);
+      const topic = `/user/${loggedUserLogin}${config.wsTopics.messages}`;
 
-          if (data.chatroomId === conversationId) {
-            const newMsg: ChatMessage = {
-              id: data.id || Date.now(),
-              content: data.content,
-              conversationId: data.chatroomId,
-              senderLogin: data.senderLogin,
-              timestamp: data.timestamp || new Date().toISOString(),
-            };
+      const subscription = stompClient.subscribe(topic, (message) => {
+        const data = JSON.parse(message.body);
+        console.log('[WS] Received:', data);
 
-            setMessages((prev) => {
-              if (!prev.some((msg) => msg.id === newMsg.id)) {
-                return [...prev, newMsg];
-              }
-              return prev;
-            });
-          }
-        }
-      );
+        const conversationIdFromMsg = data.chatroomId || data.matchingChatId;
+        if (conversationIdFromMsg !== conversationId) return;
 
-      return () => subscription.unsubscribe();
+        console.log('[WS] Message belongs to current conversation:', conversationIdFromMsg);
+
+        const messageId = data.id
+          || data.matchingChatMessageId
+          || data.clientId
+          || uuidv4();
+
+        const newMsg: ChatMessage = {
+          id: messageId,
+          content: data.content,
+          conversationId: conversationIdFromMsg,
+          senderLogin: data.senderLogin || data.senderId,
+          timestamp: data.timestamp || new Date().toISOString(),
+        };
+
+        setMessages((prev) => {
+          const exists = prev.some((msg) => msg.id === newMsg.id);
+          return exists ? prev : sortMessages([...prev, newMsg]);
+        });
+      });
+
+      return () => {
+        console.log('[WS] Unsubscribing from:', topic);
+        subscription.unsubscribe();
+      };
     }
-  }, [stompClient, stompClient?.connected, conversationId, loggedUserLogin]);
+  }, [stompClient, conversationId, loggedUserLogin, config]);
 
+
+  // Load older messages.
   const loadMoreMessages = async () => {
     if (!hasMoreMessages || loadingMessages) return;
-
     const scrollArea = scrollAreaRef.current;
     const scrollTop = scrollArea?.scrollTop ?? 0;
     const scrollHeight = scrollArea?.scrollHeight ?? 0;
-
     setLoadingMessages(true);
     try {
       const nextPage = messagePage + 1;
-      const response = await api.get<{
-        content: ChatMessage[];
-        totalPages: number;
-      }>(`/api/chat/messages/${conversationId}`, {
-        params: {page: nextPage, size: 50},
-      });
-
-      setMessages((prev) => [...response.data.content, ...prev]);
-
+      const response = await api.get<{ content: any[]; totalPages: number }>(
+        config.endpoints.messages(conversationId),
+        {params: {page: nextPage, size: 50}}
+      );
+      const mappedMessages = response.data.content.map(config.messageMapper);
+      // Prepend the older messages and re-sort the entire list.
+      setMessages((prev) => sortMessages([...mappedMessages, ...prev]));
       if (scrollArea) {
         requestAnimationFrame(() => {
           scrollArea.scrollTop = scrollArea.scrollHeight - scrollHeight + scrollTop;
         });
       }
-
       setHasMoreMessages(nextPage < response.data.totalPages);
       setMessagePage(nextPage);
     } catch (error) {
@@ -127,29 +145,41 @@ export const Chat = ({conversationId, partner}: ChatProps) => {
     }
   };
 
+  // Function to send a message.
   const handleMessageSent = (msg: ChatMessageDto) => {
     if (!stompClient || !loggedUserLogin) return;
 
     const clientId = uuidv4();
 
-    const newMsg: ChatMessage = {
+    const tempMsg: ChatMessage = {
       id: clientId,
       content: msg.content,
-      conversationId: msg.chatroomId,
+      conversationId: conversationId,
       senderLogin: loggedUserLogin,
       timestamp: new Date().toISOString(),
     };
-    setMessages((prev) => [...prev, newMsg]);
+
+    setMessages((prev) => sortMessages([...prev, tempMsg]));
+
+    const payload = config.baseRoute.includes('matching')
+      ? {
+        matchingChatId: conversationId,
+        senderId: loggedUserLogin,
+        receiverId: partner?.login,
+        content: msg.content,
+        clientId: clientId
+      }
+      : {
+        chatroomId: conversationId,
+        senderLogin: loggedUserLogin,
+        receiverLogin: partner?.login,
+        content: msg.content,
+        clientId: clientId
+      };
 
     stompClient.publish({
-      destination: '/app/chat',
-      body: JSON.stringify({
-        clientId: clientId,
-        chatroomId: msg.chatroomId,
-        senderLogin: loggedUserLogin,
-        receiverLogin: msg.receiverLogin,
-        content: msg.content,
-      }),
+      destination: config.sendMessageDestination,
+      body: JSON.stringify(payload),
     });
   };
 
@@ -163,7 +193,7 @@ export const Chat = ({conversationId, partner}: ChatProps) => {
               size={14}
               offset={7}
               color={partner?.status === 'ONLINE' ? 'teal' : 'gray'}
-              position={'bottom-end'}
+              position="bottom-end"
               withBorder
             >
               <Avatar size="lg" radius="xl" src={partner?.profilePictureUrl}/>
@@ -184,7 +214,7 @@ export const Chat = ({conversationId, partner}: ChatProps) => {
         </Group>
       </Card>
 
-      {/* Wiadomości czatu */}
+      {/* Message list */}
       <ScrollArea.Autosize p="xs" style={{flexGrow: 1}} viewportRef={scrollAreaRef}>
         <InfiniteScroll
           loadMore={loadMoreMessages}
@@ -222,7 +252,7 @@ export const Chat = ({conversationId, partner}: ChatProps) => {
         </InfiniteScroll>
       </ScrollArea.Autosize>
 
-      {/* Message sender */}
+      {/* Message sender component */}
       {loggedUserLogin && partner && (
         <MessageSender
           conversationId={conversationId}
@@ -233,3 +263,4 @@ export const Chat = ({conversationId, partner}: ChatProps) => {
     </Flex>
   );
 };
+

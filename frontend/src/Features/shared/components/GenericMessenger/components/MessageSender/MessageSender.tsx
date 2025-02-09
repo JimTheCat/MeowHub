@@ -1,8 +1,8 @@
 import {v4 as uuidv4} from 'uuid';
 import {useState} from 'react';
 import {TextInput} from '@mantine/core';
-import {useWebsocketStore} from "../../../shared/services/websocketStore.ts";
-import {useAuthStore} from "../../../shared/services/authStore.ts";
+import {useWebsocketStore} from "../../../../services/websocketStore.ts";
+import {useAuthStore} from "../../../../services/authStore.ts";
 import {ChatMessageDto} from "../../types";
 import {useTranslation} from "react-i18next";
 

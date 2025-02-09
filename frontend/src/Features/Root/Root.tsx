@@ -24,6 +24,7 @@ import {Multimedia} from "../Multimedia";
 import {Privacy} from "../Privacy";
 import {SharedPost} from "../SharedPost";
 import {MatchRegister} from "../Matching/components/Register";
+import {MatchingMessenger} from "../Matching/components/Messenger";
 
 export const Root = () => {
 
@@ -55,6 +56,8 @@ export const Root = () => {
           <Route path="/matching/create-profile" element={<MatchRegister/>}/>
           <Route path="/matching/profile" element={<Matching component={<MatchProfile/>}/>}/>
           <Route path="/matching/filters" element={<Matching component={<MatchFilters/>}/>}/>
+          <Route path="/matching/messages" element={<Matching component={<MatchingMessenger/>}/>}/>
+          <Route path="/matching/messages/:conversationId" element={<Matching component={<MatchingMessenger/>}/>}/>
           <Route path="/matching/tests" element={<Matching component={<MatchTests/>}/>}/>
           <Route path="/matching/settings" element={<Matching component={<MatchSettings/>}/>}/>
           <Route path="/messages" element={<Messenger/>}/>

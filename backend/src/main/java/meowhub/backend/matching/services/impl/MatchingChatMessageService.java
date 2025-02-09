@@ -7,6 +7,7 @@ import meowhub.backend.matching.models.MatchingChatMessage;
 import meowhub.backend.matching.models.MatchingProfile;
 import meowhub.backend.matching.repositories.MatchingChatMessageRepository;
 import meowhub.backend.matching.services.MatchingProfileQueryService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -40,12 +41,12 @@ public class MatchingChatMessageService {
     }
 
 
-    public List<MatchingChatMessageDto> findChatMessages(String chatroomId, int page, int size) {
+    public Page<MatchingChatMessageDto> findChatMessages(String chatroomId, int page, int size) {
         MatchingChat chatroom = chatService.getChatroom(chatroomId)
                 .orElseThrow(() -> new RuntimeException("Could not find chatroom with id: " + chatroomId));
 
         Pageable pageable = PageRequest.of(page, size);
-        return repository.findByMatchChatIdOrderByCreatedAtDesc(chatroomId, pageable).stream().map(chatMessage -> {
+        return repository.findByMatchChatIdOrderByCreatedAtDesc(chatroomId, pageable).map(chatMessage -> {
                     String messageAuthor = chatMessage.getAuthor().getId();
                     String messageReceiver = Objects.equals(messageAuthor, chatroom.getReceiver().getId()) ? chatroom.getSender().getId() : chatroom.getReceiver().getId();
 
@@ -56,7 +57,6 @@ public class MatchingChatMessageService {
                     chatMessageDto.setContent(chatMessage.getMessage());
                     chatMessageDto.setMatchingChatId(chatroomId);
                     return chatMessageDto;
-                }).sorted(Comparator.comparing(MatchingChatMessageDto::getTimestamp))
-                .toList();
+                });
     }
 }

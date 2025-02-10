@@ -1,6 +1,13 @@
 import {AppShell, Card, ScrollArea, Title} from "@mantine/core";
 import {MenuButton} from "../../../shared/components/MenuButton";
-import {IconFilterHeart, IconHeartHandshake, IconNotes, IconSettingsHeart, IconUserHeart} from "@tabler/icons-react";
+import {
+  IconFilterHeart,
+  IconHeartHandshake,
+  IconMessageHeart,
+  IconNotes,
+  IconSettingsHeart,
+  IconUserHeart
+} from "@tabler/icons-react";
 import {useTranslation} from "react-i18next";
 
 export const Aside = () => {
@@ -19,6 +26,8 @@ export const Aside = () => {
                     href={base + '/profile'}/>
         <MenuButton icon={<IconFilterHeart stroke={iconStroke}/>} text={t('aside.menu.filters')}
                     href={base + '/filters'}/>
+        <MenuButton icon={<IconMessageHeart stroke={iconStroke}/>} text={t('aside.menu.messages')}
+                    href={base + '/messages'}/>
         <MenuButton disabled icon={<IconNotes stroke={iconStroke}/>} text={t('aside.menu.tests')}
                     href={base + '/tests'}/>
         <MenuButton icon={<IconSettingsHeart stroke={iconStroke}/>} text={t('aside.menu.settings')}

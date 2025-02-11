@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from "react";
+import React, {forwardRef, useEffect, useRef} from "react";
 import {Box, Loader, Text} from "@mantine/core";
 import {useTranslation} from "react-i18next";
 
@@ -7,61 +7,90 @@ interface InfiniteScrollProps {
   hasMore: boolean;
   loading: boolean;
   children: React.ReactNode;
+  translation?: string;
+  hideEndMessage?: boolean;
+  reverse?: boolean;
+  rootRef?: React.RefObject<HTMLElement>;
 }
 
-export const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
-                                                                loadMore,
-                                                                hasMore,
-                                                                loading,
-                                                                children,
-                                                              }) => {
-  const sentinelRef = useRef<HTMLDivElement | null>(null);
-  const observer = useRef<IntersectionObserver | null>(null);
-  const {t} = useTranslation('mainPage');
+export const InfiniteScroll = forwardRef<HTMLDivElement, InfiniteScrollProps>(
+  (
+    {
+      loadMore,
+      hasMore,
+      loading,
+      children,
+      translation,
+      hideEndMessage,
+      reverse = false,
+      rootRef,
+    },
+    ref
+  ) => {
+    const sentinelRef = useRef<HTMLDivElement | null>(null);
+    const observer = useRef<IntersectionObserver | null>(null);
+    const {t} = useTranslation(translation ?? "mainPage");
 
-  useEffect(() => {
-    // IntersectionObserver callback
-    const handleIntersection: IntersectionObserverCallback = (entries) => {
-      const [entry] = entries;
-      if (entry.isIntersecting && hasMore && !loading) {
-        loadMore();
+    useEffect(() => {
+      const options = {
+        root: rootRef?.current || null,
+        rootMargin: reverse ? "100px 0px 0px 0px" : "0px 0px 100px 0px",
+        threshold: 0.1,
+      };
+
+      const handleIntersection: IntersectionObserverCallback = (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && hasMore && !loading) {
+          loadMore();
+        }
+      };
+
+      if (sentinelRef.current) {
+        observer.current = new IntersectionObserver(handleIntersection, options);
+        observer.current.observe(sentinelRef.current);
       }
-    };
 
-    if (sentinelRef.current) {
-      observer.current = new IntersectionObserver(handleIntersection, {
-        root: null,
-        rootMargin: "100px", // Load earlier when close to the bottom
-        threshold: 0.1, // Trigger when sentinel is at least 10% visible
-      });
+      return () => {
+        if (observer.current && sentinelRef.current) {
+          observer.current.unobserve(sentinelRef.current);
+        }
+      };
+    }, [hasMore, loading, loadMore, reverse, rootRef]);
 
-      observer.current.observe(sentinelRef.current);
-    }
+    return (
+      <Box
+        ref={ref}
+        style={{
+          position: "relative",
+          display: "flex",
+          flexDirection: reverse ? "column-reverse" : "column",
+          overflow: "auto",
+        }}
+      >
+        {reverse ? (
+          <>
+            {children}
+            <div ref={sentinelRef} style={{height: 1, visibility: "hidden"}}/>
+          </>
+        ) : (
+          <>
+            <div ref={sentinelRef} style={{height: 1, visibility: "hidden"}}/>
+            {children}
+          </>
+        )}
 
-    return () => {
-      if (observer.current && sentinelRef.current) {
-        observer.current.unobserve(sentinelRef.current);
-      }
-    };
-  }, [hasMore, loading, loadMore]);
+        {loading && (
+          <Box style={{textAlign: "center", margin: "20px 0"}}>
+            <Loader size="md"/>
+          </Box>
+        )}
 
-  return (
-    <Box style={{position: "relative"}}>
-      {children}
-      {/* Sentinel element */}
-      <div ref={sentinelRef} style={{height: 1, visibility: "hidden"}}/>
-      {/* Loading indicator */}
-      {loading && (
-        <Box style={{textAlign: "center", margin: "20px 0"}}>
-          <Loader size="md"/>
-        </Box>
-      )}
-      {/* End of data */}
-      {!hasMore && !loading && (
-        <Text ta="center" c="dimmed" mt="lg">
-          {t('infiniteScroll.noMore')}
-        </Text>
-      )}
-    </Box>
-  );
-};
+        {!hideEndMessage && !hasMore && !loading && (
+          <Text ta="center" c="dimmed" mt="lg">
+            {t("infiniteScroll.noMore")}
+          </Text>
+        )}
+      </Box>
+    );
+  }
+);

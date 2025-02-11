@@ -1,8 +1,3 @@
---groups
-GRANT SELECT, INSERT, UPDATE, DELETE ON mh_groups.groupchat_messages TO mh_meowhub;
-GRANT SELECT, INSERT, UPDATE, DELETE ON mh_groups.groups TO mh_meowhub;
-GRANT SELECT, INSERT, UPDATE, DELETE ON mh_groups.user_groups TO mh_meowhub;
-
 --chats
 GRANT SELECT, INSERT, UPDATE, DELETE ON mh_chats.chatrooms TO mh_meowhub;
 GRANT SELECT, INSERT, UPDATE, DELETE ON mh_chats.chatroom_messages TO mh_meowhub;
@@ -27,6 +22,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON mh_users.privacy_settings TO mh_meowhub;
 GRANT SELECT, INSERT, UPDATE, DELETE ON mh_users.user_tokens TO mh_meowhub;
 GRANT SELECT, INSERT, UPDATE, DELETE ON mh_users.roles TO mh_meowhub;
 GRANT SELECT, INSERT, UPDATE, DELETE ON mh_users.genders TO mh_meowhub;
+GRANT SELECT, INSERT, UPDATE, DELETE ON mh_users.online_status TO mh_meowhub;
 GRANT SELECT ON mh_users.h_users TO mh_meowhub;
 
 --user_relations

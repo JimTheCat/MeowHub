@@ -25,26 +25,22 @@ public class UserRelationController {
 
     @GetMapping("{login}/friends")
     public ResponseEntity<Page<BasicUserInfoDto>> getFriendsForUser(@PathVariable String login, @AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<BasicUserInfoDto> friends = queryService.getFriendsForUser(login, userDetails.getUsername(), page, size);
-        return ResponseEntity.ok(friends);
+        return ResponseEntity.ok(queryService.getFriendsForUser(login, userDetails.getUsername(), page, size));
     }
 
     @GetMapping("pending")
     public ResponseEntity<Page<BasicUserInfoDto>> getPendingSentRequests(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<BasicUserInfoDto> pending = queryService.getPendingSentRequests(userDetails.getUsername(), page, size);
-        return ResponseEntity.ok(pending);
+        return ResponseEntity.ok(queryService.getPendingSentRequests(userDetails.getUsername(), page, size));
     }
 
     @GetMapping("received")
     public ResponseEntity<Page<BasicUserInfoDto>> getReceivedRequests(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<BasicUserInfoDto> received = queryService.getReceivedRequests(userDetails.getUsername(), page, size);
-        return ResponseEntity.ok(received);
+        return ResponseEntity.ok(queryService.getReceivedRequests(userDetails.getUsername(), page, size));
     }
 
     @GetMapping("rejected")
     public ResponseEntity<Page<BasicUserInfoDto>> getRejectedRequests(@AuthenticationPrincipal UserDetails userDetails, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-        Page<BasicUserInfoDto> rejected = queryService.getRejectedRequests(userDetails.getUsername(), page, size);
-        return ResponseEntity.ok(rejected);
+        return ResponseEntity.ok(queryService.getRejectedRequests(userDetails.getUsername(), page, size));
     }
 
     @PostMapping("{login}/send")

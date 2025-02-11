@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.Setter;
-import meowhub.backend.constants.Genders;
+import meowhub.backend.users.constants.Genders;
 import meowhub.backend.matching.constants.LookingFor;
 import meowhub.backend.matching.models.MatchingProfile;
 
@@ -42,8 +42,8 @@ public class MatchingProfilePreferencesDto {
         matchingProfilePreferencesDto.setHeightTo(matchingProfile.getPHeightTo());
         matchingProfilePreferencesDto.setAgeFrom(matchingProfile.getPAgeFrom());
         matchingProfilePreferencesDto.setAgeTo(matchingProfile.getPAgeTo());
-        matchingProfilePreferencesDto.setGender(Genders.valueOf(matchingProfile.getPGender().getCode()));
-        matchingProfilePreferencesDto.setLookingFor(LookingFor.valueOf(matchingProfile.getPLookingFor().getCode()));
+        matchingProfilePreferencesDto.setGender(matchingProfile.getPGender() == null ? null : Genders.valueOf(matchingProfile.getPGender().getCode()));
+        matchingProfilePreferencesDto.setLookingFor(matchingProfile.getPLookingFor() == null ? null : LookingFor.valueOf(matchingProfile.getPLookingFor().getCode()));
         return matchingProfilePreferencesDto;
     }
 }

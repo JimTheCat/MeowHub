@@ -2,7 +2,7 @@ package meowhub.backend.users.facades.impl;
 
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.dtos.UserDto;
+import meowhub.backend.users.dtos.UserDto;
 import meowhub.backend.users.facades.UserAdminServiceFacade;
 import meowhub.backend.users.services.UserQueryService;
 import meowhub.backend.users.services.UserService;

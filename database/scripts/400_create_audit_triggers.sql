@@ -59,6 +59,22 @@ BEGIN
 END;
 /
 
+
+CREATE OR REPLACE TRIGGER mh_users.online_status_trg
+    BEFORE INSERT OR UPDATE
+    ON mh_users.online_status
+    FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        :NEW.created_at := CURRENT_TIMESTAMP;
+        :NEW.created_by := mh_meowhub.get_user_id;
+    ELSIF UPDATING THEN
+        :NEW.modified_at := CURRENT_TIMESTAMP;
+        :NEW.modified_by := mh_meowhub.get_user_id;
+    END IF;
+END;
+/
+
 ---------------------------------------- || MH_USER_RELATIONS SCHEMA AUDIT TRIGGERS || ----------------------------------------
 CREATE OR REPLACE TRIGGER mh_user_relations.user_relations_audit_trg
     BEFORE INSERT OR UPDATE
@@ -187,52 +203,6 @@ END;
 CREATE OR REPLACE TRIGGER mh_profiles.profile_pictures_audit_trg
     BEFORE INSERT OR UPDATE
     ON mh_profiles.profile_pictures
-    FOR EACH ROW
-BEGIN
-    IF INSERTING THEN
-        :NEW.created_at := CURRENT_TIMESTAMP;
-        :NEW.created_by := mh_meowhub.get_user_id;
-    ELSIF UPDATING THEN
-        :NEW.modified_at := CURRENT_TIMESTAMP;
-        :NEW.modified_by := mh_meowhub.get_user_id;
-    END IF;
-END;
-/
-
----------------------------------------- || MH_GROUPS SCHEMA AUDIT TRIGGERS || ----------------------------------------
-CREATE OR REPLACE TRIGGER mh_groups.groups_audit_trg
-    BEFORE INSERT OR UPDATE
-    ON mh_groups.groups
-    FOR EACH ROW
-BEGIN
-    IF INSERTING THEN
-        :NEW.created_at := CURRENT_TIMESTAMP;
-        :NEW.created_by := mh_meowhub.get_user_id;
-    ELSIF UPDATING THEN
-        :NEW.modified_at := CURRENT_TIMESTAMP;
-        :NEW.modified_by := mh_meowhub.get_user_id;
-    END IF;
-END;
-/
-
-CREATE OR REPLACE TRIGGER mh_groups.groupchat_messages_audit_trg
-    BEFORE INSERT OR UPDATE
-    ON mh_groups.groupchat_messages
-    FOR EACH ROW
-BEGIN
-    IF INSERTING THEN
-        :NEW.created_at := CURRENT_TIMESTAMP;
-        :NEW.created_by := mh_meowhub.get_user_id;
-    ELSIF UPDATING THEN
-        :NEW.modified_at := CURRENT_TIMESTAMP;
-        :NEW.modified_by := mh_meowhub.get_user_id;
-    END IF;
-END;
-/
-
-CREATE OR REPLACE TRIGGER mh_groups.user_groups_audit_trg
-    BEFORE INSERT OR UPDATE
-    ON mh_groups.user_groups
     FOR EACH ROW
 BEGIN
     IF INSERTING THEN

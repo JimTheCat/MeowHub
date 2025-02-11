@@ -1,5 +1,6 @@
 package meowhub.backend.matching.controllers;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import meowhub.backend.matching.dtos.CreateMatchingProfileRequestDto;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -27,13 +29,18 @@ public class MatchingProfileController {
     private final MatchingProfileService matchingProfileService;
     private final MatchingProfileQueryService matchingProfileQueryService;
 
-    @GetMapping("")
+    @GetMapping
+    public ResponseEntity<Page<MatchingProfileDto>> searchMatchingProfiles(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size, @AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(matchingProfileQueryService.search(page, size, userDetails.getUsername()));
+    }
+
+    @GetMapping("/own")
     public ResponseEntity<MatchingProfileDto> getMyMatchingProfile(@AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(matchingProfileQueryService.getMyProfile(userDetails.getUsername()));
     }
 
     @PostMapping("/update")
-    public ResponseEntity<MatchingProfileDto> updateMatchingProfile(@RequestBody UpdateMatchingProfileRequestDto matchingProfileDto, @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<MatchingProfileDto> updateMatchingProfile(@RequestBody @Valid UpdateMatchingProfileRequestDto matchingProfileDto, @AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(matchingProfileService.updateMatchingProfile(matchingProfileDto, userDetails.getUsername()));
     }
 
@@ -47,17 +54,9 @@ public class MatchingProfileController {
         return ResponseEntity.ok(matchingProfileService.createMatchingProfileFromScratch(request, userDetails.getUsername()));
     }
 
-    /***
-     * Gets all matching profiles including own profile. For developments purposes only.
-     * This method is deprecated and will be removed in the future.
-     * @deprecated
-     * @param pageable
-     * @return
-     */
-    @GetMapping("/all")
-    @Deprecated(forRemoval = true)
-    public ResponseEntity<Page<MatchingProfileDto>> getAllMatchingProfiles(Pageable pageable) {
-        return ResponseEntity.ok(matchingProfileQueryService.getAllMatchingProfiles(pageable));
+    @DeleteMapping
+    public void deleteMatchingProfile(@AuthenticationPrincipal UserDetails userDetails) {
+        matchingProfileService.deleteMatchingProfile(userDetails.getUsername());
     }
 
     @GetMapping("/preferences")
@@ -71,8 +70,17 @@ public class MatchingProfileController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping()
-    public void deleteMatchingProfile(@AuthenticationPrincipal UserDetails userDetails) {
-        matchingProfileService.deleteMatchingProfile(userDetails.getUsername());
+    /***
+     * Gets all matching profiles including own profile. For developments purposes only.
+     * This method is deprecated and will be removed in the future.
+     * @deprecated
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/all")
+    @Deprecated(forRemoval = true)
+    @RolesAllowed("ROLE_ADMIN")
+    public ResponseEntity<Page<MatchingProfileDto>> getAllMatchingProfiles(Pageable pageable) {
+        return ResponseEntity.ok(matchingProfileQueryService.getAllMatchingProfiles(pageable));
     }
 }

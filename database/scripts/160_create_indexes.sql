@@ -115,13 +115,6 @@ CREATE INDEX mh_profiles.Profiles_user_id_idx
         (user_id ASC)
 ;
 
----------------------------------------- || MH_GROUPS SCHEMA || ----------------------------------------
--- Table: mh_groups.User_Groups
-CREATE INDEX mh_groups.User_Groups_user_id_idx
-    on mh_groups.User_Groups
-        (user_id ASC)
-;
-
 ---------------------------------------- || MH_USER_RELATIONS SCHEMA || ----------------------------------------
 -- Table: mh_user_relations.User_Relations
 CREATE INDEX mh_user_relations.User_Relations_receiver_id_idx

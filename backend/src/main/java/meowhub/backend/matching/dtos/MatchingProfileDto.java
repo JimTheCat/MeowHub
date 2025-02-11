@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import meowhub.backend.constants.Genders;
+import meowhub.backend.users.constants.Genders;
 import meowhub.backend.matching.constants.Education;
 import meowhub.backend.matching.constants.HowOften;
 import meowhub.backend.matching.constants.LookingFor;
@@ -26,12 +26,11 @@ public class MatchingProfileDto {
     private String id;
     private String name;
     private Long age;
+    private Short height;
     private List<PictureDto> pictures;
     private String aboutMe;
     private LookingFor lookingFor;
     private Genders gender;
-
-    //preferences - TODO: in the future
 
     //personal information
     private Sexuality sexuality;
@@ -46,6 +45,7 @@ public class MatchingProfileDto {
         profile.id = matchingProfile.getId();
         profile.name = matchingProfile.getName();
         profile.age = ChronoUnit.YEARS.between(matchingProfile.getBirthdate(), LocalDate.now());
+        profile.height = matchingProfile.getHeight();
         profile.gender = matchingProfile.getGender() == null ? null : Genders.valueOf(matchingProfile.getGender().getCode());
         profile.pictures = matchingProfile.getMatchingProfilePictures().stream().map(MatchingProfileDto::createFromPicture).toList();
         profile.aboutMe = matchingProfile.getProfileDetailsHtml();

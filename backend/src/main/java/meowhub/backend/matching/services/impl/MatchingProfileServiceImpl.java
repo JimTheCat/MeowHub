@@ -7,45 +7,31 @@ import meowhub.backend.matching.dtos.MatchingProfilePreferencesDto;
 import meowhub.backend.matching.dtos.UpdateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.MatchingProfileDto;
 import meowhub.backend.matching.models.MatchingProfile;
-import meowhub.backend.matching.repositories.EducationRepository;
-import meowhub.backend.matching.repositories.HowOftenRepository;
-import meowhub.backend.matching.repositories.LookingForRepository;
 import meowhub.backend.matching.repositories.MatchingProfileRepository;
-import meowhub.backend.matching.repositories.PetRepository;
-import meowhub.backend.matching.repositories.SexualityRepository;
+import meowhub.backend.matching.services.MatchingDictionaryQueryService;
 import meowhub.backend.matching.services.MatchingProfilePictureService;
 import meowhub.backend.matching.services.MatchingProfileQueryService;
 import meowhub.backend.matching.services.MatchingProfileService;
 import meowhub.backend.matching.services.MatchingProfileValidationService;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.users.facades.UserMatchingServiceFacade;
-import meowhub.backend.users.models.Gender;
 import meowhub.backend.users.models.User;
-import meowhub.backend.users.repositories.GenderRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MatchingProfileServiceImpl implements MatchingProfileService {
     private static final int MINIMUM_AGE = 16;
-    private static final String HOW_OFTEN = "HowOften";
 
     private final MatchingProfilePictureService matchingProfilePictureService;
     private final MatchingProfileValidationService matchingProfileValidationService;
     private final MatchingProfileQueryService matchingProfileQueryService;
+    private final MatchingDictionaryQueryService matchingDictionaryQueryService;
     private final UserMatchingServiceFacade userMatchingServiceFacade;
-
     private final MatchingProfileRepository matchingProfileRepository;
-    private final PetRepository petRepository;
-    private final SexualityRepository sexualityRepository;
-    private final LookingForRepository lookingForRepository;
-    private final HowOftenRepository howOftenRepository;
-    private final EducationRepository educationRepository;
-    private final GenderRepository genderRepository;
-
-
 
     @Override
     public MatchingProfileDto createMatchingProfileBasedOnAccount(String login) {
@@ -73,13 +59,10 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         }
 
         User user = userMatchingServiceFacade.findUserByLogin(login);
-        Gender gender = genderRepository.findByCode(request.getGender().name())
-                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Gender", "code", request.getGender())));
-
         MatchingProfile matchingProfile = new MatchingProfile();
         matchingProfile.setUser(user);
         matchingProfile.setBirthdate(request.getBirthdate());
-        matchingProfile.setGender(gender);
+        matchingProfile.setGender(userMatchingServiceFacade.getGenderByEnumOrThrow(request.getGender()));
         matchingProfile.setName(request.getName());
         matchingProfile = matchingProfileRepository.save(matchingProfile);
 
@@ -87,71 +70,22 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
     }
 
     @Override
-    public MatchingProfileDto updateMatchingProfile(UpdateMatchingProfileRequestDto matchingProfileDto, String login) {
+    public MatchingProfileDto updateMatchingProfile(UpdateMatchingProfileRequestDto request, String login) {
         MatchingProfile matchingProfile = matchingProfileQueryService.findMatchingProfileByLoginOrThrow(login);
-        updateMatchingProfile(matchingProfile, matchingProfileDto);
+
+        //updating matching profile
+        Optional.ofNullable(request.getPet()).ifPresent(pet -> matchingProfile.setPets(matchingDictionaryQueryService.getPetByEnumOrThrow(pet)));
+        Optional.ofNullable(request.getSexuality()).ifPresent(sexuality -> matchingProfile.setSexuality(matchingDictionaryQueryService.getSexualityByEnumOrThrow(sexuality)));
+        Optional.ofNullable(request.getDrinker()).ifPresent(drinker -> matchingProfile.setDrinker(matchingDictionaryQueryService.getHowOftenByEnumOrThrow(drinker)));
+        Optional.ofNullable(request.getSmoker()).ifPresent(smoker -> matchingProfile.setSmoker(matchingDictionaryQueryService.getHowOftenByEnumOrThrow(smoker)));
+        Optional.ofNullable(request.getLookingFor()).ifPresent(lookingFor -> matchingProfile.setLookingFor(matchingDictionaryQueryService.getLookingForByEnumOrThrow(lookingFor)));
+        Optional.ofNullable(request.getExercises()).ifPresent(exercises -> matchingProfile.setExercises(matchingDictionaryQueryService.getHowOftenByEnumOrThrow(exercises)));
+        Optional.ofNullable(request.getEducation()).ifPresent(education -> matchingProfile.setEducation(matchingDictionaryQueryService.getEducationByEnumOrThrow(education)));
+        Optional.ofNullable(request.getHeight()).ifPresent(matchingProfile::setHeight);
+        matchingProfile.setProfileDetailsHtml(request.getAboutMe());
+
         matchingProfileRepository.save(matchingProfile);
         return MatchingProfileDto.createFromMatchingProfile(matchingProfile);
-    }
-
-    private void updateMatchingProfile(MatchingProfile matchingProfile, UpdateMatchingProfileRequestDto request) {
-        if (request.getPet() != null) {
-            matchingProfile.setPets(petRepository.findByCode(request.getPet().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Pet", "id", request.getPet()))));
-        } else {
-            matchingProfile.setPets(null);
-        }
-
-        if (request.getSexuality() != null) {
-            matchingProfile.setSexuality(sexualityRepository.findByCode(request.getSexuality().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Sexuality", "id", request.getSexuality()))));
-        } else {
-            matchingProfile.setSexuality(null);
-        }
-
-        if (request.getLookingFor() != null) {
-            matchingProfile.setLookingFor(lookingForRepository.findByCode(request.getLookingFor().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "LookingFor", "id", request.getLookingFor()))));
-        } else {
-            matchingProfile.setLookingFor(null);
-        }
-
-        if (request.getDrinker() != null) {
-            matchingProfile.setDrinker(howOftenRepository.findByCode(request.getDrinker().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, HOW_OFTEN, "id", request.getDrinker()))));
-        } else {
-            matchingProfile.setDrinker(null);
-        }
-
-        if (request.getSmoker() != null) {
-            matchingProfile.setSmoker(howOftenRepository.findByCode(request.getSmoker().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, HOW_OFTEN, "id", request.getSmoker()))));
-        } else {
-            matchingProfile.setSmoker(null);
-        }
-
-        if (request.getExercises() != null) {
-            matchingProfile.setExercises(howOftenRepository.findByCode(request.getExercises().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, HOW_OFTEN, "id", request.getExercises()))));
-        } else {
-            matchingProfile.setExercises(null);
-        }
-
-        if (request.getEducation() != null) {
-            matchingProfile.setEducation(educationRepository.findByCode(request.getEducation().name())
-                    .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Education", "id", request.getEducation()))));
-        } else {
-            matchingProfile.setEducation(null);
-        }
-
-        if (request.getHeight() == 0) {
-            //do nothing
-        } else if (request.getHeight() > 140) {
-            matchingProfile.setHeight(request.getHeight());
-        } else {
-            throw new IllegalArgumentException(AlertConstants.HEIGHT_TOO_LOW);
-        }
-        matchingProfile.setProfileDetailsHtml(request.getAboutMe());
     }
 
     @Override
@@ -161,10 +95,8 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         matchingProfile.setPHeightTo(preferences.getHeightTo());
         matchingProfile.setPAgeFrom(preferences.getAgeFrom());
         matchingProfile.setPAgeTo(preferences.getAgeTo());
-        matchingProfile.setPGender(genderRepository.findByCode(preferences.getGender().name())
-                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Gender", "code", preferences.getGender().name()))));
-        matchingProfile.setPLookingFor(lookingForRepository.findByCode(preferences.getLookingFor().name())
-                .orElseThrow(() -> new IllegalArgumentException(String.format(AlertConstants.RESOURCE_NOT_FOUND, "Looking for", "code", preferences.getLookingFor().name()))));
+        matchingProfile.setPGender(userMatchingServiceFacade.getGenderByEnumOrThrow(preferences.getGender()));
+        matchingProfile.setPLookingFor(matchingDictionaryQueryService.getLookingForByEnumOrThrow(preferences.getLookingFor()));
         matchingProfileRepository.save(matchingProfile);
     }
 
@@ -175,5 +107,10 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
 
         matchingProfile.getMatchingProfilePictures().forEach(picture -> matchingProfilePictureService.intDeleteMatchingProfilePicture(picture.getId()));
         matchingProfileRepository.delete(matchingProfile);
+    }
+
+    @Override
+    public void saveProfile(MatchingProfile profile) {
+        matchingProfileRepository.save(profile);
     }
 }

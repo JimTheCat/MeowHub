@@ -12,7 +12,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import meowhub.backend.constants.Genders;
+import meowhub.backend.users.constants.Genders;
 import meowhub.backend.matching.models.MatchingProfile;
 
 import java.time.LocalDateTime;

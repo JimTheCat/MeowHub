@@ -3,5 +3,13 @@
     "title": "Czat",
     "searchPlaceholder": "Wyszukaj czat"
   },
-  "unselectedChat": "Wybierz czat, aby rozpocząć"
+  "unselectedChat": "Wybierz czat, aby rozpocząć",
+  "status": {
+    "online": "Dostępny",
+    "idle": "Zajęty",
+    "offline": "Niedostępny"
+  },
+  "messageSender": {
+    "placeholder": "Wpisz wiadomość..."
+  }
 }

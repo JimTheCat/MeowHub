@@ -1,7 +1,7 @@
 package meowhub.backend.users.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.constants.PrivacySettings;
+import meowhub.backend.users.constants.PrivacySettings;
 import meowhub.backend.users.dtos.PrivacySettingsDto;
 import meowhub.backend.users.models.PrivacySetting;
 import meowhub.backend.users.models.User;

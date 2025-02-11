@@ -1,6 +1,6 @@
 package meowhub.backend.users.facades;
 
-import meowhub.backend.dtos.UserDto;
+import meowhub.backend.users.dtos.UserDto;
 
 import java.util.List;
 

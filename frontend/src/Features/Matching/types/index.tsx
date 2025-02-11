@@ -1,1 +1,1 @@
-export type {MatchingProfile} from './MatchingProfile';
+export type {MatchingProfile, MatchingProfilePreferences} from './MatchingProfile';

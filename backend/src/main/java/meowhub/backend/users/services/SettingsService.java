@@ -1,6 +1,6 @@
 package meowhub.backend.users.services;
 
-import meowhub.backend.constants.PrivacySettings;
+import meowhub.backend.users.constants.PrivacySettings;
 import meowhub.backend.users.dtos.PrivacySettingsDto;
 
 public interface SettingsService {

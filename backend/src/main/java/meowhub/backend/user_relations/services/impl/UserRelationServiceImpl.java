@@ -2,7 +2,7 @@ package meowhub.backend.user_relations.services.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import meowhub.backend.dtos.RelationType;
+import meowhub.backend.user_relations.constants.RelationType;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.shared.exceptions.RelationException;
 import meowhub.backend.user_relations.models.UserRelation;

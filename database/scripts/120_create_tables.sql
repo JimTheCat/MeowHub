@@ -89,6 +89,18 @@ CREATE TABLE mh_users.Genders
     CONSTRAINT Genders_pk PRIMARY KEY (id)
 );
 
+-- Table: Online_status
+CREATE TABLE mh_users.Online_status
+(
+    id          varchar2(36) DEFAULT sys_guid() NOT NULL,
+    code        varchar2(20)                    NOT NULL,
+    created_at  date                            NOT NULL,
+    created_by  varchar2(36)                    NOT NULL,
+    modified_at date                            NULL,
+    modified_by varchar2(36)                    NULL,
+    CONSTRAINT Online_status_pk PRIMARY KEY (id)
+);
+
 -- Table: Privacy_Settings
 CREATE TABLE mh_users.Privacy_Settings
 (
@@ -156,52 +168,6 @@ CREATE TABLE mh_users.Users
     CONSTRAINT users_account_non_locked_ch CHECK (account_non_locked IN (0, 1)),
     CONSTRAINT users_credentials_non_expired_ch CHECK (credentials_non_expired IN (0, 1)),
     CONSTRAINT users_pk PRIMARY KEY (id)
-);
-
----------------------------------------- || MH_GROUPS SCHEMA || ----------------------------------------
--- Table: Groupchat_messages
-CREATE TABLE mh_groups.Groupchat_messages
-(
-    id                  varchar2(36) DEFAULT sys_guid() NOT NULL,
-    group_id            varchar2(36)                    NOT NULL,
-    user_id             varchar2(36)                    NOT NULL,
-    message             varchar2(2000)                  NOT NULL,
-    answered_message_id varchar2(36)                    NULL,
-    created_at          date                            NOT NULL,
-    created_by          varchar2(36)                    NOT NULL,
-    modified_at         date                            NULL,
-    modified_by         varchar2(36)                    NULL,
-    CONSTRAINT Groupchat_messages_pk PRIMARY KEY (id)
-);
-
--- Table: Groups
-CREATE TABLE mh_groups.Groups
-(
-    id          varchar2(36) DEFAULT sys_guid() NOT NULL,
-    name        varchar2(40)                    NOT NULL,
-    description varchar2(200)                   NOT NULL,
-    created_at  date                            NOT NULL,
-    created_by  varchar2(36)                    NOT NULL,
-    modified_at date                            NULL,
-    modified_by varchar2(36)                    NULL,
-    CONSTRAINT Groups_name_UQ UNIQUE (name),
-    CONSTRAINT Groups_pk PRIMARY KEY (id)
-);
-
--- Table: User_Groups
-CREATE TABLE mh_groups.User_Groups
-(
-    id             varchar2(36) DEFAULT sys_guid() NOT NULL,
-    group_Id       varchar2(36)                    NOT NULL,
-    user_id        varchar2(36)                    NOT NULL,
-    accession_date date                            NOT NULL,
-    is_group_owner number(1)                       NOT NULL,
-    created_at     date                            NOT NULL,
-    created_by     varchar2(36)                    NOT NULL,
-    modified_at    date                            NULL,
-    modified_by    varchar2(36)                    NULL,
-    CONSTRAINT User_Groups_is_group_owner_ch CHECK (is_group_owner IN (0, 1)),
-    CONSTRAINT User_Groups_pk PRIMARY KEY (id)
 );
 
 ---------------------------------------- || MH_MATCHING SCHEMA || ----------------------------------------
@@ -341,6 +307,7 @@ CREATE TABLE mh_matching.Matching_Profiles
 (
     id                   varchar2(36)   NOT NULL,
     user_id              varchar2(36)   NOT NULL,
+    online_status_id     varchar2(36)   NOT NULL,
     profile_details_html varchar2(2000) NULL,
     name                 varchar2(40)   NOT NULL,
     birthdate            date           NOT NULL,
@@ -352,9 +319,8 @@ CREATE TABLE mh_matching.Matching_Profiles
     Education_id         varchar2(36)   NULL,
     smoker_id            varchar2(36)   NULL,
     drinker_id           varchar2(36)   NULL,
-    exercises_id        varchar2(36)    NULL,
+    exercises_id         varchar2(36)   NULL,
     looking_for_id       varchar2(36)   NULL,
-    geolocalization      sdo_geometry   NULL,
     p_height_from        number(3)      NULL,
     p_height_to          number(3)      NULL,
     p_age_from           number(3)      NULL,

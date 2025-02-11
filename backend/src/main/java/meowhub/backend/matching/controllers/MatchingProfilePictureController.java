@@ -19,12 +19,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/matching-profile-picture")
+@RequestMapping("/api/matching-profile/pictures")
 @RequiredArgsConstructor
 public class MatchingProfilePictureController {
     private final MatchingProfilePictureService matchingProfilePictureService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<PictureDto> addPicture(@RequestPart MultipartFile file, @RequestPart String pictureIndex, @AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(matchingProfilePictureService.addMatchingProfilePicture(file, Long.valueOf(pictureIndex), userDetails.getUsername()));
     }
@@ -37,18 +37,5 @@ public class MatchingProfilePictureController {
     @DeleteMapping("/{pictureId}")
     public void deletePicture(@PathVariable("pictureId") String pictureId, @AuthenticationPrincipal UserDetails userDetails) {
         matchingProfilePictureService.deleteMatchingProfilePictureForUser(pictureId, userDetails.getUsername());
-    }
-
-    //-------------------------------------------------------------------------------- UNUSED --------------------------------------------------------------------------------
-    @PostMapping("/pictures")
-    @Deprecated(forRemoval = true)
-    public ResponseEntity<List<PictureDto>> addMatchingProfilePictures(@RequestPart List<MultipartFile> files, @RequestPart(required = false) String profilePictureName, @AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(matchingProfilePictureService.addMatchingProfilePictures(files, profilePictureName, userDetails.getUsername()));
-    }
-
-    @DeleteMapping("/pictures")
-    @Deprecated(forRemoval = true)
-    public void deleteMatchingProfilePicture(@RequestBody List<String> pictureIds, @AuthenticationPrincipal UserDetails userDetails) {
-        matchingProfilePictureService.deleteMatchingProfilePicturesForUser(pictureIds, userDetails.getUsername());
     }
 }

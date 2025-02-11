@@ -4,6 +4,7 @@ import meowhub.backend.matching.dtos.CreateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.MatchingProfilePreferencesDto;
 import meowhub.backend.matching.dtos.UpdateMatchingProfileRequestDto;
 import meowhub.backend.matching.dtos.MatchingProfileDto;
+import meowhub.backend.matching.models.MatchingProfile;
 
 public interface MatchingProfileService {
 
@@ -16,4 +17,6 @@ public interface MatchingProfileService {
     void updateMatchingProfilePreferences(MatchingProfilePreferencesDto preferences, String login);
 
     void deleteMatchingProfile(String login);
+
+    void saveProfile(MatchingProfile profile);
 }

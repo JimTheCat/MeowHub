@@ -26,7 +26,8 @@
     "menu": {
       "base": "Match",
       "profile": "Profile",
-      "filters": "Filters (coming soon)",
+      "filters": "Filters",
+      "messages": "Messages",
       "tests": "My tests (coming soon)",
       "settings": "Settings"
     }
@@ -35,11 +36,16 @@
     "card": {
       "title": "Filters",
       "options": {
-        "showMe": "Show me",
-        "sexuality": "Sexuality",
-        "age": "Preferred age",
-        "distance": "Distance",
-        "hereFor": "Here for"
+        "gender": "Gender",
+        "lookingFor": "Looking for",
+        "ageRange": "Age",
+        "heightRange": "Height"
+      }
+    },
+    "alerts": {
+      "success": {
+        "title": "Filters applied",
+        "message": "Your filters have been applied successfully"
       }
     },
     "button": {
@@ -53,12 +59,28 @@
   },
   "profile": {
     "card": {
+      "photos": {
+        "success": "Photo added",
+        "successMessage": "Your photo has been added successfully",
+        "successIndex": "Changed photos positions",
+        "successIndexMessage": "Changed photos positions successfully",
+        "error": {
+          "maxPhotos": "Maximum number of photos is 5",
+          "maxPhotosMessage": "You have reached the maximum number of photos",
+          "maxSize": "Maximum photo size is 5MB",
+          "maxSizeMessage": "Your photo is too large"
+        }
+      },
       "imageSection": {
         "title": "Your images",
         "imageAlt": "image"
       },
       "infoSection": {
         "title": "Settings",
+        "alert": {
+          "success": "Changes saved",
+          "successMessage": "Your settings have been saved successfully"
+        },
         "name": {
           "label": "Name",
           "placeholder": "Name"
@@ -66,6 +88,12 @@
         "bio": {
           "label": "About me",
           "placeholder": "Write something about yourself"
+        },
+        "age": {
+          "label": "Age"
+        },
+        "height": {
+          "label": "Height"
         },
         "lookingFor": {
           "label": "Looking for"

@@ -26,7 +26,8 @@
     "menu": {
       "base": "Meowknij",
       "profile": "Profil",
-      "filters": "Filtry (wkrótce)",
+      "filters": "Filtry",
+      "messages": "Wiadomości",
       "tests": "Moje testy (wkrótce)",
       "settings": "Ustawienia"
     }
@@ -35,11 +36,16 @@
     "card": {
       "title": "Filtry",
       "options": {
-        "showMe": "Pokaż mi",
-        "sexuality": "Orientacja",
-        "age": "Preferowany wiek",
-        "distance": "Odległość",
-        "hereFor": "Szukam"
+        "gender": "Płeć",
+        "lookingFor": "Szukam",
+        "ageRange": "Wiek",
+        "heightRange": "Wzrost"
+      }
+    },
+    "alerts": {
+      "success": {
+        "title": "Zastosowano filtry",
+        "message": "Twoje filtry zostały zastosowane pomyślnie"
       }
     },
     "button": {
@@ -53,12 +59,28 @@
   },
   "profile": {
     "card": {
+      "photos": {
+        "success": "Zdjęcie zostało dodane",
+        "successMessage": "Twoje zdjęcie zostało dodane pomyślnie",
+        "successIndex": "Zmieniono rozstawienie zdjęć",
+        "successIndexMessage": "Zmieniono rozstawienie zdjęć pomyślnie",
+        "error": {
+          "maxPhotos": "Maksymalna liczba zdjęć to 5",
+          "maxPhotosMessage": "Nie możesz dodać więcej niż 5 zdjęć",
+          "maxSize": "Maksymalny rozmiar zdjęcia to 5MB",
+          "maxSizeMessage": "Twoje zdjęcie jest zbyt duże"
+        }
+      },
       "imageSection": {
         "title": "Twoje zdjęcia",
         "imageAlt": "zdjęcie"
       },
       "infoSection": {
         "title": "Ustawienia",
+        "alert": {
+          "success": "Zmiany zostały zapisane",
+          "successMessage": "Twoje ustawienia zostały zapisane pomyślnie"
+        },
         "name": {
           "label": "Imię",
           "placeholder": "Imię"
@@ -66,6 +88,12 @@
         "bio": {
           "label": "O sobie",
           "placeholder": "Napisz coś o sobie"
+        },
+        "age": {
+          "label": "Wiek"
+        },
+        "height": {
+          "label": "Wzrost"
         },
         "lookingFor": {
           "label": "Szukam"

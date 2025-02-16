@@ -23,7 +23,7 @@ VOLUME /tmp
 RUN useradd -m -s /bin/bash appuser
 
 # Switch to non-root user
-USER appuser
+#USER appuser
 
 #COPY --from=build /app/target/*.jar app.jar
 

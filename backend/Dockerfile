@@ -28,7 +28,7 @@ USER appuser
 COPY --from=build /app/target/*.jar app.jar
 
 # Set entry point for the application
-ENTRYPOINT ["cp -r /etc/secrets/* ./src/main/resources/", "java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 # Expose the application port
 EXPOSE 8080

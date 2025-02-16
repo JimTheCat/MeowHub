@@ -27,6 +27,9 @@ USER appuser
 # Copy the JAR file from the build stage
 COPY --from=build /app/target/*.jar app.jar
 
+# Copy the config file from the secrets directory to the expected location
+COPY --chown=appuser:appuser /etc/secrets ./src/main/resources
+
 # Set entry point for the application
 ENTRYPOINT ["java", "-jar", "/app.jar"]
 

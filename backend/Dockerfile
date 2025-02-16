@@ -11,8 +11,9 @@ COPY mvnw .
 COPY .mvn .mvn
 
 # Set execution permission for the Maven wrapper and build the application
-RUN chmod +x ./mvnw \
-    && ./mvnw clean package -DskipTests
+#RUN chmod +x ./mvnw \
+#    && ./mvnw clean package -DskipTests
+
 
 # Stage 2: Runtime stage
 FROM openjdk:22-jdk
@@ -22,13 +23,13 @@ VOLUME /tmp
 RUN useradd -m -s /bin/bash appuser
 
 # Switch to non-root user
-USER appuser
+#USER appuser
 
-# Copy the JAR file from the build stage
-COPY --from=build /app/target/*.jar app.jar
+#COPY --from=build /app/target/*.jar app.jar
 
 # Set entry point for the application
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+#ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["/bin/bash"]
 
 # Expose the application port
 EXPOSE 8080

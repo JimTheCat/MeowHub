@@ -4,6 +4,7 @@ import com.oracle.bmc.ConfigFileReader;
 import com.oracle.bmc.auth.ConfigFileAuthenticationDetailsProvider;
 import com.oracle.bmc.objectstorage.ObjectStorage;
 import com.oracle.bmc.objectstorage.ObjectStorageClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
@@ -11,7 +12,8 @@ import java.io.IOException;
 @Configuration
 public class OCIClientConfiguration {
     // Path to OCI configs file
-    String configurationFilePath = "backend/src/main/resources/config";
+    @Value("${oci.config.path}")
+    String configurationFilePath;
     String profile = "DEFAULT";
 
     public ObjectStorage getObjectStorage() throws IOException {

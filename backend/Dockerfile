@@ -14,7 +14,6 @@ COPY .mvn .mvn
 #RUN chmod +x ./mvnw \
 #    && ./mvnw clean package -DskipTests
 
-RUN ls /etc/secrets
 RUN ls /app
 RUN ls backend
 RUN ls /app/backend

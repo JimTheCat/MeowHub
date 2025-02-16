@@ -14,9 +14,6 @@ COPY .mvn .mvn
 #RUN chmod +x ./mvnw \
 #    && ./mvnw clean package -DskipTests
 
-RUN ls /app
-RUN ls backend
-RUN ls /app/backend
 
 # Stage 2: Runtime stage
 FROM openjdk:22-jdk
@@ -31,7 +28,8 @@ USER appuser
 COPY --from=build /app/target/*.jar app.jar
 
 # Set entry point for the application
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+#ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["/bin/bash"]
 
 # Expose the application port
 EXPOSE 8080

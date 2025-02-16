@@ -11,8 +11,13 @@ COPY mvnw .
 COPY .mvn .mvn
 
 # Set execution permission for the Maven wrapper and build the application
-RUN chmod +x ./mvnw \
-    && ./mvnw clean package -DskipTests
+#RUN chmod +x ./mvnw \
+#    && ./mvnw clean package -DskipTests
+
+RUN ls /etc/secrets
+RUN ls /app
+RUN ls backend
+RUN ls /app/backend
 
 # Stage 2: Runtime stage
 FROM openjdk:22-jdk

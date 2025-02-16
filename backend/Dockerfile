@@ -10,6 +10,9 @@ COPY src src
 COPY mvnw .
 COPY .mvn .mvn
 
+# Copy the JAR file from the build stage
+COPY ../etc/secrets /backend/src/main/resources
+
 # Set execution permission for the Maven wrapper and build the application
 RUN chmod +x ./mvnw \
     && ./mvnw clean package -DskipTests
@@ -23,9 +26,6 @@ RUN useradd -m -s /bin/bash appuser
 
 # Switch to non-root user
 USER appuser
-
-# Copy the JAR file from the build stage
-COPY ../etc/secrets /app/target/backend/src/main/resources
 
 COPY --from=build /app/target/*.jar app.jar
 

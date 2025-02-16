@@ -25,7 +25,7 @@ RUN useradd -m -s /bin/bash appuser
 USER appuser
 
 # Copy the JAR file from the build stage
-cp -r ../etc/secrets /app/target/backend/src/main/resources
+COPY ../etc/secrets /app/target/backend/src/main/resources
 
 COPY --from=build /app/target/*.jar app.jar
 

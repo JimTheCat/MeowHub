@@ -25,7 +25,7 @@ RUN useradd -m -s /bin/bash appuser
 # Switch to non-root user
 USER appuser
 
-COPY --from=build /app/target/*.jar app.jar
+#COPY --from=build /app/target/*.jar app.jar
 
 # Set entry point for the application
 #ENTRYPOINT ["java", "-jar", "/app.jar"]

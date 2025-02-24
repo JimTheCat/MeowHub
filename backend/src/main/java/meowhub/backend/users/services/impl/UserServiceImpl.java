@@ -1,6 +1,7 @@
 package meowhub.backend.users.services.impl;
 
 import lombok.RequiredArgsConstructor;
+import meowhub.backend.chats.constants.OnlineStatus;
 import meowhub.backend.users.constants.Genders;
 import meowhub.backend.users.constants.PrivacySettings;
 import meowhub.backend.users.constants.Roles;
@@ -49,6 +50,7 @@ public class UserServiceImpl implements UserService {
         user.setFriendsPrivacy(publicSetting);
         user.setProfilePrivacy(publicSetting);
         user.setGender(userDictionaryQueryService.getGenderByEnumOrThrow(gender));
+        user.setStatus(userDictionaryQueryService.getOnlineStatusDictionaryByEnumOrThrow(OnlineStatus.OFFLINE));
         userRepository.save(user);
         return user;
     }

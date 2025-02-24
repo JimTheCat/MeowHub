@@ -2,17 +2,14 @@ package meowhub.backend.matching.services.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import meowhub.backend.chats.constants.OnlineStatus;
 import meowhub.backend.matching.dtos.CreateMatchingProfileRequestDto;
+import meowhub.backend.matching.dtos.MatchingProfileDto;
 import meowhub.backend.matching.dtos.MatchingProfilePreferencesDto;
 import meowhub.backend.matching.dtos.UpdateMatchingProfileRequestDto;
-import meowhub.backend.matching.dtos.MatchingProfileDto;
 import meowhub.backend.matching.models.MatchingProfile;
 import meowhub.backend.matching.repositories.MatchingProfileRepository;
-import meowhub.backend.matching.services.MatchingDictionaryQueryService;
-import meowhub.backend.matching.services.MatchingProfilePictureService;
-import meowhub.backend.matching.services.MatchingProfileQueryService;
-import meowhub.backend.matching.services.MatchingProfileService;
-import meowhub.backend.matching.services.MatchingProfileValidationService;
+import meowhub.backend.matching.services.*;
 import meowhub.backend.shared.constants.AlertConstants;
 import meowhub.backend.users.facades.UserMatchingServiceFacade;
 import meowhub.backend.users.models.User;
@@ -42,6 +39,7 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         matchingProfile.setUser(user);
         matchingProfile.setBirthdate(user.getBirthdate());
         matchingProfile.setGender(user.getGender());
+        matchingProfile.setStatus(userMatchingServiceFacade.getOnlineStatusDictionaryByEnumOrThrow(OnlineStatus.ONLINE));
         matchingProfile.setName(user.getName());
         matchingProfile = matchingProfileRepository.save(matchingProfile);
 
@@ -63,6 +61,7 @@ public class MatchingProfileServiceImpl implements MatchingProfileService {
         matchingProfile.setUser(user);
         matchingProfile.setBirthdate(request.getBirthdate());
         matchingProfile.setGender(userMatchingServiceFacade.getGenderByEnumOrThrow(request.getGender()));
+        matchingProfile.setStatus(userMatchingServiceFacade.getOnlineStatusDictionaryByEnumOrThrow(OnlineStatus.ONLINE));
         matchingProfile.setName(request.getName());
         matchingProfile = matchingProfileRepository.save(matchingProfile);
 
